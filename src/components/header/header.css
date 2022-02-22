@@ -1,0 +1,69 @@
+.header_box {
+    border-bottom: 1px #eaecee solid;
+    width: 100%;
+  }
+  .header_box_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1110px;
+    height: 88px;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
+  .header_box_top .logo {
+    width: 200px;
+  }
+  .header_box_top .options {
+    width: 330px;
+    height: 39px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  .options ul {
+    width: 230px;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #687385;
+    font-family: "Noto Sans JP";
+    font-weight: bolder;
+    margin: 0;
+  }
+  
+  .options div {
+    color: #fff;
+    font-weight: bolder;
+    background-color: #5869da;
+    font-weight: 700;
+    width: 72.2px;
+    height: 29px;
+    box-shadow: 0;
+    text-align: center;
+    line-height: 29px;
+    border-radius: 3px;
+  }
+
+  /* header_box_navBar */
+  .header_box_navBar{
+    width: 1110px;
+    height: 54px;
+margin: 0 auto;
+padding: 0 15px;
+  }
+  .header_box_navBar ul{
+    list-style: none;
+    width: 700px;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    font-size: 12px;
+    color: #687385;
+    font-family: "Noto Sans JP";
+    font-weight: bolder;
+  }
