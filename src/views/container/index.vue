@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:1200px">
       container
   </div>
 </template>

@@ -1,0 +1,61 @@
+.banner_box{
+    width: 100%;
+    height: 525px;
+    background-color: #f1f2f3;
+}
+.banner_box .banner_info{
+    height: 100%;
+    width: 1140px;
+    margin: 0 auto;
+    padding: 80px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.banner_info_content,.banner_info_img{
+    width: 50%;
+    height: 365px;
+    padding:0 20px ;
+    font-weight: 900;
+    color: #687385;
+}
+.banner_info_content .msg{
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.banner_info_content h2:nth-of-type(1){
+    font-size: 50px;
+}
+.banner_info_content h2:nth-of-type(2){
+    font-size: 42px;
+}
+.banner_info_content p{
+    font-size: 16px;
+    color: #687385;
+    margin-bottom: 40px;
+}
+.banner_info_content .email_input input{
+    width: 320px;
+    height: 48px;
+    padding:16px 25px ;
+    border-radius: 33px 0 0 30px;
+    border-left:#e1e1e1 ;
+    border-top:#9EA39E ;
+    border-bottom:#e1e1e1 ;
+    border-right: none;
+    outline:none
+}
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #9EA39E; 
+    font-size:13px ;
+font-family: 'Courier New', Courier, monospace;
+    } 
+.banner_info_content .email_input button{
+    width:120px ;
+    height: 48px;
+    background-color: #5869da;
+    color: #FFF;
+    border: 0;
+    border-radius:0 33px   30px 0;
+}
