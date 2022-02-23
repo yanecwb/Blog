@@ -54,7 +54,7 @@
 import "./header.css";
 import "animate.css";
 import NProgress from "nprogress";
-import {getWeather} from '../../api/weather'
+import { getWeather } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 export default {
   name: "Header",
@@ -66,22 +66,18 @@ export default {
       show_backtop: false,
     };
   },
+  props: ["scrollTop"],
   methods: {
     backtop() {
       document.documentElement.scrollTop = 0;
     },
   },
-  created(){
-    getWeather()
+  created() {
+    getWeather();
   },
-  mounted() {
-    NProgress.configure({ showSpinner: false });
-    const Document = document.documentElement;
-    document.querySelector("body").onscroll = () => {
-      if (Document.scrollTop == 100) {
-        NProgress.set(0.0);
-      }
-      if (Document.scrollTop >= 180) {
+  watch: {
+    scrollTop(newval) {
+      if (newval >= 180) {
         this.$refs.navBar.style.position = "fixed";
         this.$refs.navBar.style.top = 0;
         this.$refs.navBar.className =
@@ -92,7 +88,7 @@ export default {
         this.$refs.navBar.className = "header_box_navBar";
         this.show_backtop = false;
       }
-    };
+    },
   },
 };
 </script>

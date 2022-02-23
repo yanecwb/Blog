@@ -1,161 +1,61 @@
 <template>
-  <div>
-    <footer class="pt-50 pb-20 bg-grey">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="sidebar-widget wow fadeInUp animated mb-30">
-              <div class="widget-header-2 position-relative mb-30">
-                <h5 class="mt-5 mb-30">About me</h5>
-              </div>
-              <div class="textwidget">
-                <p>
-                  Start writing, no matter what. The water does not flow until
-                  the faucet is turned on.
-                </p>
-                <p>
-                  <strong class="color-black">Address</strong><br />
-                  123 Main Street<br />
-                  New York, NY 10001
-                </p>
-                <p><strong class="color-black">Follow me</strong><br /></p>
-                <ul
-                  class="
-                    header-social-network
-                    d-inline-block
-                    list-inline
-                    color-white
-                    mb-20
-                  "
-                >
-                  <li class="list-inline-item">
-                    <a class="fb" href="#" target="_blank" title="Facebook"
-                      ><i class="elegant-icon social_facebook"></i
-                    ></a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="tw" href="#" target="_blank" title="Tweet now"
-                      ><i class="elegant-icon social_twitter"></i
-                    ></a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="pt" href="#" target="_blank" title="Pin it"
-                      ><i class="elegant-icon social_pinterest"></i
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-6">
-            <div
-              class="
-                sidebar-widget
-                widget_categories
-                wow
-                fadeInUp
-                animated
-                mb-30
-              "
-              data-wow-delay="0.1s"
-            >
-              <div class="widget-header-2 position-relative mb-30">
-                <h5 class="mt-5 mb-30">Quick link</h5>
-              </div>
-              <ul class="font-small">
-                <li class="cat-item cat-item-2"><a href="#">About me</a></li>
-                <li class="cat-item cat-item-4">
-                  <a href="#">Help & Support</a>
-                </li>
-                <li class="cat-item cat-item-5">
-                  <a href="#">​​Licensing Policy</a>
-                </li>
-                <li class="cat-item cat-item-6">
-                  <a href="#">Refund Policy</a>
-                </li>
-                <li class="cat-item cat-item-7"><a href="#">Hire me</a></li>
-                <li class="cat-item cat-item-7"><a href="#">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div
-              class="sidebar-widget widget_tagcloud wow fadeInUp animated mb-30"
-              data-wow-delay="0.2s"
-            >
-              <div class="widget-header-2 position-relative mb-30">
-                <h5 class="mt-5 mb-30">Tagcloud</h5>
-              </div>
-              <div class="tagcloud mt-50">
-                <a class="tag-cloud-link" href="category.html">beautiful</a>
-                <a class="tag-cloud-link" href="category.html">New York</a>
-                <a class="tag-cloud-link" href="category.html">droll</a>
-                <a class="tag-cloud-link" href="category.html">intimate</a>
-                <a class="tag-cloud-link" href="category.html">loving</a>
-                <a class="tag-cloud-link" href="category.html">travel</a>
-                <a class="tag-cloud-link" href="category.html">fighting </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div
-              class="
-                sidebar-widget
-                widget_newsletter
-                wow
-                fadeInUp
-                animated
-                mb-30
-              "
-              data-wow-delay="0.3s"
-            >
-              <div class="widget-header-2 position-relative mb-30">
-                <h5 class="mt-5 mb-30">Newsletter</h5>
-              </div>
-              <div class="newsletter">
-                <p class="font-medium">
-                  Subscribe to our newsletter and get our newest updates right
-                  on your inbox.
-                </p>
-                <form class="input-group form-subcriber mt-30 d-flex">
-                  <input
-                    type="email"
-                    class="form-control bg-white font-small"
-                    placeholder="Enter your email"
-                  />
-                  <button class="btn bg-primary text-white" type="submit">
-                    Subscribe
-                  </button>
-                  <label class="mt-20">
-                    <input
-                      class="mr-5"
-                      name="name"
-                      type="checkbox"
-                      value="1"
-                      required=""
-                    />
-                    I agree to the
-                    <a href="#" target="_blank">terms &amp; conditions</a>
-                  </label>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer-copy-right pt-30 mt-20 wow fadeInUp animated">
-          <p class="float-md-left font-small text-muted">© 2020, Stories</p>
-          <p class="float-md-right font-small text-muted">
-            Copyright &copy; 2020.Company name All rights reserved.
-          </p>
-        </div>
+  <div style="height: 500px">
+    <footer class="footer_box" v-if="show_footer">
+      <div class="about_me" ref="about_me">
+        <h4>ABOUT ME</h4>
+        <p style="color: black">
+          Start writing, no matter what. The water does not flow until the
+          faucet is turned on.
+        </p>
+        <strong style="color: black">Address</strong>
+        <p style="margin: 0; font-size: 12px">123 Main Street</p>
+        <p style="font-size: 12px">New York, NY 10001</p>
+        <h5>Follow me</h5>
       </div>
+      <div class="quick_link" ref="quick_link">
+        <h4>QUICK LINK</h4>
+        <ul>
+          <li>About me</li>
+          <li>Help & Support</li>
+          <li>​​Licensing Policy</li>
+          <li>Refund Policy</li>
+          <li>Hire me</li>
+        </ul>
+      </div>
+      <div class="tagcloud" ref="tagcloud"><h4>TAGCLOUD</h4></div>
+      <div class="newsletter" ref="newsletter"><h4>NEWSLETTER</h4></div>
     </footer>
   </div>
 </template>
 
 <script>
+import "./footer.css";
+import Vue from "vue";
 export default {
   name: "Footer",
+  data() {
+    return {
+      show_footer: false,
+    };
+  },
+  props: ["scrollTop"],
+  watch: {
+    scrollTop(newval) {
+      if (this.show_footer) return;
+      if (newval >= 270) {
+        this.show_footer = true;
+        Vue.nextTick(() => {
+          console.log(this.$refs);
+          for (let key in this.$refs) {
+            this.$refs[key].className =
+              this.$refs[key].className +
+              " " +
+              "animate__animated animate__fadeInUp animate__slow";
+          }
+        });
+      }
+    },
+  },
 };
 </script>
 

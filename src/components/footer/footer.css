@@ -1,0 +1,40 @@
+.footer_box{
+    width: 1110px;
+    height: 500px;
+    margin: 100px  auto 0;
+    display: flex;
+    justify-content: space-between;
+}
+.footer_box div{
+    width: 240px;
+    height: 40px;
+    border-bottom: 1px solid #eaecee;
+}
+.footer_box div h4{
+    width:80px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    margin-bottom: 30px;
+}
+.footer_box div h4:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    right: auto;
+    height: 2px;
+    width: 39px;
+    background-color: black;
+}
+.quick_link ul{
+list-style: none;
+}
+.quick_link ul li{
+    height: 24px;
+    margin: 12px 0;
+    font-size: 12px;
+    color: #687385;
+    border-bottom: #eaecee 1px solid;
+}

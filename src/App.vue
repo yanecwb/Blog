@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Header msg="Welcome to Your Vue.js App" />
+    <Header :scrollTop="scrollTop" />
     <Banner />
     <Container />
-    <Footer />
+    <Footer :scrollTop="scrollTop" />
   </div>
 </template>
 
@@ -20,6 +20,17 @@ export default {
     Footer,
     Banner,
     Container,
+  },
+  data() {
+    return {
+      scrollTop: 0,
+    };
+  },
+  mounted() {
+    const Document = document.documentElement;
+    document.querySelector("body").onscroll = () => {
+      this.scrollTop = Document.scrollTop;
+    };
   },
 };
 </script>

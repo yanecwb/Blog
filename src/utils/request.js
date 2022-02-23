@@ -12,6 +12,7 @@ const request = axios.create({
 request.interceptors.request.use(
     // 默认情况下：只会触发成功的回调
     (config) => {
+        console.log(config);
     },
     // 请求失败的回调
     (err) => {

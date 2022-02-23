@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <div class="crumbs">
+    <div class="crumbs bg-red-500">
       <h4>FEATURED POSTS</h4>
       <p style="font-size: 14px">
         <Icon type="tags" />Hot tags:<span> # Covid-19 </span
