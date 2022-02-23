@@ -54,7 +54,7 @@
 import "./header.css";
 import "animate.css";
 import NProgress from "nprogress";
-
+import {getWeather} from '../../api/weather'
 import { Icon } from "ant-design-vue";
 export default {
   name: "Header",
@@ -70,6 +70,9 @@ export default {
     backtop() {
       document.documentElement.scrollTop = 0;
     },
+  },
+  created(){
+    getWeather()
   },
   mounted() {
     NProgress.configure({ showSpinner: false });
