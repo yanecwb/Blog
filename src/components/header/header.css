@@ -68,9 +68,11 @@ background-color: #fff;
   }
   .header_box_navBar ul li{
     margin: 0 20px;
+    transition: 1s;
   }
   .header_box_navBar ul li:hover{
     color: #5869da;
+    transform: scale(1.1);
   }
   .back_top {
     position: fixed;
