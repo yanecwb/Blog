@@ -1,12 +1,11 @@
 .footer_box{
     width: 1110px;
-    height: 500px;
     margin: 100px  auto 0;
     display: flex;
     justify-content: space-between;
 }
 .footer_box div{
-    width: 240px;
+    width: 260px;
     height: 40px;
     border-bottom: 1px solid #eaecee;
 }
@@ -37,4 +36,37 @@ list-style: none;
     font-size: 12px;
     color: #687385;
     border-bottom: #eaecee 1px solid;
+}
+
+.newsletter .agreement{
+    margin-top: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+ .email_input input{
+    width: 160px;
+    height: 30px;
+    padding:8px 25px ;
+    border-radius: 33px 0 0 30px;
+    border-left:#e1e1e1 ;
+    border-top:#9EA39E ;
+    border-bottom:#e1e1e1 ;
+    border-right: none;
+    outline:none
+}
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #9EA39E; 
+    font-size:12px ;
+font-family: 'Courier New', Courier, monospace;
+    } 
+.email_input button{
+    width:65px ;
+    height: 30px;
+    font-size: 12px;
+    background-color: #5869da;
+    color: #FFF;
+    border: 0;
+    border-radius:0 33px   30px 0;
 }

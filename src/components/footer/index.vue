@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 500px">
+  <div style="height: 300px">
     <footer class="footer_box" v-if="show_footer">
       <div class="about_me" ref="about_me">
         <h4>ABOUT ME</h4>
@@ -22,8 +22,43 @@
           <li>Hire me</li>
         </ul>
       </div>
-      <div class="tagcloud" ref="tagcloud"><h4>TAGCLOUD</h4></div>
-      <div class="newsletter" ref="newsletter"><h4>NEWSLETTER</h4></div>
+      <div class="tagcloud" ref="tagcloud">
+        <h4>TAGCLOUD</h4>
+        <span
+          style="
+            display: inline-block;
+            padding: 10px;
+            background: #f2f3f5;
+            color: #687385;
+            border-radius: 22px;
+            margin: 0 20px 20px 0;
+          "
+          v-for="(item, index) in 7"
+          :key="index"
+          >Droll</span
+        >
+      </div>
+      <div class="newsletter" ref="newsletter">
+        <h4>NEWSLETTER</h4>
+        <p style="color: black; margin-bottom: 35px">
+          Subscribe to our newsletter and get our newest updates right on your
+          inbox.
+        </p>
+        <form class="email_input">
+          <input type="email" placeholder="Enter your email" />
+          <button>Subscribe</button>
+        </form>
+        <div class="agreement">
+          <input type="checkbox" style="margin-right: 10px" />
+          <span style="color: black"
+            >I agree to the
+            <span style="color: #687385; font-size: 12px">terms & </span>
+            <span style="color: #687385; font-size: 12px"
+              >conditions</span
+            ></span
+          >
+        </div>
+      </div>
     </footer>
   </div>
 </template>
