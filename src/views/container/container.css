@@ -63,29 +63,29 @@
     font-size: 12px;
   }
 
-  .article{
+  .food{
     border-radius: 10px;
     position: relative;
       width: 350px;
       box-shadow: 1px 2px 7px 0;
       transition: 0.5s;
   }
-  .article:hover{
+  .food:hover{
       transform: translateY(-15px);
   }
-  .article .backcolor {
+  .food .backcolor {
     background-image: linear-gradient(transparent, black);
     position: absolute;
     top: 31%;
     width: 100%;
     height: 100px;
   }
-  .article .article_desc{
+  .food .food_desc{
       position: absolute;
       bottom: 0;
       padding: 0 20px;
   }
-  .article_desc h2{
+  .food_desc h2{
       font-size: 15px;
       color: #212529;
       margin: 20px 0;
