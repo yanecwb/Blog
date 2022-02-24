@@ -53,7 +53,6 @@
 <script>
 import "./header.css";
 import "animate.css";
-import NProgress from "nprogress";
 import { getWeather } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 export default {

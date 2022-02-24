@@ -36,6 +36,9 @@ background-color: #e3363e;
     font-weight: bolder;
     margin: 0;
   }
+  .options ul li{
+    cursor: pointer;
+  }
   
   .options div {
     color: #fff;
@@ -70,6 +73,7 @@ z-index: 999;
   .header_box_navBar ul li{
     margin: 0 20px;
     transition: 1s;
+    cursor: pointer;
   }
   .header_box_navBar ul li:hover{
     color: #5869da;
