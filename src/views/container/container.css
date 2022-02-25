@@ -12,6 +12,9 @@
       justify-content: space-between;
   }
   .crumbs p span{
+    cursor: pointer;
+  }
+  .crumbs p span{
       font-size:12px;
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
