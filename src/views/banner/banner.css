@@ -21,8 +21,9 @@
 .banner_info_content .msg{
     height: 20px;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 20px;
+    font-family: 'Gabriola';
 }
 .banner_info_content h2:nth-of-type(1){
     font-size: 50px;
@@ -48,8 +49,8 @@
 }
 input::-webkit-input-placeholder { /* WebKit browsers */ 
     color: #9EA39E; 
-    font-size:13px ;
-font-family: 'Courier New', Courier, monospace;
+    font-size:20px ;
+    font-family: 'Gabriola';
     } 
 .banner_info_content .email_input button{
     width:120px ;

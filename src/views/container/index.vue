@@ -102,7 +102,6 @@ export default {
 <style scoped>
 .article {
   width: 1110px;
-  border: 1px solid black;
   margin: 30px auto;
   display: flex;
   justify-content: space-between;

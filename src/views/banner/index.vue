@@ -40,7 +40,7 @@ export default {
       } else {
         count++;
       }
-    }, 300);
+    }, 200);
   },
 };
 </script>

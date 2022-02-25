@@ -59,7 +59,7 @@ list-style: none;
 input::-webkit-input-placeholder { /* WebKit browsers */ 
     color: #9EA39E; 
     font-size:12px ;
-font-family: 'Courier New', Courier, monospace;
+    font-family: 'Gabriola';
     } 
 .email_input button{
     width:65px ;
