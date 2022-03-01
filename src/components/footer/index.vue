@@ -77,10 +77,9 @@ export default {
   watch: {
     scrollTop(newval) {
       if (this.show_footer) return;
-      if (newval >= 270) {
+      if (newval >= 2770) {
         this.show_footer = true;
         Vue.nextTick(() => {
-          console.log(this.$refs);
           for (let key in this.$refs) {
             this.$refs[key].className =
               this.$refs[key].className +

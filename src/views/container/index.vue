@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <div class="crumbs">
+    <div class="crumbs bg-red-500">
       <h4>FEATURED POSTS</h4>
       <p style="font-size: 14px">
         <Icon type="tags" />Hot tags:<span> # Covid-19 </span
@@ -68,21 +68,46 @@
             </div>
             <div
               class="readmore"
-              style="
-                width: 110px;
-                text-align: center;
-                padding: 6px;
-                background: #fff;
-                border: 1px solid #e9e9e9;
-                border-radius: 5px;
-              "
             >
               Read More
             </div>
           </div>
         </div>
+       <div class="article_left_natural_box">
+          <div class="article_left_natural" v-for="item in 5">
+          <div class="article_left_natural_img">
+            <img src="../../assets/img/article/blog-small-1.jpg" alt="" />
+          </div>
+          <div class="article_left_natural_content" >
+            <div class="article_left_natural_content_desc">
+              <a href="#">Gadgets</a>
+              <span><Icon type="calendar" /> March 14, 2020</span>
+              <span><Icon type="message" /> 099</span>
+            </div>
+            <div class="article_left_natural_content_title">
+              <h2>Nest Protect: 2nd Gen Smoke + CO Alarm</h2>
+            </div>
+            <div class="article_left_natural_content_content">
+              <p style="font-family: 'Gabriola'; font-size: 20px">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore 
+              </p>
+            </div>
+            <div
+              class="readmore"
+            >
+              Read More
+            </div>
+          </div>
+        </div>
+       </div>
       </div>
-      <div class="article_right"></div>
+      <div class="article_right">
+        <div class="search_input">
+          <input type="text" >
+          <div class="search_icon"><Icon style="" type='search' /></Icon></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,48 +125,37 @@ export default {
 </script>
 
 <style scoped>
-.article {
-  width: 1110px;
-  margin: 30px auto;
+.article_right{
+  width: 340px;
+  height: 1000px;
+  padding: 20px;
+  border: 1px black solid;
+}
+.search_input {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
-.article_left {
-  width: 710px;
-}
-.article_left_hot .article_left_hot_img img {
-  width: 100%;
-  height: 350px;
-}
-.article_left_hot_content {
-  width: 600px;
-  height: 300px;
-  position: relative;
-  background-color: white;
-  top: -70px;
-  left: 50%;
-  margin-left: -300px;
-  padding: 40px;
-}
-.article_left_hot_content_desc {
-  margin-bottom: 25px;
-}
-.article_left_hot_content_desc a {
-  display: inline-block;
-  line-height: 30px;
+.search_input input{
+  width: 230px;
+  padding: 10px;
+  box-sizing:border-box;
   height: 30px;
-  border: 1px solid #e9e9e9;
-  color: black;
-  border-radius: 15px;
-  font-size: 12px;
-  padding: 0 20px;
-  margin-right: 15px;
+    outline:none;
+    color:#777777;
+    border:1px solid #e9e9e9;
+    border-right: none;
+    font-family: '宋体';
 }
-.article_left_hot_content_desc span {
+.search_icon{
+  text-align: center;
   display: inline-block;
-  margin: 0 15px;
-}
-.readmore:hover {
-  background-color: #6f6fff;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  border: 1px solid #e9e9e9;
+  border-left: none;
+  color: #777777;
+  cursor: pointer;
 }
 </style>

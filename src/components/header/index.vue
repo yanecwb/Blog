@@ -32,7 +32,7 @@
           <li>Healthy</li>
           <li>Lifestyle</li>
           <div style="color: blue; position: relative; left: 400px">
-            <span class="iconfont icon-yu" style="color: blue"></span>
+            <span class="iconfont icon-yueliang" style="color: #5869da"></span>
           </div>
         </ul>
       </div>

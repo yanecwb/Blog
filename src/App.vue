@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
-    <Header :scrollTop="scrollTop" />
-    <Banner />
-    <Container />
-    <Footer :scrollTop="scrollTop" />
-  </div>
+    <div id="app" class="app">
+        <Header :scrollTop="scrollTop" />
+        <Banner />
+        <Container />
+        <Footer :scrollTop="scrollTop" />
+    </div>
 </template>
 
 <script>
@@ -14,31 +14,31 @@ import Banner from "./views/banner/index.vue";
 import Container from "./views/container/index.vue";
 
 export default {
-  name: "App",
-  components: {
-    Header,
-    Footer,
-    Banner,
-    Container,
-  },
-  data() {
-    return {
-      scrollTop: 0,
-    };
-  },
-  mounted() {
-    const Document = document.documentElement;
-    document.querySelector("body").onscroll = () => {
-      this.scrollTop = Document.scrollTop;
-    };
-  },
+    name: "App",
+    components: {
+        Header,
+        Footer,
+        Banner,
+        Container,
+    },
+    data() {
+        return {
+            scrollTop: 0,
+        };
+    },
+    mounted() {
+        const Document = document.documentElement;
+        document.querySelector("body").onscroll = () => {
+            this.scrollTop = Document.scrollTop;
+        };
+    },
 };
 </script>
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Sans JP";
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans JP";
 }
 </style>
