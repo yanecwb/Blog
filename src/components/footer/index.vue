@@ -1,16 +1,16 @@
 <template>
-  <div style="height: 300px">
+  <div style="height: 300px;background-color:#222222">
     <footer class="footer_box" v-if="show_footer">
       <div class="about_me" ref="about_me">
         <h4>ABOUT ME</h4>
-        <p style="color: black">
+        <p style="color: #777777">
           Start writing, no matter what. The water does not flow until the
           faucet is turned on.
         </p>
-        <strong style="color: black">Address</strong>
+        <strong style="color: white">Address</strong>
         <p style="margin: 0; font-size: 12px">123 Main Street</p>
-        <p style="font-size: 12px">New York, NY 10001</p>
-        <h5>Follow me</h5>
+        <p style="font-size: 12px;color:#777777">New York, NY 10001</p>
+        <h5 style="color: white">Follow me</h5>
       </div>
       <div class="quick_link" ref="quick_link">
         <h4>QUICK LINK</h4>
@@ -40,7 +40,7 @@
       </div>
       <div class="newsletter" ref="newsletter">
         <h4>NEWSLETTER</h4>
-        <p style="color: black; margin-bottom: 35px">
+        <p style="color: #777777; margin-bottom: 35px">
           Subscribe to our newsletter and get our newest updates right on your
           inbox.
         </p>
@@ -50,10 +50,10 @@
         </form>
         <div class="agreement">
           <input type="checkbox" style="margin-right: 10px" />
-          <span style="color: black"
+          <span style="color: white"
             >I agree to the
-            <span style="color: #687385; font-size: 12px">terms & </span>
-            <span style="color: #687385; font-size: 12px"
+            <span style="color: #687385;">terms & </span>
+            <span style="color: #687385;"
               >conditions</span
             ></span
           >

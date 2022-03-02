@@ -101,11 +101,29 @@
           </div>
         </div>
        </div>
+       <div class="pagination">
+         <Pagination size="small" :total="50" :show-total="total => `Total ${total} items`" @change="onChange" background-color: #6f6fff;/>
+       </div>
       </div>
       <div class="article_right">
+        <div class="input_top">
+            <h1>——</h1>
+            <span>NewsLetter</span>
+          </div>
         <div class="search_input">
-          <input type="text" >
-          <div class="search_icon"><Icon style="" type='search' /></Icon></div>
+          <input type="text" placeholder="search more">
+          <div class="search_icon" title="搜索文章"><Icon style="" type='search' /></Icon></div>
+        </div>
+        <div class="list_ul">
+          <ul>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -114,22 +132,25 @@
 
 <script>
 import "./container.css";
-import { Icon } from "ant-design-vue";
+import { Icon ,Pagination} from "ant-design-vue";
 export default {
   name: "container",
   components: {
     Icon,
+    Pagination
   },
-  methods: {},
+  methods: {
+    onChange(){}
+  },
 };
 </script>
 
 <style scoped>
 .article_right{
   width: 340px;
-  height: 1000px;
+  height: 500px;
   padding: 20px;
-  border: 1px black solid;
+  border: 1px #e9e9e9 solid;
 }
 .search_input {
   display: flex;
@@ -146,6 +167,21 @@ export default {
     border-right: none;
     font-family: '宋体';
 }
+.input_top{
+  width: 150px;
+  height: 37px;
+  margin-bottom: 30px;
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+.input_top h1{
+  color:#6f6fff ;
+  margin: 0;
+}
+.input_top span{
+  color: black;
+}
 .search_icon{
   text-align: center;
   display: inline-block;
@@ -157,5 +193,35 @@ export default {
   border-left: none;
   color: #777777;
   cursor: pointer;
+  transition: 0.5s;
+}
+.search_icon:hover{
+  background-color: #6f6fff;
+  color: white;
+}
+.list_ul{
+  margin-top: 20px;
+}
+.list_ul ul{
+  list-style: none;
+}
+.list_ul ul li{
+  height: 34px;
+  width: 280px;
+  margin: 12px 0;
+}
+li a{
+  font-family:'Times New Roman', Times, serif;
+  color: #777777;
+font-size: 16px;
+    display: flex;
+  justify-content: space-between;
+  border-bottom: 2px dotted #eee;
+  padding: 10px 5px 5px 0;
+  transition: 1s;
+}
+a:hover {
+  border-color: #6f6fff;
+  color: #6f6fff;
 }
 </style>

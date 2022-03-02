@@ -3,6 +3,7 @@
     margin: 100px  auto 0;
     display: flex;
     justify-content: space-between;
+    font-family:'Courier New', Courier, monospace;
 }
 .footer_box div{
     width: 260px;
@@ -15,6 +16,7 @@
     line-height: 40px;
     font-size: 12px;
     margin-bottom: 30px;
+    color: white;
 }
 .footer_box div h4:after{
     content: '';
@@ -25,7 +27,7 @@
     right: auto;
     height: 2px;
     width: 39px;
-    background-color: black;
+    background-color: #eaecee;
 }
 .quick_link ul{
 list-style: none;
@@ -43,6 +45,7 @@ list-style: none;
     border: none;
     display: flex;
     align-items: center;
+    font-size: 12px;
 }
 
  .email_input input{
@@ -62,11 +65,12 @@ input::-webkit-input-placeholder { /* WebKit browsers */
     font-family: 'Gabriola';
     } 
 .email_input button{
-    width:65px ;
+    width:75px ;
     height: 30px;
     font-size: 12px;
     background-color: #5869da;
     color: #FFF;
     border: 0;
     border-radius:0 33px   30px 0;
+    cursor: pointer;
 }
