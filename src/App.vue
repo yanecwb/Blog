@@ -1,13 +1,17 @@
 <template>
     <div id="app" class="app">
-        <Header :scrollTop="scrollTop" />
+        <!-- <div class="all_loading" v-if="All_loading">
+            <Spin  size='large'/>
+        </div> -->
+        <Header/>
         <Banner />
         <Container />
-        <Footer :scrollTop="scrollTop" />
+        <Footer  />
     </div>
 </template>
 
 <script>
+// import {Spin} from 'ant-design-vue'
 import Header from "./components/header/index.vue";
 import Footer from "./components/footer/index.vue";
 import Banner from "./views/banner/index.vue";
@@ -20,16 +24,19 @@ export default {
         Footer,
         Banner,
         Container,
+        // Spin
     },
     data() {
         return {
             scrollTop: 0,
+            All_loading:true
         };
     },
     mounted() {
         const Document = document.documentElement;
         document.querySelector("body").onscroll = () => {
-            this.scrollTop = Document.scrollTop;
+            console.log(this.$store.state.scroll.);
+            // this.$store.commit('change_scrollTop');
         };
     },
 };

@@ -76,7 +76,7 @@
        <div class="article_left_natural_box">
           <div class="article_left_natural" v-for="item in 5">
           <div class="article_left_natural_img">
-            <img src="../../assets/img/article/blog-small-1.jpg" alt="" />
+            <img src="../../assets/img/article/rose.jpeg" alt="" />
           </div>
           <div class="article_left_natural_content" >
             <div class="article_left_natural_content_desc">

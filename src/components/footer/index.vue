@@ -71,9 +71,9 @@ export default {
   data() {
     return {
       show_footer: false,
+      scrolltop:0
     };
   },
-  props: ["scrollTop"],
   watch: {
     scrollTop(newval) {
       if (this.show_footer) return;
@@ -90,6 +90,9 @@ export default {
       }
     },
   },
+  mounted(){
+   this.scrolltop = this.$root.scrollTop
+  }
 };
 </script>
 

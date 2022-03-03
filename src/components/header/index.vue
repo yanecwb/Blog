@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- 头部 -->
         <div class="header_box">
             <div class="header_box_top">
                 <div class="logo">
@@ -20,10 +21,11 @@
                             <Icon type="search" style="margin-left: 2px" />
                         </li>
                     </ul>
-                    <div class="Buy_Now">Buy Now</div>
+                    <div class="Login_in" style="font-size:12px">Login in</div>
                 </div>
             </div>
         </div>
+        <!-- 导航 -->
         <div style="height: 54px">
             <div class="header_box_navBar" ref="navBar">
                 <ul>
@@ -38,12 +40,16 @@
                     <li>Review</li>
                     <li>Healthy</li>
                     <li>Lifestyle</li>
-                    <div style="color: blue; position: relative; left: 400px">
+                    <div style="color: blue; position: relative; left: 390px">
                         <span class="iconfont icon-yueliang" style="color: #5869da"></span>
+                        <span href @click="showmenu = !showmenu">
+                            <Icon :type="showmenu ?'close' : 'setting'" />
+                        </span>
                     </div>
                 </ul>
             </div>
         </div>
+        <!-- 返回头部 -->
         <div
             class="back_top animate__animated animate__fadeInDown"
             v-if="show_backtop"
@@ -51,6 +57,10 @@
         >
             <span class="iconfont icon-icon--fanhuidingbu" style="font-size: 25px"></span>
         </div>
+        <!-- 遮罩层 -->
+        <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
+        <!-- 菜单 -->
+        <MoreMenu :showmenu='showmenu' @change_showmenu='change_showmenu'/>
     </div>
 </template>
 
@@ -59,17 +69,20 @@ import "./header.css";
 import "animate.css";
 import { getWeather } from "../../api/weather";
 import { Icon } from "ant-design-vue";
+
+import MoreMenu from '../MoreMenu/index.vue' 
 export default {
     name: "Header",
     components: {
         Icon,
+        MoreMenu
     },
     data() {
         return {
             show_backtop: false,
+            showmenu: false,
         };
     },
-    props: ["scrollTop"],
     methods: {
         backtop() {
             this.timer = setInterval(() => {
@@ -79,12 +92,16 @@ export default {
                 }
             }, 1);
         },
+        change_showmenu(){
+            this.showmenu = !this.showmenu
+        }
     },
     created() {
         getWeather();
     },
     watch: {
         scrollTop(newval) {
+            console.log(newval);
             if (newval >= 180) {
                 this.$refs.navBar.style.position = "fixed";
                 this.$refs.navBar.style.top = 0;
@@ -100,3 +117,5 @@ export default {
     },
 };
 </script>
+<style scoped>
+</style>
