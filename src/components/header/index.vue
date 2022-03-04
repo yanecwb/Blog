@@ -60,7 +60,7 @@
         <!-- 遮罩层 -->
         <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
         <!-- 菜单 -->
-        <MoreMenu :showmenu='showmenu' @change_showmenu='change_showmenu'/>
+        <MoreMenu :showmenu="showmenu" @change_showmenu="change_showmenu" />
     </div>
 </template>
 
@@ -99,9 +99,14 @@ export default {
     created() {
         getWeather();
     },
+    computed:{
+        scrolltop(){
+            return this.$store.state.scroll.scrollTop
+        }
+    },
     watch: {
-        scrollTop(newval) {
-            console.log(newval);
+        scrolltop: {
+            handler(newval){
             if (newval >= 180) {
                 this.$refs.navBar.style.position = "fixed";
                 this.$refs.navBar.style.top = 0;
@@ -113,7 +118,8 @@ export default {
                 this.$refs.navBar.className = "header_box_navBar";
                 this.show_backtop = false;
             }
-        },
+        }
+        }
     },
 };
 </script>

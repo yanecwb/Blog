@@ -71,11 +71,15 @@ export default {
   data() {
     return {
       show_footer: false,
-      scrolltop:0
     };
   },
+  computed:{
+        scrolltop(){
+            return this.$store.state.scroll.scrollTop
+        }
+    },
   watch: {
-    scrollTop(newval) {
+    scrolltop(newval) {
       if (this.show_footer) return;
       if (newval >= 2770) {
         this.show_footer = true;
@@ -91,7 +95,6 @@ export default {
     },
   },
   mounted(){
-   this.scrolltop = this.$root.scrollTop
   }
 };
 </script>

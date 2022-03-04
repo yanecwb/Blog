@@ -35,8 +35,7 @@ export default {
     mounted() {
         const Document = document.documentElement;
         document.querySelector("body").onscroll = () => {
-            console.log(this.$store.state.scroll.);
-            // this.$store.commit('change_scrollTop');
+            this.$store.commit('scroll/change_scrollTop',Document.scrollTop);
         };
     },
 };
