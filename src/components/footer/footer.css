@@ -1,6 +1,6 @@
 .footer_box{
     width: 1110px;
-    margin: 100px  auto 0;
+    margin: 0  auto ;
     display: flex;
     justify-content: space-between;
     font-family:'Courier New', Courier, monospace;

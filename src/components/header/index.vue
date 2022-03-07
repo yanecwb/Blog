@@ -21,7 +21,7 @@
                             <Icon type="search" style="margin-left: 2px" />
                         </li>
                     </ul>
-                    <div class="Login_in" style="font-size:12px">Login in</div>
+                    <div class="Login_in" style="font-size:12px" @click="goRouter('/login')">Login in</div>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
 
 <script>
 import "./header.css";
-import "animate.css";
+// import "animate.css";
 import { getWeather } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 

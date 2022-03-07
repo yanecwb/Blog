@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 300px;background-color:#222222">
+  <div style="height: 300px;background-color:#071e37">
     <footer class="footer_box" v-if="show_footer">
       <div class="about_me" ref="about_me">
         <h4>ABOUT ME</h4>
@@ -70,9 +70,10 @@ export default {
   name: "Footer",
   data() {
     return {
-      show_footer: false,
+      // show_footer: false,
     };
   },
+  props:['show_footer'],
   computed:{
         scrolltop(){
             return this.$store.state.scroll.scrollTop
@@ -82,7 +83,8 @@ export default {
     scrolltop(newval) {
       if (this.show_footer) return;
       if (newval >= 2770) {
-        this.show_footer = true;
+        // this.show_footer = true;
+        this.$emit('change_show_footer',true)
         Vue.nextTick(() => {
           for (let key in this.$refs) {
             this.$refs[key].className =

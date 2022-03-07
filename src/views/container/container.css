@@ -160,9 +160,18 @@
     width: 330px;
     height:620px ;
   }
+  .article_left_natural_img{
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+  }
    .article_left_natural .article_left_natural_img img {
       width: 100%;
       height: 230px;
+      transition: all 0.7s ease-out;
+    }
+    .article_left_natural:hover img{
+      transform: scale(1.3);
     }
       .article_left_natural_content {
       width: 300px;
