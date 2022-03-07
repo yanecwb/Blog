@@ -6,6 +6,15 @@ module.exports = {
       errors: false
     },
     proxy: {
+      '/api': {
+        target: 'http://www.codeman.ink:3000', // http://192.168.1.225:8081/admin_api/
+        ws: true,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      },
       '/weather_api': {
         target: 'https://www.tianqiapi.com/api', // http://192.168.1.225:8081/admin_api/
         ws: true,

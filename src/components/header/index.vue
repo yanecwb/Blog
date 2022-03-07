@@ -21,7 +21,8 @@
                             <Icon type="search" style="margin-left: 2px" />
                         </li>
                     </ul>
-                    <div class="Login_in" style="font-size:12px" @click="goRouter('/login')">Login in</div>
+                    <div class="Login_in" v-if="!userInfo.avatarUrl" style="font-size:12px" @click="goRouter('/login')">Login in</div>
+                   <img :src="userInfo.avatarUrl" alt=""  v-else class="avatarUrl" title="用户头像">
                 </div>
             </div>
         </div>
@@ -81,6 +82,7 @@ export default {
         return {
             show_backtop: false,
             showmenu: false,
+            userInfo:{}
         };
     },
     methods: {
@@ -121,7 +123,15 @@ export default {
         }
         }
     },
+    mounted(){
+        this.userInfo.avatarUrl = localStorage.getItem('avatarUrl')
+    }
 };
 </script>
 <style scoped>
+.avatarUrl{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
 </style>

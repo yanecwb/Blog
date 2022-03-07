@@ -9,13 +9,13 @@
                             <i class="login__icon">
                                 <Icon type="user" />
                             </i>
-                            <input type="text" class="login__input" placeholder="User name / Email" />
+                            <input type="text" class="login__input" placeholder="User name / Email"  v-model="username"/>
                         </div>
                         <div class="login__field">
                             <i class="login__icon">
                                 <Icon type="lock" />
                             </i>
-                            <input type="password" class="login__input" placeholder="Password" />
+                            <input type="password" class="login__input" placeholder="Password" v-model="password" />
                         </div>
                          <div class="login__field" v-if="!is_login">
                             <i class="login__icon">
@@ -48,13 +48,15 @@
                 </div>
             </div>
         </div>
-        <Footer :show_footer="true" />
+        <!-- <Footer :show_footer="true" /> -->
     </div>
 </template>
 
 <script>
 import Footer from "../../components/footer/index.vue";
 import { Icon } from "ant-design-vue";
+
+import {Login} from '../../api/login'
 export default {
     name: "login",
     components: {
@@ -64,6 +66,8 @@ export default {
     data() {
         return {
             is_login: true,
+            username:'18397871804',
+            password:'wyy12345.'
         };
     },
     methods: {
@@ -84,6 +88,18 @@ export default {
             $event.preventDefault()
             if(this.is_login){
                 console.log('login');
+                if(this.username && this.password){
+                    Login(+this.username,this.password).then((data)=>{
+                        if(data.data.code == 200){
+                            console.log('登录成功');
+                             localStorage.setItem('avatarUrl',data.data.profile.avatarUrl)
+                             this.goRouter('/home')
+                        }
+                    })
+                }else{
+// this.$message.error('请输入')
+alert('请输入账号或密码')
+                }
                 return
             }
             console.log('register');

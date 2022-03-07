@@ -15,7 +15,10 @@ body {
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
-	background: linear-gradient(45deg, rgb(114, 109, 221), #7765fc);		
+	/* background: linear-gradient(45deg, rgb(114, 109, 221), #7765fc);		 */
+	background-image: url(../../assets//img/login/login_bg.gif);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .bg_text{

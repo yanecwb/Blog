@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="container_box">
-      <div class="carousel">
+      <div class="carousel" ref="carousel">
         <Icon class="icon" type="heart" />
         <div class="backcolor"></div>
         <div class="carousel_desc">
@@ -24,7 +24,7 @@
           <p><span>20minutes ago</span> · <span>23k View</span></p>
         </div>
       </div>
-      <div class="food">
+      <div class="food" ref="food">
         <img
           style="width: 100%; border-radius: 10px"
           src="../../assets/img/news-1.jpg"
@@ -45,7 +45,7 @@
     </div>
     <div class="article">
       <div class="article_left">
-        <div class="article_left_hot">
+        <div class="article_left_hot" ref="article_left_hot">
           <div class="article_left_hot_img">
             <img src="../../assets/img/article/blog-1.jpg" alt="" />
           </div>
@@ -74,7 +74,7 @@
           </div>
         </div>
        <div class="article_left_natural_box">
-          <div class="article_left_natural" v-for="item in 5">
+          <div class="article_left_natural" v-for="item in 5" ref="article_left_natural">
           <div class="article_left_natural_img">
             <img src="../../assets/img/article/rose.jpeg" alt="" />
           </div>
@@ -105,7 +105,7 @@
          <Pagination size="small" :total="50" :show-total="total => `Total ${total} items`" @change="onChange" background-color: #6f6fff;/>
        </div>
       </div>
-      <div class="article_right">
+      <div class="article_right" ref="article_right">
         <div class="input_top">
             <h1>——</h1>
             <span>NewsLetter</span>
@@ -140,8 +140,42 @@ export default {
     Pagination
   },
   methods: {
-    onChange(){}
+    onChange(){},
+    watch_scrolltop(){
+     let unwatch_scrolltop =  this.$watch('scrolltop',(newval)=>{
+          if (newval >= 700) {
+            for(let i = 0;i<this.$refs.article_left_natural.length;i++){
+            this.$refs.article_left_natural[i].className += ' animate__animated animate__backInUp'
+            if(i == 1) {break}
+       }
+       if (newval >= 1500) {
+            this.$refs.article_left_natural[2].className += ' animate__animated animate__backInUp'
+            this.$refs.article_left_natural[3].className += ' animate__animated animate__backInUp'
+      } 
+      if (newval >= 2000) {
+            this.$refs.article_left_natural[4].className += ' animate__animated animate__backInUp'
+            this.$refs.article_left_natural[5].className += ' animate__animated animate__backInUp'
+      } 
+          }
+            if(newval >2100){
+              console.log(123);
+              unwatch_scrolltop()
+            }
+      })
+    }
   },
+  computed:{
+    scrolltop(){
+      return this.$store.state.scroll.scrollTop
+    }
+  },
+  mounted(){
+    this.watch_scrolltop()
+    this.$refs.carousel.className = 'carousel animate__animated animate__backInLeft'
+    this.$refs.food.className = 'food animate__animated animate__backInRight'
+    this.$refs.article_left_hot.className = 'article_left_hot animate__animated animate__backInLeft'
+    this.$refs.article_right.className= 'article_right animate__animated animate__backInRight'
+  }
 };
 </script>
 
