@@ -7,15 +7,17 @@
             <li>123</li>
             <li>123</li>
         </ul>
+        <Button type='primary' @click="logout">退出登陆</Button>
     </div>
 </template>
 
 <script>
-import { Icon } from "ant-design-vue";
+import { Icon,Button } from "ant-design-vue";
 export default {
     name: "MoreMenu",
     components: {
         Icon,
+        Button
     },
     // emits:['change_showmenu'],
     props: ["showmenu"],
@@ -31,6 +33,10 @@ export default {
     methods:{
         change_showmenu(){
             this.$emit('change_showmenu')
+        },
+        logout(){
+            localStorage.clear('avatarUrl')
+            this.goRouter('/login')
         }
     }
 };

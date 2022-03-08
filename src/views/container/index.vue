@@ -147,14 +147,14 @@ export default {
             for(let i = 0;i<this.$refs.article_left_natural.length;i++){
             this.$refs.article_left_natural[i].className += ' animate__animated animate__slideInUp'
             if(i == 1) {break}
-       }
+              }
        if (newval >= 1500) {
             this.$refs.article_left_natural[2].className += ' animate__animated animate__slideInUp'
             this.$refs.article_left_natural[3].className += ' animate__animated animate__slideInUp'
       } 
       if (newval >= 2000) {
             this.$refs.article_left_natural[4].className += ' animate__animated animate__slideInUp'
-            this.$refs.article_left_natural[5].className += ' animate__animated animate__slideInUp'
+            // this.$refs.article_left_natural[5].className += ' animate__animated animate__slideInUp'
       } 
           }
             if(newval >2100){

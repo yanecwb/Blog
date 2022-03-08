@@ -82,7 +82,9 @@ export default {
         return {
             show_backtop: false,
             showmenu: false,
-            userInfo:{}
+            userInfo:{
+                avatarUrl:''
+            }
         };
     },
     methods: {
