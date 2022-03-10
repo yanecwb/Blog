@@ -23,7 +23,7 @@
                     </ul>
                     <div class="Login_in" v-if="!avatarUrl" style="font-size:12px" @click="goRouter('/login')">Login in</div>
                     <Icon type='user' v-else-if='avatarUrl == 1'/>
-                   <img  :src="avatarUrl" alt=""  v-else class="avatarUrl" title="用户头像">
+                   <img  :src="avatarUrl" alt=""  v-else class="avatarUrl" title="用户头像" @click="()=>{showmenu=true}">
                 </div>
             </div>
         </div>
