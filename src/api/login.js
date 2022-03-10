@@ -1,11 +1,11 @@
 // import request from "../utils/request";
 import axios from 'axios'
-export const Login = (phone,password)=>{
+export const Login = (username,password)=>{
     return axios({
-        method:'get',
-        url:`/api/login/cellphone`,
-        params:{
-          phone,password
+        method:'post',
+        url:`/node_api/login`,
+        data:{
+          username,password
         }
     })
 }

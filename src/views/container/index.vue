@@ -74,15 +74,15 @@
           </div>
         </div>
        <div class="article_left_natural_box">
-          <div class="article_left_natural" v-for="item in 5" ref="article_left_natural">
+          <div class="article_left_natural" v-for="item in article_list" :key="item.id"  ref="article_left_natural">
           <div class="article_left_natural_img">
-            <img src="../../assets/img/article/rose.jpeg" alt="" />
+            <img :src="item.imgUrl" alt="" />
           </div>
           <div class="article_left_natural_content" >
             <div class="article_left_natural_content_desc">
               <a href="#">Gadgets</a>
-              <span><Icon type="calendar" /> March 14, 2020</span>
-              <span><Icon type="message" /> 099</span>
+              <span><Icon type="calendar" /> {{item.date}}</span>
+              <span><Icon type="message" /> {{item.read_count}}</span>
             </div>
             <div class="article_left_natural_content_title">
               <h2>Nest Protect: 2nd Gen Smoke + CO Alarm</h2>
@@ -102,7 +102,7 @@
         </div>
        </div>
        <div class="pagination">
-         <Pagination size="small" :total="50" :show-total="total => `Total ${total} items`" @change="onChange" background-color: #6f6fff;/>
+         <Pagination size="small" :total="50" :show-total="total => `共 ${total} 篇文章`" @change="onChange" background-color: #6f6fff;/>
        </div>
       </div>
       <div class="article_right" ref="article_right">
@@ -116,13 +116,7 @@
         </div>
         <div class="list_ul">
           <ul>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
-            <li><a href=""><span>Technology</span><span>37<Icon type="smile" /></span></a></li>
+            <li v-for="item in side_list" :key="item.id"><a href=""><span>{{item.title}}</span><span>{{item.read_count}}<Icon type="smile" /></span></a></li>
           </ul>
         </div>
       </div>
@@ -133,8 +127,17 @@
 <script>
 import "./container.css";
 import { Icon ,Pagination} from "ant-design-vue";
+
+// api
+import {getArticle_list,getSide_list} from '../../api/article_list'
 export default {
   name: "container",
+  data(){
+    return {
+      article_list:[],
+      side_list:[]
+    }
+  },
   components: {
     Icon,
     Pagination
@@ -158,7 +161,6 @@ export default {
       } 
           }
             if(newval >2100){
-              console.log(123);
               unwatch_scrolltop()
             }
       })
@@ -169,7 +171,11 @@ export default {
       return this.$store.state.scroll.scrollTop
     }
   },
-  mounted(){
+ async mounted(){
+   const res = await getArticle_list()
+   this.article_list = res.data.list
+   const res2 = await getSide_list()
+   this.side_list = res2.data.list
     this.watch_scrolltop()
     this.$refs.carousel.className = 'carousel animate__animated animate__backInLeft'
     this.$refs.food.className = 'food animate__animated animate__backInRight'

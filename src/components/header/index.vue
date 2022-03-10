@@ -21,8 +21,9 @@
                             <Icon type="search" style="margin-left: 2px" />
                         </li>
                     </ul>
-                    <div class="Login_in" v-if="!userInfo.avatarUrl" style="font-size:12px" @click="goRouter('/login')">Login in</div>
-                   <img :src="userInfo.avatarUrl" alt=""  v-else class="avatarUrl" title="用户头像">
+                    <div class="Login_in" v-if="!avatarUrl" style="font-size:12px" @click="goRouter('/login')">Login in</div>
+                    <Icon type='user' v-else-if='avatarUrl == 1'/>
+                   <img  :src="avatarUrl" alt=""  v-else class="avatarUrl" title="用户头像">
                 </div>
             </div>
         </div>
@@ -82,9 +83,7 @@ export default {
         return {
             show_backtop: false,
             showmenu: false,
-            userInfo:{
-                avatarUrl:''
-            }
+            avatarUrl:''
         };
     },
     methods: {
@@ -101,7 +100,7 @@ export default {
         }
     },
     created() {
-        getWeather();
+        // getWeather();
     },
     computed:{
         scrolltop(){
@@ -126,7 +125,7 @@ export default {
         }
     },
     mounted(){
-        this.userInfo.avatarUrl = localStorage.getItem('avatarUrl')
+        this.avatarUrl = this.$store.state.userInfo.userInfo ? this.$store.state.userInfo.userInfo.avatarUrl : ''
     }
 };
 </script>

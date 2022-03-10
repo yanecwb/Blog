@@ -32,7 +32,7 @@ export default {
   mounted() {
     const msg_text = "Do what you like";
     let count = 0;
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.msg += msg_text[count];
       if (count == msg_text.length) {
         count = 0;
@@ -42,6 +42,9 @@ export default {
       }
     }, 200);
   },
+  beforeUnmounted(){
+    console.log(123);
+  }
 };
 </script>
 

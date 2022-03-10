@@ -4,7 +4,7 @@
             <div class="bg_text">Do what you like</div>
             <div class="screen">
                 <div class="screen__content">
-                    <form class="login" ref="login">
+                    <form class="login" ref="login" >
                         <div class="login__field">
                             <i class="login__icon">
                                 <Icon type="user" />
@@ -12,7 +12,7 @@
                             <input
                                 type="text"
                                 class="login__input"
-                                placeholder="User name / Email"
+                                placeholder="Phone / Email"
                                 v-model="username"
                                 autocomplete
                             />
@@ -100,6 +100,7 @@ import Footer from "../../components/footer/index.vue";
 import { Icon, Alert } from "ant-design-vue";
 
 import { Login } from "../../api/login";
+import {Register} from '../../api/register'
 export default {
     name: "login",
     components: {
@@ -111,8 +112,8 @@ export default {
         return {
             is_login: true,
             is_code_login: false,
-            username: "18397871804",
-            password: "wyy12345.",
+            username: "123",
+            password: "456",
             is_get_code: false,
             code_time: 59,
             alert_visible: false,
@@ -137,6 +138,10 @@ export default {
             if (this.is_login) {
                 this.is_code_login = false;
             }
+            if(this.is_login){
+               this.username= "",
+            this.password= ""
+            }
             this.is_login = !this.is_login;
         },
         login_register($event) {
@@ -144,12 +149,9 @@ export default {
             if (this.is_login) {
                 let {username,password,message,goRouter , alert_visible} = this
                 if (username && password) {
-                    Login(+username, password).then((data) => {
+                    Login(username, password).then((data) => {
                         if (data.data.code == 200) {
-                            localStorage.setItem(
-                                "avatarUrl",
-                                data.data.profile.avatarUrl
-                            );
+                            this.$store.commit('userInfo/SAVE_USERINFO',data.data.userInfo);
                             message("登录成功", "success");
                             let gohometimer = setTimeout(() => {
                                 goRouter("/home");
@@ -171,6 +173,9 @@ export default {
                 return;
             }
             // 下面是注册时的代码
+            Register(this.username,this.password).then((data)=>{
+                console.log(data);
+            })
         },
         // 获取登陆验证码
         get_code() {
@@ -196,7 +201,7 @@ export default {
     padding: 0 30px;
     text-align: right;
     color: rgba(0, 0, 0, 0.8);
-    font-weight:600;
+    font-weight: 600;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
@@ -216,12 +221,12 @@ export default {
     line-height: 30px;
     cursor: pointer;
 }
-.check_loginmethods{
-cursor: pointer;
-font-size:12px;
-color: rgba(0, 0, 0, 0.8);
+.check_loginmethods {
+    cursor: pointer;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.8);
 }
-.check_loginmethods:hover{
+.check_loginmethods:hover {
     color: white;
 }
 </style>

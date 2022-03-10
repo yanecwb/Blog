@@ -105,6 +105,7 @@ z-index: 999;
     text-align: center;
     color: #fff;
     background-color: blue;
+    z-index: 1000;
   }
   .Mask{
     width: 100vw;
