@@ -17,7 +17,7 @@
         <ul>
           <li>About me</li>
           <li>Help & Support</li>
-          <li>​​Licensing Policy</li>
+          <li>Licensing Policy</li>
           <li>Refund Policy</li>
           <li>Hire me</li>
         </ul>

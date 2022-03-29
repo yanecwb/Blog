@@ -1,5 +1,6 @@
 module.exports = {
   lintOnSave: false,
+
   devServer: {
     overlay: {
       warnings: false,
@@ -36,3 +37,4 @@ module.exports = {
     }
   },
 }
+

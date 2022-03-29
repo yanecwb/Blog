@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import Footer from "../../components/footer/index.vue";
 import { Icon, Alert } from "ant-design-vue";
 
 import { Login } from "../../api/login";
@@ -104,7 +103,6 @@ import {Register} from '../../api/register'
 export default {
     name: "login",
     components: {
-        Footer,
         Icon,
         Alert,
     },
@@ -147,7 +145,7 @@ export default {
         login_register($event) {
             $event.preventDefault();
             if (this.is_login) {
-                let {username,password,message,goRouter , alert_visible} = this
+                let {username,password,message,goRouter} = this
                 if (username && password) {
                     Login(username, password).then((data) => {
                         if (data.data.code == 200) {
@@ -155,13 +153,13 @@ export default {
                             message("登录成功", "success");
                             let gohometimer = setTimeout(() => {
                                 goRouter("/home");
-                                alert_visible = false;
+                                this.alert_visible = false;
                                 clearTimeout(gohometimer);
                             }, 1000);
                         } else {
                             message(data.data.message, "error");
                             let gohometimer = setTimeout(() => {
-                                alert_visible = false;
+                                this.alert_visible = false;
                                 clearTimeout(gohometimer);
                             }, 1000);
                         }

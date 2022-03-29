@@ -1,14 +1,30 @@
 <template>
-
     <div id="app" class="app">
+        <Header />
         <router-view></router-view>
+        <Footer :show_footer="show_footer" @change_show_footer="change_show_footer" />
     </div>
 </template>
 
 <script>
-
+import Header from "./components/header/index.vue";
+import Footer from "./components/footer/index.vue";
 export default {
     name: "App",
+    components:{
+        Header,
+        Footer,
+    },
+    data(){
+      return {
+        show_footer:false
+      }
+    },
+    methods:{
+      change_show_footer(val){
+            this.show_footer = val
+      }
+    },
     mounted() {
         const Document = document.documentElement;
         document.querySelector("body").onscroll = () => {
@@ -19,9 +35,8 @@ export default {
 </script>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    /* font-family: "Noto Sans JP"; */
+*{
+  margin: 0;
+  padding: 0;
 }
 </style>

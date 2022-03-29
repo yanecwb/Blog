@@ -4,7 +4,7 @@
         <div class="header_box">
             <div class="header_box_top">
                 <div class="logo">
-                    <img src="../../assets/logo.png" alt />
+                    <img src="../../assets/Blog_logo.png" alt />
                 </div>
                 <div class="options">
                     <ul>
@@ -31,18 +31,16 @@
         <div style="height: 54px">
             <div class="header_box_navBar" ref="navBar">
                 <ul>
-                    <li>
-                        <Icon type="home" style="margin-right: 2px" />Home
-                        <Icon type="down" style="margin-left: 2px" />
+                    <template>
+                    <li @click="goRouter('/home')">
+                        <Icon type="home" style="margin-right: 2px" />首页
                     </li>
-                    <li>Traver</li>
-                    <li>Guides</li>
-                    <li>Food</li>
-                    <li>Hotels</li>
-                    <li>Review</li>
-                    <li>Healthy</li>
-                    <li>Lifestyle</li>
-                    <div style="color: blue; position: relative; left: 390px">
+                    <li>前端</li>
+                    <li>后端</li>
+                    <li>安卓</li>
+                    <li>资讯</li>
+                    </template>
+                    <div style="color: blue; position: relative; left: 707px">
                         <span class="iconfont icon-yueliang" style="color: #5869da"></span>
                         <span href @click="showmenu = !showmenu">
                             <Icon :type="showmenu ?'close' : 'setting'" />
@@ -100,7 +98,7 @@ export default {
         }
     },
     created() {
-        // getWeather();
+        getWeather();
     },
     computed:{
         scrolltop(){
@@ -130,9 +128,5 @@ export default {
 };
 </script>
 <style scoped lang='less'>
-.avatarUrl{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
+
 </style>

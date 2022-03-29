@@ -56,15 +56,14 @@
             </div>
         </div>
       <div class="login_button">
-            <Button style="background:#5869da;color:white;margin:0 10px" @click="logout">切换账号</Button>
-        <Button style="background:#5869da;color:white;margin:0 10px" @click="logout">退出登陆</Button>
+            <Button style="background:#5869da;color:white;margin:0 10px" @click="logout('switch')">切换账号</Button>
+        <Button style="background:#5869da;color:white;margin:0 10px" @click="logout('out')">退出登陆</Button>
       </div>
     </div>
 </template>
 
 <script>
 import { Icon, Button } from "ant-design-vue";
-import axios from "axios";
 export default {
     name: "MoreMenu",
     components: {
@@ -96,8 +95,11 @@ export default {
         change_showmenu() {
             this.$emit("change_showmenu");
         },
-        logout() {
+        logout(type) {
             localStorage.clear("avatarUrl");
+            if(type == 'out'){
+                this.$store.state.userInfo.userInfo = {}
+            }
             this.goRouter("/login");
         },
         user_edit() {

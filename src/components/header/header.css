@@ -15,6 +15,9 @@
   .header_box_top .logo {
     width: 200px;
   }
+  .logo img{
+    width: 130px;
+  }
   .header_box_top .options {
     width: 330px;
     height: 39px;
@@ -109,7 +112,7 @@ z-index: 999;
     border-radius:50% ;
     text-align: center;
     color: #fff;
-    background-color: blue;
+    background-color: #5869da;
     z-index: 1000;
   }
   .Mask{
@@ -119,4 +122,9 @@ z-index: 999;
     top: 0;
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.5);
+}
+.avatarUrl{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }

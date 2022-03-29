@@ -112,7 +112,7 @@
           </div>
         <div class="search_input">
           <input type="text" placeholder="search more">
-          <div class="search_icon" title="搜索文章"><Icon style="" type='search' /></Icon></div>
+          <div class="search_icon" title="搜索文章"><Icon style="" type='search' /></div>
         </div>
         <div class="list_ul">
           <ul>
