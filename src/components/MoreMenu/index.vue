@@ -15,9 +15,9 @@
                 <img :src="userInfo.avatarUrl" class="avatar" alt />
                 <p>{{userInfo.nickname}}</p>
                 <div class="userlv">
-                    <span>13关注</span>
-                    <span>7粉丝</span>
-                    <span>lv7</span>
+                    <span>{{userInfo.accountInfo.follows}}关注</span>
+                    <span>{{userInfo.accountInfo.fans}}粉丝</span>
+                    <span>lv{{userInfo.accountInfo.lv}}</span>
                 </div>
                 <div class="userlabel">
                     <span>
@@ -29,7 +29,7 @@
                         />95后 双鱼座
                     </span>
                     <span>江西 九江</span>
-                    <span>博龄1年</span>
+                    <span>博龄{{userInfo.accountInfo.blog_years}}年</span>
                 </div>
                 <div class="useredit" @click="user_edit">
                     <span>
@@ -38,16 +38,20 @@
                     </span>
                 </div>
                 <div class="useredit_form_show useredit_form_hide" ref="useredit_form">
-                    <ul>
+                    <form action="">
+                        <ul>
                         <li><span >昵称</span><span>{{userInfo.nickname}}</span></li>
                         <li><span>性别</span><span>{{userInfo.sex == 'man' ? '男':'女'}}</span></li>
                         <li style="border:none"><span>生日</span><span>{{userInfo.birthday}}</span></li>
                     </ul>
                      <ul>
-                        <li><span>地区</span><span>{{userInfo.nickname}}</span></li>
-                        <li><span>大学</span><span>{{userInfo.sex == 'man' ? '男':'女'}}</span></li>
-                        <li style="border:none"><span>简介</span><span>{{userInfo.birthday ?  '':'这个人很懒，什么都没留下' }}</span></li>
+                        <li><span>地区</span><span>{{userInfo.city}}</span></li>
+                        <li><span>大学</span><span>{{userInfo.university}}</span></li>
+                        <li style="border:none"><span>简介</span><span>{{userInfo.autograph || '这个人很懒，什么都没留下' }}</span></li>
                     </ul>
+                        <div class="save_useredit"><Button style="background:#0baaeb;color:white;margin:0 10px" >保存</Button></div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -99,7 +103,7 @@ export default {
         user_edit() {
             const { usershow, useredit_form } = this.$refs;
             if (!this.is_useredit) {
-                usershow.style.height = 666 + "px";
+                usershow.style.height = 500 + "px";
                 useredit_form.className =
                     "useredit_form_show animate__animated animate__fadeIn animate__slow";
             } else {
@@ -270,6 +274,11 @@ line-height: 30px;
 
 .useredit_form_hide {
     display: none !important;
+}
+
+.save_useredit{
+    top: 95px;
+    left: 99px;
 }
 
 

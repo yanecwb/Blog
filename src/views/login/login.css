@@ -7,9 +7,6 @@
 	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-body {
-}
-
 .container {
 	display: flex;
 	align-items: center;
@@ -39,8 +36,6 @@ body {
 	z-index: 1;
 	position: relative;	
 	height: 100%;
-}
-.screen__content form{
 }
 .screen__background {		
 	position: absolute;

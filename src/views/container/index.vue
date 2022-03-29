@@ -157,7 +157,7 @@ export default {
       } 
       if (newval >= 2000) {
             this.$refs.article_left_natural[4].className += ' animate__animated animate__slideInUp'
-            // this.$refs.article_left_natural[5].className += ' animate__animated animate__slideInUp'
+            this.$refs.article_left_natural[5].className += ' animate__animated animate__slideInUp'
       } 
           }
             if(newval >2100){

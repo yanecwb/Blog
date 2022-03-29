@@ -49,6 +49,11 @@ cursor: pointer;
   }
   .options ul li{
     cursor: pointer;
+    transition: 1s;
+  }
+  .options ul li:hover{
+    color: black;
+    transform: scale(1.05);
   }
   
   .options div {

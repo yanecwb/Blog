@@ -16,8 +16,8 @@
                             Document
                             <Icon type="container" style="margin-left: 2px" />
                         </li>
-                        <li>
-                            Search
+                        <li @click="goRouter('/about_me')">
+                            关于我
                             <Icon type="search" style="margin-left: 2px" />
                         </li>
                     </ul>
@@ -129,7 +129,7 @@ export default {
     }
 };
 </script>
-<style scoped>
+<style scoped lang='less'>
 .avatarUrl{
     width: 35px;
     height: 35px;
