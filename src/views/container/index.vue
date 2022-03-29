@@ -26,8 +26,8 @@
       </div>
       <div class="food" ref="food">
         <img
-          style="width: 100%; border-radius: 10px"
-          src="../../assets/img/news-1.jpg"
+          style="width: 100%;height:260px border-radius:10px"
+          src="https://img.zcool.cn/community/03104da622ab30f11013f785b4ff8f1.jpg@520w_390h_1c_1e_2o_100sh.jpg"
           alt=""
         />
         <div class="backcolor"></div>
@@ -46,8 +46,7 @@
     <div class="article">
       <div class="article_left">
         <div class="article_left_hot" ref="article_left_hot">
-          <div class="article_left_hot_img">
-            <img src="../../assets/img/article/blog-1.jpg" alt="" />
+          <div class="article_left_hot_img" >
           </div>
           <div class="article_left_hot_content">
             <div class="article_left_hot_content_desc">
@@ -102,7 +101,7 @@
         </div>
        </div>
        <div class="pagination">
-         <Pagination size="small" :total="50" :show-total="total => `共 ${total} 篇文章`" @change="onChange" background-color: #6f6fff;/>
+         <Pagination size="small" :total="total" :show-total="total => `共 ${total} 篇文章`" @change="onChange" background-color: #6f6fff;/>
        </div>
       </div>
       <div class="article_right" ref="article_right">
@@ -135,7 +134,8 @@ export default {
   data(){
     return {
       article_list:[],
-      side_list:[]
+      side_list:[],
+      total:0
     }
   },
   components: {
@@ -174,6 +174,8 @@ export default {
  async mounted(){
    const res = await getArticle_list()
    this.article_list = res.data.list
+   console.log(res);
+   this.total = res.data.total
    const res2 = await getSide_list()
    this.side_list = res2.data.list
     this.watch_scrolltop()

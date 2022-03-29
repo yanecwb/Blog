@@ -24,7 +24,9 @@
   .carousel {
     width: 710px;
     height: 400px;
-    background-image: url(../../assets/img/news-4.jpg);
+    background-size: cover;
+    background-position: 0px -30px;
+    background-image: url('https://img.zcool.cn/community/01dee45dba6188a801209e1fd383c8.jpg@1280w_1l_0o_100sh.jpg');
     border-radius: 10px;
     transition: 1s;
     position: relative;
@@ -79,7 +81,7 @@
   .food .backcolor {
     background-image: linear-gradient(transparent, black);
     position: absolute;
-    top: 31%;
+    top: 41%;
     width: 100%;
     height: 100px;
   }
@@ -105,9 +107,13 @@
     width: 710px;
     /* border: 1px solid black; */
   }
-  .article_left_hot .article_left_hot_img img {
+  .article_left_hot .article_left_hot_img  {
     width: 100%;
     height: 350px;
+    background-size: cover;
+    background-position: 0px -135px;
+    background-image: url('https://img.zcool.cn/community/019cde5bd29c22a801213dea0a8177.jpg@1280w_1l_2o_100sh.jpg');
+
   }
   .article_left_hot_content {
     width: 600px;

@@ -1,5 +1,27 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //引入插件
 module.exports = {
   lintOnSave: false,
+
+  configureWebpack: {
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            // 删除注释
+            output: {
+              comments: true
+            },
+            // 删除console debugger 删除警告
+            compress: {
+              drop_console: true, //console
+              drop_debugger: false,
+              pure_funcs: ['console.log'] //移除console
+            }
+          }
+        })
+      ]
+    }
+  },
 
   devServer: {
     overlay: {

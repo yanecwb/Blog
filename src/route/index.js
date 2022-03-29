@@ -1,9 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import {Home ,Login , About_me ,Content_module} from './router-path.js'
 
-const Home = ()=> import('../views/home')
-const Login = ()=> import('../views/login')
-const About_me = () => import('../views/about_me')
 Vue.use(VueRouter);
 const routes = [
     { path: "/", redirect: "/home" },
@@ -21,6 +19,11 @@ const routes = [
         path:'/about_me',
         name:'about_me',
         component:About_me
+    },
+    {
+        path:'/content/:module',
+        name:'content',
+        component:Content_module
     }
 ];
 
