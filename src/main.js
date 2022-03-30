@@ -6,6 +6,9 @@ import 'nprogress/nprogress.css'
 import router from './route';
 import less from 'less'
 
+import {message} from 'ant-design-vue'
+Vue.prototype.$message = message;
+
 
 // 解决路由冗余报错问题vue-router3.0+
 import Router from 'vue-router'

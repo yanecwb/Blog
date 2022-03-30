@@ -1,231 +1,285 @@
 .container_box {
-    width: 1110px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-  }
-  .crumbs{
-      width:1110px;
-      margin: 0 auto;
-      padding: 5px 0;
-      display: flex;
-      justify-content: space-between;
-  }
-  .crumbs p span{
-    cursor: pointer;
-  }
-  .crumbs p span{
-      font-size:12px;
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-  .crumbs p span:hover{
-      color: #5869da;
-  }
-  .carousel {
-    width: 710px;
-    height: 400px;
-    background-size: cover;
-    background-position: 0px -30px;
-    background-image: url('https://img.zcool.cn/community/01dee45dba6188a801209e1fd383c8.jpg@1280w_1l_0o_100sh.jpg');
-    border-radius: 10px;
-    transition: 1s;
-    position: relative;
-  }
-  .carousel:hover {
-    box-shadow: 1px 1px 15px 0;
-  }
-  .carousel:hover .carousel_desc {
-    transform: translateY(-30px);
-  }
-  .carousel .icon {
-    position: relative;
-    top: 10px;
-    left: 20px;
-    font-size: 20px;
-    color: #f00;
-  }
-  .carousel .backcolor {
-    background-image: linear-gradient(transparent, black);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 200px;
-    border-radius: 10px;
-  }
-  .carousel .carousel_desc {
-    position: absolute;
-    bottom: 0;
-    padding: 0 45px;
-    transition: 0.5s;
-  }
-  
-  .carousel_desc h2 {
-    color: #fff;
-    font-size: 21px;
-  }
-  .carousel_desc p {
-    color: #fff;
-    font-size: 12px;
-  }
+	width: 1110px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
 
-  .food{
-    border-radius: 10px;
-    position: relative;
-      width: 350px;
-      box-shadow: 1px 2px 7px 0;
-      transition: 0.5s;
-  }
-  .food:hover{
-      transform: translateY(-15px);
-  }
-  .food .backcolor {
-    background-image: linear-gradient(transparent, black);
-    position: absolute;
-    top: 41%;
-    width: 100%;
-    height: 100px;
-  }
-  .food .food_desc{
-      position: absolute;
-      bottom: 0;
-      padding: 0 20px;
-  }
-  .food_desc h2{
-      font-size: 15px;
-      color: #212529;
-      margin: 20px 0;
-  }
-  .article {
-    width: 1110px;
-    height: 2600px;
-    margin: 30px auto;
-    display: flex;
-    justify-content: space-between;
-    /* border: 1px solid red; */
-  }
-  .article_left {
-    width: 710px;
-    /* border: 1px solid black; */
-  }
-  .article_left_hot .article_left_hot_img  {
-    width: 100%;
-    height: 350px;
-    background-size: cover;
-    background-position: 0px -135px;
-    background-image: url('https://img.zcool.cn/community/019cde5bd29c22a801213dea0a8177.jpg@1280w_1l_2o_100sh.jpg');
+.crumbs {
+	width: 1110px;
+	margin: 0 auto;
+	padding: 5px 0;
+	display: flex;
+	justify-content: space-between;
+}
 
-  }
-  .article_left_hot_content {
-    width: 600px;
-    height: 300px;
-    position: relative;
-    background-color: white;
-    top: -70px;
-    left: 50%;
-    margin-left: -300px;
-    padding: 40px;
-  }
-  .article_left_hot_content_desc {
-    margin-bottom: 25px;
-  }
-  .article_left_hot_content_desc a {
-    display: inline-block;
-    line-height: 30px;
-    height: 30px;
-    border: 1px solid #e9e9e9;
-    color: black;
-    border-radius: 15px;
-    font-size: 12px;
-    padding: 0 20px;
-    margin-right: 15px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  .article_left_hot_content_desc span {
-    display: inline-block;
-    margin: 0 15px;
-  }
-  .readmore{
-    width: 110px;
-    text-align: center;
-    padding: 6px;
-    background: #fff;
-    border: 1px solid #e9e9e9;
-    border-radius: 5px;
-    transition: 1s;
-    cursor: pointer;
-  }
-  .readmore:hover {
-    background-color: #6f6fff;
-  }
-  .article_left_natural_box{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .article_left_natural{
-    width: 330px;
-    height:620px ;
-  }
-  .article_left_natural_img{
-    width: 100%;
-    height: 230px;
-    overflow: hidden;
-  }
-   .article_left_natural .article_left_natural_img img {
-      width: 100%;
-      height: 230px;
-      transition: all 0.7s ease-out;
-    }
-    .article_left_natural:hover img{
-      transform: scale(1.3);
-    }
-      .article_left_natural_content {
-      width: 300px;
-      height: 20px;
-      position: relative;
-      background-color: white;
-      top: -80px;
-      left: 50%;
-      margin-left: -150px;
-      padding: 40px;
-    }
-     .article_left_natural_content_desc {
-      margin-bottom: 25px;
-    }
-     .article_left_natural_content_desc a {
-      display: inline-block;
-      line-height: 30px;
-      height: 30px;
-      border: 1px solid #e9e9e9;
-      color: black;
-      border-radius: 15px;
-      font-size: 12px;
-      padding: 0 20px;
-      margin-right: 15px;
-      margin-bottom: 15px;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-    }
-    .article_left_natural_content_desc span {
-      display: inline-block;
-      margin: 0 15px;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-    }
-    .pagination{
-      width: 100%;
-      text-align: center;
-    }
-    .pagination ul .ant-pagination-item{
-      background-color: aliceblue;
-      color: rgba(0, 0, 0, 0.65);
-    }
-    .pagination ul .ant-pagination-item-active {
-      background-color: #5869da;
-      border-color:#5869da ;
-      color: white;
-    }
-    .pagination ul .ant-pagination-item-active a{
-      color: white;
-    }
-    .ant-pagination-item a:hover{
-      color: #5869da;
-    }
+.crumbs p span {
+	cursor: pointer;
+}
+
+.crumbs p span {
+	font-size: 12px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.crumbs p span:hover {
+	color: #5869da;
+}
+
+.carousel {
+	width: 710px;
+	height: 400px;
+	background-size: cover;
+	background-position: 0px -30px;
+	background-image: url('https://img.zcool.cn/community/01dee45dba6188a801209e1fd383c8.jpg@1280w_1l_0o_100sh.jpg');
+	border-radius: 10px;
+	transition: 1s;
+	position: relative;
+}
+
+.carousel:hover {
+	box-shadow: 1px 1px 15px 0;
+}
+
+.carousel:hover .carousel_desc {
+	transform: translateY(-30px);
+}
+
+.carousel .icon {
+	position: relative;
+	top: 10px;
+	left: 20px;
+	font-size: 20px;
+	color: #f00;
+}
+
+.carousel .backcolor {
+	background-image: linear-gradient(transparent, black);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 200px;
+	border-radius: 10px;
+}
+
+.carousel .carousel_desc {
+	position: absolute;
+	bottom: 0;
+	padding: 0 45px;
+	transition: 0.5s;
+}
+
+.carousel_desc h2 {
+	color: #fff;
+	font-size: 21px;
+}
+
+.carousel_desc p {
+	color: #fff;
+	font-size: 12px;
+}
+
+.food {
+	border-radius: 10px;
+	position: relative;
+	width: 350px;
+	box-shadow: 1px 2px 7px 0;
+	transition: 0.5s;
+}
+
+.food:hover {
+	transform: translateY(-15px);
+}
+
+.food .backcolor {
+	background-image: linear-gradient(transparent, black);
+	position: absolute;
+	top: 41%;
+	width: 100%;
+	height: 100px;
+}
+
+.food .food_desc {
+	position: absolute;
+	bottom: 0;
+	padding: 0 20px;
+}
+
+.food_desc h2 {
+	font-size: 15px;
+	color: #212529;
+	margin: 20px 0;
+}
+
+.article {
+	width: 1110px;
+	height: 2300px;
+	margin: 30px auto;
+	display: flex;
+	justify-content: space-between;    /* border: 1px solid red; */
+}
+
+.article_left {
+	width: 710px;    /* border: 1px solid black; */
+}
+
+.article_left_hot .article_left_hot_img {
+	width: 100%;
+	height: 350px;
+	background-size: cover;
+	background-position: 0px -135px;
+	background-image: url('https://img.zcool.cn/community/019cde5bd29c22a801213dea0a8177.jpg@1280w_1l_2o_100sh.jpg');
+}
+
+.article_left_hot_content {
+	width: 600px;
+	height: 300px;
+	position: relative;
+	background-color: white;
+	top: -70px;
+	left: 50%;
+	margin-left: -300px;
+	padding: 40px;
+}
+
+.article_left_hot_content_desc {
+	margin-bottom: 25px;
+}
+
+.article_left_hot_content_desc a {
+	display: inline-block;
+	line-height: 30px;
+	height: 30px;
+	border: 1px solid #e9e9e9;
+	color: black;
+	border-radius: 15px;
+	font-size: 12px;
+	padding: 0 20px;
+	margin-right: 15px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.article_left_hot_content_desc span {
+	display: inline-block;
+	margin: 0 15px;
+}
+
+.readmore {
+	width: 110px;
+	text-align: center;
+	padding: 6px;
+	background: #fff;
+	border: 1px solid #e9e9e9;
+	border-radius: 5px;
+	transition: 1s;
+	cursor: pointer;
+	position: absolute;
+	bottom: 20px;
+}
+
+.readmore:hover {
+	background-color: #6f6fff;
+}
+
+.article_left_natural_box {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.article_left_natural {
+	width: 330px;
+	height: 454px;
+	margin-bottom: 70px;
+	border: 0.5px #e8e8e8 solid;
+}
+
+.article_left_natural_img {
+	width: 100%;
+	height: 230px;
+	overflow: hidden;
+}
+
+.article_left_natural .article_left_natural_img img {
+	width: 100%;
+	height: 230px;
+	transition: all 0.7s ease-out;
+}
+
+.article_left_natural:hover img {
+	transform: scale(1.3);
+}
+
+.article_left_natural_content {
+	width: 300px;
+	height: 300px;
+	position: relative;
+	background-color: white;
+	top: -80px;
+	left: 50%;
+	margin-left: -150px;
+	padding: 40px;
+}
+
+.article_left_natural_content_title,.article_left_natural_content_content {
+	width: 230px;
+overflow: hidden;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+}
+.article_left_natural_content_title{
+-webkit-line-clamp: 1;
+margin-bottom: 5px;
+line-height: 33px;
+height: 33px;
+}
+.article_left_natural_content_content{
+	-webkit-line-clamp: 3;
+}
+
+.article_left_natural_content_desc {
+	margin-bottom: 25px;
+	width: 230px;
+}
+
+.article_left_natural_content_desc a {
+	display: inline-block;
+	line-height: 30px;
+	height: 30px;
+	border: 1px solid #e9e9e9;
+	color: black;
+	border-radius: 15px;
+	font-size: 12px;
+	padding: 0 20px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.article_left_natural_content_desc span {
+	display: inline-block;
+	margin: 0 5px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.pagination {
+	width: 100%;
+	text-align: center;
+}
+
+.pagination ul .ant-pagination-item {
+	background-color: aliceblue;
+	color: rgba(0, 0, 0, 0.65);
+}
+
+.pagination ul .ant-pagination-item-active {
+	background-color: #5869da;
+	border-color: #5869da;
+	color: white;
+}
+
+.pagination ul .ant-pagination-item-active a {
+	color: white;
+}
+
+.ant-pagination-item a:hover {
+	color: #5869da;
+}

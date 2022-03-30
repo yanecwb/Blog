@@ -1,7 +1,7 @@
 const userInfo ={
   namespaced: true,
   state:{
-    userInfo:JSON.parse( localStorage.getItem('userInfo'))
+    userInfo:JSON.parse( localStorage.getItem('userInfo')) || {accountInfo:{}}
   },
   actions:{},
   mutations:{

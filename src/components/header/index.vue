@@ -27,7 +27,7 @@
                         style="font-size:12px"
                         @click="goRouter('/login')"
                     >Login in</div>
-                    <Icon type="user" v-else-if="avatarUrl == 1" />
+                    <Icon type="user" v-else-if="!avatarUrl" />
                     <img
                         :src="avatarUrl"
                         alt
@@ -49,12 +49,12 @@
                         </li>
                         <li name="frontend" @click="goRouter('/content/frontend')">前端</li>
                         <li name="backend" @click="goRouter('/content/backend')">后端</li>
-                        <li name="android"  @click="goRouter('/content/android')">安卓</li>
-                        <li name="news"  @click="goRouter('/content/news')">其他资讯</li>
+                        <li name="android" @click="goRouter('/content/android')">安卓</li>
+                        <li name="news" @click="goRouter('/content/news')">其他资讯</li>
                     </template>
                     <div style=" position: relative; left: 707px">
-                        <span class="iconfont icon-yueliang" style="color: #00a0e9"></span>
-                        <span href @click="showmenu = !showmenu">
+                        <span class="iconfont icon-yueliang" style="color: #5869da"></span>
+                        <span href @click="change_showmenu">
                             <Icon :type="showmenu ? 'close' : 'setting'" />
                         </span>
                     </div>
@@ -93,7 +93,6 @@ export default {
         return {
             show_backtop: false,
             showmenu: false,
-            avatarUrl: "",
         };
     },
     methods: {
@@ -119,6 +118,9 @@ export default {
         path() {
             return this.$route.path;
         },
+        avatarUrl() {
+            return this.$store.state.userInfo.userInfo.avatarUrl;
+        },
     },
     watch: {
         scrolltop: {
@@ -138,19 +140,18 @@ export default {
         },
         path(path) {
             Array.from(this.$refs.navBar_ul.children).find((item) => {
-                    if(item.getAttribute("name") == this.$route.params.module || item.getAttribute("name") == this.$route.name){
-                        item.className = 'selete_navBar'
-                    }else{
-                        item.className = ''
-                    }
-                });
+                if (
+                    item.getAttribute("name") == this.$route.params.module ||
+                    item.getAttribute("name") == this.$route.name
+                ) {
+                    item.className = "selete_navBar";
+                } else {
+                    item.className = "";
+                }
+            });
         },
     },
-    mounted() {
-        this.avatarUrl = this.$store.state.userInfo.userInfo
-            ? this.$store.state.userInfo.userInfo.avatarUrl
-            : "";
-    },
+    mounted() {},
 };
 </script>
 <style scoped lang='less'>

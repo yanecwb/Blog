@@ -1,6 +1,6 @@
 <template>
   <div style="height: 300px;background-color:#071e37">
-    <footer class="footer_box" v-if="show_footer">
+    <footer class="footer_box" >
       <div class="about_me" ref="about_me">
         <h4>ABOUT ME</h4>
         <p style="color: #777777">
@@ -80,21 +80,21 @@ export default {
         }
     },
   watch: {
-    scrolltop(newval) {
-      if (this.show_footer) return;
-      if (newval >= 2770) {
-        // this.show_footer = true;
-        this.$emit('change_show_footer',true)
-        Vue.nextTick(() => {
-          for (let key in this.$refs) {
-            this.$refs[key].className =
-              this.$refs[key].className +
-              " " +
-              "animate__animated animate__fadeInUp animate__slow";
-          }
-        });
-      }
-    },
+    // scrolltop(newval) {
+    //   if (this.show_footer) return;
+    //   if (newval >= 2770) {
+    //     // this.show_footer = true;
+    //     this.$emit('change_show_footer',true)
+    //     Vue.nextTick(() => {
+    //       for (let key in this.$refs) {
+    //         this.$refs[key].className =
+    //           this.$refs[key].className +
+    //           " " +
+    //           "animate__animated animate__fadeInUp animate__slow";
+    //       }
+    //     });
+    //   }
+    // },
   },
   mounted(){
   }

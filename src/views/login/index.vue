@@ -4,7 +4,7 @@
             <div class="bg_text">Do what you like</div>
             <div class="screen">
                 <div class="screen__content">
-                    <form class="login" ref="login" >
+                    <form class="login" ref="login">
                         <div class="login__field">
                             <i class="login__icon">
                                 <Icon type="user" />
@@ -85,26 +85,18 @@
             </div>
         </div>
         <!-- <Footer :show_footer="true" /> -->
-        <Alert
-            style="position:fixed;top:50px;left:50%;transform: translateX(-58px);"
-            :message="alert_message"
-            :type="alert_type"
-            show-icon
-            v-if="alert_visible"
-        />
     </div>
 </template>
 
 <script>
-import { Icon, Alert } from "ant-design-vue";
+import { Icon } from "ant-design-vue";
 
 import { Login } from "../../api/login";
-import {Register} from '../../api/register'
+import { Register } from "../../api/register";
 export default {
     name: "login",
     components: {
         Icon,
-        Alert,
     },
     data() {
         return {
@@ -114,19 +106,9 @@ export default {
             password: "456",
             is_get_code: false,
             code_time: 59,
-            alert_visible: false,
-            alert_options: {
-                alert_message: "",
-                alert_type: "",
-            },
         };
     },
     methods: {
-        message(msg, type) {
-            this.alert_message = msg;
-            this.alert_type = type;
-            this.alert_visible = true;
-        },
         checkout_form() {
             this.$refs.login__submit.className = "button login__submit";
             setTimeout(() => {
@@ -136,44 +118,48 @@ export default {
             if (this.is_login) {
                 this.is_code_login = false;
             }
-            if(this.is_login){
-               this.username= "",
-            this.password= ""
+            if (this.is_login) {
+                (this.username = ""), (this.password = "");
             }
             this.is_login = !this.is_login;
         },
         login_register($event) {
             $event.preventDefault();
             if (this.is_login) {
-                let {username,password,message,goRouter} = this
+                let { username, password, goRouter } = this;
                 if (username && password) {
                     Login(username, password).then((data) => {
                         if (data.data.code == 200) {
-                            this.$store.commit('userInfo/SAVE_USERINFO',data.data.userInfo);
-                            message("登录成功", "success");
                             let gohometimer = setTimeout(() => {
-                                goRouter("/home");
-                                this.alert_visible = false;
+                                this.$message.success(data.data.msg, 1, () => {
+                                    this.$store.commit(
+                                        "userInfo/SAVE_USERINFO",
+                                        data.data.userInfo
+                                    );
+                                    goRouter("/home");
+                                });
                                 clearTimeout(gohometimer);
                             }, 1000);
                         } else {
-                            message(data.data.message, "error");
                             let gohometimer = setTimeout(() => {
-                                this.alert_visible = false;
+                                this.$message.error(data.data.msg);
                                 clearTimeout(gohometimer);
                             }, 1000);
                         }
                     });
                 } else {
-                    // this.$message.error('请输入')
-                    alert("请输入账号或密码");
+                    this.$message.info("请输入账号或密码");
                 }
                 return;
             }
             // 下面是注册时的代码
-            Register(this.username,this.password).then((data)=>{
-                console.log(data);
-            })
+            Register(this.username, this.password).then((res) => {
+                if (res.data.code == 200) {
+                    this.$message.success("注册成功", 3, () => {
+                        this.is_login = true;
+                    });
+                }
+            });
         },
         // 获取登陆验证码
         get_code() {

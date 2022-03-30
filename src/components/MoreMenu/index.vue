@@ -1,7 +1,7 @@
 <template>
     <div class="menu" ref="menu">
         <div class="userInfo_box">
-            <div class="backgroundUrl">
+            <div :class="userInfo.backgroundUrl ? 'backgroundUrl': 'not_login_bg backgroundUrl'">
                 <div class="savebg" v-if="is_savebg">
                     <span>更换图片</span>
                     <span
@@ -12,12 +12,16 @@
                 <img :src="userInfo.backgroundUrl" alt @click="show_savabgimg" />
             </div>
             <div class="usershow" ref="usershow">
-                <img :src="userInfo.avatarUrl" class="avatar" alt />
-                <p>{{userInfo.nickname}}</p>
+                <img
+                    :src="userInfo.avatarUrl || 'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg'"
+                    class="avatar"
+                    alt
+                />
+                <p>{{userInfo.nickname || '请登录'}}</p>
                 <div class="userlv">
-                    <span>{{userInfo.accountInfo.follows}}关注</span>
-                    <span>{{userInfo.accountInfo.fans}}粉丝</span>
-                    <span>lv{{userInfo.accountInfo.lv}}</span>
+                    <span>{{userInfo.accountInfo.follows || ''}}关注</span>
+                    <span>{{userInfo.accountInfo.fans || ''}}粉丝</span>
+                    <span>lv{{userInfo.accountInfo.lv || ''}}</span>
                 </div>
                 <div class="userlabel">
                     <span>
@@ -26,10 +30,11 @@
                             type="woman"
                             v-else-if="userInfo.sex == 'woman'"
                             style="color:#5869da"
-                        />95后 双鱼座
+                        />
+                        {{userInfo.xz || '星 座'}}
                     </span>
-                    <span>江西 九江</span>
-                    <span>博龄{{userInfo.accountInfo.blog_years}}年</span>
+                    <span>{{userInfo.city || '城 市'}}</span>
+                    <span>博龄{{userInfo.accountInfo.blog_years || '/'}}年</span>
                 </div>
                 <div class="useredit" @click="user_edit">
                     <span>
@@ -38,49 +43,83 @@
                     </span>
                 </div>
                 <div class="useredit_form_show useredit_form_hide" ref="useredit_form">
-                    <form action="">
+                    <form action>
                         <ul>
-                        <li><span >昵称</span><span>{{userInfo.nickname}}</span></li>
-                        <li><span>性别</span><span>{{userInfo.sex == 'man' ? '男':'女'}}</span></li>
-                        <li style="border:none"><span>生日</span><span>{{userInfo.birthday}}</span></li>
-                    </ul>
-                     <ul>
-                        <li><span>地区</span><span>{{userInfo.city}}</span></li>
-                        <li><span>大学</span><span>{{userInfo.university}}</span></li>
-                        <li style="border:none"><span>简介</span><span>{{userInfo.autograph || '这个人很懒，什么都没留下' }}</span></li>
-                    </ul>
-                        <div class="save_useredit"><Button style="background:#0baaeb;color:white;margin:0 10px" >保存</Button></div>
+                            <li>
+                                <span>昵称</span>
+                                <span>{{userInfo.nickname}}</span>
+                            </li>
+                            <li>
+                                <span>性别</span>
+                                <span>{{userInfo.sex == 'man' ? '男':'女'}}</span>
+                            </li>
+                            <li style="border:none">
+                                <span>生日</span>
+                                <span>{{userInfo.birthday}}</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span>地区</span>
+                                <span>{{userInfo.city}}</span>
+                            </li>
+                            <li>
+                                <span>大学</span>
+                                <span>{{userInfo.university}}</span>
+                            </li>
+                            <li style="border:none">
+                                <span>简介</span>
+                                <span>{{userInfo.autograph || '这个人很懒，什么都没留下' }}</span>
+                            </li>
+                        </ul>
+                        <div class="save_useredit">
+                            <Button style="background:#5869da;color:white;margin:0 10px">保存</Button>
+                        </div>
                     </form>
-
                 </div>
             </div>
         </div>
-      <div class="login_button">
-            <Button style="background:#5869da;color:white;margin:0 10px" @click="logout('switch')">切换账号</Button>
-        <Button style="background:#5869da;color:white;margin:0 10px" @click="logout('out')">退出登陆</Button>
-      </div>
+        <div class="login_button" v-if="userInfo.id">
+            <Button
+                style="background:#5869da;color:white;margin:0 10px"
+                @click="logout('switch')"
+            >切换账号</Button>
+            <Button style="background:#5869da;color:white;margin:0 10px" @click="logout('out')">退出登陆</Button>
+        </div>
+        <div class="login_button" v-else>
+            <Button
+                style="background:#5869da;color:white;margin:0 10px"
+                @click="game_visible = true"
+            >Play Game</Button>
+            <Modal v-model="game_visible" title="Basic Modal" width="100">
+                <iframe src="http://47.107.243.60:3009/" frameborder="0" width="700" height="410"></iframe>
+            </Modal>
+        </div>
     </div>
 </template>
 
 <script>
-import { Icon, Button } from "ant-design-vue";
+import { Icon, Button, Modal } from "ant-design-vue";
+import { mapMutations } from "vuex";
 export default {
     name: "MoreMenu",
     components: {
         Icon,
         Button,
+        Modal,
     },
     data() {
         return {
-            userInfo: {},
             is_useredit: false,
             is_savebg: false,
+            game_visible: false,
         };
     },
-    created() {
-        this.userInfo = this.$store.state.userInfo.userInfo || {};
+    computed: {
+        userInfo() {
+            return this.$store.state.userInfo.userInfo;
+        },
     },
-    // emits:['change_showmenu'],
     props: ["showmenu"],
     watch: {
         showmenu(newval) {
@@ -92,17 +131,27 @@ export default {
         },
     },
     methods: {
+        ...mapMutations({
+            SAVE_USERINFO: "userInfo/" + "SAVE_USERINFO",
+        }),
         change_showmenu() {
             this.$emit("change_showmenu");
         },
         logout(type) {
             localStorage.clear("avatarUrl");
-            if(type == 'out'){
-                this.$store.state.userInfo.userInfo = {}
-            }
+            this.SAVE_USERINFO({ accountInfo: {} });
+            this.$refs.useredit_form.className =
+                "useredit_form_show useredit_form_hide";
+            this.$refs.usershow.style.height = 155 + "px";
+            this.$emit("change_showmenu");
             this.goRouter("/login");
         },
         user_edit() {
+            const UserInfo = JSON.parse(localStorage.getItem("userInfo"));
+            if (!UserInfo.id) {
+                this.$message.info("请先登录");
+                return;
+            }
             const { usershow, useredit_form } = this.$refs;
             if (!this.is_useredit) {
                 usershow.style.height = 500 + "px";
@@ -132,7 +181,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style  scoped lang='less'>
 .menu {
     width: 300px;
     height: 100vh;
@@ -148,6 +197,10 @@ export default {
     width: 100%;
     height: 90vh;
     position: relative;
+    .not_login_bg {
+        background-image: url("https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg");
+        background-size: cover;
+    }
 }
 .userInfo_box .backgroundUrl {
     width: 100%;
@@ -252,40 +305,38 @@ export default {
     display: block !important;
     width: 260px;
 }
-.useredit_form_show ul{
+.useredit_form_show ul {
     list-style: none;
     text-align: left;
     border-bottom: 5px #e8e8e8 solid;
     width: 100%;
     margin: 0;
-    padding:0 10px;
+    padding: 0 10px;
 }
-.useredit_form_show ul li{
+.useredit_form_show ul li {
     height: 30px;
-        border-bottom: 1px #e8e8e8 solid;
-display: flex;
-justify-content: space-between;
-line-height: 30px;
+    border-bottom: 1px #e8e8e8 solid;
+    display: flex;
+    justify-content: space-between;
+    line-height: 30px;
 }
-.useredit_form_show ul li span:nth-of-type(1){
-   font-size:13px;
-   color:rgba(0, 0, 0, 0.95);
-   display: inline-block;
-   transform: scale(0.96);
+.useredit_form_show ul li span:nth-of-type(1) {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.95);
+    display: inline-block;
+    transform: scale(0.96);
 }
 
 .useredit_form_hide {
     display: none !important;
 }
 
-.save_useredit{
+.save_useredit {
     top: 95px;
     left: 99px;
 }
 
-
-
-.login_button{
+.login_button {
     width: 100%;
     padding: 20px;
     text-align: center;
