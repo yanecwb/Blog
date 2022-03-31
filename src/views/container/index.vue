@@ -170,8 +170,7 @@ export default {
     methods: {
         onChange() {},
         watch_scrolltop() {
-            const css =
-                "article_left_natural animate__animated animate__slideInUp";
+            const css = "article_left_natural animate__animated animate__slideInUp";
             let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
                 if (newval >= 700) {
                     for (

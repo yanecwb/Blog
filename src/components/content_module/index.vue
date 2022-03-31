@@ -1,7 +1,11 @@
 <template>
     <div class="content_moduleBox">
         <article class="content_list">
-            <section v-for="(list,index) in 3" :key="index" :style="index == 0 ? {'padding':'none'} : ''">
+            <section
+                v-for="(list,index) in 3"
+                :key="index"
+                :style="index == 0 ? {'padding':'none'} : ''"
+            >
                 <li>
                     <div class="content_list_author">
                         <span style="padding-left:0">前端superman</span>
@@ -11,15 +15,21 @@
                     <a class="title">你最少用几行代码实现深拷贝？</a>
                     <p>前言 深度克隆（深拷贝）一直都是初、中级前端面试中经常被问到的题目，网上介绍的实现方式也都各有千秋，大体可以概括为三种方式： JSON.stringify+JSON.parse, 这个很好理解； 全量</p>
                     <div class="content_list_flow">
-                        <div style="padding-left:0"><Icon type="eye" />1.1w</div>
-                        <div class="zan"><Icon type="like" />105</div>
-                        <div class="comment"><Icon type="message" />37</div>
+                        <div style="padding-left:0">
+                            <Icon type="eye" />1.1w
+                        </div>
+                        <div class="zan">
+                            <Icon type="like" />105
+                        </div>
+                        <div class="comment">
+                            <Icon type="message" />37
+                        </div>
                     </div>
                 </li>
             </section>
         </article>
         <aside class="aside">
-            <div>1</div>
+            <div class="t">...</div>
             <div>2</div>
             <div>3</div>
         </aside>
@@ -27,18 +37,19 @@
 </template>
 
 <script>
-import {Icon} from 'ant-design-vue'
+import { Icon } from "ant-design-vue";
 export default {
     name: "content_module",
-    components:{
-        Icon
-    }
+    components: {
+        Icon,
+    },
 };
 </script>
 
 <style lang="less" scoped>
 .content_moduleBox {
     width: 100%;
+    height: 1200px;
     padding: 15px calc((100vw - 1110px) / 2) 0 calc((100vw - 1110px) / 2);
     margin: 0 auto;
     background-color: #f1f2f3;
@@ -47,7 +58,7 @@ export default {
     .content_list {
         width: 780px;
         background-color: white;
-        section{
+        section {
             width: 780px;
             padding: 0 15px;
             cursor: pointer;
@@ -103,22 +114,28 @@ export default {
                 text-overflow: ellipsis;
                 margin: 12px 0;
             }
-            .content_list_flow{
+            .content_list_flow {
                 display: flex;
-                div{
+                div {
                     padding: 0 8px;
                     cursor: pointer;
                 }
-                .comment:hover,.zan:hover{
+                .comment:hover,
+                .zan:hover {
                     color: #5869da;
                 }
             }
         }
     }
-    .aside{
+    .aside {
         width: calc(100% - 790px);
         height: 200px;
         background-color: white;
+        .t {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 </style>
