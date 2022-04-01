@@ -65,7 +65,6 @@
 
 <script>
 import "./footer.css";
-import Vue from "vue";
 export default {
   name: "Footer",
   data() {

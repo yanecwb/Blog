@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <!-- 头部 -->
-        <div class="header_box">
+  <div>
+    <!-- 头部 -->
+    <!-- <div class="header_box">
             <div class="header_box_top">
                 <div class="logo" @click="goRouter('/home')">
                     <img src="../../assets/Blog_logo.png" alt />
@@ -27,7 +27,7 @@
                         style="font-size:12px"
                         @click="goRouter('/login')"
                     >Login in</div>
-                    <Icon type="user" v-else-if="!avatarUrl" />
+                    <Icon type="user" v-if="!avatarUrl" />
                     <img
                         :src="avatarUrl"
                         alt
@@ -38,42 +38,43 @@
                     />
                 </div>
             </div>
+        </div> -->
+    <!-- 导航 -->
+    <div class="header_box_navBar" ref='navBar' >
+      <ul>
+        <div style>
+          <span href @click="change_showmenu">
+            <Icon :type="showmenu ? 'close' : 'setting'" />
+          </span>
+          <span class="iconfont icon-yueliang" style="color: #5869da"></span>
         </div>
-        <!-- 导航 -->
-        <div style="height: 54px">
-            <div class="header_box_navBar" ref="navBar">
-                <ul ref="navBar_ul">
-                    <template>
-                        <li @click="goRouter('/home')" name="home">
-                            <Icon type="home" style="margin-right: 2px" />首页
-                        </li>
-                        <li name="frontend" @click="goRouter('/content/frontend')">前端</li>
-                        <li name="backend" @click="goRouter('/content/backend')">后端</li>
-                        <li name="android" @click="goRouter('/content/android')">安卓</li>
-                        <li name="news" @click="goRouter('/content/news')">其他资讯</li>
-                    </template>
-                    <div style=" position: relative; left: 707px">
-                        <span class="iconfont icon-yueliang" style="color: #5869da"></span>
-                        <span href @click="change_showmenu">
-                            <Icon :type="showmenu ? 'close' : 'setting'" />
-                        </span>
-                    </div>
-                </ul>
-            </div>
+        <div ref="navBar_ul" style="display:inherit">
+          <li @click="goRouter('/home')" name="home">
+            <Icon type="home" style="margin-right: 2px" />首 页
+          </li>
+          <li name="frontend" @click="goRouter('/content/frontend')">前 端</li>
+          <li name="backend" @click="goRouter('/content/backend')">后 端</li>
+          <li name="android" @click="goRouter('/content/android')">安 卓</li>
+          <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
         </div>
-        <!-- 返回头部 -->
-        <div
-            class="back_top animate__animated animate__fadeInDown"
-            v-if="show_backtop"
-            @click="backtop"
-        >
-            <span class="iconfont icon-icon--fanhuidingbu" style="font-size: 25px"></span>
-        </div>
-        <!-- 遮罩层 -->
-        <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
-        <!-- 菜单 -->
-        <MoreMenu :showmenu="showmenu" @change_showmenu="change_showmenu" />
+      </ul>
     </div>
+    <!-- 返回头部 -->
+    <div
+      class="back_top animate__animated animate__fadeInDown"
+      v-if="show_backtop"
+      @click="backtop"
+    >
+      <span
+        class="iconfont icon-icon--fanhuidingbu"
+        style="font-size: 25px"
+      ></span>
+    </div>
+    <!-- 遮罩层 -->
+    <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
+    <!-- 菜单 -->
+    <MoreMenu :showmenu="showmenu" @change_showmenu="change_showmenu" />
+  </div>
 </template>
 
 <script>
@@ -84,75 +85,126 @@ import { Icon } from "ant-design-vue";
 
 import MoreMenu from "../MoreMenu/index.vue";
 export default {
-    name: "Header",
-    components: {
-        Icon,
-        MoreMenu,
+  name: "Header",
+  components: {
+    Icon,
+    MoreMenu,
+  },
+  data() {
+    return {
+      show_backtop: false,
+      showmenu: false,
+    };
+  },
+  props:['app'],
+  methods: {
+    backtop() {
+      this.timer = setInterval(() => {
+        document.documentElement.scrollTop -= 12;
+        if (document.documentElement.scrollTop == 0) {
+          clearInterval(this.timer);
+        }
+      }, 1);
     },
-    data() {
-        return {
-            show_backtop: false,
-            showmenu: false,
-        };
+    change_showmenu() {
+      this.showmenu = !this.showmenu;
     },
-    methods: {
-        backtop() {
-            this.timer = setInterval(() => {
-                document.documentElement.scrollTop -= 12;
-                if (document.documentElement.scrollTop == 0) {
-                    clearInterval(this.timer);
-                }
-            }, 1);
-        },
-        change_showmenu() {
-            this.showmenu = !this.showmenu;
-        },
+  },
+
+  created() {
+    getWeather();
+  },
+  computed: {
+    scrolltop() {
+      return this.$store.state.scroll.scrollTop;
     },
-    created() {
-        getWeather();
+    path() {
+      return this.$route.path;
     },
-    computed: {
-        scrolltop() {
-            return this.$store.state.scroll.scrollTop;
-        },
-        path() {
-            return this.$route.path;
-        },
-        avatarUrl() {
-            return this.$store.state.userInfo.userInfo.avatarUrl;
-        },
+    avatarUrl() {
+      return this.$store.state.userInfo.userInfo.avatarUrl;
     },
-    watch: {
-        scrolltop: {
-            handler(newval) {
-                if (newval >= 180) {
-                    this.$refs.navBar.style.position = "fixed";
-                    this.$refs.navBar.style.top = 0;
-                    this.$refs.navBar.className =
-                        "header_box_navBar animate__animated animate__fadeInDown";
-                    this.show_backtop = true;
-                } else {
-                    this.$refs.navBar.style.position = "";
-                    this.$refs.navBar.className = "header_box_navBar";
-                    this.show_backtop = false;
-                }
-            },
-        },
-        path(path) {
-            Array.from(this.$refs.navBar_ul.children).find((item) => {
-                if (
-                    item.getAttribute("name") == this.$route.params.module ||
-                    item.getAttribute("name") == this.$route.name
-                ) {
-                    item.className = "selete_navBar";
-                } else {
-                    item.className = "";
-                }
-            });
-        },
+  },
+  watch: {
+    // scrolltop: {
+    //   handler(newval, oldval) {
+    //     if (newval >= oldval) {
+    //       this.$refs.navBar.style.position = "";
+    //       this.$refs.navBar.className = "header_box_navBar";
+    //       this.show_backtop = false;
+    //     } else {
+    //       this.$refs.navBar.style.position = "fixed";
+    //       this.$refs.navBar.style.top = 0;
+    //       this.$refs.navBar.className =
+    //         "header_box_navBar animate__animated animate__fadeInDown";
+    //       this.$refs.navBar.style.backGround = "white";
+    //       this.show_backtop = true;
+    //     }
+    //   },
+    // },
+    path: {
+      immediate: true,
+      handler() {
+        this.$nextTick(()=>{
+          Array.from(this.$refs.navBar_ul.children).find((item) => {
+          if (
+            item.getAttribute("name") == this.$route.params.module ||
+            item.getAttribute("name") == this.$route.name
+          ) {
+            item.className = "selete_navBar";
+          } else {
+            item.className = "hvr-underline-from-center";
+          }
+        });
+        })
+      },
     },
-    mounted() {},
+  },
+  mounted() {
+    setTimeout(()=>{
+      console.log(this.scrolltop);
+      if(this.scrolltop>50){
+      this.$refs.navBar.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+      this.$refs.navBar.style.color = 'rgba(0,0,0,.8)'
+    }
+    },0)
+document.getElementsByTagName('head')[0].children[3].innerText = 'Flechazo';
+    window.onmousewheel = document.onmousewheel = wheel; //W3C
+    //统一处理滚轮滚动事件
+    const _this = this;
+    function wheel(event) {
+      var delta = 0;
+      if (!event) event = window.event;
+      if (event.wheelDelta) {
+        //IE、chrome浏览器使用的是wheelDelta，并且值为“正负120”
+        delta = event.wheelDelta / 120;
+        if (window.opera) delta = -delta; //因为IE、chrome等向下滚动是负值，FF是正值，为了处理一致性，在此取反处理
+      } else if (event.detail) {
+        //FF浏览器使用的是detail,其值为“正负3”
+        delta = -event.detail / 3;
+      }
+      if (delta) handle(delta);
+    }
+    //上下滚动时的具体处理函数
+    const handle = (delta) => {
+      if (delta < 0) {
+        //向下滚动
+        if(this.scrolltop > 50){
+            this.$refs.navBar.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+      this.$refs.navBar.style.color = 'rgba(0,0,0,.8)'
+      this.$refs.navBar.className = 'header_box_navBar animate__fadeOutUp animate__animated '
+        }
+      } else {
+        this.$refs.navBar.style.backgroundColor = ''
+      this.$refs.navBar.style.color = 'rgba(255, 255, 255,0.8)'
+      this.$refs.navBar.className = 'header_box_navBar animate__fadeInDown animate__animated '
+      }
+    };
+  },
 };
 </script>
-<style scoped lang='less'>
+<style scoped lang="less">
+.navBar_show {
+  color: rgba(0, 0, 0, 0.87);
+}
 </style>

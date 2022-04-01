@@ -148,7 +148,7 @@ export default {
         },
         user_edit() {
             const UserInfo = JSON.parse(localStorage.getItem("userInfo"));
-            if (!UserInfo.id) {
+            if (!UserInfo || !UserInfo.id) {
                 this.$message.info("请先登录");
                 return;
             }

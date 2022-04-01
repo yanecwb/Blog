@@ -114,8 +114,7 @@
                         :pageSize="2"
                         :show-total="total => `共 ${total} 篇文章`"
                         @change="onChange"
-                        background-color:
-                        #6f6fff;
+                        background-color:'6f6fff'
                     />
                 </div>
             </div>
@@ -206,7 +205,6 @@ export default {
     async mounted() {
         const res = await getArticle_list();
         this.article_list = res.data.list.list;
-        console.log(res);
         this.total = res.data.total;
         const res2 = await getSide_list();
         this.side_list = res2.data.list;

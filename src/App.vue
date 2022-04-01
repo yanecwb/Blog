@@ -1,6 +1,6 @@
 <template>
-    <div id="app" class="app">
-        <Header />
+    <div id="app" class="app" ref="App">
+        <Header :app='$refs.App'/>
         <router-view></router-view>
         <Footer :show_footer="show_footer" @change_show_footer="change_show_footer" />
     </div>
@@ -27,6 +27,7 @@ export default {
     },
     mounted() {
         const Document = document.documentElement;
+        this.$store.commit('scroll/change_scrollTop',Document.scrollTop);
         document.querySelector("body").onscroll = () => {
             this.$store.commit('scroll/change_scrollTop',Document.scrollTop);
         };
