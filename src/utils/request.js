@@ -13,6 +13,7 @@ request.interceptors.request.use(
     // 默认情况下：只会触发成功的回调
     (config) => {
         console.log(config);
+        return config
     },
     // 请求失败的回调
     (err) => {
@@ -35,7 +36,6 @@ request.interceptors.response.use(
     (err) => {
         // 提示错误
         console.log(err.message);
-
         return Promise.reject()
     }
 )

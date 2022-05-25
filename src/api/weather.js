@@ -1,9 +1,15 @@
-// import request from "../utils/request";
 import axios from 'axios'
+export const weather_json = {
+  '晴':' icon-taiyang',
+  '雨':' icon-yu',
+  '雪':' icon-xue',
+  '雾霾':' icon-wu',
+  '月':' icon-yueliang',
+}
 export const getWeather = ()=>{
     return axios({
         method:'get',
-        url:`/weather_api`,
+        url:`https://www.tianqiapi.com/api`,
         params:{
             cityid:101280601,
             unescape:1,

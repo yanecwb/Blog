@@ -40,15 +40,15 @@
             </div>
         </div> -->
     <!-- 导航 -->
-    <div class="header_box_navBar" ref='navBar' >
+    <header class="header_box_navBar" ref="navBar">
       <ul>
         <div style>
           <span href @click="change_showmenu">
             <Icon :type="showmenu ? 'close' : 'setting'" />
           </span>
-          <span class="iconfont icon-yueliang" style="color: #5869da"></span>
+          <span :class="'iconfont' + weather" style="color: white"></span>
         </div>
-        <div ref="navBar_ul" style="display:inherit">
+        <div ref="navBar_ul" style="display: flex;">
           <li @click="goRouter('/home')" name="home">
             <Icon type="home" style="margin-right: 2px" />首 页
           </li>
@@ -56,9 +56,10 @@
           <li name="backend" @click="goRouter('/content/backend')">后 端</li>
           <li name="android" @click="goRouter('/content/android')">安 卓</li>
           <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
+          <li><Icon type="edit" style="font-size:14px;color:white" title="写文章" @click="goRouter('/upload_article')" /></li>
         </div>
       </ul>
-    </div>
+    </header>
     <!-- 返回头部 -->
     <div
       class="back_top animate__animated animate__fadeInDown"
@@ -80,7 +81,7 @@
 <script>
 import "./header.css";
 // import "animate.css";
-import { getWeather } from "../../api/weather";
+import { getWeather, weather_json } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 
 import MoreMenu from "../MoreMenu/index.vue";
@@ -94,9 +95,10 @@ export default {
     return {
       show_backtop: false,
       showmenu: false,
+      weather: "",
     };
   },
-  props:['app'],
+  props: ["app"],
   methods: {
     backtop() {
       this.timer = setInterval(() => {
@@ -111,8 +113,14 @@ export default {
     },
   },
 
-  created() {
-    getWeather();
+  async created() {
+    const res = await getWeather();
+    const arr = Object.keys(weather_json);
+    Array.from(res.data.data[0].wea_day).forEach((item) => {
+      if (arr.indexOf(item) > -1) {
+        this.weather = weather_json[item];
+      }
+    });
   },
   computed: {
     scrolltop() {
@@ -145,33 +153,33 @@ export default {
     path: {
       immediate: true,
       handler() {
-        this.$nextTick(()=>{
+        this.$nextTick(() => {
           Array.from(this.$refs.navBar_ul.children).find((item) => {
-          if (
-            item.getAttribute("name") == this.$route.params.module ||
-            item.getAttribute("name") == this.$route.name
-          ) {
-            item.className = "selete_navBar";
-          } else {
-            item.className = "hvr-underline-from-center";
-          }
+            if (
+              item.getAttribute("name") == this.$route.params.module ||
+              item.getAttribute("name") == this.$route.name
+            ) {
+              item.className = "selete_navBar";
+            } else {
+              item.className = "hvr-underline-from-center";
+            }
+          });
         });
-        })
       },
     },
   },
   mounted() {
-    setTimeout(()=>{
+    console.log(this);
+    setTimeout(() => {
       console.log(this.scrolltop);
-      if(this.scrolltop>50){
-      this.$refs.navBar.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
-      this.$refs.navBar.style.color = 'rgba(0,0,0,.8)'
-    }
-    },0)
-document.getElementsByTagName('head')[0].children[3].innerText = 'Flechazo';
+      if (this.scrolltop > 50) {
+        this.$refs.navBar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+        this.$refs.navBar.style.color = "rgba(0,0,0,.8)";
+      }
+    }, 0);
+    document.getElementsByTagName("head")[0].children[3].innerText = "Flechazo";
     window.onmousewheel = document.onmousewheel = wheel; //W3C
     //统一处理滚轮滚动事件
-    const _this = this;
     function wheel(event) {
       var delta = 0;
       if (!event) event = window.event;
@@ -187,17 +195,20 @@ document.getElementsByTagName('head')[0].children[3].innerText = 'Flechazo';
     }
     //上下滚动时的具体处理函数
     const handle = (delta) => {
+      if(this.$route.path !== '/home') return
       if (delta < 0) {
         //向下滚动
-        if(this.scrolltop > 50){
-            this.$refs.navBar.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
-      this.$refs.navBar.style.color = 'rgba(0,0,0,.8)'
-      this.$refs.navBar.className = 'header_box_navBar animate__fadeOutUp animate__animated '
+        if (this.scrolltop > 50) {
+          this.$refs.navBar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+          this.$refs.navBar.style.color = "rgba(0,0,0,.8)";
+          this.$refs.navBar.className =
+            "header_box_navBar animate__fadeOutUp animate__animated ";
         }
       } else {
-        this.$refs.navBar.style.backgroundColor = ''
-      this.$refs.navBar.style.color = 'rgba(255, 255, 255,0.8)'
-      this.$refs.navBar.className = 'header_box_navBar animate__fadeInDown animate__animated '
+        this.$refs.navBar.style.backgroundColor = "";
+        this.$refs.navBar.style.color = "rgba(255, 255, 255,0.8)";
+        this.$refs.navBar.className =
+          "header_box_navBar animate__fadeInDown animate__animated ";
       }
     };
   },

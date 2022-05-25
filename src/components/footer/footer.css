@@ -18,7 +18,7 @@
     margin-bottom: 30px;
     color: white;
 }
-.footer_box div h4:after{
+/* .footer_box div h4:after{
     content: '';
     position: absolute;
     left: 0;
@@ -28,7 +28,7 @@
     height: 2px;
     width: 39px;
     background-color: #eaecee;
-}
+} */
 .quick_link ul{
 list-style: none;
 }
@@ -59,11 +59,11 @@ list-style: none;
     border-right: none;
     outline:none
 }
-input::-webkit-input-placeholder { /* WebKit browsers */ 
-    color: #9EA39E; 
+input::-webkit-input-placeholder { /* WebKit browsers */
+    color: #9EA39E;
     font-size:12px ;
     font-family: 'Gabriola';
-    } 
+    }
 .email_input button{
     width:75px ;
     height: 30px;

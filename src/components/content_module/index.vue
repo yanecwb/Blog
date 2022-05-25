@@ -1,7 +1,7 @@
 <template>
   <div>
     <Banner
-      bg="https://img.zcool.cn/community/01013f623c34cf0002c3290f346dea.jpg@1280w_1l_2o_100sh.jpg"
+      bg="https://img.zcool.cn/community/018py56hjpacbuonvklo2l3938.jpg?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100/format,webp/quality,Q_100"
     />
     <div class="content_moduleBox">
       <article class="content_list">
@@ -10,7 +10,7 @@
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
         >
-          <li>
+          <li class="li" @click="goRouter('/article_detail')">
             <div :style="list.imgUrl ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
                 <span style="padding-left: 0">前端superman</span>
@@ -98,8 +98,9 @@ export default {
 <style lang="less" scoped>
 .content_moduleBox {
   width: 100%;
-  height: 1200px;
+  height: auto;
   padding: 15px calc((100vw - 1110px) / 2) 0 calc((100vw - 1110px) / 2);
+  padding-bottom: 20px;
   margin: 0 auto;
   background-color: #f1f2f3;
   display: flex;
@@ -112,12 +113,16 @@ export default {
       padding: 0 15px;
       cursor: pointer;
     }
+    .li:hover{
+      background-color: #fbfbfb;
+    }
     li {
       list-style: none;
       width: 760px;
       height: 150px;
       border-top: 1px solid #e5e6eb;
       padding-top: 15px;
+
       .content_list_author {
         margin-bottom: 10px;
         width: 100%;

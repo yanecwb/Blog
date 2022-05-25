@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="app" ref="App">
-        <Header :app='$refs.App'/>
+        <Header :app='$refs.App' v-if="$route.path !== '/upload_article'"/>
         <router-view></router-view>
         <Footer :show_footer="show_footer" @change_show_footer="change_show_footer" />
     </div>

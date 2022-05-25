@@ -1,7 +1,12 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //引入插件
+import path from 'path'
 module.exports = {
   lintOnSave: false,
-
+  resolve: {
+    alias: {
+        '@': path.resolve(__dirname, 'src')
+    }
+  },
   configureWebpack: {
     optimization: {
       minimizer: [
@@ -30,7 +35,7 @@ module.exports = {
     },
     proxy: {
       '/node_api': {
-        target: 'http://localhost:5003', 
+        target: 'http://localhost:5003',
         ws: true,
         secure: false,
         changeOrigin: true,

@@ -91,6 +91,10 @@
                 style="background:#5869da;color:white;margin:0 10px"
                 @click="game_visible = true"
             >Play Game</Button>
+            <Button
+                style="background:#5869da;color:white;margin:0 10px"
+                @click="goRouter('/login')"
+            >Login</Button>
             <Modal v-model="game_visible" title="Basic Modal" width="100">
                 <iframe src="http://47.107.243.60:3009/" frameborder="0" width="700" height="410"></iframe>
             </Modal>

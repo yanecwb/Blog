@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import {Home ,Login , About_me ,Content_module} from './router-path.js'
+import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article} from './router-path.js'
 
 Vue.use(VueRouter);
 const routes = [
@@ -23,7 +23,17 @@ const routes = [
     {
         path:'/content/:module',
         name:'content',
-        component:Content_module
+        component:Content_module,
+    },
+    {
+      path:'/article_detail/:id?',
+      name:'article_detail',
+      component:Article_detail
+    },
+    {
+      path:'/Upload_article',
+      name:'upload_article',
+      component:Upload_article
     }
 ];
 
