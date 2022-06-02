@@ -108,9 +108,10 @@
             <Pagination
               size="small"
               :total="total"
-              :pageSize="6"
+              :pageSize="size"
               :show-total="(total) => `共 ${total} 篇文章`"
-              @change="onChange"
+              @change="current_Change"
+              :current='current'
             />
           </div>
         </div>
@@ -156,6 +157,8 @@ export default {
     return {
       article_list: [],
       side_list: [],
+      current:1,
+      size:6,
       total: 0,
     };
   },
@@ -164,7 +167,18 @@ export default {
     Pagination,
   },
   methods: {
-    onChange() {},
+    current_Change(current) {
+      this.current = current
+      this.get_article_list()
+  },
+  async get_article_list(){
+    const { current ,size } = this
+    const res = await getArticle_list({current,size});
+    this.article_list = res.data.list;
+    this.total = res.data.total;
+    const res2 = await getSide_list();
+    this.side_list = res2.data.list;
+    },
     watch_scrolltop() {
       const css = "article_left_natural animate__animated animate__slideInUp";
       let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
@@ -195,12 +209,8 @@ export default {
       return this.$store.state.scroll.scrollTop;
     },
   },
-  async mounted() {
-    const res = await getArticle_list();
-    this.article_list = res.data.list.list;
-    this.total = res.data.total;
-    const res2 = await getSide_list();
-    this.side_list = res2.data.list;
+  mounted() {
+    this.get_article_list()
     this.watch_scrolltop();
     this.$refs.carousel.className =
       "carousel animate__animated animate__backInLeft";

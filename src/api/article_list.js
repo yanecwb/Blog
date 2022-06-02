@@ -1,9 +1,10 @@
 // import request from "../utils/request";
 import axios from 'axios'
-export const getArticle_list = ()=>{
+export const getArticle_list = (data)=>{
     return axios({
         method:'get',
         url:`/node_api/article_list`,
+        params:{...data}
     })
 }
 

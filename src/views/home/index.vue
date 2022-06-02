@@ -15,7 +15,10 @@ export default {
     Banner,
     Container
   },
-    
+  created(){
+    this.$store.commit('change_show_footer',false)
+  }
+
 };
 </script>
 

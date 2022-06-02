@@ -1,12 +1,6 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //引入插件
-import path from 'path'
 module.exports = {
   lintOnSave: false,
-  resolve: {
-    alias: {
-        '@': path.resolve(__dirname, 'src')
-    }
-  },
   configureWebpack: {
     optimization: {
       minimizer: [
