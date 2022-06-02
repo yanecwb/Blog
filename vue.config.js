@@ -1,6 +1,13 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //引入插件
 module.exports = {
   lintOnSave: false,
+  css: {
+    loaderOptions: {
+      postcss: {
+        plugins: [require('tailwindcss'), require('autoprefixer')]
+      }
+    }
+  },
   configureWebpack: {
     optimization: {
       minimizer: [

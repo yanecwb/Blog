@@ -10,7 +10,7 @@
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
         >
-          <li class="li" @click="goRouter('/article_detail')">
+          <li class="li" @click="goRouter('/article_detail/5d7907c0-e240-11ec-a0b2-8fb7fb0dcc00')">
             <div :style="list.imgUrl ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
                 <span style="padding-left: 0">前端superman</span>

@@ -5,10 +5,10 @@ import "./assets/fonticon/iconfont.css";
 import router from "./route";
 import "animate.css";
 import "hover.css";
-// 公共css
-import './utils/public.less'
-import Swal from "sweetalert2";
-import { message } from "ant-design-vue";
+import "./assets/tailwindcss.css"
+import './utils/public.less'// 公共css
+import Swal from "sweetalert2"; //提示组件
+import { message } from "ant-design-vue"; //ant-message组件
 Vue.prototype.$message = message;
 Vue.prototype.$Swal = Swal;
 
