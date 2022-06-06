@@ -38,16 +38,37 @@
         </button>
       </div>
     </div>
+    <Modal v-model="modal_visible">
+      <div class="clearfix">
+    <Upload
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      list-type="picture-card"
+      v-model="fileList"
+      @preview="handlePreview"
+    >
+      <div v-if="fileList.length < 8">
+        <PlusOutlined />
+        <div class="ant-upload-text">Upload</div>
+      </div>
+    </Upload>
+  </div>
+    </Modal>
   </div>
 </template>
 
 <script>
-import "@wangeditor/editor/dist/css/style.css";
+// 富文本编辑器
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import "@wangeditor/editor/dist/css/style.css";
+
+// 基本信息表单
+import { Modal,Upload,PlusOutlined } from 'ant-design-vue'
+
+// api
 import { uploadArticle, updateArticle } from "../../api/upload_article";
 export default {
   name: "upload_article",
-  components: { Editor, Toolbar },
+  components: { Editor, Toolbar,Modal,Upload,PlusOutlined },
   data() {
     return {
       editor: null,
@@ -55,6 +76,37 @@ export default {
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
+      module:'frontend',
+      modal_visible:true,
+      fileList:[{
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      },
+      {
+        uid: '-2',
+        name: 'image.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      },
+      {
+        uid: '-3',
+        name: 'image.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      },
+      {
+        uid: '-4',
+        name: 'image.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      },
+      {
+        uid: '-5',
+        name: 'image.png',
+        status: 'error',
+      }]
     };
   },
   methods: {
@@ -88,6 +140,7 @@ export default {
           )
         : await uploadArticle(
             this.html,
+            this.module,
             this.$store.state.userInfo.userInfo.id
           );
       res.data.code == 200

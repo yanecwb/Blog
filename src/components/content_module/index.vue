@@ -6,12 +6,12 @@
     <div class="content_moduleBox">
       <article class="content_list">
         <section
-          v-for="(list, index) in resList"
+          v-for="(list, index) in article_moduleList"
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
         >
-          <li class="li" @click="goRouter('/article_detail/5d7907c0-e240-11ec-a0b2-8fb7fb0dcc00')">
-            <div :style="list.imgUrl ? { float: 'left', width: '620px' } : ''">
+          <li class="li" @click="goRouter(`/article_detail/${list.id}`)">
+            <div :style="list.content.indexOf('<img') != 1 ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
                 <span style="padding-left: 0">前端superman</span>
                 <span>13天前</span>
@@ -32,7 +32,7 @@
               </div>
             </div>
             <img
-              v-if="list.imgUrl"
+              v-if="list.content.indexOf('<img') != 1"
               :src="list.imgUrl"
               style="width: 120px; height: 80px; float: right; margin-top: 10px"
             />
@@ -51,8 +51,14 @@
 <script>
 import { Icon } from "ant-design-vue";
 import Banner from "../../views/banner";
+import { Get_Article_ModuleList } from "../../api/article_list";
 export default {
   name: "content_module",
+  data() {
+    return {
+      article_moduleList: [],
+    };
+  },
   components: {
     Icon,
     Banner,
@@ -65,32 +71,11 @@ export default {
   watch: {
     module_name: {
       immediate: true,
-      handler(newval) {
-        const modeule_options = {
-          frontend: 1,
-          backend: 2,
-        };
-        if (modeule_options[newval] == 1) {
-          this.resList = [
-            {
-              imgUrl:
-                "https://img.zcool.cn/community/01f52262443d0d0002c3290fb3c7a7.jpg@520w_390h_1c_1e_2o_100sh.jpg",
-            },
-            {},
-          ];
-        }else{
-          this.resList = [
-            {},
-            {},
-          ];
-        }
+      async handler(newval) {
+        const res = await Get_Article_ModuleList(newval);
+        this.article_moduleList = res.data.article_moduleList
       },
     },
-  },
-  data() {
-    return {
-      resList: [],
-    };
   },
 };
 </script>
@@ -113,7 +98,7 @@ export default {
       padding: 0 15px;
       cursor: pointer;
     }
-    .li:hover{
+    .li:hover {
       background-color: #fbfbfb;
     }
     li {
