@@ -6,6 +6,7 @@
       style="text-align: center; margin: 0; font-family: 黑体"
     >
       分享你的知识
+      <Icon type='edit' @click="modal_visible = true" class="text-base" title="修改基本信息"/>
     </h1>
     <div
       style="
@@ -38,37 +39,60 @@
         </button>
       </div>
     </div>
-    <Modal v-model="modal_visible">
-      <div class="clearfix">
-    <Upload
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-      list-type="picture-card"
-      v-model="fileList"
-      @preview="handlePreview"
-    >
-      <div v-if="fileList.length < 8">
-        <PlusOutlined />
-        <div class="ant-upload-text">Upload</div>
+    <Modal title='请先确定基本信息' okText='确定' cancelText='取消' :closable='false' :mask='true' v-model="modal_visible" @ok='modal_visible = false' @cancel='modal_cancel'>
+      <div class="first_msg">
+        <div class="inline-block w-16 font-bold">标题*：</div>
+        <Input placeholder="Basic usage" v-model="base_info.article_title" class="w-84" />
       </div>
-    </Upload>
-  </div>
+       <div class="first_msg">
+        <div class="inline-block w-16 font-bold">分类*：</div>
+        <Input placeholder="Basic usage" v-model="base_info.article_classify" class="w-84" />
+      </div>
+      <div class="first_msg">
+        <div class="inline-block w-16 font-bold">封面*：</div>
+        <div class="w-64">
+          <Upload
+            name="avatar"
+            list-type="picture-card"
+            class="avatar-uploader"
+            :show-upload-list="false"
+            action="node_api/up/upload"
+            :before-upload="beforeUpload"
+            @change="handleChange"
+          >
+            <img v-if="base_info.coverUrl" :src="base_info.coverUrl" alt="avatar" />
+            <div v-else>
+              <Icon :type="loading ? 'loading' : 'plus'" />
+              <div class="ant-upload-text">Upload</div>
+            </div>
+          </Upload>
+        </div>
+      </div>
     </Modal>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 // 富文本编辑器
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import "@wangeditor/editor/dist/css/style.css";
 
 // 基本信息表单
-import { Modal,Upload,PlusOutlined } from 'ant-design-vue'
+import { Modal, Upload, Icon, Input } from "ant-design-vue";
+Vue.use(Modal)
 
 // api
 import { uploadArticle, updateArticle } from "../../api/upload_article";
+
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
 export default {
   name: "upload_article",
-  components: { Editor, Toolbar,Modal,Upload,PlusOutlined },
+  components: { Editor, Toolbar, Modal, Upload, Icon, Input },
   data() {
     return {
       editor: null,
@@ -76,40 +100,45 @@ export default {
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
-      module:'frontend',
-      modal_visible:true,
-      fileList:[{
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-2',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-3',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-4',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-5',
-        name: 'image.png',
-        status: 'error',
-      }]
+      module: "frontend",
+      base_info:{},
+      modal_visible: true,
+      loading: false,
     };
   },
   methods: {
+    // 取消Modal
+    modal_cancel(){
+      this.modal_visible = false
+      this.base_info = {}
+    },
+     handleChange(info) {
+      if (info.file.status === 'uploading') {
+        this.loading = true;
+        return;
+      }
+      console.log(info.file.response);
+      if (info.file.status === 'done') {
+        // Get this url from response in real world.
+        getBase64(info.file.originFileObj, imageUrl => {
+          this.base_info.coverUrl = imageUrl;
+          this.loading = false;
+        });
+      }
+    },
+    beforeUpload(file) {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        this.$message.error('You can only upload JPG file!');
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message.error('Image must smaller than 2MB!');
+      }
+      return isJpgOrPng && isLt2M;
+    },
+
+
     onCreated(editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
     },
@@ -166,6 +195,7 @@ export default {
     this.$store.commit("change_show_footer", false);
   },
   mounted() {
+
     document.body.style.position = "fixed"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
     var stars = 800; /*星星的密集程度，数字越大越多*/
@@ -230,13 +260,13 @@ export default {
         });
 
         Toast.fire({
-          width:'80%',
-          height:'100px',
+          width: "80%",
+          height: "100px",
           icon: "info",
           title: "请在PC端发布或修改文章...",
-          heightAuto:false
+          heightAuto: false,
         });
-        next('/article_detail')
+        next("/article_detail");
       }
     });
   },
@@ -244,10 +274,26 @@ export default {
 </script>
 
 <style lang="less">
-.swal2-popup.swal2-toast{
+.avatar-uploader > .ant-upload {
+  width: 160px;
+  height: 90px;
+}
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+.first_msg {
+  @apply flex justify-start w-full mt-6 items-center;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+.swal2-popup.swal2-toast {
   padding: 7px 0;
 }
-.swal2-title{
+.swal2-title {
   font-size: 16px !important;
 }
 .h1_title {
