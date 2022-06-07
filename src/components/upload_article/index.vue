@@ -139,7 +139,9 @@ export default {
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
-      base_info: {},
+      base_info: {
+        article_classify:'frontend'
+      },
       modal_visible: true,
       loading: false,
     };
@@ -156,6 +158,10 @@ export default {
           this.$message.error("请选择分类");
           return;
         }
+        uploadImg(this.base_info.coverUrl).then((img) => {
+            this.base_info.coverUrl = img.data.coverUrl;
+            this.loading = false;
+          });
       }else{
         this.base_info = {}
       }
@@ -177,10 +183,8 @@ export default {
             return;
           }
           localStorage.setItem("coverUrl", coverUrl);
-          uploadImg(coverUrl).then((img) => {
-            this.base_info.coverUrl = img.data.coverUrl;
-            this.loading = false;
-          });
+          this.base_info.coverUrl = coverUrl
+          this.loading = false
         });
       }
     },
@@ -249,6 +253,7 @@ export default {
     },
   },
   created() {
+    localStorage.removeItem('coverUrl','')
     this.$store.commit("change_show_footer", false);
   },
   mounted() {
