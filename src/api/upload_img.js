@@ -1,10 +1,10 @@
 import axios from 'axios'
-export const uploadImg = (img)=>{
+export const uploadImg = (coverUrl)=>{
     return axios({
         method:'post',
-        url:`/node_api/upload_img`,
+        url:`/node_api/up/profile`,
         data:{
-          img
+          coverUrl
         }
     })
 }

@@ -6,7 +6,12 @@
       style="text-align: center; margin: 0; font-family: 黑体"
     >
       分享你的知识
-      <Icon type='edit' @click="modal_visible = true" class="text-base" title="修改基本信息"/>
+      <Icon
+        type="edit"
+        @click="modal_visible = true"
+        class="text-base"
+        title="修改基本信息"
+      />
     </h1>
     <div
       style="
@@ -39,28 +44,61 @@
         </button>
       </div>
     </div>
-    <Modal title='请先确定基本信息' okText='确定' cancelText='取消' :closable='false' :mask='true' v-model="modal_visible" @ok='modal_visible = false' @cancel='modal_cancel'>
+    <Modal
+      title="请先确定基本信息"
+      okText="确定"
+      cancelText="取消"
+      :closable="false"
+      :mask="true"
+      v-model="modal_visible"
+      :maskClosable="false"
+      @ok="modal_close('ok')"
+      @cancel="modal_close()"
+    >
       <div class="first_msg">
-        <div class="inline-block w-16 font-bold">标题*：</div>
-        <Input placeholder="Basic usage" v-model="base_info.article_title" class="w-84" />
-      </div>
-       <div class="first_msg">
-        <div class="inline-block w-16 font-bold">分类*：</div>
-        <Input placeholder="Basic usage" v-model="base_info.article_classify" class="w-84" />
+        <div class="inline-block w-16 font-bold">
+          标题<span :class="base_info.article_title ? 'hidden' : 'text-red-600'"
+            >*</span
+          >：
+        </div>
+        <Input
+          placeholder="Basic usage"
+          v-model="base_info.article_title"
+          class="w-84"
+          allow-clear
+        />
       </div>
       <div class="first_msg">
-        <div class="inline-block w-16 font-bold">封面*：</div>
+        <div class="inline-block w-16 font-bold">
+          分类<span
+            :class="base_info.article_classify ? 'hidden' : 'text-red-600'"
+            >*</span
+          >：
+        </div>
+        <Input
+          placeholder="Basic usage"
+          v-model="base_info.article_classify"
+          class="w-84"
+          allow-clear
+        />
+      </div>
+      <div class="first_msg">
+        <div class="inline-block w-16 font-bold">封面：</div>
         <div class="w-64">
           <Upload
             name="avatar"
             list-type="picture-card"
             class="avatar-uploader"
             :show-upload-list="false"
-            action="node_api/up/upload"
+            action="node_api/up/profile"
             :before-upload="beforeUpload"
             @change="handleChange"
           >
-            <img v-if="base_info.coverUrl" :src="base_info.coverUrl" alt="avatar" />
+            <img
+              v-if="base_info.coverUrl"
+              :src="base_info.coverUrl"
+              alt="avatar"
+            />
             <div v-else>
               <Icon :type="loading ? 'loading' : 'plus'" />
               <div class="ant-upload-text">Upload</div>
@@ -73,22 +111,23 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 // 富文本编辑器
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import "@wangeditor/editor/dist/css/style.css";
 
 // 基本信息表单
 import { Modal, Upload, Icon, Input } from "ant-design-vue";
-Vue.use(Modal)
+Vue.use(Modal);
 
 // api
 import { uploadArticle, updateArticle } from "../../api/upload_article";
+import { uploadImg } from "../../api/upload_img";
 
-function getBase64(img, callback) {
+async function getBase64(img, callback) {
   const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+  reader.addEventListener("load", () => callback(reader.result));
+  console.log(reader.readAsDataURL(img));
 }
 export default {
   name: "upload_article",
@@ -100,44 +139,63 @@ export default {
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
-      module: "frontend",
-      base_info:{},
+      base_info: {},
       modal_visible: true,
       loading: false,
     };
   },
   methods: {
     // 取消Modal
-    modal_cancel(){
-      this.modal_visible = false
-      this.base_info = {}
+    modal_close(ok) {
+      if (ok == 'ok') {
+        if (!this.base_info.article_title) {
+          this.$message.error("请填写标题");
+          return;
+        }
+        if (!this.base_info.article_classify) {
+          this.$message.error("请选择分类");
+          return;
+        }
+      }else{
+        this.base_info = {}
+      }
+      this.modal_visible = false;
     },
-     handleChange(info) {
-      if (info.file.status === 'uploading') {
+    handleChange(info) {
+      if (info.file.status === "uploading") {
         this.loading = true;
         return;
       }
-      console.log(info.file.response);
-      if (info.file.status === 'done') {
+      if (info.file.status === "done") {
         // Get this url from response in real world.
-        getBase64(info.file.originFileObj, imageUrl => {
-          this.base_info.coverUrl = imageUrl;
-          this.loading = false;
+        getBase64(info.file.originFileObj, (coverUrl) => {
+          if (coverUrl == localStorage.getItem("coverUrl")) {
+            this.$Swal.fire({
+              title: "请勿重复上传同一张图片",
+              icon: "warning",
+            });
+            return;
+          }
+          localStorage.setItem("coverUrl", coverUrl);
+          uploadImg(coverUrl).then((img) => {
+            this.base_info.coverUrl = img.data.coverUrl;
+            this.loading = false;
+          });
         });
       }
     },
     beforeUpload(file) {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      const isJpgOrPng =
+        file.type === "image/jpeg" || file.type === "image/png";
       if (!isJpgOrPng) {
-        this.$message.error('You can only upload JPG file!');
+        this.$message.error("You can only upload JPG file!");
       }
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        this.$message.error('Image must smaller than 2MB!');
+        this.$message.error("Image must smaller than 2MB!");
       }
       return isJpgOrPng && isLt2M;
     },
-
 
     onCreated(editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
@@ -161,17 +219,16 @@ export default {
         this.$message.warning("请输入文章内容...");
         return;
       }
+      let req = {
+        ...this.base_info,
+        upload_html: this.html,
+        userId: this.$store.state.userInfo.userInfo.id,
+        article_id: this.$route.params.article_id,
+      };
+      this.$route.params.article_id && delete req.article_id
       const res = this.$route.params.article_id
-        ? await updateArticle(
-            this.html,
-            this.$store.state.userInfo.userInfo.id,
-            this.$route.params.article_id
-          )
-        : await uploadArticle(
-            this.html,
-            this.module,
-            this.$store.state.userInfo.userInfo.id
-          );
+        ? await updateArticle(req)
+        : await uploadArticle(req);
       res.data.code == 200
         ? this.$Swal.fire({
             title: "发布成功...",
@@ -195,7 +252,6 @@ export default {
     this.$store.commit("change_show_footer", false);
   },
   mounted() {
-
     document.body.style.position = "fixed"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
     var stars = 800; /*星星的密集程度，数字越大越多*/
