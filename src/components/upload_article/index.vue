@@ -62,7 +62,7 @@
           >：
         </div>
         <Input
-          placeholder="Basic usage"
+          ref="article_title"
           v-model="base_info.article_title"
           class="w-84"
           allow-clear
@@ -75,12 +75,16 @@
             >*</span
           >：
         </div>
-        <Input
-          placeholder="Basic usage"
+        <select class=" w-32 h-8 rounded-md text-center" v-model="base_info.article_classify" ref="article_classify">
+          <option value="frontend">前端</option>
+          <option value="backend">后端</option>
+          <option value="android">安卓</option>
+        </select>
+        <!-- <Input
           v-model="base_info.article_classify"
           class="w-84"
           allow-clear
-        />
+        /> -->
       </div>
       <div class="first_msg">
         <div class="inline-block w-16 font-bold">封面：</div>
@@ -90,11 +94,13 @@
             list-type="picture-card"
             class="avatar-uploader"
             :show-upload-list="false"
-            action="node_api/up/profile"
+            action="/node_api/up/profile"
             :before-upload="beforeUpload"
+             @preview="handlePreview"
             @change="handleChange"
           >
             <img
+            class=" w-36 h-24"
               v-if="base_info.coverUrl"
               :src="base_info.coverUrl"
               alt="avatar"
@@ -127,7 +133,7 @@ import { uploadImg } from "../../api/upload_img";
 async function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
-  console.log(reader.readAsDataURL(img));
+  reader.readAsDataURL(img)
 }
 export default {
   name: "upload_article",
@@ -135,7 +141,7 @@ export default {
   data() {
     return {
       editor: null,
-      html: '<h1 class=\'text-sm md:text-xl lg:text-2xl\' style="text-indent: 0px; text-align: start; line-height: 1.31;">Web3.0来了，花呗借呗前端团队开源的Web图形引擎会成为元宇宙的技术支撑吗？</h1><p><img class=\'w-full\' src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8cb23c1cca34424c99ab8260bd88d482~tplv-k3u1fbpfcp-zoom-crop-mark:1304:1304:1304:734.awebp?" alt="" data-href="" style=""/></p><p><strong>前言</strong></p><p>项目启动会议上，大家各种出排期，各种出方案，大多数人的焦点都放在后端技术方案上，感情大家好像都觉得前期准备工作前端没啥好做的，不都有现成的脚手架吗？别人不都帮你做好了吗？💉💉我丢。。。。你说的好像不是没有道理，但是你真的用过官方的脚手架吗，除了帮我生成项目目录和打包编译之类的配置，还是有些框架层面的东西要我自己做的好吧。我不管我不管，你们都有启动准备排期，我他喵的也要！！🔫</p><p><strong>想想需要做什么</strong></p><p>我争取到了一周的准备（划水摸鱼）时间，主要还是后端的大佬们牛批会争取啊，我只能和他们持平了，啊哈哈哈。先用vue-cli生成一个project吧，想想做些什么，想到以前的做项目通用请求能力封装这一块前期做的不太好，导致后面写起来一堆冗余代码，着实恶心到我了。那我必须前期把这个整整🙌🙌</p>',
+      html: '',
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
@@ -144,49 +150,47 @@ export default {
       },
       modal_visible: true,
       loading: false,
+      previewVisible: false,
+      previewImage: '',
     };
   },
   methods: {
     // 取消Modal
-    modal_close(ok) {
-      if (ok == 'ok') {
-        if (!this.base_info.article_title) {
-          this.$message.error("请填写标题");
-          return;
-        }
-        if (!this.base_info.article_classify) {
-          this.$message.error("请选择分类");
-          return;
-        }
-        uploadImg(this.base_info.coverUrl).then((img) => {
-            this.base_info.coverUrl = img.data.coverUrl;
-            this.loading = false;
-          });
-      }else{
-        this.base_info = {}
-      }
+    modal_close() {
       this.modal_visible = false;
     },
+    // 图片放大
+     async handlePreview(file) {
+      if (!file.url && !file.preview) {
+        file.preview = await getBase64(file.originFileObj);
+      }
+      this.previewImage = file.url || file.preview;
+      this.previewVisible = true;
+    },
     handleChange(info) {
+      console.log(this.base_info);
+      console.log(info);
       if (info.file.status === "uploading") {
         this.loading = true;
         return;
       }
-      if (info.file.status === "done") {
+      console.log(info);
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, (coverUrl) => {
           if (coverUrl == localStorage.getItem("coverUrl")) {
             this.$Swal.fire({
-              title: "请勿重复上传同一张图片",
+              title: "请勿上传同一张图片",
               icon: "warning",
             });
+            this.loading = false
             return;
           }
           localStorage.setItem("coverUrl", coverUrl);
-          this.base_info.coverUrl = coverUrl
-          this.loading = false
+          uploadImg(coverUrl).then((img) => {
+            this.base_info.coverUrl = img.data.coverUrl;
+            this.loading = false;
+          });
         });
-      }
     },
     beforeUpload(file) {
       const isJpgOrPng =
@@ -219,6 +223,19 @@ export default {
         return re.test(str);
       }
 
+      if (!this.base_info.article_title) {
+          this.$message.error("请填写标题");
+          this.modal_visible = true
+          this.$nextTick(()=>{
+            this.$refs.article_title.focus()
+          })
+          return;
+        }
+        if (!this.base_info.article_classify) {
+          this.$message.error("请选择分类");
+          this.modal_visible = true
+          return;
+        }
       if (isNull(getText(this.html))) {
         this.$message.warning("请输入文章内容...");
         return;

@@ -10,18 +10,16 @@
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
         >
-          <li class="li" @click="goRouter(`/article_detail/${list.id}`)">
+          <li class="li" @click="$router.push({name:`article_detail`,params:list})">
             <div :style="list.content.indexOf('<img') != 1 ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
-                <span style="padding-left: 0">前端superman</span>
+                <span style="padding-left: 0">{{list.article_classify}}</span>
                 <span>13天前</span>
                 <span>面试</span>
               </div>
-              <a class="title">你最少用几行代码实现深拷贝？</a>
+              <a class="title">{{list.article_title}}</a>
               <p>
-                前言
-                深度克隆（深拷贝）一直都是初、中级前端面试中经常被问到的题目，网上介绍的实现方式也都各有千秋，大体可以概括为三种方式：
-                JSON.stringify+JSON.parse, 这个很好理解； 全量
+                Web3.0来了，花呗借呗前端团队开源的Web图形引擎会成为元宇宙的技术支撑吗？
               </p>
               <div class="content_list_flow">
                 <div style="padding-left: 0"><Icon type="eye" />1.1w</div>
@@ -32,8 +30,8 @@
               </div>
             </div>
             <img
-              v-if="list.content.indexOf('<img') != 1"
-              :src="list.imgUrl"
+              v-if="list.coverUrl"
+              :src="list.coverUrl"
               style="width: 120px; height: 80px; float: right; margin-top: 10px"
             />
           </li>
