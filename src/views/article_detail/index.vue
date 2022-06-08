@@ -28,7 +28,7 @@
         <button
           class="border-none w-14 h-6 lg:w-20 lg:h-8 bg-gradient-to-r from-blue-300 via-purple-500 to-purple-900 text-white rounded-md"
           @click="
-            goRouter('/upload_article/5d7907c0-e240-11ec-a0b2-8fb7fb0dcc00')
+            $router.push({name:'upload_article',params:article})
           "
         >
           <!-- +关注 -->

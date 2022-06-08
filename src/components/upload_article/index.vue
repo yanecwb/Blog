@@ -2,7 +2,7 @@
   <div class="upload_article_box">
     <div class="stars" ref="stars"></div>
     <h1
-      class="h1_title"
+      class="h1_title mt-9"
       style="text-align: center; margin: 0; font-family: 黑体"
     >
       分享你的知识
@@ -75,7 +75,11 @@
             >*</span
           >：
         </div>
-        <select class=" w-32 h-8 rounded-md text-center" v-model="base_info.article_classify" ref="article_classify">
+        <select
+          class="w-32 h-8 rounded-md text-center"
+          v-model="base_info.article_classify"
+          ref="article_classify"
+        >
           <option value="frontend">前端</option>
           <option value="backend">后端</option>
           <option value="android">安卓</option>
@@ -96,11 +100,11 @@
             :show-upload-list="false"
             action="/node_api/up/profile"
             :before-upload="beforeUpload"
-             @preview="handlePreview"
+            @preview="handlePreview"
             @change="handleChange"
           >
             <img
-            class=" w-36 h-24"
+              class="w-36 h-24"
               v-if="base_info.coverUrl"
               :src="base_info.coverUrl"
               alt="avatar"
@@ -133,7 +137,7 @@ import { uploadImg } from "../../api/upload_img";
 async function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img)
+  reader.readAsDataURL(img);
 }
 export default {
   name: "upload_article",
@@ -141,17 +145,17 @@ export default {
   data() {
     return {
       editor: null,
-      html: '',
+      html: "",
       toolbarConfig: {},
       editorConfig: { placeholder: "请输入内容..." },
       mode: "default", // or 'simple'
       base_info: {
-        article_classify:'frontend'
+        article_classify: "frontend",
       },
       modal_visible: true,
       loading: false,
       previewVisible: false,
-      previewImage: '',
+      previewImage: "",
     };
   },
   methods: {
@@ -160,7 +164,7 @@ export default {
       this.modal_visible = false;
     },
     // 图片放大
-     async handlePreview(file) {
+    async handlePreview(file) {
       if (!file.url && !file.preview) {
         file.preview = await getBase64(file.originFileObj);
       }
@@ -175,22 +179,22 @@ export default {
         return;
       }
       console.log(info);
-        // Get this url from response in real world.
-        getBase64(info.file.originFileObj, (coverUrl) => {
-          if (coverUrl == localStorage.getItem("coverUrl")) {
-            this.$Swal.fire({
-              title: "请勿上传同一张图片",
-              icon: "warning",
-            });
-            this.loading = false
-            return;
-          }
-          localStorage.setItem("coverUrl", coverUrl);
-          uploadImg(coverUrl).then((img) => {
-            this.base_info.coverUrl = img.data.coverUrl;
-            this.loading = false;
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, (coverUrl) => {
+        if (coverUrl == localStorage.getItem("coverUrl")) {
+          this.$Swal.fire({
+            title: "请勿上传同一张图片",
+            icon: "warning",
           });
+          this.loading = false;
+          return;
+        }
+        localStorage.setItem("coverUrl", coverUrl);
+        uploadImg(coverUrl).then((img) => {
+          this.base_info.coverUrl = img.data.coverUrl;
+          this.loading = false;
         });
+      });
     },
     beforeUpload(file) {
       const isJpgOrPng =
@@ -224,18 +228,18 @@ export default {
       }
 
       if (!this.base_info.article_title) {
-          this.$message.error("请填写标题");
-          this.modal_visible = true
-          this.$nextTick(()=>{
-            this.$refs.article_title.focus()
-          })
-          return;
-        }
-        if (!this.base_info.article_classify) {
-          this.$message.error("请选择分类");
-          this.modal_visible = true
-          return;
-        }
+        this.$message.error("请填写标题");
+        this.modal_visible = true;
+        this.$nextTick(() => {
+          this.$refs.article_title.focus();
+        });
+        return;
+      }
+      if (!this.base_info.article_classify) {
+        this.$message.error("请选择分类");
+        this.modal_visible = true;
+        return;
+      }
       if (isNull(getText(this.html))) {
         this.$message.warning("请输入文章内容...");
         return;
@@ -246,7 +250,7 @@ export default {
         userId: this.$store.state.userInfo.userInfo.id,
         article_id: this.$route.params.article_id,
       };
-      this.$route.params.article_id && delete req.article_id
+      this.$route.params.article_id && delete req.article_id;
       const res = this.$route.params.article_id
         ? await updateArticle(req)
         : await uploadArticle(req);
@@ -270,7 +274,7 @@ export default {
     },
   },
   created() {
-    localStorage.removeItem('coverUrl','')
+    localStorage.removeItem("coverUrl", "");
     this.$store.commit("change_show_footer", false);
   },
   mounted() {
@@ -304,11 +308,14 @@ export default {
       e.style.height = "2px";
     });
     // 模拟 ajax 请求，异步渲染编辑器
-    if (this.$route.params.article_id) {
+    if (this.$route.params.id) {
       //后续修改文章判断
       setTimeout(() => {
-        // this.html = '<p>模拟 Ajax 异步设置内容 HTML</p>'
-      }, 1500);
+        this.base_info.article_classify = this.$route.params.article_classify;
+        this.base_info.article_title = this.$route.params.article_title;
+        this.base_info.coverUrl = this.$route.params.coverUrl;
+        this.html = this.$route.params.content;
+      }, 100);
     }
   },
   beforeDestroy() {

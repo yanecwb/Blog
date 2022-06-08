@@ -31,7 +31,7 @@ const routes = [
       component:Article_detail
     },
     {
-      path:'/Upload_article/:article_id?',
+      path:'/Upload_article/:id?',
       name:'upload_article',
       component:Upload_article
     }

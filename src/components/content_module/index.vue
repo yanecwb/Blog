@@ -13,9 +13,9 @@
           <li class="li" @click="$router.push({name:`article_detail`,params:list})">
             <div :style="list.content.indexOf('<img') != 1 ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
-                <span style="padding-left: 0">{{list.article_classify}}</span>
+                <span style="padding-left: 0">{{article_classify(list.article_classify)}}</span>
                 <span>13天前</span>
-                <span>面试</span>
+                <!-- <span>面试</span> -->
               </div>
               <a class="title">{{list.article_title}}</a>
               <p>
@@ -65,6 +65,7 @@ export default {
     module_name() {
       return this.$route.params.module;
     },
+
   },
   watch: {
     module_name: {
@@ -75,6 +76,16 @@ export default {
       },
     },
   },
+  methods:{
+    article_classify(classify){
+      const obj = {
+        frontend:'前端',
+        backend:'后端',
+        android:'安卓'
+      }
+      return obj[classify]
+    }
+  }
 };
 </script>
 

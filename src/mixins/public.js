@@ -1,6 +1,6 @@
 let mixin = {
   methods:{
-    goBack(){
+    goBack(params){
       this.$router.back()
     },
     goRouter(path){
