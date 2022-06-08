@@ -277,6 +277,7 @@ export default {
   created() {
     localStorage.removeItem("coverUrl", "");
     this.$store.commit("change_show_footer", false);
+    this.$store.commit("change_show_header", false);
   },
   mounted() {
     document.body.style.position = "fixed"; //解决再移动端hidden失效问题

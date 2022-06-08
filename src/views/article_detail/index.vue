@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mt-11 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 ">
+  <div class="w-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 ">
     <div
       class="w-full md:w-3/5 p-3 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white );"
     >
@@ -49,6 +49,7 @@ export default {
     };
   },
   async created() {
+    this.$store.commit('change_show_header',false)
     this.$route.params.content ? this.article = this.$route.params : this.article = JSON.parse(localStorage.getItem('article_details'))
     localStorage.setItem('article_details',JSON.stringify(this.article))
   },

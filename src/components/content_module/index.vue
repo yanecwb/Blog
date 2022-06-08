@@ -86,6 +86,9 @@ export default {
       }
       return obj[classify]
     },
+  },
+  created(){
+    this.commit("change_show_header", true);
   }
 };
 </script>

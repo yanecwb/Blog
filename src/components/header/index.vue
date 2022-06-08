@@ -48,7 +48,7 @@
           </span>
           <span :class="'iconfont' + weather" style="color: white"></span>
         </div>
-        <div ref="navBar_ul" style="display: flex;">
+        <div ref="navBar_ul" style="display: flex">
           <li @click="goRouter('/home')" name="home">
             <Icon type="home" style="margin-right: 2px" />首 页
           </li>
@@ -56,7 +56,14 @@
           <li name="backend" @click="goRouter('/content/backend')">后 端</li>
           <li name="android" @click="goRouter('/content/android')">安 卓</li>
           <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
-          <li><Icon type="edit" style="font-size:14px;color:white" title="写文章" @click="goRouter('/upload_article')" /></li>
+          <li>
+            <Icon
+              type="edit"
+              style="font-size: 14px; color: white"
+              title="写文章"
+              @click="goRouter('/upload_article')"
+            />
+          </li>
         </div>
       </ul>
     </header>
@@ -98,7 +105,6 @@ export default {
       weather: "",
     };
   },
-  props: ["app"],
   methods: {
     backtop() {
       this.timer = setInterval(() => {
@@ -169,14 +175,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this);
-    setTimeout(() => {
-      console.log(this.scrolltop);
-      if (this.scrolltop > 50) {
-        this.$refs.navBar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-        this.$refs.navBar.style.color = "rgba(0,0,0,.8)";
-      }
-    }, 0);
     document.getElementsByTagName("head")[0].children[3].innerText = "Flechazo";
     window.onmousewheel = document.onmousewheel = wheel; //W3C
     //统一处理滚轮滚动事件
@@ -195,18 +193,14 @@ export default {
     }
     //上下滚动时的具体处理函数
     const handle = (delta) => {
-      if(this.$route.path !== '/home') return
+      if (this.$route.path !== "/home") return;
       if (delta < 0) {
         //向下滚动
-        if (this.scrolltop > 50) {
-          this.$refs.navBar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-          this.$refs.navBar.style.color = "rgba(0,0,0,.8)";
+        if (this.scrolltop > 200) {
           this.$refs.navBar.className =
             "header_box_navBar animate__fadeOutUp animate__animated ";
         }
       } else {
-        this.$refs.navBar.style.backgroundColor = "";
-        this.$refs.navBar.style.color = "rgba(255, 255, 255,0.8)";
         this.$refs.navBar.className =
           "header_box_navBar animate__fadeInDown animate__animated ";
       }

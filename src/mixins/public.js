@@ -1,4 +1,7 @@
 let mixin = {
+  created(){
+    this.commit = this.$store.commit
+  },
   methods:{
     goBack(params){
       this.$router.back()
@@ -24,7 +27,9 @@ let mixin = {
             };
             image.src = imgsrc;
     },
+    // 格式化发布时间
     format_publishTime(publish_time){
+      if(!publish_time) return
       const now = Date.parse(new Date()) / 1000 ;
       const pub_time = Date.parse(publish_time) / 1000
       if(now - pub_time < 60*2){

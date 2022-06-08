@@ -79,6 +79,7 @@
   z-index: 999;
   position: fixed;
   top:0;
+  background:rgba(0,0,0,0.3);
   color: white;
 }
 .header_box_navBar ul {
