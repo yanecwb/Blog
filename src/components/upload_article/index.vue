@@ -245,7 +245,7 @@ export default {
         userId: this.$store.state.userInfo.userInfo.id,
         article_id: this.$route.params.article_id,
       };
-      this.$route.params.article_id && delete req.article_id;
+      !this.$route.params.article_id && delete req.article_id;
       const res = this.$route.params.article_id
         ? await updateArticle(req)
         : await uploadArticle(req);

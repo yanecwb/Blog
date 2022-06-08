@@ -1,7 +1,5 @@
 <template>
-    <div class="animate__animated animate__fadeIn">
-        <div class="container">
-            <div class="bg_text">Do what you like</div>
+    <div class="animate__animated animate__fadeIn flex justify-center items-center h-screen login_box">
             <div class="screen">
                 <div class="screen__content">
                     <form class="login" ref="login">
@@ -85,7 +83,6 @@
             </div>
         </div>
         <!-- <Footer :show_footer="true" /> -->
-    </div>
 </template>
 
 <script>
@@ -107,6 +104,9 @@ export default {
             is_get_code: false,
             code_time: 59,
         };
+    },
+    created(){
+      this.commit('change_show_header',false)
     },
     methods: {
         checkout_form() {

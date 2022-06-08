@@ -3,20 +3,10 @@
 * {
 	box-sizing: border-box;
 	margin: 0;
-	padding: 0;	
+	padding: 0;
 	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-.container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	/* background: linear-gradient(45deg, rgb(114, 109, 221), #7765fc);		 */
-	background-image: url(../../assets//img/login/login_bg.gif);
-	background-size: cover;
-	background-repeat: no-repeat;
-}
 
 .bg_text{
 	position: absolute;
@@ -24,20 +14,20 @@
 	color: #dad9f6;
 	font-family:'Times New Roman', Times, serif;
 }
-.screen {		
-	background: linear-gradient(90deg, #5D54A4, #7C78B8);	
-	position: relative;	
+.screen {
+	background: linear-gradient(90deg, #5D54A4, #7C78B8);
+	position: relative;
 	height: 600px;
-	width: 360px;	
+	width: 360px;
 	box-shadow: 0px 0px 24px #5C5696;
 }
 
 .screen__content {
 	z-index: 1;
-	position: relative;	
+	position: relative;
 	height: 100%;
 }
-.screen__background {		
+.screen__background {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -45,7 +35,7 @@
 	bottom: 0;
 	z-index: 0;
 	-webkit-clip-path: inset(0 0 0 0);
-	clip-path: inset(0 0 0 0);	
+	clip-path: inset(0 0 0 0);
 }
 
 .screen__background__shape {
@@ -56,18 +46,18 @@
 .screen__background__shape1 {
 	height: 520px;
 	width: 520px;
-	background: #FFF;	
+	background: #FFF;
 	top: -50px;
-	right: 120px;	
+	right: 120px;
 	border-radius: 0 72px 0 0;
 }
 
 .screen__background__shape2 {
 	height: 220px;
 	width: 220px;
-	background: #6C63AC;	
+	background: #6C63AC;
 	top: -172px;
-	right: 0;	
+	right: 0;
 	border-radius: 32px;
 }
 
@@ -76,28 +66,28 @@
 	width: 190px;
 	background: linear-gradient(270deg, #5D54A4, #6A679E);
 	top: -24px;
-	right: 0;	
+	right: 0;
 	border-radius: 32px;
 }
 
 .screen__background__shape4 {
 	height: 320px;
 	width: 200px;
-	background: #7E7BB9;	
+	background: #7E7BB9;
 	top: 420px;
-	right: 50px;	
+	right: 50px;
 	border-radius: 60px;
 }
 
 .login {
-	width: 320px;
+	/* width: 320px; */
 	padding: 30px;
 	padding-top: 156px;
 }
 
 .login__field {
-	padding: 20px 0px;	
-	position: relative;	
+	padding: 20px 0px;
+	position: relative;
 }
 
 .login__icon {
@@ -159,7 +149,7 @@
 	color: #4C489D;
 }
 
-.social-login {	
+.social-login {
 	position: absolute;
 	height: 140px;
 	width: 160px;
@@ -172,10 +162,32 @@
 .social-login__icon {
 	padding: 20px 10px;
 	color: #fff;
-	text-decoration: none;	
+	text-decoration: none;
 	text-shadow: 0px 0px 8px #7875B5;
 }
 
 .social-login__icon:hover {
-	transform: scale(1.5);	
+	transform: scale(1.5);
 }
+
+.login_box {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    200% 100% at bottom center,
+    #f7f7b6,
+    #e96f92,
+    #75517d,
+    #1b2947
+  );
+  background: radial-gradient(
+    220% 105% at top center,
+    #1b2947 10%,
+    #75517d 40%,
+    #e96f92 65%,
+    #f7f7b6
+  );
+  background-attachment: fixed;
+  overflow: hidden;
+}
+

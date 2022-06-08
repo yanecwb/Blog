@@ -4,13 +4,13 @@
       class="w-full md:w-3/5 p-3 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white );"
     >
       <!-- <div v-html="html"></div> -->
-      <div class="text-base md:text-2xl lg:text-3xl font-bold">
+      <div class="text-base md:text-2xl lg:text-3xl font-bold px-32">
         {{ article.article_title }}
       </div>
-      <div class="w-full flex justify-between items-center my-3">
+      <div class="w-full flex justify-between items-center my-3 px-10">
         <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
           <img
-            src="https://p9-passport.byteacctimg.com/img/user-avatar/e225c714c71f1dd579745d5589ac9418~300x300.image"
+            :src="article.uper.avatarUrl"
             class="w-full h-full rounded-full"
             alt=""
           />
@@ -18,11 +18,11 @@
         <div
           class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5"
         >
-          <p class="m-0 text-black md:text-base">yaner</p>
+          <p class="m-0 text-black md:text-base">{{article.uper.nickname}}</p>
           <p
             class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis"
           >
-            2022年06月03日 16：02 阅读9866
+            {{article.publish_time}} 阅读9866
           </p>
         </div>
         <button
@@ -30,12 +30,13 @@
           @click="
             $router.push({name:'upload_article',params:article})
           "
+          v-if='article.uper.userId == $store.state.userInfo.userInfo.id'
         >
           <!-- +关注 -->
           修改
         </button>
       </div>
-      <div v-html="article.content" class="h"></div>
+      <div v-html="article.content" class="h px-24"></div>
     </div>
   </div>
 </template>
