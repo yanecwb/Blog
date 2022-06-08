@@ -83,6 +83,7 @@
           <option value="frontend">前端</option>
           <option value="backend">后端</option>
           <option value="android">安卓</option>
+          <option value="news">我的生活趣闻</option>
         </select>
         <!-- <Input
           v-model="base_info.article_classify"

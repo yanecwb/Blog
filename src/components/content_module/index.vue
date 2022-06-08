@@ -14,7 +14,7 @@
             <div :style="list.content.indexOf('<img') != 1 ? { float: 'left', width: '620px' } : ''">
               <div class="content_list_author">
                 <span style="padding-left: 0">{{article_classify(list.article_classify)}}</span>
-                <span>13天前</span>
+                <span class="text-xs">{{format_publishTime(list.publish_time)}}</span>
                 <!-- <span>面试</span> -->
               </div>
               <a class="title">{{list.article_title}}</a>
@@ -81,10 +81,11 @@ export default {
       const obj = {
         frontend:'前端',
         backend:'后端',
-        android:'安卓'
+        android:'安卓',
+        news:'生活趣闻'
       }
       return obj[classify]
-    }
+    },
   }
 };
 </script>
