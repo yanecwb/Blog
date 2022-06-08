@@ -14,13 +14,9 @@
       />
     </h1>
     <div
-      style="
-        width: 79vw;
-        margin: 5px auto 15px;
-      "
-      class="flex items-end flex-colcol"
+      class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5"
     >
-      <div style="border: 1px solid #ccc; margin-bottom: 20px" class="w-full mb-5">
+      <div style="border: 1px solid #ccc;" class="w-full mb-5">
         <Toolbar
           style="border-bottom: 1px solid #ccc"
           :editor="editor"
