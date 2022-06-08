@@ -74,8 +74,7 @@
       @click="backtop"
     >
       <span
-        class="iconfont icon-icon--fanhuidingbu"
-        style="font-size: 25px"
+        class="iconfont icon-icon--fanhuidingbu text-2xl"
       ></span>
     </div>
     <!-- 遮罩层 -->
@@ -140,22 +139,15 @@ export default {
     },
   },
   watch: {
-    // scrolltop: {
-    //   handler(newval, oldval) {
-    //     if (newval >= oldval) {
-    //       this.$refs.navBar.style.position = "";
-    //       this.$refs.navBar.className = "header_box_navBar";
-    //       this.show_backtop = false;
-    //     } else {
-    //       this.$refs.navBar.style.position = "fixed";
-    //       this.$refs.navBar.style.top = 0;
-    //       this.$refs.navBar.className =
-    //         "header_box_navBar animate__animated animate__fadeInDown";
-    //       this.$refs.navBar.style.backGround = "white";
-    //       this.show_backtop = true;
-    //     }
-    //   },
-    // },
+    scrolltop: {
+      handler(newval, oldval) {
+        if (newval >= oldval ||  newval<document.body.scrollHeight*0.2) {
+          this.show_backtop = false;
+        } else {
+          this.show_backtop = true;
+        }
+      },
+    },
     path: {
       immediate: true,
       handler() {

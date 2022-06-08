@@ -2,8 +2,8 @@
   <div class="upload_article_box">
     <div class="stars" ref="stars"></div>
     <h1
-      class="h1_title mt-9"
-      style="text-align: center; margin: 0; font-family: 黑体"
+      class="h1_title mt-9 text-center m-0 "
+      style="font-family: 黑体"
     >
       分享你的知识
       <Icon
@@ -17,12 +17,10 @@
       style="
         width: 79vw;
         margin: 5px auto 15px;
-        display: flex;
-        align-items: end;
-        flex-direction: column;
       "
+      class="flex items-end flex-colcol"
     >
-      <div style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px">
+      <div style="border: 1px solid #ccc; margin-bottom: 20px" class="w-full mb-5">
         <Toolbar
           style="border-bottom: 1px solid #ccc"
           :editor="editor"
@@ -37,7 +35,7 @@
           @onCreated="onCreated"
         />
       </div>
-      <div style="width: 79vw; display: flex; justify-content: space-between">
+      <div style="width: 79vw;" class="flex justify-between">
         <button class="btn back_btn" @click="goBack()">返回</button>
         <button class="btn upload_article_btn" @click="uploadArticle">
           {{ $route.params.article_id ? "修改" : "上传" }}

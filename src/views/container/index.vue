@@ -3,7 +3,7 @@
     <div class="bg">
       <div class="crumbs ">
         <h4>FEATURED POSTS</h4>
-        <p style="font-size: 14px">
+        <p class="text-sm">
           <Icon type="tags" />Hot tags:
           <span># Covid-19</span>
           <span># Inspiration</span>
@@ -30,7 +30,7 @@
         </div>
         <div class="food" ref="food">
           <img
-            style="width: 100%;height:260px border-radius:10px"
+          class="w-full h-64 rounded-xl"
             src="https://img.zcool.cn/community/03104da622ab30f11013f785b4ff8f1.jpg@520w_390h_1c_1e_2o_100sh.jpg"
             alt
           />
@@ -39,7 +39,7 @@
             <span style="color: #4da7d4">Travel</span>.
             <span style="color: #28a745">Food</span>.
             <h2>Want fluffy Japanese pancakes but can’t fly to Tokyo?</h2>
-            <p style="font-size: 12px">
+            <p class="text-xs">
               <span>20minutes ago</span> ·
               <span>23k View</span>
             </p>
@@ -123,7 +123,7 @@
           <div class="search_input">
             <input type="text" placeholder="search more" />
             <div class="search_icon" title="搜索文章">
-              <Icon style type="search" />
+              <Icon type="search" />
             </div>
           </div>
           <div class="list_ul">

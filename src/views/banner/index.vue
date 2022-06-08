@@ -11,7 +11,7 @@
     <div class="banner_info" v-if="is_home">
       <div class="banner_info_content">
         <div class="msg">{{ msg }}|</div>
-        <h2 style="margin: 0">
+        <h2 class="m-0">
           你好, 我是 <span style="color: #5869da">Flechazo</span>
         </h2>
         <!-- <h2>谢谢你留下的足迹</h2> -->
@@ -57,4 +57,3 @@ export default {
 };
 </script>
 
-<style></style>
