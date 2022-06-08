@@ -30,7 +30,7 @@
           @click="
             $router.push({name:'upload_article',params:article})
           "
-          v-if='article.uper.userId == $store.state.userInfo.userInfo.id'
+          v-if='article.userId == $store.state.userInfo.userInfo.id'
         >
           <!-- +关注 -->
           修改
@@ -50,6 +50,7 @@ export default {
     };
   },
   async created() {
+    console.log(this.$store.state.userInfo.userInfo.id);
     this.$store.commit('change_show_header',false)
     this.$route.params.content ? this.article = this.$route.params : this.article = JSON.parse(localStorage.getItem('article_details'))
     localStorage.setItem('article_details',JSON.stringify(this.article))

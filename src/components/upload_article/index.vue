@@ -34,7 +34,7 @@
       <div style="width: 79vw;" class="flex justify-between">
         <button class="btn back_btn" @click="goBack()">返回</button>
         <button class="btn upload_article_btn" @click="uploadArticle">
-          {{ $route.params.article_id ? "修改" : "上传" }}
+          {{ $route.params.id ? "修改" : "发布" }}
         </button>
       </div>
     </div>
@@ -243,15 +243,15 @@ export default {
         ...this.base_info,
         upload_html: this.html,
         userId: this.$store.state.userInfo.userInfo.id,
-        article_id: this.$route.params.article_id,
+        article_id: this.$route.params.id,
       };
-      !this.$route.params.article_id && delete req.article_id;
-      const res = this.$route.params.article_id
+      !this.$route.params.id && delete req.article_id;
+      const res = this.$route.params.id
         ? await updateArticle(req)
         : await uploadArticle(req);
       res.data.code == 200
         ? this.$Swal.fire({
-            title: "发布成功...",
+            title: `${this.$route.params.id ? '修改' : '发布'}成功...`,
             showClass: {
               popup: "animate__animated animate__fadeInDown",
             },
