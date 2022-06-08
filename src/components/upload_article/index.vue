@@ -173,7 +173,6 @@ export default {
         this.loading = true;
         return;
       }
-      console.log(info);
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (coverUrl) => {
         if (coverUrl == localStorage.getItem("coverUrl")) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Banner
-      bg="https://img.zcool.cn/community/018py56hjpacbuonvklo2l3938.jpg?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100/format,webp/quality,Q_100"
+      :bg='module_headerBg'
     />
     <div class="content_moduleBox">
       <article class="content_list">
@@ -65,6 +65,9 @@ export default {
     module_name() {
       return this.$route.params.module;
     },
+    module_headerBg(){
+      return `http://47.107.243.60:5003/img/module_headerBg/${this.$route.params.module}.jpg`
+    }
 
   },
   watch: {

@@ -5,7 +5,7 @@
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
-        : { backgroundImage: `url(${bg})`, height: '30vh' }
+        : { backgroundImage: `url(${bg})`, height: '40vh' }
     "
   >
     <div class="banner_info" v-if="is_home">
