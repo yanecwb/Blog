@@ -16,8 +16,8 @@ export default {
     Container
   },
   created(){
-    this.commit('change_show_footer',false)
-    this.commit("change_show_header", true);
+    this.$store.commit('change_show_footer',false)
+    this.$store.commit("change_show_header", true);
   }
 
 };

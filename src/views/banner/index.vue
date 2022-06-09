@@ -1,11 +1,12 @@
 <template>
   <div
     class="banner_box"
+    :class="is_home ? 'h-screen' : 'h-40 md:h-80'"
     ref="banner_box"
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
-        : { backgroundImage: `url(${bg})`, height: '40vh' }
+        : { backgroundImage: `url(${bg})` }
     "
   >
     <div class="banner_info" v-if="is_home">

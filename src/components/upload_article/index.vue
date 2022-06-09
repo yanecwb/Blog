@@ -321,10 +321,6 @@ export default {
     document.getElementsByTagName("body")[0].style.overflow = "";
   },
   beforeRouteEnter(to, from, next) {
-    if (!localStorage.getItem("userInfo")) {
-      alert(" 请先登录");
-      return;
-    }
     next((vm) => {
       if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
         const Toast = vm.$Swal.mixin({

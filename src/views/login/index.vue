@@ -106,7 +106,7 @@ export default {
         };
     },
     created(){
-      this.commit('change_show_header',false)
+      this.$store.commit('change_show_header',false)
     },
     methods: {
         checkout_form() {

@@ -1,7 +1,4 @@
 let mixin = {
-  created(){
-    this.commit = this.$store.commit
-  },
   methods:{
     goBack(params){
       this.$router.back()

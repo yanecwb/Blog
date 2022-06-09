@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 头部 -->
+    <!-- 头部v_1.0 -->
     <!-- <div class="header_box">
             <div class="header_box_top">
                 <div class="logo" @click="goRouter('/home')">
@@ -39,8 +39,12 @@
                 </div>
             </div>
         </div> -->
-    <!-- 导航 -->
-    <header class="header_box_navBar" ref="navBar">
+    <!-- 导航PC -->
+    <header
+      class="header_box_navBar h-8 md:h-14"
+      ref="navBar"
+      v-if="!$store.state.is_phone"
+    >
       <ul>
         <div style>
           <span href @click="change_showmenu">
@@ -61,9 +65,35 @@
               type="edit"
               style="font-size: 14px; color: white"
               title="写文章"
-              @click="goRouter('/upload_article')"
+              @click="go_up_article"
             />
           </li>
+        </div>
+      </ul>
+    </header>
+
+    <header class="header_box_navBar h-8 md:h-14" ref="navBar" v-else>
+      <ul>
+        <div>
+          <span href @click="change_showmenu">
+            <Icon :type="showmenu ? 'close' : 'setting'" class="text-sm" />
+          </span>
+          <span :class="'iconfont' + weather + ' text-sm'"></span>
+        </div>
+        <div>
+          <Icon type="menu" @click="visible = true"/>
+          <Drawer
+            title="Basic Drawer"
+            :placement="'top'"
+            :closable="false"
+            :visible="visible"
+            width='100vw'
+            @close="()=>{visible =false}"
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Drawer>
         </div>
       </ul>
     </header>
@@ -73,9 +103,7 @@
       v-if="show_backtop"
       @click="backtop"
     >
-      <span
-        class="iconfont icon-icon--fanhuidingbu text-2xl"
-      ></span>
+      <span class="iconfont icon-icon--fanhuidingbu text-2xl"></span>
     </div>
     <!-- 遮罩层 -->
     <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
@@ -88,13 +116,14 @@
 import "./header.css";
 // import "animate.css";
 import { getWeather, weather_json } from "../../api/weather";
-import { Icon } from "ant-design-vue";
+import { Icon, Drawer } from "ant-design-vue";
 
 import MoreMenu from "../MoreMenu/index.vue";
 export default {
   name: "Header",
   components: {
     Icon,
+    Drawer,
     MoreMenu,
   },
   data() {
@@ -102,9 +131,32 @@ export default {
       show_backtop: false,
       showmenu: false,
       weather: "",
+      visible:false
     };
   },
   methods: {
+    go_up_article() {
+      if (!JSON.parse(localStorage.getItem("userInfo")).id) {
+        const Toast = this.$Swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+            toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "warning",
+          title: "请先登录！",
+        });
+        return;
+      }
+      this.goRouter("/upload_article");
+    },
     backtop() {
       this.timer = setInterval(() => {
         document.documentElement.scrollTop -= 12;
@@ -141,7 +193,7 @@ export default {
   watch: {
     scrolltop: {
       handler(newval, oldval) {
-        if (newval >= oldval ||  newval<document.body.scrollHeight*0.2) {
+        if (newval >= oldval || newval < document.body.scrollHeight * 0.2) {
           this.show_backtop = false;
         } else {
           this.show_backtop = true;

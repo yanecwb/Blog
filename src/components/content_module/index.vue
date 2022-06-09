@@ -3,22 +3,22 @@
     <Banner
       :bg='module_headerBg'
     />
-    <div class="content_moduleBox">
-      <article class="content_list">
+    <div class="content_moduleBox w-full">
+      <article class="content_list w-full md:w-180 my-0 mx-auto">
         <section
           v-for="(list, index) in article_moduleList"
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
         >
-          <li class="li" @click="$router.push({name:`article_detail`,params:list})">
-            <div :style="list.content.indexOf('<img') != 1 ? { float: 'left', width: '620px' } : ''">
+          <li class="li mb-1" @click="$router.push({name:`article_detail`,params:list})">
+            <div :class="list.coverUrl  ? 'float-left w-64': ''">
               <div class="content_list_author">
                 <span style="padding-left: 0">{{article_classify(list.article_classify)}}</span>
                 <span class="text-xs">{{format_publishTime(list.publish_time)}}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title">{{list.article_title}}</a>
-              <p>
+              <a class="title md:text-base">{{list.article_title}}</a>
+              <p class="my-2 md:my-4">
                 Web3.0来了，花呗借呗前端团队开源的Web图形引擎会成为元宇宙的技术支撑吗？
               </p>
               <div class="content_list_flow">
@@ -32,16 +32,11 @@
             <img
               v-if="list.coverUrl"
               :src="list.coverUrl"
-              style="width: 120px; height: 80px; float: right; margin-top: 10px"
+              class=" w-28 md:32 h-16 md:h-20 float-right mt-5"
             />
           </li>
         </section>
       </article>
-      <aside class="aside">
-        <div class="t">...</div>
-        <div>2</div>
-        <div>3</div>
-      </aside>
     </div>
   </div>
 </template>
@@ -91,26 +86,23 @@ export default {
     },
   },
   created(){
-    this.commit("change_show_header", true);
+    this.$store.commit("change_show_header", true);
   }
 };
 </script>
 
 <style lang="less" scoped>
 .content_moduleBox {
-  width: 100%;
   height: auto;
-  padding: 15px calc((100vw - 1110px) / 2) 0 calc((100vw - 1110px) / 2);
+  // padding: 15px calc((100vw - 1110px) / 2) 0 calc((100vw - 1110px) / 2);
   padding-bottom: 20px;
   margin: 0 auto;
   background-color: #f1f2f3;
   display: flex;
   justify-content: space-between;
   .content_list {
-    width: 780px;
     background-color: white;
     section {
-      width: 780px;
       padding: 0 15px;
       cursor: pointer;
     }
@@ -119,40 +111,12 @@ export default {
     }
     li {
       list-style: none;
-      width: 760px;
-      height: 150px;
       border-top: 1px solid #e5e6eb;
       padding-top: 15px;
-
-      .content_list_author {
-        margin-bottom: 10px;
-        width: 100%;
-        span {
-          position: relative;
-          padding: 0 8px;
-          line-height: 22px;
-          font-size: 13px;
-          flex-shrink: 0;
-          color: #86909c;
-          // border-right: 0.5px #e5e6eb solid;
-        }
-        span:before {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          display: block;
-          width: 1px;
-          height: 14px;
-          background: #e5e6eb;
-          content: " ";
-        }
-      }
       .title {
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: 600;
         line-height: 24px;
         color: #1d2129;
-        width: 100%;
         display: -webkit-box;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -167,7 +131,6 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin: 12px 0;
       }
       .content_list_flow {
         display: flex;

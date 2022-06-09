@@ -74,8 +74,7 @@
 
 /* header_box_navBar */
 .header_box_navBar {
-  width: 100%;
-  height: 54px;
+  width: 100vw;
   z-index: 999;
   position: fixed;
   top:0;

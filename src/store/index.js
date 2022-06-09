@@ -5,6 +5,7 @@ import userInfo from './modules/userInfo'
 Vue.use(Vuex)
 const store =  new Vuex.Store({
   state:{
+    is_phone:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
     show_footer:false,
     show_header:true
   },
