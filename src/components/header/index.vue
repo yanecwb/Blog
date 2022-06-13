@@ -50,7 +50,7 @@
           <span href @click="change_showmenu">
             <Icon :type="showmenu ? 'close' : 'setting'" />
           </span>
-          <span :class="'iconfont' + weather" style="color: white"></span>
+          <span :class="'iconfont' + weather"></span>
         </div>
         <div ref="navBar_ul" style="display: flex">
           <li @click="goRouter('/home')" name="home">
@@ -65,7 +65,7 @@
               type="edit"
               style="font-size: 14px; color: white"
               title="写文章"
-              @click="go_up_article"
+              @click="go_up_article()"
             />
           </li>
         </div>
@@ -75,25 +75,52 @@
     <header class="header_box_navBar h-8 md:h-14" ref="navBar" v-else>
       <ul>
         <div>
+          <Icon type="menu" @click="visible = true" />
+          <div class="text-black">
+            <Drawer
+              title=" "
+              :placement="'top'"
+              :closable="false"
+              :visible="visible"
+              width="100vw"
+              @close="visible = false"
+            >
+              <div class="flex text-base justify-between w-full font-bold">
+                <Dropdown>
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()" >
+                  Home <Icon type="home" />
+                </a>
+              </Dropdown>
+              <Dropdown>
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()">
+                  文章 <Icon type="down" />
+                </a>
+                <Menu slot="overlay">
+                  <a-menu-item>
+                    <a href="javascript:;">前端</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">后端</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">android</a>
+                  </a-menu-item>
+                </Menu>
+              </Dropdown>
+              <Dropdown>
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()">
+                  写文章 <Icon type="edit" />
+                </a>
+              </Dropdown>
+              </div>
+            </Drawer>
+          </div>
+        </div>
+        <div>
+          <span :class="'iconfont' + weather + ' text-sm'"></span>
           <span href @click="change_showmenu">
             <Icon :type="showmenu ? 'close' : 'setting'" class="text-sm" />
           </span>
-          <span :class="'iconfont' + weather + ' text-sm'"></span>
-        </div>
-        <div>
-          <Icon type="menu" @click="visible = true"/>
-          <Drawer
-            title="Basic Drawer"
-            :placement="'top'"
-            :closable="false"
-            :visible="visible"
-            width='100vw'
-            @close="()=>{visible =false}"
-          >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </Drawer>
         </div>
       </ul>
     </header>
@@ -116,8 +143,9 @@
 import "./header.css";
 // import "animate.css";
 import { getWeather, weather_json } from "../../api/weather";
-import { Icon, Drawer } from "ant-design-vue";
-
+import { Icon, Drawer, Dropdown, Menu } from "ant-design-vue";
+import Vue from 'vue'
+Vue.component(Menu.Item.name, Menu.Item)//想要用a-menu-item 组件必须引入,不然会报错
 import MoreMenu from "../MoreMenu/index.vue";
 export default {
   name: "Header",
@@ -125,38 +153,18 @@ export default {
     Icon,
     Drawer,
     MoreMenu,
+    Menu,
+    Dropdown,
   },
   data() {
     return {
       show_backtop: false,
       showmenu: false,
       weather: "",
-      visible:false
+      visible: false,
     };
   },
   methods: {
-    go_up_article() {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {
-        const Toast = this.$Swal.mixin({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-            toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          icon: "warning",
-          title: "请先登录！",
-        });
-        return;
-      }
-      this.goRouter("/upload_article");
-    },
     backtop() {
       this.timer = setInterval(() => {
         document.documentElement.scrollTop -= 12;
@@ -242,18 +250,38 @@ export default {
         //向下滚动
         if (this.scrolltop > 200) {
           this.$refs.navBar.className =
-            "header_box_navBar animate__fadeOutUp animate__animated ";
+            "header_box_navBar h-8 md:h-14 animate__fadeOutUp animate__animated ";
         }
       } else {
         this.$refs.navBar.className =
-          "header_box_navBar animate__fadeInDown animate__animated ";
+          "header_box_navBar h-8 md:h-14 animate__fadeInDown animate__animated ";
       }
     };
   },
 };
 </script>
-<style scoped lang="less">
+<style lang="less">
+.ant-drawer-content{
+  height: auto !important;
+}
+.ant-drawer-header {
+  background-image: url(http://47.107.243.60:5003/img/static_img/fan_girl.gif) !important;
+  // background-image: url(http://hbimg.huabanimg.com/0a3092f963efddf5a28e420f2b6edd223dcde5ad197cf3-EOb0OK_fw658.gif) !important;
+  background-size: 100% 100% !important;
+  height: 125px;
+}
 .navBar_show {
   color: rgba(0, 0, 0, 0.87);
+}
+.ant-dropdown-link{
+  position: relative;
+        color:#394867;
+        &::before{
+          content: attr(text);
+        position: absolute;
+        z-index: 10;
+        color:pink;
+        -webkit-mask:linear-gradient(to left, red, transparent );
+        }
 }
 </style>

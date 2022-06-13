@@ -11,7 +11,7 @@ export const getWeather = ()=>{
         method:'get',
         url:`https://www.tianqiapi.com/api`,
         params:{
-            cityid:101280601,
+            cityid:101280501,
             unescape:1,
             version:'v1',
             appid:62932142,

@@ -36,7 +36,51 @@ let mixin = {
         return '今天 '+ publish_time.substring(9)
       }
       return parseInt((now - pub_time)/(60*60*24)) + '天前'
-    }
+    },
+    go_up_article(article) {
+      if (!JSON.parse(localStorage.getItem("userInfo")).id) {
+        const Toast = this.$Swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+            toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "warning",
+          title: "请先登录！",
+        });
+        return;
+      }
+       if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+        const Toast = this.$Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+            toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          width: "80%",
+          height: "100px",
+          icon: "info",
+          title: "请在PC端发布或修改文章...",
+          heightAuto: false,
+        });
+        return
+      }
+      article ? this.$router.push({name:'upload_article',params:article}) : this.goRouter("/upload_article");
+    },
   }
 }
 

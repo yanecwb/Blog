@@ -4,7 +4,7 @@
       :bg='module_headerBg'
     />
     <div class="content_moduleBox w-full">
-      <article class="content_list w-full md:w-180 my-0 mx-auto">
+      <article class="content_list w-full md:w-300 my-0 mx-auto">
         <section
           v-for="(list, index) in article_moduleList"
           :key="index"

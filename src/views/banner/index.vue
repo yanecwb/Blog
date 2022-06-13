@@ -1,30 +1,39 @@
 <template>
   <div
-    class="banner_box"
-    :class="is_home ? 'h-screen' : 'h-40 md:h-80'"
-    ref="banner_box"
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
-        : { backgroundImage: `url(${bg})` }
+        : { backgroundImage: `url(${bg})`,backgroundSize:'100% 100%' }
     "
+
   >
-    <div class="banner_info" v-if="is_home">
-      <div class="banner_info_content">
-        <div class="msg">{{ msg }}|</div>
-        <h2 class="m-0">
-          你好, 我是 <span style="color: #5869da">Flechazo</span>
-        </h2>
-        <!-- <h2>谢谢你留下的足迹</h2> -->
-        <p>一往情深深几许？深山夕照深秋雨...</p>
-        <!-- <form class="email_input">
+    <div
+      class="banner_box mx-auto"
+      :class="is_home ? 'h-screen' : 'h-40 md:h-96'"
+      ref="banner_box"
+      :style="
+        is_home
+          ? { backgroundImage: `url(${bg})` }
+          : { backgroundImage: `url(${bg})` }
+      "
+    >
+      <div class="banner_info" v-if="is_home">
+        <div class="banner_info_content">
+          <div class="msg">{{ msg }}|</div>
+          <h2 class="m-0">
+            你好, 我是 <span style="color: #5869da">Flechazo</span>
+          </h2>
+          <!-- <h2>谢谢你留下的足迹</h2> -->
+          <p>一往情深深几许？深山夕照深秋雨...</p>
+          <!-- <form class="email_input">
           <input type="email" placeholder="Enter your email" />
           <button>Subscribe</button>
         </form> -->
-      </div>
-      <!-- <div class="banner_info_img">
+        </div>
+        <!-- <div class="banner_info_img">
         <img src="../../assets/featured.png" alt="" />
       </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -57,4 +66,3 @@ export default {
   },
 };
 </script>
-

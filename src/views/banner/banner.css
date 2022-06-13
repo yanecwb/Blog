@@ -1,7 +1,6 @@
 .banner_box{
-    width: 100%;
+    width: 80%;
     background-size:100% 100%;
-    background-position: 0 0;
 }
 .banner_box .banner_info{
     height: 100%;

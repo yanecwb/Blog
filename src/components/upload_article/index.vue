@@ -321,30 +321,7 @@ export default {
     document.getElementsByTagName("body")[0].style.overflow = "";
   },
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        const Toast = vm.$Swal.mixin({
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", vm.$Swal.stopTimer);
-            toast.addEventListener("mouseleave", vm.$Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          width: "80%",
-          height: "100px",
-          icon: "info",
-          title: "请在PC端发布或修改文章...",
-          heightAuto: false,
-        });
-        next("/article_detail");
-      }
-    });
+    next();
   },
 };
 </script>
