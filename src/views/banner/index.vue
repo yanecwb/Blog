@@ -9,7 +9,7 @@
   >
     <div
       class="banner_box mx-auto"
-      :class="is_home ? 'h-screen' : 'h-40 md:h-96'"
+      :class="is_home ? 'h-screen' : 'h-36 md:h-96'"
       ref="banner_box"
       :style="
         is_home

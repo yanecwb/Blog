@@ -87,29 +87,23 @@
             >
               <div class="flex text-base justify-between w-full font-bold">
                 <Dropdown>
-                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()" >
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => {e.preventDefault();visible = false;goRouter('/home') }" >
                   Home <Icon type="home" />
                 </a>
               </Dropdown>
               <Dropdown>
-                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()">
-                  文章 <Icon type="down" />
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) =>{e.preventDefault();visible = false;goRouter('/content/frontend') }">
+                  前端
                 </a>
-                <Menu slot="overlay">
-                  <a-menu-item>
-                    <a href="javascript:;">前端</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <a href="javascript:;">后端</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <a href="javascript:;">android</a>
-                  </a-menu-item>
-                </Menu>
               </Dropdown>
               <Dropdown>
-                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => e.preventDefault()">
-                  写文章 <Icon type="edit" />
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => {e.preventDefault();visible = false;goRouter('/content/backend')}">
+                  后端 <Icon type="edit" />
+                </a>
+              </Dropdown>
+              <Dropdown>
+                <a class="ant-dropdown-link animate__animated animate__zoomIn" @click="(e) => {e.preventDefault();visible = false;goRouter('/content/android')}">
+                  安卓 <Icon type="edit" />
                 </a>
               </Dropdown>
               </div>
@@ -211,6 +205,7 @@ export default {
     path: {
       immediate: true,
       handler() {
+        if(this.$store.state.is_phone) return
         this.$nextTick(() => {
           Array.from(this.$refs.navBar_ul.children).find((item) => {
             if (
