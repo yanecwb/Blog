@@ -48,11 +48,11 @@
       <ul>
         <div style>
           <span href @click="change_showmenu">
-            <Icon :type="showmenu ? 'close' : 'setting'" />
+            <Icon :type="showmenu ? 'close' : 'setting'"  class="text-xs md:text-xl mr-1"/>
           </span>
-          <span :class="'iconfont' + weather"></span>
+          <span :class="'text-xs md:text-xl iconfont' + weather"></span>
         </div>
-        <div ref="navBar_ul" style="display: flex">
+        <div ref="navBar_ul" class="flex text-xs md:text-base">
           <li @click="goRouter('/home')" name="home">
             <Icon type="home" style="margin-right: 2px" />首 页
           </li>

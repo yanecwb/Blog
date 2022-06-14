@@ -3,13 +3,13 @@
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
-        : { backgroundImage: `url(${bg})`,backgroundSize:'100% 100%' }
+        : { backgroundImage: `url(${bg})`,backgroundSize:'cover',backgroundPosition: 'center' }
     "
 
   >
     <div
       class="banner_box mx-auto"
-      :class="is_home ? 'h-screen' : 'h-36 md:h-96'"
+      :class="is_home ? 'h-screen' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'"
       ref="banner_box"
       :style="
         is_home

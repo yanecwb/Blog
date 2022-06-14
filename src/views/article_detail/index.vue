@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 ">
+  <div class="w-full  h-aotu bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 ">
     <div
-      class="w-full md:w-3/5 p-3 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white );"
+      class="w-full md:w-3/5 md:pt-14 p-3 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white );"
     >
       <div ><Icon type="left" class="text-white"/></div>
       <div class="text-base md:text-2xl lg:text-3xl font-bold md:px-32 mt-3 md:mt-0">
