@@ -1,7 +1,9 @@
 <template>
-  <div class="w-full  h-aotu bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 ">
+
+  <div class="w-full  h-aotu" style="background-color:#f4f8fb">
+   <iframe frameborder="0" scrolling="no" src="http://47.107.243.60:5003/colokBanner.html" class="w-full" height="500px"></iframe>
     <div
-      class="w-full md:w-3/5 md:pt-14 p-3 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white );"
+      class="w-full md:w-3/5 md:pt-14 p-3 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white opacity-75 shadow-2xl);"
     >
       <div ><Icon type="left" class="text-white"/></div>
       <div class="text-base md:text-2xl lg:text-3xl font-bold md:px-32 mt-3 md:mt-0">
@@ -41,10 +43,12 @@
 
 <script>
 import {Icon} from 'ant-design-vue'
+import Banner from "../../views/banner";
 export default {
   name: "article_detail",
   components:{
-    Icon
+    Icon,
+    Banner
   },
   data() {
     return {
@@ -63,6 +67,6 @@ export default {
 .h {
   img {
     width: 100%;
-}
+  }
 }
 </style>

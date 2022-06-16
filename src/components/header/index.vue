@@ -173,6 +173,7 @@ export default {
   },
 
   async created() {
+    console.log(this.$router.options.routes);
     const res = await getWeather();
     const arr = Object.keys(weather_json);
     Array.from(res.data.data[0].wea_day).forEach((item) => {
