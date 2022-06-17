@@ -1,6 +1,6 @@
 <template>
     <div class="animate__animated animate__fadeIn">
-        <Banner bg='https://static.talkxj.com/config/0bee7ba5ac70155766648e14ae2a821f.jpg' is_home='1'/>
+        <Banner bg='http://47.107.243.60:5003/img/static_img/1003880.png' is_home='1'/>
         <Container />
     </div>
 </template>

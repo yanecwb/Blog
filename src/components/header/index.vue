@@ -40,19 +40,20 @@
             </div>
         </div> -->
     <!-- 导航PC -->
-    <header
-      class="header_box_navBar h-8 md:h-14"
+    <div  v-if="!$store.state.is_phone">
+      <header
+      class="header_box_navBar  h-8 md:h-12"
       ref="navBar"
-      v-if="!$store.state.is_phone"
     >
       <ul>
-        <div style>
+        <div>
           <span href @click="change_showmenu">
-            <Icon :type="showmenu ? 'close' : 'setting'"  class="text-xs md:text-xl mr-1"/>
+            <Icon :type="showmenu ? 'close' : 'user'"  class="text-xs md:text-sm mr-1"/>
           </span>
-          <span :class="'text-xs md:text-xl iconfont' + weather"></span>
+          <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span>
+          <Icon type='eye'  class="text-xs md:text-sm ml-1" v-if="$route.name !== 'home'" @click="showHeader(0)" title="隐藏导航"/>
         </div>
-        <div ref="navBar_ul" class="flex text-xs md:text-base">
+        <div ref="navBar_ul" class="flex text-xs md:text-sm">
           <li @click="goRouter('/home')" name="home">
             <Icon type="home" style="margin-right: 2px" />首 页
           </li>
@@ -60,18 +61,23 @@
           <li name="backend" @click="goRouter('/content/backend')">后 端</li>
           <li name="android" @click="goRouter('/content/android')">安 卓</li>
           <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
-          <li>
+          <li name="article"  @click="go_up_article()">
+            写文章
             <Icon
               type="edit"
               style="font-size: 14px; color: white"
               title="写文章"
-              @click="go_up_article()"
             />
           </li>
         </div>
       </ul>
     </header>
+     <div @click="showHeader(1)" v-if="visible"  class="animate__fadeInDown animate__animated border-1 w-6 h-4 flex justify-center items-center rounded-sm fixed top-0 " style="background-image: linear-gradient(to top,#fef9d7  0%,  #d299c2 100%);" >
+        <Icon type='down'  class="text-xl text-white" />
+      </div>
+    </div>
 
+  <!-- Mobile  -->
     <header class="header_box_navBar h-8 md:h-14" ref="navBar" v-else>
       <ul>
         <div>
@@ -170,6 +176,15 @@ export default {
     change_showmenu() {
       this.showmenu = !this.showmenu;
     },
+    showHeader(val){
+      if(val){
+      this.$refs.navBar.className = "header_box_navBar  h-8 md:h-14 animate__fadeInDown animate__animated";
+      this.visible =false
+        return
+      }
+      this.$refs.navBar.className ="header_box_navBar h-8 md:h-14 animate__fadeOutUp animate__animated";
+      this.visible =true
+    }
   },
 
   async created() {
@@ -241,16 +256,15 @@ export default {
     }
     //上下滚动时的具体处理函数
     const handle = (delta) => {
+      if(this.$store.state.is_phone) return
       if (this.$route.path !== "/home") return;
       if (delta < 0) {
         //向下滚动
         if (this.scrolltop > 200) {
-          this.$refs.navBar.className =
-            "header_box_navBar h-8 md:h-14 animate__fadeOutUp animate__animated ";
+          this.$refs.navBar.className = "header_box_navBar h-8 md:h-14 animate__fadeOutUp animate__animated";
         }
       } else {
-        this.$refs.navBar.className =
-          "header_box_navBar h-8 md:h-14 animate__fadeInDown animate__animated ";
+        this.$refs.navBar.className = "header_box_navBar  h-8 md:h-14 animate__fadeInDown animate__animated";
       }
     };
   },

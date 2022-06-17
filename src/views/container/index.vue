@@ -1,8 +1,8 @@
 <template>
   <div style="width: 100%">
     <div class="bg">
-      <div class="crumbs ">
-        <h4>FEATURED POSTS</h4>
+      <div class="crumbs w-full  md:w-280">
+        <h4  v-if="!$store.state.is_phone">FEATURED POSTS</h4>
         <p class="text-sm">
           <Icon type="tags" />Hot tags:
           <span># Covid-19</span>
@@ -11,7 +11,7 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="container_box">
+      <div class="container_box" v-if="!$store.state.is_phone">
         <div class="carousel" ref="carousel">
           <Icon class="icon" type="heart" />
           <div class="backcolor"></div>
@@ -46,9 +46,9 @@
           </div>
         </div>
       </div>
-      <div class="article">
-        <div class="article_left">
-          <div class="article_left_hot" ref="article_left_hot">
+      <div class="article mt-7 w-screen md:w-280 md:justify-between justify-center">
+        <div class="article_left w-full md:w-180">
+          <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"  v-if="!$store.state.is_phone">
             <div class="article_left_hot_img"></div>
             <div class="article_left_hot_content">
               <div class="article_left_hot_content_desc">
@@ -115,7 +115,7 @@
             />
           </div>
         </div>
-        <div class="article_right" ref="article_right">
+        <div class="article_right" ref="article_right"  v-if="!$store.state.is_phone">
           <div class="input_top">
             <h1>——</h1>
             <span>NewsLetter</span>

@@ -6,7 +6,6 @@
 }
 
 .crumbs {
-	width: 1110px;
 	margin: 0 auto;
 	padding: 5px 0;
 	display: flex;
@@ -112,16 +111,11 @@
 }
 
 .article {
-	width: 1110px;
-	height: 2300px;
-	margin: 30px auto;
+	/* height: 2300px; */
+	margin: 0 auto;
 	display: flex;
-	justify-content: space-between;    /* border: 1px solid red; */
 }
 
-.article_left {
-	width: 710px;    /* border: 1px solid black; */
-}
 
 .article_left_hot .article_left_hot_img {
 	width: 100%;

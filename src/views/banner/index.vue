@@ -1,50 +1,38 @@
 <template>
   <div
+    class="bg-cover bg-center"
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
-        : {
-            backgroundImage: `url(${bg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }
+        : { backgroundImage: `url(${bg})` }
     "
   >
     <div
-      class="banner_box mx-auto"
+      class="w-full flex justify-center items-center"
       :class="
-        is_home ? 'h-screen' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'
+        is_home ? 'h-screen' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-200'
       "
       ref="banner_box"
-      :style="
-        is_home
-          ? { backgroundImage: `url(${bg})` }
-          : { backgroundImage: `url(${bg})` }
-      "
     >
-      <div class="banner_info" v-if="is_home">
-        <div class="banner_info_content">
-          <div class="msg">{{ msg }}|</div>
-          <h2 class="m-0">
+      <div
+        class="banner_info flex items-center justify-center mx-auto"
+        v-if="is_home"
+      >
+        <div class="px-5 font-black">
+          <div class="msg text-base  lg:text-xl" style="font-family: 'Gabriola'; color: wheat;">{{ msg }}|</div>
+          <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
             你好, 我是 <span style="color: #5869da">Flechazo</span>
-          </h2>
-          <!-- <h2>谢谢你留下的足迹</h2> -->
-          <p>一往情深深几许？深山夕照深秋雨...</p>
-          <!-- <form class="email_input">
-          <input type="email" placeholder="Enter your email" />
-          <button>Subscribe</button>
-        </form> -->
+          </p>
+          <p class="lg:text-base text-sm text-white">一往情深深几许？深山夕照深秋雨...</p>
         </div>
-        <!-- <div class="banner_info_img">
-        <img src="../../assets/featured.png" alt="" />
-      </div> -->
+        <Icon
+          v-if="is_home"
+          type="down"
+          class="absolute left-1/2 text-gray text-3xl font-bold cursor-pointer"
+          :style="{ bottom: bottom + 'px' }"
+          @click="down"
+        />
       </div>
-      <Icon
-        type="down"
-        class="absolute left-1/2 text-gray text-3xl font-bold cursor-pointer"
-        :style="{bottom:bottom+'px'}"
-        @click="down"
-      />
     </div>
   </div>
 </template>
@@ -60,36 +48,47 @@ export default {
   data() {
     return {
       msg: "",
-      bottom:-2,
-      isbottom:true
+      bottom: -2,
+      isbottom: true,
     };
   },
   props: ["bg", "is_home"],
-  methods:{
-    down(){
+  watch:{
+    $route:{
+      immediate:true,
+      handler(newval){
+        if(newval.name != 'home'){
+          clearInterval(this.timer)
+        }
+      }
+    }
+  },
+  methods: {
+    down() {
+      const maxH = this.$refs.banner_box.clientHeight
       this.timer = setInterval(() => {
-        document.documentElement.scrollTop += 5
-        if (document.documentElement.scrollTop > window.innerHeight) {
+        document.documentElement.scrollTop += 5;
+        console.log(document.documentElement.scrollTop);
+        if (document.documentElement.scrollTop > maxH) {
           clearInterval(this.timer);
         }
       }, 1);
-    }
+    },
   },
   mounted() {
-      setInterval(() => {
-        if (this.isbottom) {
-          this.bottom++;
-        } else{
-          this.bottom--
-        }
-        if(this.bottom == 9){
-          this.isbottom = false
-        }
-        if(this.bottom == -2){
-          this.isbottom = true
-        }
-
-      },70);
+    setInterval(() => {
+      if (this.isbottom) {
+        this.bottom++;
+      } else {
+        this.bottom--;
+      }
+      if (this.bottom == 9) {
+        this.isbottom = false;
+      }
+      if (this.bottom == -2) {
+        this.isbottom = true;
+      }
+    }, 70);
     const msg_text = "Do what you like";
     let count = 0;
     this.timer = setInterval(() => {

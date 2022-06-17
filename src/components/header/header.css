@@ -78,8 +78,9 @@
   z-index: 999;
   position: fixed;
   top:0;
-  background:rgba(0,0,0,0.3);
+  background-image: linear-gradient(to top,#fef9d7  0%,  #d299c2 100%);
   color: white;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
 }
 .header_box_navBar ul {
   list-style: none;
@@ -127,5 +128,6 @@
   border-radius: 50%;
 }
 .selete_navBar {
-  color: #2098D1;
+  color: #c15146;
+  font-size:15px
 }
