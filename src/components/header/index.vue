@@ -126,7 +126,7 @@
     </header>
     <!-- 返回头部 -->
     <div
-      class="back_top animate__animated animate__fadeInDown"
+      class="back_top animate__animated animate__fadeInDown sm:fixed right-0 md:right-6 "
       v-if="show_backtop"
       @click="backtop"
     >

@@ -1,13 +1,9 @@
 .container_box {
 	width: 1110px;
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-between;
 }
 
 .crumbs {
 	margin: 0 auto;
-	padding: 5px 0;
 	display: flex;
 	justify-content: space-between;
 }
@@ -110,12 +106,6 @@
 	margin: 20px 0;
 }
 
-.article {
-	/* height: 2300px; */
-	margin: 0 auto;
-	display: flex;
-}
-
 
 .article_left_hot .article_left_hot_img {
 	width: 100%;
@@ -177,14 +167,13 @@
 
 .article_left_natural_box {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	flex-wrap: wrap;
 }
 
 .article_left_natural {
 	width: 330px;
 	height: 454px;
-	margin-bottom: 70px;
 	border: 0.5px #e8e8e8 solid;
 }
 

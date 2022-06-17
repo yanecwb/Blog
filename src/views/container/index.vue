@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
     <div class="bg">
-      <div class="crumbs w-full  md:w-280">
+      <div class="crumbs md:px-0 py-1 px-6 w-full md:w-300">
         <h4  v-if="!$store.state.is_phone">FEATURED POSTS</h4>
         <p class="text-sm">
           <Icon type="tags" />Hot tags:
@@ -11,7 +11,7 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="container_box" v-if="!$store.state.is_phone">
+      <div class="container_box mx-auto flex justify-between" v-if="!$store.state.is_phone">
         <div class="carousel" ref="carousel">
           <Icon class="icon" type="heart" />
           <div class="backcolor"></div>
@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="article mt-7 w-screen md:w-280 md:justify-between justify-center">
+      <div class="flex mx-auto mt-7 w-screen md:w-300 md:justify-between">
         <div class="article_left w-full md:w-180">
           <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"  v-if="!$store.state.is_phone">
             <div class="article_left_hot_img"></div>
@@ -72,13 +72,13 @@
           </div>
           <div class="article_left_natural_box">
             <div
-              class="article_left_natural"
+              class="article_left_natural md:mb-14 lg:mb-16 mb-10 rounded-2xl"
               v-for="item in article_list"
               :key="item.id"
               ref="article_left_natural"
             >
               <div class="article_left_natural_img">
-                <img :src="item.imgUrl" alt />
+                <img :src="item.imgUrl" alt class="rounded-2xl"/>
               </div>
               <div class="article_left_natural_content">
                 <div class="article_left_natural_content_desc">

@@ -28,7 +28,7 @@
         <Icon
           v-if="is_home"
           type="down"
-          class="absolute left-1/2 text-gray text-3xl font-bold cursor-pointer"
+          class="absolute left-1/2 text-gray text-3xl font-bold cursor-pointer transform -translate-x-3"
           :style="{ bottom: bottom + 'px' }"
           @click="down"
         />
@@ -67,7 +67,7 @@ export default {
     down() {
       const maxH = this.$refs.banner_box.clientHeight
       this.timer = setInterval(() => {
-        document.documentElement.scrollTop += 5;
+        document.documentElement.scrollTop += 1;
         console.log(document.documentElement.scrollTop);
         if (document.documentElement.scrollTop > maxH) {
           clearInterval(this.timer);
