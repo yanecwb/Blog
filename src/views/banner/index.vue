@@ -18,8 +18,8 @@
         class="banner_info flex items-center justify-center mx-auto"
         v-if="is_home"
       >
-        <div class="px-5 font-black">
-          <div class="msg text-base  lg:text-xl" style="font-family: 'Gabriola'; color: wheat;">{{ msg }}|</div>
+        <div class="px-5 font-black ">
+          <div class="text-base  lg:text-xl" style="font-family: 'Gabriola'; color: wheat;">{{ msg }}|</div>
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
             你好, 我是 <span style="color: #5869da">Flechazo</span>
           </p>
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import "./banner.css";
 import { Icon } from "ant-design-vue";
 export default {
   name: "Banner",
@@ -67,8 +66,7 @@ export default {
     down() {
       const maxH = this.$refs.banner_box.clientHeight
       this.timer = setInterval(() => {
-        document.documentElement.scrollTop += 1;
-        console.log(document.documentElement.scrollTop);
+        document.documentElement.scrollTop += 3;
         if (document.documentElement.scrollTop > maxH) {
           clearInterval(this.timer);
         }
