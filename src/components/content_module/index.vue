@@ -1,50 +1,55 @@
 <template>
   <div>
-    <Banner
-      :bg='module_headerBg'
-    />
-    <div class="content_moduleBox pb-5 mx-auto my-0 w-full flex justify-between">
+    <Banner :bg='module_headerBg' />
+    <div class="content_moduleBox pb-5 mx-auto my-0 w-full flex justify-between" v-if="article_moduleList.length">
+    <Bgcanvas/>
       <article class="content_list w-full md:w-3/5 my-0 mx-auto">
-        <section
-          v-for="(list, index) in article_moduleList"
-          :key="index"
-          :style="index == 0 ? { padding: 'none' } : ''"
-          class=" cursor-pointer py-0 px-4"
-        >
-          <li class="li mb-1 flow-root list-none pt-4" @click="$router.push({name:`article_detail`,params:list})">
-            <div :class="list.coverUrl  ? 'float-left w-64': ''">
+        <section v-for="(list, index) in article_moduleList" :key="index" :style="index == 0 ? { padding: 'none' } : ''"
+          class=" cursor-pointer py-0 px-4">
+          <li class="li mb-1 flow-root list-none pt-4" @click="$router.push({ name: `article_detail`, params: list })">
+            <div :class="list.coverUrl ? 'float-left w-72 md:w-96 lg:w-auto' : ''">
               <div class="content_list_author">
-                <span style="padding-left: 0">{{article_classify(list.article_classify)}}</span>
-                <span class="text-xs">{{format_publishTime(list.publish_time)}}</span>
+                <span style="padding-left: 0">{{ article_classify(list.article_classify) }}</span>
+                <span class="text-xs">{{ format_publishTime(list.publish_time) }}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title md:text-base font-semibold hidden">{{list.article_title}}</a>
-              <p class="my-2 md:my-4 w-full text-xs whitespace-nowrap">
+              <a class="title md:text-base font-semibold hidden">{{ list.article_title }}</a>
+              <p class="my-2 md:my-4 w-full text-xs whitespace-nowrap overflow-hidden">
                 Web3.0来了，花呗借呗前端团队开源的Web图形引擎会成为元宇宙的技术支撑吗？
               </p>
               <div class="content_list_flow flex">
-                <div style="padding-left: 0"><Icon type="eye" />1.1w</div>
-                <div class="zan"><Icon type="like" />105</div>
+                <div style="padding-left: 0">
+                  <Icon type="eye" />1.1w
+                </div>
+                <div class="zan">
+                  <Icon type="like" />105
+                </div>
                 <div class="comment">
                   <Icon type="message" />
                 </div>
               </div>
             </div>
-            <img
-              v-if="list.coverUrl"
-              :src="list.coverUrl"
-              class=" w-28 md:w-32 h-16 md:h-20 float-right mt-5"
-            />
+            <img v-if="list.coverUrl" :src="list.coverUrl" class=" w-28 md:w-32 h-16 md:h-20 float-right mt-5" />
           </li>
         </section>
+
       </article>
     </div>
+    <Empty v-else
+      class="my-24"
+      image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png"
+      :image-style="{
+        height: '200px',
+      }">
+      <span slot="description">💨</span>
+    </Empty>
   </div>
 </template>
 
 <script>
-import { Icon } from "ant-design-vue";
+import { Icon, Button, Empty } from "ant-design-vue";
 import Banner from "../../views/banner";
+import Bgcanvas from '../../components/Bgcanvas/index.vue'
 import { Get_Article_ModuleList } from "../../api/article_list";
 export default {
   name: "content_module",
@@ -56,12 +61,15 @@ export default {
   components: {
     Icon,
     Banner,
+    Button,
+    Empty,
+    Bgcanvas
   },
   computed: {
     module_name() {
       return this.$route.params.module;
     },
-    module_headerBg(){
+    module_headerBg() {
       return `http://47.107.243.60:5003/img/module_headerBg/${this.$route.params.module}.jpg`
     }
 
@@ -75,18 +83,18 @@ export default {
       },
     },
   },
-  methods:{
-    article_classify(classify){
+  methods: {
+    article_classify(classify) {
       const obj = {
-        frontend:'前端',
-        backend:'后端',
-        android:'安卓',
-        news:'生活趣闻'
+        frontend: '前端',
+        backend: '后端',
+        android: '安卓',
+        news: '生活趣闻'
       }
       return obj[classify]
     },
   },
-  created(){
+  created() {
     this.$store.commit("change_show_header", true);
   }
 };
@@ -94,14 +102,17 @@ export default {
 
 <style lang="less" scoped>
 .content_moduleBox {
-  background-color: #f1f2f3;
   .content_list {
     background-color: white;
+    opacity: 0.9;
     .li:hover {
       background-color: #f4f6ff;
+      opacity: 1;
     }
+
     li {
       border-top: 1px solid #e5e6eb;
+
       .title {
         line-height: 24px;
         color: #1d2129;
@@ -110,17 +121,21 @@ export default {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
       }
+
       p {
         color: #86909c;
         line-height: 22px;
         text-overflow: ellipsis;
       }
+
       .content_list_flow {
         display: flex;
+
         div {
           padding: 0 8px;
           cursor: pointer;
         }
+
         .comment:hover,
         .zan:hover {
           color: #5869da;
@@ -128,10 +143,12 @@ export default {
       }
     }
   }
+
   .aside {
     width: calc(100% - 790px);
     height: 200px;
     background-color: white;
+
     .t {
       align-items: center;
       display: flex;

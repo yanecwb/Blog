@@ -47,11 +47,11 @@
     >
       <ul>
         <div>
-          <span href @click="change_showmenu">
-            <Icon :type="showmenu ? 'close' : 'user'"  class="text-xs md:text-sm mr-1"/>
+          <span>
+            <Icon :type="showmenu ? 'close' : 'user'"  class="text-xs md:text-base mr-1" @click="change_showmenu"/>
           </span>
-          <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span>
-          <Icon type='eye'  class="text-xs md:text-sm ml-1" v-if="$route.name !== 'home'" @click="showHeader(0)" title="隐藏导航"/>
+          <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
+          <Icon type='eye'  class="text-xs md:text-base ml-1" v-if="$route.name !== 'home'" @click="showHeader(0)" title="隐藏导航"/>
         </div>
         <div ref="navBar_ul" class="flex text-xs md:text-sm">
           <li @click="goRouter('/home')" name="home">
@@ -73,7 +73,7 @@
       </ul>
     </header>
      <div @click="showHeader(1)" v-if="visible"  class="animate__fadeInDown animate__animated border-1 w-6 h-4 flex justify-center items-center rounded-sm fixed top-0 " style="background-image: linear-gradient(to top,#fef9d7  0%,  #d299c2 100%);" >
-        <Icon type='down'  class="text-xl text-white" />
+        <Icon type='down'  class="text-xl text-white" title="打开导航"/>
       </div>
     </div>
 
@@ -118,7 +118,7 @@
         </div>
         <div>
           <span :class="'iconfont' + weather + ' text-sm'"></span>
-          <span href @click="change_showmenu">
+          <span @click="change_showmenu">
             <Icon :type="showmenu ? 'close' : 'setting'" class="text-sm" />
           </span>
         </div>
@@ -188,7 +188,6 @@ export default {
   },
 
   async created() {
-    console.log(this.$router.options.routes);
     const res = await getWeather();
     const arr = Object.keys(weather_json);
     Array.from(res.data.data[0].wea_day).forEach((item) => {

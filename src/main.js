@@ -6,6 +6,21 @@ import router from "./route";
 import "animate.css";
 import "hover.css";
 import "./assets/tailwindcss.css"
+import NProgress from 'nprogress' // 进度条
+import 'nprogress/nprogress.css' // 引入进度条样式
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
+
+// 进度条开始
+router.beforeEach((to,from,next) => {
+  NProgress.start() 
+  next()
+})
+
+// 进度条结束
+router.afterEach(() => {
+  NProgress.done()
+})
 import './utils/public.less'// 公共css
 import Swal from "sweetalert2"; //提示组件
 import { message } from "ant-design-vue"; //ant-message组件

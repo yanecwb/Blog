@@ -13,7 +13,7 @@ export default {
   name: "home",
   components:{
     Banner,
-    Container
+    Container,
   },
   created(){
     this.$store.commit('change_show_footer',false)
@@ -24,4 +24,7 @@ export default {
 </script>
 
 <style>
+#nprogress .bar {
+    background: #a37eba !important; 
+}
 </style>

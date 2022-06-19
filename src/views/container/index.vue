@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="bg">
+    <div class=" relative">
+      <Bgcanvas v-if='!$store.state.is_phone'/>
       <div class="flex justify-between mx-auto md:px-0 py-1 px-6 w-full md:w-400">
         <h4 v-if="!$store.state.is_phone">FEATURED POSTS</h4>
         <p class="text-sm">
@@ -11,7 +11,7 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone">
+      <div class="w-300 md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone">
         <div
           class="md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
           ref="carousel">
@@ -31,8 +31,8 @@
           <img class="w-full h-64 rounded-t-xl" src="http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
           <!-- <div class="backcolor"></div> -->
           <div class="bg-white px-5 pt-9 pb-0 box-border">
-            <span style="color: #4da7d4">或许你能从中得到些什么，</span>.
-            <span style="color: #28a745">也说不定😜</span>.
+            <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
+            <span style="color: #28a745">也说不定😜</span>
             <p class="md:text-xl lg:text-2xl font-bold">Want fluffy Japanese pancakes but can’t fly to Tokyo?</p>
             <p class="text-xs">
               <span>20minutes ago</span> ·
@@ -46,7 +46,7 @@
           <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"
             v-if="!$store.state.is_phone">
             <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full"></div>
-            <div class="article_left_hot_content">
+            <div class="article_left_hot_content group">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -68,7 +68,7 @@
                 </p>
               </div>
               <div
-                class="w-28 text-center p-2 bg-white hover:bg-purple-500 border border-solid border-gray-200 rounded ease-in-out duration-700 cursor-pointer absolute bottom-5 ">
+                class="w-28 text-center p-2 bg-white group-hover:bg-purple-500 border border-solid border-gray-200 rounded ease-in-out duration-700 cursor-pointer absolute bottom-5 ">
                 Read More</div>
             </div>
           </div>
@@ -102,7 +102,7 @@
                   Read More</div>
               </div>
             </div>
-            <div class="w-full flex justify-center">
+            <div class="w-full mb-12 flex justify-center">
               <Pagination size="small" :total="total" :pageSize="size" @change="current_Change" :current='current' />
             </div>
           </div>
@@ -127,7 +127,7 @@
                   <span>{{ item.title }}</span>
                   <span>
                     {{ item.read_count }}
-                    <Icon type="smile" />
+                   😃
                   </span>
                 </a>
               </li>
@@ -136,22 +136,17 @@
         </div>
       </div>
     </div>
-    <Footer />
-  </div>
 </template>
 
 <script>
 import "./container.css";
 import { Icon, Pagination, Carousel } from "ant-design-vue";
+import Bgcanvas from '../../components/Bgcanvas/index.vue'
 
 // api
 import { getArticle_list, getSide_list } from "../../api/article_list";
-import Footer from "../../components/footer/index.vue";
 export default {
   name: "container",
-  components: [
-    Footer
-  ],
   data() {
     return {
       article_list: [],
@@ -165,7 +160,7 @@ export default {
     Icon,
     Pagination,
     Carousel,
-    Footer
+    Bgcanvas
   },
   methods: {
     current_Change(current) {
@@ -222,7 +217,6 @@ export default {
   text-align: center;
   height: 348px;
   line-height: 160px;
-  background: #364d79;
   overflow: hidden;
 }
 
@@ -244,11 +238,6 @@ export default {
 .ant-carousel >>> .slick-slide h3 {
   color: #fff;
 }
-.bg {
-  background-image: url("");
-  background-size: 100% 100%;
-}
-
 .article_right {
   height: 500px;
   border: 1px #e9e9e9 solid;

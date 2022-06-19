@@ -2,10 +2,9 @@
   <div id="app" class="app" ref="App">
     <Header v-if="$store.state.show_header" />
     <router-view></router-view>
-    <Footer v-if="$store.state.show_footer" />
+    <Footer />
   </div>
 </template>
-
 <script>
 import Header from "./components/header/index.vue";
 import Footer from "./components/footer/index.vue";
