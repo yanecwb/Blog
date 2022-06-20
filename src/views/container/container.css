@@ -80,7 +80,7 @@
 
 .article_left_hot_img {
 	background-size:100% auto;
-	transition: 1s;
+	transition: 2s;
 	background-image: url('http://47.107.243.60:5003/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg');
 }
 .article_left_hot_img:hover{

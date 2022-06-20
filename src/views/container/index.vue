@@ -1,6 +1,6 @@
 <template>
     <div class=" relative">
-      <Bgcanvas v-if='!$store.state.is_phone'/>
+      <Bgcanvas :height="930"/>
       <div class="flex justify-between mx-auto md:px-0 py-1 px-6 w-full md:w-400">
         <h4 v-if="!$store.state.is_phone">FEATURED POSTS</h4>
         <p class="text-sm">
@@ -15,16 +15,16 @@
         <div
           class="md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
           ref="carousel">
-          <Carousel autoplay  arrows>
-            <div slot="prevArrow" slot-scope="props" class="custom-slick-arrow" style="left: 10px;zIndex:1">
+          <Carousel autoplay arrows class="h-full">
+            <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">
               <Icon type="left-circle" />
             </div>
-            <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: 10px">
+            <div slot="nextArrow"  class="custom-slick-arrow" style="right: 10px">
               <Icon type="right-circle" />
             </div>
-            <img class=" bg-cover" src="http://47.107.243.60:5003/img/home_img/179a6b23268afbc89b9120039a6befce.jpg">
-            <img class=" bg-cover" src="http://47.107.243.60:5003/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg">
-            <img class=" bg-cover" src="http://47.107.243.60:5003/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/179a6b23268afbc89b9120039a6befce.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
           </Carousel>
         </div>
         <div class=" md:w-108 lg:w-112  shadow-lg animate__animated animate__backInRight" ref="food">
@@ -34,7 +34,7 @@
             <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
             <span style="color: #28a745">也说不定😜</span>
             <p class="md:text-xl lg:text-2xl font-bold">Want fluffy Japanese pancakes but can’t fly to Tokyo?</p>
-            <p class="text-xs">
+            <p class="text-xs m-0 pb-2">
               <span>20minutes ago</span> ·
               <span>23k View</span>
             </p>
@@ -46,7 +46,7 @@
           <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"
             v-if="!$store.state.is_phone">
             <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full"></div>
-            <div class="article_left_hot_content group">
+            <div class="article_left_hot_content group block_border">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -68,12 +68,12 @@
                 </p>
               </div>
               <div
-                class="w-28 text-center p-2 bg-white group-hover:bg-purple-500 border border-solid border-gray-200 rounded ease-in-out duration-700 cursor-pointer absolute bottom-5 ">
+                class="readmore_btn">
                 Read More</div>
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 border border-solid border-gray-200  mb-10 md:rounded-2xl group hover:shadow-lg"
+            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"
               v-for="item in article_list" :key="item.id" ref="article_left_natural">
               <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content"
                 :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"></div>
@@ -98,7 +98,7 @@
                   </p>
                 </div>
                 <div
-                  class="w-28 mt-5 group-hover:bg-purple-500 group-hover:text-white text-center p-2 bg-white border border-solid border-gray-200 rounded ease-in-out duration-700 cursor-pointer ">
+                  class="readmore_btn">
                   Read More</div>
               </div>
             </div>
@@ -108,22 +108,22 @@
           </div>
         </div>
         <div
-          class=" h-160 md:w-108 lg:w-112 p-5 border border-solid border-gray-200 animate__animated animate__backInRight"
-          ref="article_right" v-if="!$store.state.is_phone">
-          <div class="input_top">
-            <h1>——</h1>
-            <span>NewsLetter</span>
+          class=" h-1/2 md:w-108 lg:w-112 p-5 block_border animate__animated animate__backInRight"
+         v-if="!$store.state.is_phone">
+          <div class="input_top mx-auto">
+            <h1 class="m-0 text-blue-600">——</h1>
+            <span class="text-black">NewsLetter</span>
           </div>
-          <div class="search_input">
-            <input type="text" placeholder="search more" />
-            <div class="search_icon" title="搜索文章">
+          <div class="flex items-center  justify-center">
+            <input type="text" placeholder="search more"  class="w-56 p-3 box-border h-8 outline-none block_border border-r-0 font-serif"/>
+            <div class="search_icon h-8 text-center inline-block border-l-0 cursor-pointer" title="搜索文章">
               <Icon type="search" />
             </div>
           </div>
-          <div class="list_ul">
+          <div class="list_ul mt-5 flex justify-center">
             <ul>
-              <li v-for="item in side_list" :key="item.id">
-                <a href>
+              <li v-for="item in side_list" :key="item.id" class=" my-3 list-none">
+                <a class="flex justify-between text-base">
                   <span>{{ item.title }}</span>
                   <span>
                     {{ item.read_count }}
@@ -213,6 +213,13 @@ export default {
 </script>
 
 <style scoped>
+.block_border{
+  @apply border border-solid border-gray-200
+}
+.readmore_btn{
+  @apply w-28 mt-5 group-hover:bg-purple-500 group-hover:text-white text-center p-2 bg-white block_border rounded ease-in-out duration-700 cursor-pointer
+}
+
 .ant-carousel >>> .slick-slide {
   text-align: center;
   height: 348px;
@@ -238,27 +245,7 @@ export default {
 .ant-carousel >>> .slick-slide h3 {
   color: #fff;
 }
-.article_right {
-  height: 500px;
-  border: 1px #e9e9e9 solid;
-}
 
-.search_input {
-  display: flex;
-  align-items: center;
-}
-
-.search_input input {
-  width: 230px;
-  padding: 10px;
-  box-sizing: border-box;
-  height: 30px;
-  outline: none;
-  color: #777777;
-  border: 1px solid #e9e9e9;
-  border-right: none;
-  font-family: "宋体";
-}
 
 .input_top {
   width: 150px;
@@ -269,26 +256,11 @@ export default {
   align-items: center;
 }
 
-.input_top h1 {
-  color: #6f6fff;
-  margin: 0;
-}
-
-.input_top span {
-  color: black;
-}
-
 .search_icon {
-  text-align: center;
-  display: inline-block;
   width: 50px;
-  height: 30px;
   line-height: 30px;
-  font-size: 16px;
   border: 1px solid #e9e9e9;
-  border-left: none;
   color: #777777;
-  cursor: pointer;
   transition: 0.5s;
 }
 
@@ -297,26 +269,15 @@ export default {
   color: white;
 }
 
-.list_ul {
-  margin-top: 20px;
-}
-
-.list_ul ul {
-  list-style: none;
-}
 
 .list_ul ul li {
   height: 34px;
-  width: 280px;
-  margin: 12px 0;
+  width: 380px;
 }
 
 li a {
   font-family: "Times New Roman", Times, serif;
   color: #777777;
-  font-size: 16px;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 2px dotted #eee;
   padding: 10px 5px 5px 0;
   transition: 1s;
