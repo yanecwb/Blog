@@ -23,7 +23,7 @@
               :class="list.coverUrl ? 'float-left w-64 md:w-96 lg:w-auto' : ''"
             >
               <div class="content_list_author">
-                <span style="padding-left: 0">{{
+                <span class="mr-2">{{
                   article_classify(list.article_classify)
                 }}</span>
                 <span class="text-xs">{{
