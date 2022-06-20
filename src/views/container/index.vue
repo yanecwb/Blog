@@ -11,9 +11,9 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="w-300 md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone">
+      <div class="w-300 md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone" :class="$store.state.is_phone ? '' : 'min-w-300'">
         <div
-          class="md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
+          class="w-160 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
           ref="carousel">
           <Carousel autoplay arrows class="h-full">
             <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">

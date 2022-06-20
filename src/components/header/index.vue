@@ -198,7 +198,8 @@ export default {
     },
   },
   mounted() {
-    document.getElementsByTagName("head")[0].children[3].innerText = "Flechazo";
+    document.getElementsByTagName("head")[0].children[3].innerText = "Flechazo的博客";
+    document.getElementsByTagName('head')[0].innerHTML += '<link rel="shortcut icon" type="image/x-icon" href="./static/favicon.ico">'
     window.onmousewheel = document.onmousewheel = wheel; //W3C
     //统一处理滚轮滚动事件
     function wheel(event) {

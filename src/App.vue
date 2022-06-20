@@ -1,5 +1,5 @@
 <template>
-  <div id="app" ref="App">
+  <div id="app" ref="App" >
     <div>
       <div v-if="loaded">
         <Header v-if="$store.state.show_header" />
