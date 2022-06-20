@@ -1,25 +1,23 @@
 <template>
-  <div id="app"  ref="App" >
+  <div id="app" ref="App">
     <div>
-      <Header v-if="$store.state.show_header" />
+      <div v-if="loaded">
+        <Header v-if="$store.state.show_header" />
+      </div>
       <router-view></router-view>
       <Footer />
     </div>
-    <div class="app" v-show="!loaded">
-      <div class="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+    <div class="app" ref="lottie" v-if="!loaded">
+      <lottie
+        :options="defaultOptions"
+        v-on:animCreated="handleAnimation"
+        class="bg-blue w-screen h-screen z-9999"
+      />
     </div>
   </div>
 </template>
 <script>
+import animationData from "./assets/lottie/lf20_1vnvhuft.json";
 import Header from "./components/header/index.vue";
 import Footer from "./components/footer/index.vue";
 export default {
@@ -31,20 +29,31 @@ export default {
   data() {
     return {
       show_footer: false,
-      loaded:false
+      loaded: false,
+      defaultOptions: { animationData: animationData },
+      animationSpeed: 1,
+      anim: {},
     };
   },
   beforeCreate() {
     if (this.$store.state.is_phone) {
       // window.location.href = "https://gitee.com/";
     }
-    window.onload = ()=> {
-      this.loaded = true
+    window.onload = () => {
+      Promise.resolve().then(() => {
+        this.$refs.lottie.className = "app animate__animated  animate__fadeOut";
+        setTimeout(() => {
+          this.loaded = true;
+        }, 1000);
+      });
     };
   },
   methods: {
     change_show_footer(val) {
       this.show_footer = val;
+    },
+    handleAnimation: function (anim) {
+      this.anim = anim;
     },
   },
   mounted() {
@@ -56,99 +65,11 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
-    .app{
-        height: 100vh;
-        width: 100%;
-        position: fixed;
-        top: 0;
-    }
-    .lds-roller {
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      -webkit-transform: translate3d(-50%, -50%, 0);
-      width: 64px;
-      height: 64px;
-    }
-    .lds-roller div {
-      animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      transform-origin: 32px 32px;
-    }
-    .lds-roller div:after {
-      content: " ";
-      display: block;
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #1278f6;
-      margin: -3px 0 0 -3px;
-    }
-    .lds-roller div:nth-child(1) {
-      animation-delay: -0.036s;
-    }
-    .lds-roller div:nth-child(1):after {
-      top: 50px;
-      left: 50px;
-    }
-    .lds-roller div:nth-child(2) {
-      animation-delay: -0.072s;
-    }
-    .lds-roller div:nth-child(2):after {
-      top: 54px;
-      left: 45px;
-    }
-    .lds-roller div:nth-child(3) {
-      animation-delay: -0.108s;
-    }
-    .lds-roller div:nth-child(3):after {
-      top: 57px;
-      left: 39px;
-    }
-    .lds-roller div:nth-child(4) {
-      animation-delay: -0.144s;
-    }
-    .lds-roller div:nth-child(4):after {
-      top: 58px;
-      left: 32px;
-    }
-    .lds-roller div:nth-child(5) {
-      animation-delay: -0.18s;
-    }
-    .lds-roller div:nth-child(5):after {
-      top: 57px;
-      left: 25px;
-    }
-    .lds-roller div:nth-child(6) {
-      animation-delay: -0.216s;
-    }
-    .lds-roller div:nth-child(6):after {
-      top: 54px;
-      left: 19px;
-    }
-    .lds-roller div:nth-child(7) {
-      animation-delay: -0.252s;
-    }
-    .lds-roller div:nth-child(7):after {
-      top: 50px;
-      left: 14px;
-    }
-    .lds-roller div:nth-child(8) {
-      animation-delay: -0.288s;
-    }
-    .lds-roller div:nth-child(8):after {
-      top: 45px;
-      left: 10px;
-    }
-    @keyframes lds-roller {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+<style lang="less" scoped>
+.app {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
 </style>

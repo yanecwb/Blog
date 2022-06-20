@@ -8,12 +8,16 @@ import "hover.css";
 import "./assets/tailwindcss.css"
 import NProgress from 'nprogress' // 进度条
 import 'nprogress/nprogress.css' // 引入进度条样式
+
+import lottie from 'vue-lottie'; //lottie动画
+Vue.component('lottie', lottie) //注册lottie动画
+
 NProgress.inc(0.2)
 NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 // 进度条开始
 router.beforeEach((to,from,next) => {
-  NProgress.start() 
+  NProgress.start()
   next()
 })
 

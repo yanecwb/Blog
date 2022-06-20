@@ -2,24 +2,25 @@
   <div>
     <Banner :bg="module_headerBg" />
     <div
-      class="content_moduleBox pb-5 mx-auto my-0 w-full flex justify-between"
+      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__zoomIn"
       v-show="article_moduleList.length > 0"
       ref="Article1"
     >
       <Bgcanvas :height="articleHeight" />
-      <article class="content_list w-full md:w-3/5 my-0 mx-auto">
+      <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl">
         <section
           v-for="(list, index) in article_moduleList"
           :key="index"
           :style="index == 0 ? { padding: 'none' } : ''"
-          class="cursor-pointer py-0 px-4"
+          class="cursor-pointer py-0 px-4  hover:bg-gray-100"
         >
           <li
-            class="li mb-1 flow-root list-none pt-4"
+            class="mb-1 flow-root list-none  pt-4 hover:opacity-100"
+            :style="index == 0 ? {border:'none'} : ''"
             @click="$router.push({ name: `article_detail`, params: list })"
           >
             <div
-              :class="list.coverUrl ? 'float-left w-72 md:w-96 lg:w-auto' : ''"
+              :class="list.coverUrl ? 'float-left w-64 md:w-96 lg:w-auto' : ''"
             >
               <div class="content_list_author">
                 <span style="padding-left: 0">{{
@@ -130,14 +131,8 @@ export default {
   .content_list {
     background-color: white;
     opacity: 0.9;
-    .li:hover {
-      background-color: #f4f6ff;
-      opacity: 1;
-    }
-
     li {
-      border-top: 1px solid #e5e6eb;
-
+      border-top: solid 1px #e5e6eb;
       .title {
         line-height: 24px;
         color: #1d2129;

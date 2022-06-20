@@ -1,44 +1,5 @@
 <template>
   <div>
-    <!-- 头部v_1.0 -->
-    <!-- <div class="header_box">
-            <div class="header_box_top">
-                <div class="logo" @click="goRouter('/home')">
-                    <img src="../../assets/Blog_logo.png" alt />
-                </div>
-                <div class="options">
-                    <ul>
-                        <li>
-                            Layouts
-                            <Icon type="down" style="margin-left: 2px" />
-                        </li>
-                        <li>
-                            Document
-                            <Icon type="container" style="margin-left: 2px" />
-                        </li>
-                        <li @click="goRouter('/about_me')">
-                            关于我
-                            <Icon type="search" style="margin-left: 2px" />
-                        </li>
-                    </ul>
-                    <div
-                        class="Login_in"
-                        v-if="!avatarUrl"
-                        style="font-size:12px"
-                        @click="goRouter('/login')"
-                    >Login in</div>
-                    <Icon type="user" v-if="!avatarUrl" />
-                    <img
-                        :src="avatarUrl"
-                        alt
-                        v-else
-                        class="avatarUrl"
-                        title="用户头像"
-                        @click="()=>{showmenu=true}"
-                    />
-                </div>
-            </div>
-        </div> -->
     <!-- 导航PC -->
     <div  v-if="!$store.state.is_phone">
       <header
@@ -166,12 +127,12 @@ export default {
   },
   methods: {
     backtop() {
-      this.timer = setInterval(() => {
-        document.documentElement.scrollTop -= 12;
-        if (document.documentElement.scrollTop == 0) {
-          clearInterval(this.timer);
-        }
-      }, 1);
+      // window.scrollTop(0,0);
+      // this.timer = setInterval(() => {
+      //   if (document.documentElement.scrollTop == 0) {
+      //     clearInterval(this.timer);
+      //   }
+      // }, 1);
     },
     change_showmenu() {
       this.showmenu = !this.showmenu;
