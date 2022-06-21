@@ -1,7 +1,7 @@
 let mixin = {
   methods:{
     goBack(params){
-      this.$router.back()
+        this.$router.push('/home')
     },
     goRouter(path){
       this.$router.push(path)
@@ -57,28 +57,28 @@ let mixin = {
         });
         return;
       }
-       if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-        const Toast = this.$Swal.mixin({
-          toast: true,
-          position: "top",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-            toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-          },
-        });
+      //  if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+      //   const Toast = this.$Swal.mixin({
+      //     toast: true,
+      //     position: "top",
+      //     showConfirmButton: false,
+      //     timer: 2000,
+      //     timerProgressBar: true,
+      //     didOpen: (toast) => {
+      //       toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+      //       toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+      //     },
+      //   });
 
-        Toast.fire({
-          width: "80%",
-          height: "100px",
-          icon: "info",
-          title: "请在PC端发布或修改文章...",
-          heightAuto: false,
-        });
-        return
-      }
+      //   Toast.fire({
+      //     width: "80%",
+      //     height: "100px",
+      //     icon: "info",
+      //     title: "请在PC端发布或修改文章...",
+      //     heightAuto: false,
+      //   });
+      //   return
+      // }
       article ? this.$router.push({name:'upload_article',params:article}) : this.goRouter("/upload_article");
     },
   }

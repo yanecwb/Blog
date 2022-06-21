@@ -31,7 +31,7 @@
                 }}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title md:text-base font-semibold hidden">{{
+              <a class="title md:text-base font-semibold hidden mt-1">{{
                 list.article_title
               }}</a>
               <p
