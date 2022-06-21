@@ -19,15 +19,16 @@
           :mode="mode"
         />
         <Editor
-          style="height: 70vh; overflow-y: hidden"
+          :style="
+            $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }
+          "
           v-model="html"
           :defaultConfig="editorConfig"
           :mode="mode"
           @onCreated="onCreated"
         />
       </div>
-      <div  class="flex justify-between w-full">
-        <!-- <button class="btn back_btn" @click="goBack()">返回</button> -->
+      <div class="flex justify-between w-full">
         <button class="backBtn" @click="goBack()">
           <svg
             height="16"
@@ -42,10 +43,7 @@
           </svg>
           <span>Back</span>
         </button>
-        <!-- <button class="btn upload_article_btn" @click="uploadArticle">
-          {{ $route.params.id ? "修改" : "发布" }}
-        </button> -->
-        <button class="sendBtn"  @click="uploadArticle">
+        <button class="sendBtn" @click="uploadArticle">
           <div class="svg-wrapper-1">
             <div class="svg-wrapper">
               <svg
@@ -170,10 +168,20 @@ export default {
       editor: null,
       html: "",
       toolbarConfig: {},
-      editorConfig: { placeholder: "请输入内容..." },
+      editorConfig: {
+        placeholder: "请输入内容...",
+        codeLangs: [
+          { text: "CSS", value: "css" },
+          { text: "HTML", value: "html" },
+          { text: "XML", value: "xml" },
+          { text: "JavaScript", value: "javascript" },
+          // 其他
+        ],
+      },
       mode: "default", // or 'simple'
       base_info: {
         article_classify: "frontend",
+        coverUrl: "",
       },
       modal_visible: true,
       loading: false,
@@ -195,13 +203,8 @@ export default {
       this.previewVisible = true;
     },
     handleChange(info) {
-      console.log(this.base_info);
-      console.log(info);
-      if (info.file.status === "uploading") {
-        this.loading = true;
-        return;
-      }
-      // Get this url from response in real world.
+      // console.log(this.base_info);
+      // console.log(info);
       getBase64(info.file.originFileObj, (coverUrl) => {
         if (coverUrl == localStorage.getItem("coverUrl")) {
           this.$Swal.fire({
@@ -211,6 +214,13 @@ export default {
           this.loading = false;
           return;
         }
+        if (info.file.status === "uploading") {
+          this.base_info.coverUrl = "";
+          this.loading = true;
+          return;
+        }
+        // Get this url from response in real world.
+
         localStorage.setItem("coverUrl", coverUrl);
         uploadImg(coverUrl).then((img) => {
           this.base_info.coverUrl = img.data.coverUrl;
@@ -276,6 +286,8 @@ export default {
       const res = this.$route.params.id
         ? await updateArticle(req)
         : await uploadArticle(req);
+      this.base_info.coverUrl = "";
+      this.base_info.article_title = "";
       res.data.code == 200
         ? this.$Swal.fire({
             title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
@@ -358,7 +370,8 @@ export default {
 /* From uiverse.io by @adamgiebl */
 .sendBtn {
   font-family: inherit;
-  font-size: 17px;
+  width: 100px;
+  font-size: 15px;
   background: royalblue;
   color: white;
   padding: 0.6em 1.2em;
@@ -412,6 +425,8 @@ export default {
   display: flex;
   height: 3em;
   width: 100px;
+  font-size: 15px;
+  padding: 0.6em 1.2em;
   align-items: center;
   justify-content: center;
   background-color: #eeeeee4b;

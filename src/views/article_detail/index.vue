@@ -48,14 +48,8 @@
 </template>
 
 <script>
-import { Icon } from "ant-design-vue";
-import Banner from "../../views/banner";
 export default {
   name: "article_detail",
-  components: {
-    Icon,
-    Banner,
-  },
   data() {
     return {
       article: "",
@@ -69,8 +63,14 @@ export default {
     localStorage.setItem("article_details", JSON.stringify(this.article));
   },
   mounted() {
+    // 代码块内容复制
     const pre = document.getElementsByTagName("pre");
+    // 给伪元素添加事件，采用事件冒泡的机制实现
     Array.from(pre).forEach((item) => {
+      item.children[0].onclick = (e)=>{
+        e.stopPropagation()
+        return
+      }
       item.addEventListener(
         "click",
         () => {
@@ -110,7 +110,7 @@ pre {
   display: flex;
   justify-content: space-between;
   &::after {
-    content: "复制";
+    content: "copy";
     color: rgb(190, 179, 179);
     cursor: pointer;
   }

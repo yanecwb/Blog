@@ -114,7 +114,6 @@ export default {
     Icon,
     Drawer,
     MoreMenu,
-    Menu,
     Dropdown,
   },
   data() {
