@@ -1,10 +1,7 @@
 <template>
   <div class="upload_article_box">
     <div class="stars" ref="stars"></div>
-    <h1
-      class="h1_title mt-9 text-center m-0 "
-      style="font-family: 黑体"
-    >
+    <h1 class="h1_title mt-9 text-center m-0" style="font-family: 黑体">
       分享你的知识
       <Icon
         type="edit"
@@ -13,10 +10,8 @@
         title="修改基本信息"
       />
     </h1>
-    <div
-      class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5"
-    >
-      <div style="border: 1px solid #ccc;" class="w-full mb-5">
+    <div class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5">
+      <div style="border: 1px solid #ccc" class="w-full mb-5">
         <Toolbar
           style="border-bottom: 1px solid #ccc"
           :editor="editor"
@@ -24,17 +19,50 @@
           :mode="mode"
         />
         <Editor
-          style="height: 80vh; overflow-y: hidden"
+          style="height: 70vh; overflow-y: hidden"
           v-model="html"
           :defaultConfig="editorConfig"
           :mode="mode"
           @onCreated="onCreated"
         />
       </div>
-      <div style="width: 79vw;" class="flex justify-between">
-        <button class="btn back_btn" @click="goBack()">返回</button>
-        <button class="btn upload_article_btn" @click="uploadArticle">
+      <div  class="flex justify-between w-full">
+        <!-- <button class="btn back_btn" @click="goBack()">返回</button> -->
+        <button class="backBtn" @click="goBack()">
+          <svg
+            height="16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            viewBox="0 0 1024 1024"
+          >
+            <path
+              d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"
+            ></path>
+          </svg>
+          <span>Back</span>
+        </button>
+        <!-- <button class="btn upload_article_btn" @click="uploadArticle">
           {{ $route.params.id ? "修改" : "发布" }}
+        </button> -->
+        <button class="sendBtn"  @click="uploadArticle">
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span> {{ $route.params.id ? "修改" : "发布" }}</span>
         </button>
       </div>
     </div>
@@ -250,7 +278,7 @@ export default {
         : await uploadArticle(req);
       res.data.code == 200
         ? this.$Swal.fire({
-            title: `${this.$route.params.id ? '修改' : '发布'}成功...`,
+            title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
             showClass: {
               popup: "animate__animated animate__fadeInDown",
             },
@@ -327,6 +355,91 @@ export default {
 </script>
 
 <style lang="less">
+/* From uiverse.io by @adamgiebl */
+.sendBtn {
+  font-family: inherit;
+  font-size: 17px;
+  background: royalblue;
+  color: white;
+  padding: 0.6em 1.2em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.sendBtn span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+.sendBtn svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sendBtn:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.sendBtn:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.sendBtn:hover span {
+  transform: translateX(5em);
+}
+
+.sendBtn:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
+.backBtn {
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+}
+
+.backBtn > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+.backBtn:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
+.backBtn:hover {
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
+}
+
 .avatar-uploader > .ant-upload {
   width: 160px;
   height: 90px;
