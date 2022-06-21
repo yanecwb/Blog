@@ -167,7 +167,13 @@ export default {
     return {
       editor: null,
       html: "",
-      toolbarConfig: {},
+      toolbarConfig: {
+        // excludeKeys: [ ], /* 隐藏哪些菜单 */
+        /* 显示哪些菜单，如何排序、分组 */
+        // toolbarKeys: [
+        //   'headerSelect', '|', 'bold', 'underline', 'italic', 'color', 'bgColor', '|', 'fontSize', 'fontFamily', 'lineHeight', '|', 'bulletedList', 'numberedList', 'todo', '|', 'emotion', 'insertLink', 'insertTable', 'codeBlock', 'divider',
+        // ],
+      },
       editorConfig: {
         placeholder: "请输入内容...",
         codeLangs: [
@@ -243,6 +249,7 @@ export default {
 
     onCreated(editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
+      console.log(this.editor);
     },
     async uploadArticle() {
       function getText(str) {
