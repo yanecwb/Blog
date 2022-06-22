@@ -12,7 +12,7 @@
     </h1>
     <div class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5">
       <div style="border: 1px solid #ccc" class="w-full mb-5">
-        <Toolbar
+        <!-- <Toolbar
           style="border-bottom: 1px solid #ccc"
           :editor="editor"
           :defaultConfig="toolbarConfig"
@@ -26,7 +26,14 @@
           :defaultConfig="editorConfig"
           :mode="mode"
           @onCreated="onCreated"
-        />
+        /> -->
+        <div id="toolbar-container"></div>
+        <div
+          id="editor-container"
+          :style="
+            $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }
+          "
+        ></div>
       </div>
       <div class="flex justify-between w-full">
         <button class="backBtn font-bold" @click="goBack()">
@@ -121,7 +128,6 @@
             :show-upload-list="false"
             action="/node_api/up/profile"
             :before-upload="beforeUpload"
-            @preview="handlePreview"
             @change="handleChange"
           >
             <img
@@ -144,7 +150,13 @@
 <script>
 import Vue from "vue";
 // 富文本编辑器
-import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+// import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import {
+  createEditor,
+  createToolbar,
+  // IEditorConfig,
+  // IDomEditor,
+} from "@wangeditor/editor";
 import "@wangeditor/editor/dist/css/style.css";
 
 // 基本信息表单
@@ -155,6 +167,7 @@ Vue.use(Modal);
 import { uploadArticle, updateArticle } from "../../api/upload_article";
 import { uploadImg } from "../../api/upload_img";
 
+// file转base64
 async function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
@@ -162,7 +175,14 @@ async function getBase64(img, callback) {
 }
 export default {
   name: "upload_article",
-  components: { Editor, Toolbar, Modal, Upload, Icon, Input },
+  components: {
+    // Editor,
+    // Toolbar,
+    Modal,
+    Upload,
+    Icon,
+    Input,
+  },
   data() {
     return {
       editor: null,
@@ -183,6 +203,8 @@ export default {
           { text: "JavaScript", value: "javascript" },
           // 其他
         ],
+        // 所有的菜单配置，都要在 MENU_CONF 属性下
+        MENU_CONF: {},
       },
       mode: "default", // or 'simple'
       base_info: {
@@ -191,22 +213,12 @@ export default {
       },
       modal_visible: true,
       loading: false,
-      previewVisible: false,
-      previewImage: "",
     };
   },
   methods: {
     // 取消Modal
     modal_close() {
       this.modal_visible = false;
-    },
-    // 图片放大
-    async handlePreview(file) {
-      if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj);
-      }
-      this.previewImage = file.url || file.preview;
-      this.previewVisible = true;
     },
     handleChange(info) {
       // console.log(this.base_info);
@@ -229,7 +241,7 @@ export default {
 
         localStorage.setItem("coverUrl", coverUrl);
         uploadImg(coverUrl).then((img) => {
-          this.base_info.coverUrl = img.data.coverUrl;
+          this.base_info.coverUrl = img.data.data.url;
           this.loading = false;
         });
       });
@@ -249,7 +261,6 @@ export default {
 
     onCreated(editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
-      console.log(this.editor);
     },
     async uploadArticle() {
       function getText(str) {
@@ -313,54 +324,112 @@ export default {
 
       this.html = "";
     },
+    // 星空背景
+    starrySkyBg() {
+      var stars = 800; /*星星的密集程度，数字越大越多*/
+      var $stars = this.$refs.stars;
+      var r = 800; /*星星的看起来的距离,值越大越远*/
+      for (var i = 0; i < stars; i++) {
+        var $star = document.createElement("div");
+        $star.className = "star";
+        $stars.appendChild($star);
+      }
+      document.querySelectorAll(".star").forEach(function (e) {
+        var s = 0.2 + Math.random() * 1;
+        var curR = r + Math.random() * 300;
+        e.style.transformOrigin = "0 0 " + curR + "px";
+        e.style.transform =
+          "translate3d(0,0,-" +
+          curR +
+          "px) rotateY(" +
+          Math.random() * 360 +
+          "deg) rotateX(" +
+          Math.random() * -50 +
+          "deg) scale(" +
+          s +
+          "," +
+          s +
+          ")";
+        e.style.width = "2px";
+        e.style.height = "2px";
+      });
+    },
   },
   created() {
     localStorage.removeItem("coverUrl", "");
     this.$store.commit("change_show_footer", false);
     this.$store.commit("change_show_header", false);
+
+    // 模拟 ajax 请求，异步渲染编辑器
+    if (this.$route.params.id) {
+      //后续修改文章判断
+      if (!this.$route.params.id) return;
+      const { article_classify, article_title, coverUrl, content } = JSON.parse(
+        localStorage.getItem("article_details")
+      );
+      this.base_info.article_classify = article_classify;
+      this.base_info.article_title = article_title;
+      this.base_info.coverUrl = coverUrl;
+      this.html = content;
+    }
   },
   mounted() {
     document.body.style.position = "fixed"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
-    var stars = 800; /*星星的密集程度，数字越大越多*/
-    var $stars = this.$refs.stars;
-    var r = 800; /*星星的看起来的距离,值越大越远,可自行调制到自己满意的样子*/
-    for (var i = 0; i < stars; i++) {
-      var $star = document.createElement("div");
-      $star.className = "star";
-      $stars.appendChild($star);
-    }
-    document.querySelectorAll(".star").forEach(function (e) {
-      var s = 0.2 + Math.random() * 1;
-      var curR = r + Math.random() * 300;
-      e.style.transformOrigin = "0 0 " + curR + "px";
-      e.style.transform =
-        "translate3d(0,0,-" +
-        curR +
-        "px) rotateY(" +
-        Math.random() * 360 +
-        "deg) rotateX(" +
-        Math.random() * -50 +
-        "deg) scale(" +
-        s +
-        "," +
-        s +
-        ")";
-      e.style.width = "2px";
-      e.style.height = "2px";
+    this.starrySkyBg();
+
+    // 编辑器配置
+    const editorConfig = { MENU_CONF: {} };
+    editorConfig.MENU_CONF["uploadImage"] = {
+      //  base64LimitSize:5 * 1024, //如果图片小于这个大小，则直接是base64，不上传服务器
+      async customUpload(file, insertFn) {
+        getBase64(file, (img) => {
+          uploadImg(img).then((data) => {
+            const { url, alt, href } = data.data.data;
+            insertFn(url, alt, href);
+          });
+        });
+      },
+    };
+    // 插入图片的时候记录当前文章的图片信息数组
+    editorConfig.MENU_CONF["insertImage"] = {
+      onInsertedImage(imageNode) {
+        if (imageNode == null) return;
+
+        const { src, alt, url, href } = imageNode;
+        console.log("inserted image", src, alt, url, href);
+      },
+      // checkImage: customCheckImageFn, // 也支持 async 函数
+      // parseImageSrc: customParseImageSrc, // 也支持 async 函数
+    };
+    editorConfig.placeholder = "请输入内容...";
+    editorConfig.onChange = () => {
+      // 当编辑器选区、内容变化时，即触发
+      // const content = editor.children;
+      // const contentStr = JSON.stringify(content);
+      // document.getElementById("textarea-1").value = contentStr;
+
+      this.html = editor.getHtml();
+      // console.log(editor.getText());//获取纯文本内容。不包括媒体资源
+      // document.getElementById("textarea-2").value = html;
+    };
+
+    // 工具栏配置
+    const toolbarConfig = {};
+    // 创建编辑器
+    const editor = createEditor({
+      selector: "#editor-container",
+      config: editorConfig,
+      mode: "default", // 或 'simple'
+      html: this.html,
     });
-    // 模拟 ajax 请求，异步渲染编辑器
-    if (this.$route.params.id) {
-      //后续修改文章判断
-      setTimeout(() => {
-        if(!this.$route.params.id) return
-        const {article_classify,article_title,coverUrl,content} =  JSON.parse(localStorage.getItem("article_details"))
-        this.base_info.article_classify = article_classify;
-        this.base_info.article_title =article_title;
-        this.base_info.coverUrl = coverUrl;
-        this.html = content;
-      }, 100);
-    }
+    // 创建工具栏
+    createToolbar({
+      editor,
+      selector: "#toolbar-container",
+      config: toolbarConfig,
+      mode: "default",
+    });
   },
   beforeDestroy() {
     const editor = this.editor;
