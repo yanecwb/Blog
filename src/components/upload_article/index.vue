@@ -457,9 +457,6 @@ export default {
     };
   },
   beforeDestroy() {
-    const editor = this.editor;
-    if (editor == null) return;
-    editor.destroy(); // 销毁编辑器
     document.body.style.position = "static"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = "";
   },
