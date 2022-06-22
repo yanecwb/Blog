@@ -63,7 +63,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="px-3 md:px-18"></div>
+      <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
     </div>
   </div>
 </template>
