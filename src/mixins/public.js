@@ -29,13 +29,19 @@ let mixin = {
       if(!publish_time) return
       const now = Date.parse(new Date()) / 1000 ;
       const pub_time = Date.parse(publish_time) / 1000
+      console.log(pub_time);
+      const null_dian = (new Date(new Date().toDateString()).getTime())/1000
       if(now - pub_time < 60*2){
         return '刚刚'
       }
-      if(now - pub_time < 60*60*24){
-        return '今天 '+ publish_time.substring(9)
+      if(pub_time > null_dian){//说明明是今天发布的
+        return '今天 '+ publish_time.substring(10,18)
+      }else{
+        if(null_dian - pub_time < 86400){
+          return '昨天 '+ publish_time.substring(10,18)
+        }
+        return parseInt((now - pub_time)/(60*60*24)) + '天前'
       }
-      return parseInt((now - pub_time)/(60*60*24)) + '天前'
     },
     go_up_article(article) {
       if (!JSON.parse(localStorage.getItem("userInfo")).id) {
