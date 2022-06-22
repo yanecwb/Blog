@@ -143,11 +143,16 @@ export default {
 
 <style lang="less">
 pre {
-  background-color: #f6f8fa;
+  background-color: #292a25;
   display: flex;
   justify-content: space-between;
+  color: white;
   &::after {
-    content: "copy";
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-image: url(http://img1.3png.com/81c41e9a6ac6aefdef1845b4d9bc2b994130.png);
+    background-size: 100% 100%;
     color: rgb(190, 179, 179);
     cursor: pointer;
   }

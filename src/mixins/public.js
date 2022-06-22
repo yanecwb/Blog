@@ -29,7 +29,6 @@ let mixin = {
       if(!publish_time) return
       const now = Date.parse(new Date()) / 1000 ;
       const pub_time = Date.parse(publish_time) / 1000
-      console.log(pub_time);
       const null_dian = (new Date(new Date().toDateString()).getTime())/1000
       if(now - pub_time < 60*2){
         return '刚刚'

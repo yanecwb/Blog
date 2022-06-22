@@ -267,9 +267,9 @@ export default {
       if (!isJpgOrPng) {
         this.$message.error("You can only upload JPG file!");
       }
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isLt2M = file.size / 1024 / 1024 < 5;
       if (!isLt2M) {
-        this.$message.error("Image must smaller than 2MB!");
+        this.$message.error("Image must smaller than 5MB!");
       }
       return isJpgOrPng && isLt2M;
     },
@@ -440,8 +440,6 @@ export default {
         // console.log("inserted image", src);
         this.imageList1.push(src);
       },
-      // checkImage: customCheckImageFn, // 也支持 async 函数
-      // parseImageSrc: customParseImageSrc, // 也支持 async 函数
     };
     editorConfig.placeholder = "请输入内容...";
     editorConfig.onChange = () => {
@@ -452,9 +450,27 @@ export default {
 
       this.html = editor.getHtml();
       // console.log(editor.getText());//获取纯文本内容。不包括媒体资源
-      // document.getElementById("textarea-2").value = html;
     };
-
+// 配置代码高亮
+editorConfig.MENU_CONF['codeSelectLang'] = {
+    // 代码语言
+    codeLangs: [
+        { text: 'CSS', value: 'css' },
+        { text: 'HTML', value: 'html' },
+        { text: 'XML', value: 'xml' },
+        { text: 'JavaScript', value: 'javascript' },
+        { text: 'TypeScript', value: 'typescript' },
+        { text: "JSX", value: "jsx" },
+        { text: 'Go', value: 'go' },
+        { text: 'Java', value: 'java' },
+        { text: 'Python', value: 'python' },
+        { text: 'PHP', value: 'php' },
+        { text: 'C++', value: 'cpp' },
+        { text: 'SQL', value: 'sql' },
+        { text: 'MarkDown', value: 'markdown' },
+        // 其他
+    ]
+}
     // 工具栏配置
     const toolbarConfig = {};
     // 创建编辑器
@@ -464,6 +480,7 @@ export default {
       mode: "default", // 或 'simple'
       html: this.html,
     });
+    console.log(editor.getMenuConfig('codeSelectLang').codeLangs);
     // 创建工具栏
     createToolbar({
       editor,
