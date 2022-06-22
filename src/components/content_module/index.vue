@@ -37,7 +37,7 @@
               <p
                 class="my-2 md:my-4 w-full text-xs whitespace-nowrap overflow-hidden"
               >
-                Web3.0来了，花呗借呗前端团队开源的Web图形引擎会成为元宇宙的技术支撑吗？
+                {{list.article_introduction}}
               </p>
               <div class="content_list_flow flex">
                 <div style="padding-left: 0"><Icon type="eye" />1.1w</div>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { Icon, Button, Empty } from "ant-design-vue";
+import { Icon , Empty } from "ant-design-vue";
 import Banner from "../../views/banner";
 import Bgcanvas from "../../components/Bgcanvas/index.vue";
 import { Get_Article_ModuleList } from "../../api/article_list";
@@ -85,7 +85,6 @@ export default {
   components: {
     Icon,
     Banner,
-    Button,
     Empty,
     Bgcanvas,
   },

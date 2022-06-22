@@ -97,6 +97,19 @@
       </div>
       <div class="first_msg">
         <div class="inline-block w-16 font-bold">
+          简介<span :class="base_info.article_introduction ? 'hidden' : 'text-red-600'"
+            >*</span
+          >：
+        </div>
+        <Input
+          ref="article_introduction"
+          v-model="base_info.article_introduction"
+          class="w-84"
+          allow-clear
+        />
+      </div>
+      <div class="first_msg">
+        <div class="inline-block w-16 font-bold">
           分类<span
             :class="base_info.article_classify ? 'hidden' : 'text-red-600'"
             >*</span
@@ -287,6 +300,14 @@ export default {
         });
         return;
       }
+      if (!this.base_info.article_introduction) {
+        this.$message.error("请填写简介");
+        this.modal_visible = true;
+        this.$nextTick(() => {
+          this.$refs.article_introduction.focus();
+        });
+        return;
+      }
       if (!this.base_info.article_classify) {
         this.$message.error("请选择分类");
         this.modal_visible = true;
@@ -308,6 +329,7 @@ export default {
         : await uploadArticle(req);
       this.base_info.coverUrl = "";
       this.base_info.article_title = "";
+      this.base_info.article_introduction = "";
       res.data.code == 200
         ? this.$Swal.fire({
             title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
@@ -326,7 +348,7 @@ export default {
 
       this.html = "";
       // 批量删除不需要的图片
-      deleteImg (this.vergleichenImg())
+      this.vergleichenImg().length <= 0 ? "" : deleteImg (this.vergleichenImg())
     },
     // 此处比较之前插入的图片如当前文章任存在的图片
     vergleichenImg() {
