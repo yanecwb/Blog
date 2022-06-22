@@ -165,7 +165,7 @@ Vue.use(Modal);
 
 // api
 import { uploadArticle, updateArticle } from "../../api/upload_article";
-import { uploadImg } from "../../api/upload_img";
+import { uploadImg,deleteImg } from "../../api/upload_img";
 
 // file转base64
 async function getBase64(img, callback) {
@@ -213,6 +213,8 @@ export default {
       },
       modal_visible: true,
       loading: false,
+      imageList1: [], //收集所有上传或者插入的图片，记录为 imageList1
+      imageList2: [], //获取当前编辑器的所有图片，记录为 imageList2
     };
   },
   methods: {
@@ -323,6 +325,21 @@ export default {
           });
 
       this.html = "";
+      // 批量删除不需要的图片
+      deleteImg (this.vergleichenImg())
+    },
+    // 此处比较之前插入的图片如当前文章任存在的图片
+    vergleichenImg() {
+      let arr = [];
+      this.imageList1.forEach((item) => {
+        const existImg = this.imageList2.indexOf(item);
+        console.log(existImg);
+        if (existImg < 0) {
+          //不存在
+          arr.push(item.slice(30, 66));
+        }
+      });
+      return arr
     },
     // 星空背景
     starrySkyBg() {
@@ -391,13 +408,15 @@ export default {
         });
       },
     };
-    // 插入图片的时候记录当前文章的图片信息数组
+    // 收集所有上传或者插入的图片，记录为 imageList1
     editorConfig.MENU_CONF["insertImage"] = {
-      onInsertedImage(imageNode) {
+      onInsertedImage: (imageNode) => {
         if (imageNode == null) return;
 
-        const { src, alt, url, href } = imageNode;
-        console.log("inserted image", src, alt, url, href);
+        // const { src, alt, url, href } = imageNode;
+        const { src } = imageNode;
+        // console.log("inserted image", src);
+        this.imageList1.push(src);
       },
       // checkImage: customCheckImageFn, // 也支持 async 函数
       // parseImageSrc: customParseImageSrc, // 也支持 async 函数
@@ -430,6 +449,12 @@ export default {
       config: toolbarConfig,
       mode: "default",
     });
+    document.querySelector("div[role='textarea']").onblur = () => {
+      // console.log(editor.getElemsByType('image'));//获取当前编辑器的所有图片，记录为 imageList2
+      this.imageList2 = editor.getElemsByType("image").map((item) => {
+        return item.src;
+      });
+    };
   },
   beforeDestroy() {
     const editor = this.editor;
