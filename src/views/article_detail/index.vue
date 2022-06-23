@@ -21,6 +21,7 @@
             :src="article.uper.avatarUrl"
             class="w-full h-full rounded-full"
             alt=""
+            crossorigin
           />
         </div>
         <div

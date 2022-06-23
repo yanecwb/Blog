@@ -9,13 +9,14 @@
                         @click="savabgimg(userInfo.backgroundUrl,userInfo.nickname+'的背景图片')"
                     >保存图片</span>
                 </div>
-                <img :src="userInfo.backgroundUrl" alt @click="show_savabgimg" />
+                <img :src="userInfo.backgroundUrl" alt @click="show_savabgimg"  crossorigin/>
             </div>
             <div class="usershow" ref="usershow">
                 <img
                     :src="userInfo.avatarUrl || 'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg'"
                     class="avatar"
                     alt
+                    crossorigin
                 />
                 <p>{{userInfo.nickname || '请登录'}}</p>
                 <div class="userlv">
