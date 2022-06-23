@@ -10,7 +10,7 @@ const routes = [
         name: 'home',
         component: Home,
         meta:{
-          title:'Alex的博客'
+          title:'Alex\'s Blob'
         }
     },
     {

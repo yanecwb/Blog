@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-aotu" style="background-color: #f4f8fb">
+  <div class="w-full h-aotu" style="background-color: #f4f8fb" @click="()=>{showexpression = false;return false}">
     <iframe
       frameborder="0"
       scrolling="no"
@@ -8,7 +8,7 @@
       height="500px"
     ></iframe>
     <div
-      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl);"
+      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl"
     >
       <div
         class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0"
@@ -65,21 +65,72 @@
       </div>
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
     </div>
+    <!-- 评论区 -->
+    <aside class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl">
+      <div class="w-full text-xs flex justify-between" style='color:#999999'>
+        <span>热门评论（76）</span>
+        <span><Icon type="menu" />按热度</span>
+      </div>
+      <!-- 输入框 -->
+     <div class="pt-3 flex justify-between">
+       <div class=" w-12">
+         <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt="" class=" w-7 h-7 rounded-full">
+       </div>
+       <form class="flex-1 relative" v-on:submit.prevent>
+         <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="border-none w-full h-8 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
+         <div class="mt-1 flex justify-between">
+          <botton @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded bg-white text-061 text-opacity-80 outline-none h-6">
+            <Icon type='smile' class='mr-1'/>
+            <span>表情</span>
+          </botton>
+          <button type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 " style="background:#fb7299;border: 1px solid #fb7299">
+            发布
+          </button>
+         </div>
+         <!-- 表情 -->
+        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-44 bg-white z-100 w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+          <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
+          <div class="w-full h-2/3 flex justify-around flex-wrap overflow-scroll bg-white z-999">
+             <div  v-for="i in BiLiEmailTotal" :key="i" class="w-9 h-6 flex justify-center items-center">
+               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class=" w-5 h-5" @click="inputexpression(BiLiEmaili + i)">
+             </div>
+          </div>
+          <div class="w-full h-1/6 bg-gray-300 flex justify-start">
+            <div @click="(e)=>{BiLiEmaili = 'Default/default0';BiLiEmailTotal = 80;e.stopPropagation()}" class="h-full w-1/5 text-center" :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
+               <img src="http://47.107.243.60:5003/img/BiLiEmail/Default/default01.png" alt="" class="w-5 h-5">
+            </div>
+            <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5 text-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
+               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="w-5 h-5">
+            </div>
+          </div>
+       </div>
+       </form>
+     </div>
+       <!-- 评论展示区 -->
+      <div class="w-full h-60">
+
+      </div>
+    </aside>
   </div>
 </template>
 
 <script>
-import { Tooltip } from "ant-design-vue";
+import { Tooltip,Icon } from "ant-design-vue";
 export default {
   name: "article_detail",
   components: {
     Tooltip,
+    Icon
   },
   data() {
     return {
       article: "",
       tip: "您时刻都在关注您自己！😁",
       count: 0,
+      commentContent:'',//内容
+      showexpression:false,//小表情展示框判断变量
+      BiLiEmaili:'Default/default0',//表情地址
+      BiLiEmailTotal:80 //该系列表情数量
     };
   },
   methods: {
@@ -92,6 +143,10 @@ export default {
         return;
       }
     },
+    // 输入表情处理
+    inputexpression(expression_val){
+     this.commentContent += '['+expression_val+']'
+    }
   },
   async created() {
     // this.$store.commit('change_show_header',false)
@@ -245,5 +300,9 @@ pre {
  transform: skewX(-45deg) scale(1, 1);
  -webkit-transition: all 0.5s;
  transition: all 0.5s;
+}
+input:focus{
+  height: 60px;
+  transition: 0.5s;
 }
 </style>
