@@ -69,10 +69,10 @@
     <aside class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl">
       <div class="w-full text-xs flex justify-between" style='color:#999999'>
         <span>热门评论（76）</span>
-        <span><Icon type="menu" />按热度</span>
+        <span class=" cursor-pointer"><Icon type="menu" />按热度</span>
       </div>
       <!-- 输入框 -->
-     <div class="pt-3 flex justify-between">
+     <div class="py-3 flex justify-between">
        <div class=" w-12">
          <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt="" class=" w-7 h-7 rounded-full">
        </div>
@@ -88,28 +88,46 @@
           </button>
          </div>
          <!-- 表情 -->
-        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-44 bg-white z-100 w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-44 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
           <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
-          <div class="w-full h-2/3 flex justify-around flex-wrap overflow-scroll bg-white z-999">
-             <div  v-for="i in BiLiEmailTotal" :key="i" class="w-9 h-6 flex justify-center items-center">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class=" w-5 h-5" @click="inputexpression(BiLiEmaili + i)">
+          <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
+             <div  v-for="i in BiLiEmailTotal" :key="i" class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
+               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
              </div>
           </div>
           <div class="w-full h-1/6 bg-gray-300 flex justify-start">
-            <div @click="(e)=>{BiLiEmaili = 'Default/default0';BiLiEmailTotal = 80;e.stopPropagation()}" class="h-full w-1/5 text-center" :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-               <img src="http://47.107.243.60:5003/img/BiLiEmail/Default/default01.png" alt="" class="w-5 h-5">
+            <div @click="(e)=>{BiLiEmaili = 'Default/default0';BiLiEmailTotal = 80;e.stopPropagation()}" class="h-full w-1/5 flex justify-center items-center" :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
+               <img src="http://47.107.243.60:5003/img/BiLiEmail/Default/default01.png" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
-            <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5 text-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="w-5 h-5">
+            <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
+               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
           </div>
        </div>
        </form>
      </div>
        <!-- 评论展示区 -->
-      <div class="w-full h-60">
-
+      <section>
+        <div class="w-full pb-3 pl-10 relative" >
+          <div class=" absolute left-0">
+            <img src="https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg" alt="" class=" w-10 h-10 rounded-full">
+          </div>
+          <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
+            <p class="text-sm"><span>yaner</span><span class="text-xs inline-block ml-2">04-26</span></p>
+            <p class="text-0a1">真是视频制的好不如标题起得好真是视频制的好不如标题起得真是视频制的好不如标题起得好真是视频<img src="http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png" class="w-5 h-5">制的好不如标题起得好真是视频制的好不如标题起得好好</p>
+            <div class='w-full flex justify-between text-0a1 opacity-60'>
+              <div class="w-1/3 md:w-28 flex justify-between ">
+                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer"/>
+                <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
+                <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
+              </div>
+              <div>
+                <Icon type="more" />
+              </div>
+            </div>
+          </div>
       </div>
+      </section>
     </aside>
   </div>
 </template>
@@ -146,6 +164,7 @@ export default {
     // 输入表情处理
     inputexpression(expression_val){
      this.commentContent += '['+expression_val+']'
+     this.showexpression = false
     }
   },
   async created() {
