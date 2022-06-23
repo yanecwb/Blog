@@ -27,7 +27,7 @@
                   article_classify(list.article_classify)
                 }}</span>
                 <span class="text-xs">{{
-                  format_publishTime(list.publish_time)
+                 list.publish_time
                 }}</span>
                 <!-- <span>面试</span> -->
               </div>
@@ -101,7 +101,12 @@ export default {
       immediate: true,
       async handler(newval) {
         const res = await Get_Article_ModuleList(newval);
-        this.article_moduleList = res.data.article_moduleList;
+        this.article_moduleList = res.data.article_moduleList.map(item=>{
+          return {
+            ...item,
+            publish_time:this.format_publishTime(item.publish_time)
+          }
+        })
         this.$nextTick(()=>{
             this.articleHeight = this.$refs.Article1.offsetHeight;
         })
