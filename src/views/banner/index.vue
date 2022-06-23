@@ -26,7 +26,7 @@
             {{ msg }}|
           </div>
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
-            你好, 我是 <span style="color: #5869da">Flechazo</span>
+            你好, 我是 <span style="color: #5869da">Alex</span>
           </p>
           <p class="lg:text-base text-sm text-white">
             一往情深深几许？深山夕照深秋雨...

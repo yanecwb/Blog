@@ -507,6 +507,16 @@ editorConfig.MENU_CONF['codeSelectLang'] = {
 
 <style lang="less">
 /* From uiverse.io by @adamgiebl */
+pre {
+  background-color: #292a25;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  code{
+  font-family:'firaCode';
+  font-size: 14px;
+  }
+}
 .sendBtn {
   font-family: inherit;
   width: 100px;

@@ -9,31 +9,49 @@ const routes = [
         path: "/home",
         name: 'home',
         component: Home,
+        meta:{
+          title:'Alex的博客'
+        }
     },
     {
         path: "/login",
         name: 'login',
         component: Login,
+        meta:{
+          title:'登陆'
+        }
     },
     {
         path:'/about_me',
         name:'about_me',
-        component:About_me
+        component:About_me,
+        meta:{
+          title:'关于本站作者'
+        }
     },
     {
         path:'/content/:module',
         name:'content',
         component:Content_module,
+        meta:{
+          title:'博客列表'
+        }
     },
     {
       path:'/article_detail/:id?',
       name:'article_detail',
-      component:Article_detail
+      component:Article_detail,
+      meta:{
+        title:'博客详情'
+      }
     },
     {
       path:'/Upload_article/:id?',
       name:'upload_article',
-      component:Upload_article
+      component:Upload_article,
+      meta:{
+        title:'写博客'
+      }
     }
 ];
 

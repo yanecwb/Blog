@@ -4,7 +4,10 @@
       <div v-if="loaded">
         <Header v-if="$store.state.show_header" />
       </div>
-      <router-view></router-view>
+      <router-view>
+        <keep-alive :include="['content']">
+        </keep-alive>
+      </router-view>
       <Footer />
     </div>
     <div class="app" ref="lottie" v-if="!loaded">

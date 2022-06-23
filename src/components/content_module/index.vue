@@ -20,7 +20,7 @@
             @click="$router.push({ name: `article_detail`, params: list })"
           >
             <div
-              :class="list.coverUrl ? 'float-left w-64 md:w-96 lg:w-auto' : ''"
+              :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-auto' : ''"
             >
               <div class="content_list_author">
                 <span class="mr-2">{{
@@ -31,11 +31,11 @@
                 }}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title md:text-base font-semibold hidden mt-1">{{
+              <a class="title md:text-base font-semibold mt-1 md:w-56 xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden">{{
                 list.article_title
               }}</a>
               <p
-                class="my-2 md:my-4 w-full text-xs whitespace-nowrap overflow-hidden"
+                class="my-2 md:my-4 md:w-56  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
               >
                 {{list.article_introduction}}
               </p>
