@@ -143,11 +143,19 @@ export default {
 </script>
 
 <style lang="less">
+@font-face {
+  font-family: firaCode;
+  src: url("../../assets/font/FiraCode-Bold-5.ttf") format("truetype")
+}
 pre {
   background-color: #292a25;
   display: flex;
   justify-content: space-between;
   color: white;
+  code{
+  font-family:'firaCode';
+  font-size: 14px;
+  }
   &::after {
     content: "";
     width: 20px;

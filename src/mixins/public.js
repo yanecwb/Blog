@@ -28,10 +28,10 @@ let mixin = {
     format_publishTime(publish_time){
       if(!publish_time) return
       const now = Date.parse(new Date()) / 1000 ;
-      const pub_time = Date.parse(publish_time) / 1000
+      const pub_time = Date.parse(publish_time) / 1000 //当天0点
       const null_dian = (new Date(new Date().toDateString()).getTime())/1000
-      console.log(null_dian);
-      console.log(pub_time);
+      // console.log(null_dian);
+      // console.log(pub_time);
       if(now - pub_time < 60*2){
         return '刚刚'
       }
@@ -40,8 +40,9 @@ let mixin = {
       }else{
         if(null_dian - pub_time < 86400){
           return '昨天 '+ publish_time.substring(10,18)
+        }else{
+          return parseInt((now - pub_time)/(60*60*24) + 1) + '天前'
         }
-        return parseInt((now - pub_time)/(60*60*24)) + '天前'
       }
     },
     go_up_article(article) {

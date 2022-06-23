@@ -296,8 +296,8 @@ export default {
     },
   },
   mounted() {
-    document.getElementsByTagName("head")[0].children[3].innerText =
-      "Flechazo的博客";
+    // document.getElementsByTagName("head")[0].children[3].innerText =
+    //   "Flechazo的博客";
     window.onmousewheel = document.onmousewheel = wheel; //W3C
     //统一处理滚轮滚动事件
     function wheel(event) {
