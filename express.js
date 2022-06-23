@@ -180,6 +180,21 @@ app.put('/put_comment',function(req,res){
   res.send({code:200,msg:'成功'})
 })
 
+//获取评论
+app.get('/get_comment',function(req,res){
+  const {uper,article_id} = req.body
+  var file = './article/' + uper + ".json"
+	let articleIndex = loadjson(file).list.findIndex(item=>{
+		return item.id == article_id
+	})
+	var data = loadjson(file)
+	const msg = {
+		code:200,
+		msg:'成功',
+		comment:data.list[articleIndex].comment
+	}
+  res.send(msg)
+})
 // 首页文章列表
 app.get("/article_list", function (req, res) {
 	fs.readFile("./data/article_list.json", "utf-8", (err, data) => {

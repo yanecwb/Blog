@@ -8,7 +8,7 @@
       height="500px"
     ></iframe>
     <div
-      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl"
+      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-b-3xl"
     >
       <div
         class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0"
@@ -66,8 +66,8 @@
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
     </div>
     <!-- 评论区 -->
-    <aside class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl">
-      <div class="w-full text-xs flex justify-between" style='color:#999999'>
+    <aside class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>热门评论（76）</span>
         <span class=" cursor-pointer"><Icon type="menu" />按热度</span>
       </div>
@@ -77,18 +77,19 @@
          <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt="" class=" w-7 h-7 rounded-full">
        </div>
        <form class="flex-1 relative" v-on:submit.prevent>
-         <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="border-none w-full h-8 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
-         <div class="mt-1 flex justify-between">
-          <botton @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded bg-white text-061 text-opacity-80 outline-none h-6">
+         <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
+        <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
+        <div class="mt-3 flex justify-between">
+          <botton @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
             <Icon type='smile' class='mr-1'/>
             <span>表情</span>
           </botton>
-          <button @click="PutComment" type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 " style="background:#fb7299;border: 1px solid #fb7299">
+          <button @click="PutComment" type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer " style="background:#fb7299;border: 1px solid #fb7299">
             发布
           </button>
          </div>
          <!-- 表情 -->
-        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-44 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-56 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
           <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
           <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
              <div  v-for="i in BiLiEmailTotal" :key="i" class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
@@ -114,7 +115,7 @@
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
             <p class="text-sm"><span>yaner</span><span class="text-xs inline-block ml-2">04-26</span></p>
-            <p class="text-0a1" v-html="dasd"></p>
+            <p class="text-0a1" v-html="i"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60'>
               <div class="w-1/3 md:w-28 flex justify-between ">
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer"/>
@@ -134,7 +135,7 @@
 
 <script>
 import { Tooltip,Icon } from "ant-design-vue";
-import {putComment} from '../../api/put_comment'
+import {putComment,getComment} from '../../api/comment'
 export default {
   name: "article_detail",
   components: {
@@ -143,14 +144,16 @@ export default {
   },
   data() {
     return {
-      article: "",
+      article: {
+        comment:[]
+      },
       tip: "您时刻都在关注您自己！😁",
       count: 0,
       commentContent:'',//内容
       showexpression:false,//小表情展示框判断变量
       BiLiEmaili:'Default/default0',//表情地址
       BiLiEmailTotal:80 ,//该系列表情数量,
-      dasd:'dasdsaf<img src="http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png" class="w-5 h-5">'
+      is_commentContent:false
     };
   },
   methods: {
@@ -170,12 +173,22 @@ export default {
     },
     //发布评论
     PutComment(){
+      if(!this.commentContent){
+        this.is_commentContent = true
+        return
+      }
       const req  = {
         uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id:this.$route.params.id,
         comment:this.commentContent,
       }
-      putComment(req)
+      this.is_commentContent = false
+      this.commentContent = ''
+      putComment(req).then(async()=>{
+        this.miniMessage('评论成功🥰','success')
+        // await getComment({})
+      })
+
     }
   },
   async created() {
@@ -184,18 +197,18 @@ export default {
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));
     localStorage.setItem("article_details", JSON.stringify(this.article));
-    this.article.comment.map(item=>{
-      console.log(item);
-      if(item.indexOf('[') >= 0){
-        var str = item.split("@")
-        var place = str[1].indexOf("!");
-        console.log(str[1].substring(0, place));
+    let arr = []
+    this.article.comment.forEach(item=>{
+      if(item.indexOf('@') >= 0){
+        let a  = item.match(/(?<=@).*?(?=!)/g)
+        for(let i = 0;i<a.length;i++){
+          console.log('@'+a[i]+'!');
+          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
+        }
       }
-      // return {
-      //   ...i,
-      //   comment:i
-      // }
+      arr.push(item)
     })
+    this.article.comment = arr
   },
   mounted() {
     // 代码块内容复制
@@ -213,22 +226,7 @@ export default {
           navigator.clipboard
             .writeText(content)
             .then(() => {
-              const Toast = this.$Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-                  toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-                },
-              });
-
-              Toast.fire({
-                icon: "success",
-                title: "复制成功🥰",
-              });
+              this.miniMessage('复制成功🥰','success')
             })
             .catch((err) => {});
         },
@@ -343,8 +341,20 @@ pre {
  -webkit-transition: all 0.5s;
  transition: all 0.5s;
 }
+input{
+  transition: 0.5s;
+}
 input:focus{
   height: 60px;
-  transition: 0.5s;
+}
+// 文字闪烁
+.twinkle{
+  animation: twinkle 0.5s linear 3;
+}
+@-webkit-keyframes twinkle{
+  0% {opacity: 1;}
+  50% {opacity: 1;}
+  50.1% {opacity: 0;}
+  100% {opacity: 0;}
 }
 </style>
