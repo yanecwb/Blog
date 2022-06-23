@@ -83,7 +83,7 @@
             <Icon type='smile' class='mr-1'/>
             <span>表情</span>
           </botton>
-          <button type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 " style="background:#fb7299;border: 1px solid #fb7299">
+          <button @click="PutComment" type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 " style="background:#fb7299;border: 1px solid #fb7299">
             发布
           </button>
          </div>
@@ -108,13 +108,13 @@
      </div>
        <!-- 评论展示区 -->
       <section>
-        <div class="w-full pb-3 pl-10 relative" >
+        <div class="w-full pb-3 pl-10 relative" v-for="(i,index) in article.comment" :key="index">
           <div class=" absolute left-0">
             <img src="https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
             <p class="text-sm"><span>yaner</span><span class="text-xs inline-block ml-2">04-26</span></p>
-            <p class="text-0a1">真是视频制的好不如标题起得好真是视频制的好不如标题起得真是视频制的好不如标题起得好真是视频<img src="http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png" class="w-5 h-5">制的好不如标题起得好真是视频制的好不如标题起得好好</p>
+            <p class="text-0a1" v-html="dasd"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60'>
               <div class="w-1/3 md:w-28 flex justify-between ">
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer"/>
@@ -134,6 +134,7 @@
 
 <script>
 import { Tooltip,Icon } from "ant-design-vue";
+import {putComment} from '../../api/put_comment'
 export default {
   name: "article_detail",
   components: {
@@ -148,7 +149,8 @@ export default {
       commentContent:'',//内容
       showexpression:false,//小表情展示框判断变量
       BiLiEmaili:'Default/default0',//表情地址
-      BiLiEmailTotal:80 //该系列表情数量
+      BiLiEmailTotal:80 ,//该系列表情数量,
+      dasd:'dasdsaf<img src="http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png" class="w-5 h-5">'
     };
   },
   methods: {
@@ -163,8 +165,17 @@ export default {
     },
     // 输入表情处理
     inputexpression(expression_val){
-     this.commentContent += '['+expression_val+']'
+     this.commentContent += '@'+expression_val +'!'
      this.showexpression = false
+    },
+    //发布评论
+    PutComment(){
+      const req  = {
+        uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id:this.$route.params.id,
+        comment:this.commentContent,
+      }
+      putComment(req)
     }
   },
   async created() {
@@ -173,6 +184,18 @@ export default {
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));
     localStorage.setItem("article_details", JSON.stringify(this.article));
+    this.article.comment.map(item=>{
+      console.log(item);
+      if(item.indexOf('[') >= 0){
+        var str = item.split("@")
+        var place = str[1].indexOf("!");
+        console.log(str[1].substring(0, place));
+      }
+      // return {
+      //   ...i,
+      //   comment:i
+      // }
+    })
   },
   mounted() {
     // 代码块内容复制

@@ -14,7 +14,6 @@ var jsonParser = bodyParser.json()
 
 // 创建 application/x-www-form-urlencoded 解析器
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
 function loadjson(filepath) {
 	var data
 	try {
@@ -151,19 +150,34 @@ app.post("/update_article", jsonParser, function (req, res) {
 		code: 200,
 		msg: "修改成功",
 	}
-    const { upload_html,coverUrl,article_classify,article_title,article_introduction, userId,article_id } = req.body
+  const { upload_html,coverUrl,article_classify,article_title,article_introduction, userId,article_id } = req.body
 	var file = './article/' + userId + ".json"
 	let articleIndex = loadjson(file).list.findIndex(item=>{
 		return item.id == article_id
 	})
 	function wirte() {
 		var data = loadjson(file)
-		// const publish_time = new Date().toLocaleString()
 		data.list.splice(articleIndex,1,{...data.list[articleIndex],content:upload_html,article_title,article_introduction,article_classify,coverUrl})
 		savejson(file, data)
 	}
 	wirte()
 	res.send(message)
+})
+
+// 发表评论
+app.put('/put_comment',function(req,res){
+  const {uper,article_id,comment} = req.body
+  var file = './article/' + uper + ".json"
+	let articleIndex = loadjson(file).list.findIndex(item=>{
+		return item.id == article_id
+	})
+	function wirte() {
+		var data = loadjson(file)
+    data.list[articleIndex].comment ? data.list[articleIndex].comment.push(comment) : data.list[articleIndex].comment = [comment]
+		savejson(file, data)
+	}
+	wirte()
+  res.send({code:200,msg:'成功'})
 })
 
 // 首页文章列表
@@ -240,7 +254,8 @@ app.get("/get_article_content", function (req, res) {
 })
 
 // 上传图片
-const img = require('./upload.js')
+const img = require('./upload.js');
+const { send } = require("process");
 app.use('/up',img)
 
 
