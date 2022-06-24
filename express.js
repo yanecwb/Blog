@@ -182,7 +182,7 @@ app.put('/put_comment',function(req,res){
 
 //获取评论
 app.get('/get_comment',function(req,res){
-  const {uper,article_id} = req.body
+  const {uper,article_id} = req.query
   var file = './article/' + uper + ".json"
 	let articleIndex = loadjson(file).list.findIndex(item=>{
 		return item.id == article_id
@@ -191,7 +191,7 @@ app.get('/get_comment',function(req,res){
 	const msg = {
 		code:200,
 		msg:'成功',
-		comment:data.list[articleIndex].comment
+		comment:data.list[articleIndex].comment || []
 	}
   res.send(msg)
 })

@@ -8,10 +8,10 @@ export const putComment = (data)=>{
     })
 }
 // 获取最新评论
-export const getComment = (data)=>{
+export const getComment = (params)=>{
     return axios({
         method:'get',
         url:'/node_api/get_comment',
-        data
+        params
     })
 }

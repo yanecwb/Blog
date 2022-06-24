@@ -103,6 +103,10 @@
             <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
                <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
+            <div @click="(e)=>{BiLiEmaili = 'Email';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'Email' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
+               <!-- <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5"> -->
+               <span>🤡</span>
+            </div>
           </div>
        </div>
        </form>
@@ -129,18 +133,29 @@
           </div>
       </div>
       </section>
+      <!-- 无评论时 -->
+      <Empty
+      v-if='article.comment.length == 0'
+      image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png"
+      :image-style="{
+        height: '200px',
+      }"
+    >
+      <span slot="description"> 🤡 🤡</span>
+    </Empty>
     </aside>
   </div>
 </template>
 
 <script>
-import { Tooltip,Icon } from "ant-design-vue";
+import { Tooltip,Icon,Empty } from "ant-design-vue";
 import {putComment,getComment} from '../../api/comment'
 export default {
   name: "article_detail",
   components: {
     Tooltip,
-    Icon
+    Icon,
+    Empty
   },
   data() {
     return {
@@ -157,6 +172,20 @@ export default {
     };
   },
   methods: {
+    formatComment(comment){
+      let arr = []
+    comment.forEach(item=>{
+      if(item.indexOf('@') >= 0){
+        let a  = item.match(/(?<=@).*?(?=!)/g)
+        for(let i = 0;i<a.length;i++){
+          console.log('@'+a[i]+'!');
+          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
+        }
+      }
+      arr.push(item)
+    })
+    return arr
+    },
     followsAuthor() {
       this.count++;
       if (this.article.userId == this.$store.state.userInfo.userInfo.id) {
@@ -177,7 +206,7 @@ export default {
         this.is_commentContent = true
         return
       }
-      const req  = {
+      let req  = {
         uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id:this.$route.params.id,
         comment:this.commentContent,
@@ -186,7 +215,9 @@ export default {
       this.commentContent = ''
       putComment(req).then(async()=>{
         this.miniMessage('评论成功🥰','success')
-        // await getComment({})
+        delete req.comment
+        const res = await getComment(req)
+        this.article.comment = this.formatComment(res.data.comment).reverse()
       })
 
     }
@@ -196,19 +227,12 @@ export default {
     this.$route.params.content
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));
+      const res = await getComment(
+        { uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id:this.$route.params.id,
+        })
+      this.article.comment = this.formatComment(res.data.comment).reverse()
     localStorage.setItem("article_details", JSON.stringify(this.article));
-    let arr = []
-    this.article.comment.forEach(item=>{
-      if(item.indexOf('@') >= 0){
-        let a  = item.match(/(?<=@).*?(?=!)/g)
-        for(let i = 0;i<a.length;i++){
-          console.log('@'+a[i]+'!');
-          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
-        }
-      }
-      arr.push(item)
-    })
-    this.article.comment = arr
   },
   mounted() {
     // 代码块内容复制
