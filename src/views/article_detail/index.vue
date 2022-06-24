@@ -103,10 +103,6 @@
             <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
                <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
-            <div @click="(e)=>{BiLiEmaili = 'Email';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'Email' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
-               <!-- <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5"> -->
-               <span>🤡</span>
-            </div>
           </div>
        </div>
        </form>
@@ -120,14 +116,22 @@
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
             <p class="text-sm"><span>yaner</span><span class="text-xs inline-block ml-2">04-26</span></p>
             <p class="text-0a1" v-html="i"></p>
-            <div class='w-full flex justify-between text-0a1 opacity-60'>
+            <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between ">
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer"/>
                 <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
                 <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
               </div>
-              <div>
-                <Icon type="more" />
+              <!-- $set给没再data中定义的数据添加响应式 -->
+              <div class="relative cursor-pointer" @click="()=>{
+                if(deleteVisi.r == index){
+                   deleteVisi.r = null
+                   return
+                }
+                $set(deleteVisi,'r',index)
+                }">
+                <Icon type="more"/>
+                <div @click='deleteComment(index)' v-if="deleteVisi.r == index" class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500"><Icon type="delete" /></div>
               </div>
             </div>
           </div>
@@ -149,7 +153,7 @@
 
 <script>
 import { Tooltip,Icon,Empty } from "ant-design-vue";
-import {putComment,getComment} from '../../api/comment'
+import {putComment,getComment,deleteComment} from '../../api/comment'
 export default {
   name: "article_detail",
   components: {
@@ -168,7 +172,8 @@ export default {
       showexpression:false,//小表情展示框判断变量
       BiLiEmaili:'Default/default0',//表情地址
       BiLiEmailTotal:80 ,//该系列表情数量,
-      is_commentContent:false
+      is_commentContent:false,
+      deleteVisi:{}//删除按钮
     };
   },
   methods: {
@@ -178,7 +183,6 @@ export default {
       if(item.indexOf('@') >= 0){
         let a  = item.match(/(?<=@).*?(?=!)/g)
         for(let i = 0;i<a.length;i++){
-          console.log('@'+a[i]+'!');
           item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
         }
       }
@@ -216,10 +220,22 @@ export default {
       putComment(req).then(async()=>{
         this.miniMessage('评论成功🥰','success')
         delete req.comment
+        // 更新评论
         const res = await getComment(req)
-        this.article.comment = this.formatComment(res.data.comment).reverse()
+        this.article.comment = this.formatComment(res.data.comment)
       })
-
+    },
+    // 删除评论
+    async deleteComment(index){
+       let req  = {
+        uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id:this.$route.params.id,
+        index
+      }
+      await deleteComment(req)
+      const res = await getComment(req)
+      this.article.comment = this.formatComment(res.data.comment)
+      this.miniMessage('删除成功👌','success')
     }
   },
   async created() {
@@ -231,7 +247,7 @@ export default {
         { uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id:this.$route.params.id,
         })
-      this.article.comment = this.formatComment(res.data.comment).reverse()
+    this.article.comment = this.formatComment(res.data.comment)
     localStorage.setItem("article_details", JSON.stringify(this.article));
   },
   mounted() {
@@ -381,4 +397,10 @@ input:focus{
   50.1% {opacity: 0;}
   100% {opacity: 0;}
 }
+// .more{
+//   display: none;
+// }
+// section:hover .more{
+//   display: inline-block;
+// }
 </style>

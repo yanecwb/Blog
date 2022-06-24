@@ -15,3 +15,12 @@ export const getComment = (params)=>{
         params
     })
 }
+//删除评论（自己的评论）
+export const deleteComment = (data)=>{
+  return axios({
+      method:'delete',
+      url:'/node_api/delete_comment',
+      data
+  })
+}
+
