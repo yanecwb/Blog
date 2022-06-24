@@ -80,10 +80,10 @@
          <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
         <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
         <div class="mt-3 flex justify-between">
-          <botton @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
+          <div @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
             <Icon type='smile' class='mr-1'/>
             <span>表情</span>
-          </botton>
+          </div>
           <button @click="PutComment" type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer " style="background:#fb7299;border: 1px solid #fb7299">
             发布
           </button>
@@ -178,7 +178,7 @@ export default {
   },
   methods: {
     formatComment(comment){
-      let arr = []
+    let arr = []
     comment.forEach(item=>{
       if(item.indexOf('@') >= 0){
         let a  = item.match(/(?<=@).*?(?=!)/g)
@@ -243,9 +243,10 @@ export default {
     this.$route.params.content
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));
-      const res = await getComment(
-        { uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
-        article_id:this.$route.params.id,
+      this.article.comment = []
+      const res = await getComment({
+          uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+          article_id:this.$route.params.id,
         })
     this.article.comment = this.formatComment(res.data.comment)
     localStorage.setItem("article_details", JSON.stringify(this.article));
@@ -268,7 +269,7 @@ export default {
             .then(() => {
               this.miniMessage('复制成功🥰','success')
             })
-            .catch((err) => {});
+            .catch(() => {});
         },
         false
       );
