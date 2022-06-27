@@ -20,7 +20,7 @@
     "nprogress": "^0.2.0",
     "postcss": "^7.0.39",
     "postcss-pxtorem": "^5.1.1",
-    "qrcodejs2": "^0.0.2",
+    "qrcodejs2": "0.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^2.6.11",
     "vue-lottie": "^0.2.1",
