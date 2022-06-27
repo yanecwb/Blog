@@ -198,7 +198,7 @@ export default {
   },
   data() {
     return {
-      editor: null,
+      // editor: null,
       html: "",
       toolbarConfig: {
         // excludeKeys: [ ], /* 隐藏哪些菜单 */
@@ -403,11 +403,12 @@ export default {
     if (this.$route.params.id) {
       //后续修改文章判断
       if (!this.$route.params.id) return;
-      const { article_classify, article_title, coverUrl, content } = JSON.parse(
+      const { article_classify, article_title, article_introduction ,coverUrl, content } = JSON.parse(
         localStorage.getItem("article_details")
       );
       this.base_info.article_classify = article_classify;
       this.base_info.article_title = article_title;
+      this.base_info.article_introduction = article_introduction
       this.base_info.coverUrl = coverUrl;
       this.html = content;
     }
@@ -448,7 +449,7 @@ export default {
       // const contentStr = JSON.stringify(content);
       // document.getElementById("textarea-1").value = contentStr;
 
-      this.html = editor.getHtml();
+      this.html = this.editor.getHtml();
       // console.log(editor.getText());//获取纯文本内容。不包括媒体资源
     };
 // 配置代码高亮
@@ -474,30 +475,34 @@ editorConfig.MENU_CONF['codeSelectLang'] = {
     // 工具栏配置
     const toolbarConfig = {};
     // 创建编辑器
-    const editor = createEditor({
+    this.editor = createEditor({
       selector: "#editor-container",
       config: editorConfig,
       mode: "default", // 或 'simple'
       html: this.html,
     });
-    console.log(editor.getMenuConfig('codeSelectLang').codeLangs);
+    // console.log(this.editor);
+    console.log(this.editor.getMenuConfig('codeSelectLang').codeLangs);
     // 创建工具栏
+    const _this = this
     createToolbar({
-      editor,
+      editor:_this.editor,
       selector: "#toolbar-container",
       config: toolbarConfig,
       mode: "default",
     });
     document.querySelector("div[role='textarea']").onblur = () => {
       // console.log(editor.getElemsByType('image'));//获取当前编辑器的所有图片，记录为 imageList2
-      this.imageList2 = editor.getElemsByType("image").map((item) => {
+      this.imageList2 = this.editor.getElemsByType("image").map((item) => {
         return item.src;
       });
     };
   },
   beforeDestroy() {
+    this.editor.destroy()
     document.body.style.position = "static"; //解决再移动端hidden失效问题
-    document.getElementsByTagName("body")[0].style.overflow = "";
+    document.getElementsByTagName("body")[0].style.overflow = 'auto';
+    this.$store.commit("change_show_header", true);
   },
   beforeRouteEnter(to, from, next) {
     next();

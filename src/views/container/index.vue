@@ -214,13 +214,6 @@ export default {
 </script>
 
 <style scoped>
-.block_border{
-  @apply border border-solid border-gray-200
-}
-.readmore_btn{
-  @apply w-28 mt-5 group-hover:bg-purple-500 group-hover:text-white text-center p-2 bg-white block_border rounded ease-in-out duration-700 cursor-pointer
-}
-
 .ant-carousel >>> .slick-slide {
   text-align: center;
   height: 348px;

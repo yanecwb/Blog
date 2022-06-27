@@ -93,7 +93,7 @@ export default {
       return this.$route.params.module;
     },
     module_headerBg() {
-      return `http://47.107.243.60:5003/img/module_headerBg/${this.$route.params.module}.jpg`;
+      return `http://47.107.243.60:5005/img/module_headerBg/${this.$route.params.module}.jpg`;
     },
   },
   watch: {
