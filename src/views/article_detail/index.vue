@@ -3,7 +3,7 @@
     <iframe
       frameborder="0"
       scrolling="no"
-      src="http://47.107.243.60:5003/colokBanner.html"
+      src="http://47.107.243.60:5005/colokBanner.html"
       class="w-full"
       height="500px"
     ></iframe>
@@ -93,15 +93,15 @@
           <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
           <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
              <div  v-for="i in BiLiEmailTotal" :key="i" class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
+               <img :src="'http://47.107.243.60:5005/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
              </div>
           </div>
           <div class="w-full h-1/6 bg-gray-300 flex justify-start">
             <div @click="(e)=>{BiLiEmaili = 'Default/default0';BiLiEmailTotal = 80;e.stopPropagation()}" class="h-full w-1/5 flex justify-center items-center" :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-               <img src="http://47.107.243.60:5003/img/BiLiEmail/Default/default01.png" alt="" class="md:w-7 w-5 md:h-7 h-5">
+               <img src="http://47.107.243.60:5005/img/BiLiEmail/Default/default01.png" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
             <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
+               <img :src="'http://47.107.243.60:5005/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
             </div>
           </div>
        </div>
@@ -183,7 +183,7 @@ export default {
       if(item.indexOf('@') >= 0){
         let a  = item.match(/(?<=@).*?(?=!)/g)
         for(let i = 0;i<a.length;i++){
-          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
+          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5005/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
         }
       }
       arr.push(item)
