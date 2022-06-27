@@ -9,7 +9,7 @@
     ></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
       <span class="px-5 text-yellow-500">
-        <svg t="1656318782892" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2494" width="30" height="30"><path d="M648.64 366.4S538.56 87.36 512 87.36 375.36 366.4 375.36 366.4 80 387.52 70.08 411.2s220.96 217.28 220.96 217.28-68.16 293.76-52.16 306.72S512 790.4 512 790.4s256 163.04 273.28 144.8c12.8-13.28-20.16-166.56-39.52-251.2a148 148 0 0 1 29.28-8.32 78.4 78.4 0 0 0 25.6-9.44s-61.44 13.92-241.92 17.76-231.36-5.12-231.36-5.12l254.4-190.88s-79.04-14.56-139.04-20c-85.92-7.84-161.12-7.68-151.68-10.08A1320.32 1320.32 0 0 1 512 448a1475.84 1475.84 0 0 1 184.96 20.16L442.72 650.88s55.52 8.48 101.6 10.4c87.84 3.36 195.04 0.8 194.88 0-3.36-14.08-6.24-32-6.24-32S962.24 434.88 954.08 411.2s-305.44-44.8-305.44-44.8z" fill="#F5BE3F" p-id="2495"></path></svg>
+        <svg @click="shareSpace" t="1656318782892" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2494" width="30" height="30"><path d="M648.64 366.4S538.56 87.36 512 87.36 375.36 366.4 375.36 366.4 80 387.52 70.08 411.2s220.96 217.28 220.96 217.28-68.16 293.76-52.16 306.72S512 790.4 512 790.4s256 163.04 273.28 144.8c12.8-13.28-20.16-166.56-39.52-251.2a148 148 0 0 1 29.28-8.32 78.4 78.4 0 0 0 25.6-9.44s-61.44 13.92-241.92 17.76-231.36-5.12-231.36-5.12l254.4-190.88s-79.04-14.56-139.04-20c-85.92-7.84-161.12-7.68-151.68-10.08A1320.32 1320.32 0 0 1 512 448a1475.84 1475.84 0 0 1 184.96 20.16L442.72 650.88s55.52 8.48 101.6 10.4c87.84 3.36 195.04 0.8 194.88 0-3.36-14.08-6.24-32-6.24-32S962.24 434.88 954.08 411.2s-305.44-44.8-305.44-44.8z" fill="#F5BE3F" p-id="2495"></path></svg>
       </span>
       <div class="px-5 relative cursor-pointer">
         <svg @click="()=>{
@@ -193,14 +193,21 @@ export default {
       BiLiEmailTotal:80 ,//该系列表情数量,
       is_commentContent:false,
       deleteVisi:{},//删除按钮
-      shoeqrcode:false
+      shoeqrcode:false,
+      href : window.location.href
     };
   },
   methods: {
+    shareSpace(){
+      const url = 'http://47.107.243.60/home'
+      const title = this.article.article_title
+      // const desc = this.article.article_introduction
+      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg`
+      window.open(href)
+    },
     // 微信分享二维码
     createQrcode(){
-      const href = window.location.href
-       let text = href
+       let text = this.href
       // let qrcode =
        new QRCode(this.$refs.qrcode, {
         text: text, //二维码内容字符串
@@ -212,7 +219,6 @@ export default {
       })
       // console.log(qrcode);
     },
-
     // 格式化评论
     formatComment(comment){
     let arr = []
