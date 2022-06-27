@@ -1,52 +1,32 @@
 <template>
-  <div class="w-full h-aotu" style="background-color: #f4f8fb" @click="()=>{showexpression = false;return false}">
-    <iframe
-      frameborder="0"
-      scrolling="no"
-      src="http://47.107.243.60:5003/colokBanner.html"
-      class="w-full"
-      height="500px"
-    ></iframe>
+  <div class="w-full h-aotu" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
+    <iframe frameborder="0" scrolling="no" src="http://47.107.243.60:5005/colokBanner.html" class="w-full"
+      height="500px"></iframe>
     <div
-      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-b-3xl"
-    >
-      <div
-        class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0"
-      >
+      class="w-full md:w-3/5 md:mt-14 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-b-3xl">
+      <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
       </div>
       <div class="w-full flex justify-between items-center my-3 shadow-sm">
         <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
-          <img
-            :src="article.uper.avatarUrl"
-            class="w-full h-full rounded-full"
-            alt=""
-            crossorigin
-          />
+          <img :src="article.uper.avatarUrl" class="w-full h-full rounded-full" alt="" crossorigin />
         </div>
-        <div
-          class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5"
-        >
+        <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper.nickname }}</p>
-          <p
-            class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis"
-          >
+          <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
             {{ article.publish_time }} 阅读9866
           </p>
         </div>
-        <button
-          class="editBtn text-xs md:text-base"
-          @click="go_up_article(article)"
-          v-if="article.userId == $store.state.userInfo.userInfo.id"
-        >
+        <button class="editBtn text-xs md:text-base" @click="go_up_article(article)"
+          v-if="article.userId == $store.state.userInfo.userInfo.id">
           修改
         </button>
         <Tooltip>
           <template slot="title">
             {{
-              article.userId == $store.state.userInfo.userInfo.id
-                ? tip
-                : "谢谢喜欢 🤪"
+                article.userId == $store.state.userInfo.userInfo.id
+                  ? tip
+                  : "谢谢喜欢 🤪"
             }}
           </template>
           <button class="follows text-xs md:text-base" @click="followsAuthor">
@@ -56,8 +36,7 @@
                 <path d="M0 0H24V24H0z" fill="none"></path>
                 <path
                   d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"
-                  fill="currentColor"
-                ></path>
+                  fill="currentColor"></path>
               </svg>
             </span>
           </button>
@@ -66,94 +45,112 @@
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
     </div>
     <!-- 评论区 -->
-    <aside class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+    <aside
+      class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>热门评论（76）</span>
-        <span class=" cursor-pointer"><Icon type="menu" />按热度</span>
+        <span class=" cursor-pointer">
+          <Icon type="menu" />按热度
+        </span>
       </div>
       <!-- 输入框 -->
-     <div class="py-3 flex justify-between">
-       <div class=" w-12">
-         <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt="" class=" w-7 h-7 rounded-full">
-       </div>
-       <form class="flex-1 relative" v-on:submit.prevent>
-         <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
-        <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
-        <div class="mt-3 flex justify-between">
-          <div @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
-            <Icon type='smile' class='mr-1'/>
-            <span>表情</span>
-          </div>
-          <button @click="PutComment" type="submit" class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer " style="background:#fb7299;border: 1px solid #fb7299">
-            发布
-          </button>
-         </div>
-         <!-- 表情 -->
-        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-56 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
-          <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
-          <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
-             <div  v-for="i in BiLiEmailTotal" :key="i" class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/'+ BiLiEmaili + i +'.png'" alt="" class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
-             </div>
-          </div>
-          <div class="w-full h-1/6 bg-gray-300 flex justify-start">
-            <div @click="(e)=>{BiLiEmaili = 'Default/default0';BiLiEmailTotal = 80;e.stopPropagation()}" class="h-full w-1/5 flex justify-center items-center" :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-               <img src="http://47.107.243.60:5003/img/BiLiEmail/Default/default01.png" alt="" class="md:w-7 w-5 md:h-7 h-5">
+      <div class="py-3 flex justify-between">
+        <div class=" w-12">
+          <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt=""
+            class=" w-7 h-7 rounded-full">
+        </div>
+        <form class="flex-1 relative" v-on:submit.prevent>
+          <textarea type="textarea"  v-model="commentContent" placeholder="发一条友善的评论"
+            class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block"></textarea>
+          <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
+          <div class="mt-3 flex justify-between">
+            <div @click="(e) => { this.showexpression = true; e.stopPropagation(); return false }" type='button'
+              class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
+              <Icon type='smile' class='mr-1' />
+              <span>表情</span>
             </div>
-            <div @click="(e)=>{BiLiEmaili = 'BiLiTV/BiLITV_';BiLiEmailTotal = 5;e.stopPropagation()}" class="h-full w-1/5  flex justify-center items-center" :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''"  style="border-right:solid #CCC 1px">
-               <img :src="'http://47.107.243.60:5003/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt="" class="md:w-7 w-5 md:h-7 h-5">
+            <button @click="PutComment" type="submit"
+              class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer flex justify-center items-center"
+              style="background:#fb7299;border: 1px solid #fb7299">
+                <span v-if="sendtext">发布</span>
+                <div class="mover" v-else></div>
+            </button>
+          </div>
+          <!-- 表情 -->
+          <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
+            class="absolute bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+            <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
+            <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
+              <div v-for="i in BiLiEmailTotal" :key="i"
+                class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
+                <img :src="'http://47.107.243.60:5005/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
+                  class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
+              </div>
+            </div>
+            <div class="w-full h-1/6 bg-gray-300 flex justify-start">
+              <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
+                class="h-full w-1/5 flex justify-center items-center"
+                :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
+                <img src="http://47.107.243.60:5005/img/BiLiEmail/Default/default01.png" alt=""
+                  class="md:w-7 w-5 md:h-7 h-5">
+              </div>
+              <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 5; e.stopPropagation() }"
+                class="h-full w-1/5  flex justify-center items-center"
+                :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
+                <img :src="'http://47.107.243.60:5005/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
+                  class="md:w-7 w-5 md:h-7 h-5">
+              </div>
             </div>
           </div>
-       </div>
-       </form>
-     </div>
-       <!-- 评论展示区 -->
+        </form>
+      </div>
+      <!-- 评论展示区 -->
       <section>
-        <div class="w-full pb-3 pl-10 relative" v-for="(i,index) in article.comment" :key="index">
+        <div class="w-full pb-3 pl-10 relative" v-for="(i, index) in comment" :key="index">
           <div class=" absolute left-0">
-            <img src="https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg" alt="" class=" w-10 h-10 rounded-full">
+            <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p class="text-sm"><span>yaner</span><span class="text-xs inline-block ml-2">04-26</span></p>
-            <p class="text-0a1" v-html="i"></p>
+            <p class="text-sm"><span>{{ i.nickname }}</span><span class="text-xs inline-block ml-2">04-26</span></p>
+            <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between ">
-                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer"/>
+                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
                 <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
                 <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
               </div>
               <!-- $set给没再data中定义的数据添加响应式 -->
-              <div class="relative cursor-pointer" @click="()=>{
-                if(deleteVisi.r == index){
-                   deleteVisi.r = null
-                   return
+              <div class="relative cursor-pointer" @click="() => {
+                if (deleteVisi.r == index) {
+                  deleteVisi.r = null
+                  return
                 }
-                $set(deleteVisi,'r',index)
-                }">
-                <Icon type="more"/>
-                <div @click='deleteComment(index)' v-if="deleteVisi.r == index" class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500"><Icon type="delete" /></div>
+                $set(deleteVisi, 'r', index)
+              }">
+                <Icon type="more" />
+                <div @click='deleteComment(index)' v-if="deleteVisi.r == index"
+                  class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                  <Icon type="delete" />
+                </div>
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </section>
       <!-- 无评论时 -->
-      <Empty
-      v-if='article.comment.length == 0'
-      image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png"
-      :image-style="{
-        height: '200px',
-      }"
-    >
-      <span slot="description"> 🤡 🤡</span>
-    </Empty>
+      <Empty v-if='comment.length == 0'
+        image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png" :image-style="{
+          height: '200px',
+        }">
+        <span slot="description"> 🤡 🤡</span>
+      </Empty>
     </aside>
   </div>
 </template>
 
 <script>
-import { Tooltip,Icon,Empty } from "ant-design-vue";
-import {putComment,getComment,deleteComment} from '../../api/comment'
+import { Tooltip, Icon, Empty } from "ant-design-vue";
+import { putComment, getComment, deleteComment } from '../../api/comment'
 export default {
   name: "article_detail",
   components: {
@@ -164,31 +161,29 @@ export default {
   data() {
     return {
       article: {
-        comment:[]
+        commenter: []
       },
+      comment: [],
       tip: "您时刻都在关注您自己！😁",
       count: 0,
-      commentContent:'',//内容
-      showexpression:false,//小表情展示框判断变量
-      BiLiEmaili:'Default/default0',//表情地址
-      BiLiEmailTotal:80 ,//该系列表情数量,
-      is_commentContent:false,
-      deleteVisi:{}//删除按钮
+      commentContent: '',//内容
+      showexpression: false,//小表情展示框判断变量
+      BiLiEmaili: 'Default/default0',//表情地址
+      BiLiEmailTotal: 80,//该系列表情数量,
+      is_commentContent: false,
+      deleteVisi: {},//删除按钮
+      sendtext:true
     };
   },
   methods: {
-    formatComment(comment){
-    let arr = []
-    comment.forEach(item=>{
-      if(item.indexOf('@') >= 0){
-        let a  = item.match(/(?<=@).*?(?=!)/g)
-        for(let i = 0;i<a.length;i++){
-          item = item.replace('@'+a[i]+'!',`<img src='http://47.107.243.60:5003/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
+    formatComment(comment) {
+      if (comment.indexOf('@') >= 0) {
+        let a = comment.match(/(?<=@).*?(?=!)/g)
+        for (let i = 0; i < a.length; i++) {
+          comment = comment.replace('@' + a[i] + '!', `<img src='http://47.107.243.60:5005/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
         }
       }
-      arr.push(item)
-    })
-    return arr
+      return comment
     },
     followsAuthor() {
       this.count++;
@@ -200,55 +195,67 @@ export default {
       }
     },
     // 输入表情处理
-    inputexpression(expression_val){
-     this.commentContent += '@'+expression_val +'!'
-     this.showexpression = false
+    inputexpression(expression_val) {
+      this.commentContent += '@' + expression_val + '!'
+      // this.showexpression = false
     },
     //发布评论
-    PutComment(){
-      if(!this.commentContent){
+    PutComment() {
+      if (this.noLogin()) return // 未登录
+      console.log(this.$store);
+      if (!this.commentContent) {
         this.is_commentContent = true
         return
       }
-      let req  = {
-        uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
-        article_id:this.$route.params.id,
-        comment:this.commentContent,
+        this.sendtext = false
+      let req = {
+        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id: this.$route.params.id,
+        userId: this.$store.state.userInfo.userInfo.id,
+        comment: this.commentContent,
       }
       this.is_commentContent = false
       this.commentContent = ''
-      putComment(req).then(async()=>{
-        this.miniMessage('评论成功🥰','success')
+      putComment(req).then(async () => {
+        this.miniMessage('评论成功🥰', 'success')
         delete req.comment
         // 更新评论
-        const res = await getComment(req)
-        this.article.comment = this.formatComment(res.data.comment)
+        this.getComments(req)
+        this.sendtext = true
       })
     },
+    async getComments(req) {
+      const res = await getComment(req)
+      let arr = []
+      res.data.commenter.forEach(i => {
+        for (let index = 0; index < i.comment.length; index++) {
+          const comment = this.formatComment(i.comment[index])
+          arr.push({ comment, avatarUrl: i.avatarUrl, nickname: i.nickname })
+        }
+      })
+      this.comment = arr
+    },
     // 删除评论
-    async deleteComment(index){
-       let req  = {
-        uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
-        article_id:this.$route.params.id,
+    async deleteComment(index) {
+      let req = {
+        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id: this.$route.params.id,
         index
       }
       await deleteComment(req)
-      const res = await getComment(req)
-      this.article.comment = this.formatComment(res.data.comment)
-      this.miniMessage('删除成功👌','success')
+      this.getComments(req)
+      this.miniMessage('删除成功👌', 'success')
     }
   },
   async created() {
-    // this.$store.commit('change_show_header',false)
     this.$route.params.content
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));
-      this.article.comment = []
-      const res = await getComment({
-          uper:this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
-          article_id:this.$route.params.id,
-        })
-    this.article.comment = this.formatComment(res.data.comment)
+    const req = {
+      uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+      article_id: this.$route.params.id,
+    }
+    this.getComments(req)
     localStorage.setItem("article_details", JSON.stringify(this.article));
   },
   mounted() {
@@ -267,9 +274,9 @@ export default {
           navigator.clipboard
             .writeText(content)
             .then(() => {
-              this.miniMessage('复制成功🥰','success')
+              this.miniMessage('复制成功🥰', 'success')
             })
-            .catch(() => {});
+            .catch(() => { });
         },
         false
       );
@@ -283,15 +290,18 @@ export default {
   font-family: firaCode;
   src: url("../../assets/font/FiraCode-Bold-5.ttf") format("truetype")
 }
+
 pre {
   background-color: #292a25;
   display: flex;
   justify-content: space-between;
   color: white;
-  code{
-  font-family:'firaCode';
-  font-size: 14px;
+
+  code {
+    font-family: 'firaCode';
+    font-size: 14px;
   }
+
   &::after {
     content: "";
     width: 20px;
@@ -302,11 +312,13 @@ pre {
     cursor: pointer;
   }
 }
+
 .h {
   img {
     width: 100%;
   }
 }
+
 /* From uiverse.io */
 .follows {
   font-family: inherit;
@@ -318,12 +330,10 @@ pre {
   color: black;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-  background: linear-gradient(
-    0deg,
-    #df5e88,
-    rgba(0, 91, 187, 1) 47%,
-    rgba(0, 91, 187, 1) 100%
-  );
+  background: linear-gradient(0deg,
+      #df5e88,
+      rgba(0, 91, 187, 1) 47%,
+      rgba(0, 91, 187, 1) 100%);
 }
 
 .follows .button-content {
@@ -346,62 +356,118 @@ pre {
 .follows:hover svg {
   transform: scale(1.2);
 }
+
 .editBtn {
- width: 90px;
- height: 35px;
- margin: 0.5em;
- background: black;
- color: white;
- border: none;
+  width: 90px;
+  height: 35px;
+  margin: 0.5em;
+  background: black;
+  color: white;
+  border: none;
   border-radius: 50px;
- font-weight: bold;
- cursor: pointer;
- position: relative;
- overflow: hidden;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .editBtn:hover {
- color: black;
+  color: black;
 }
 
 .editBtn:after {
- content: "";
- background: white;
- position: absolute;
- z-index: -1;
- left: -20%;
- right: -20%;
- top: 0;
- bottom: 0;
- transform: skewX(-45deg) scale(0, 1);
- transition: all 0.5s;
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
 }
 
 .editBtn:hover:after {
- transform: skewX(-45deg) scale(1, 1);
- -webkit-transition: all 0.5s;
- transition: all 0.5s;
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
-input{
+
+textarea {
   transition: 0.5s;
 }
-input:focus{
+
+textarea:focus {
   height: 60px;
 }
+
 // 文字闪烁
-.twinkle{
+.twinkle {
   animation: twinkle 0.5s linear 3;
 }
-@-webkit-keyframes twinkle{
-  0% {opacity: 1;}
-  50% {opacity: 1;}
-  50.1% {opacity: 0;}
-  100% {opacity: 0;}
+
+@-webkit-keyframes twinkle {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  50.1% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
-// .more{
-//   display: none;
-// }
-// section:hover .more{
-//   display: inline-block;
-// }
+/* From uiverse.io by @mrhyddenn */
+</style>
+<style>
+/* From uiverse.io by @mrhyddenn */
+.mover {
+  background: rgba(56, 111, 173, 0.979);
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  position: relative;
+  animation: mover5 2s ease-in-out infinite;
+}
+
+.mover::before,
+.mover::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 10px;
+  border-radius: 10px;
+  animation: mover5 2s ease-in-out infinite;
+}
+
+.mover::before {
+  background: rgb(105, 188, 236);
+  top: 4px;
+}
+
+.mover::after {
+  background: rgb(116, 201, 226);
+  top: -4px;
+}
+
+@keyframes mover5 {
+  0% {
+    transform: translateX(5px) scale(1);
+  }
+
+  50% {
+    transform: translateX(-5px) scale(1.2);
+  }
+
+  100% {
+    transform: translateX(5px) scale(1);
+  }
+}
 </style>

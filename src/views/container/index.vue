@@ -13,7 +13,7 @@
       </div>
       <div class="w-300 md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone" :class="$store.state.is_phone ? '' : 'min-w-300'">
         <div
-          class="w-160 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
+          class="w-160 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
           ref="carousel">
           <Carousel autoplay arrows class="h-full">
             <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">
@@ -22,13 +22,13 @@
             <div slot="nextArrow"  class="custom-slick-arrow" style="right: 10px">
               <Icon type="right-circle" />
             </div>
-            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/179a6b23268afbc89b9120039a6befce.jpg">
-            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg">
-            <img class="bg-cover" src="http://47.107.243.60:5003/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg">
+            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
           </Carousel>
         </div>
         <div class=" md:w-108 lg:w-112  shadow-lg animate__animated animate__backInRight" ref="food">
-          <img class="w-full h-64 rounded-t-xl" src="http://47.107.243.60:5003/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
+          <img class="w-full h-64 rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
           <!-- <div class="backcolor"></div> -->
           <div class="bg-white px-5 pt-9 pb-0 box-border">
             <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-      <div class=" absolute md:2-108 w-86 h-24 bottom-0 right-0" style="background-image:url(http://47.107.243.60:5003/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
+      <div class=" absolute md:2-108 w-86 h-24 bottom-0 right-0" style="background-image:url(http://47.107.243.60:5005/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
     </div>
 </template>
 

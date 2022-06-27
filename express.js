@@ -202,16 +202,30 @@ app.post("/update_article", jsonParser, function (req, res) {
 
 // 发表评论
 app.put("/put_comment", function (req, res) {
-  const { uper, article_id, comment } = req.body;
+  const { uper, article_id, userId, comment } = req.body;
   var file = "./article/" + uper + ".json";
   let articleIndex = loadjson(file).list.findIndex((item) => {
     return item.id == article_id;
   });
+  let userInfo = loadjson("./data/user.json").user_list.filter((item) => {
+    return item.id == userId;
+  });
+  delete userInfo[0].password
   function wirte() {
     var data = loadjson(file);
-    data.list[articleIndex].comment
-      ? data.list[articleIndex].comment.unshift(comment)
-      : (data.list[articleIndex].comment = [comment]);
+    if(data.list[articleIndex].commenter){
+      // 该用户评论过
+      const userComArrIndex = data.list[articleIndex].commenter.findIndex(i=>{
+        return i.id = userId
+      })
+      if(userComArrIndex>= 0){
+        data.list[articleIndex].commenter[userComArrIndex].comment.unshift(comment)
+      }else{
+        data.list[articleIndex].commenter.unshift({ comment: [comment], ...userInfo[0] })
+      }
+    }else{
+       data.list[articleIndex].commenter = [{ comment: [comment], ...userInfo[0] }]
+    }
     savejson(file, data);
   }
   wirte();
@@ -229,7 +243,7 @@ app.get("/get_comment", function (req, res) {
   const msg = {
     code: 200,
     msg: "成功",
-    comment: data.list[articleIndex].comment || [],
+    commenter: data.list[articleIndex].commenter || [],
   };
   res.send(msg);
 });
@@ -242,7 +256,7 @@ app.delete("/delete_comment", function (req, res) {
   });
   function wirte() {
     var data = loadjson(file);
-    data.list[articleIndex].comment.splice(index, 1)
+    data.list[articleIndex].commenter.comment.splice(index, 1)
     savejson(file, data);
   }
   wirte();
@@ -316,7 +330,7 @@ app.get("/get_article_content", function (req, res) {
           throw new Error();
         }
       });
-    } catch (error) {}
+    } catch (error) { }
     let message = {
       code: 200,
       msg: "success",
@@ -329,6 +343,7 @@ app.get("/get_article_content", function (req, res) {
 // 上传图片
 const img = require("./upload.js");
 const { send } = require("process");
+const { log } = require("console");
 app.use("/up", img);
 
 //  POST 请求
@@ -355,6 +370,6 @@ app.get("/ab*cd", function (req, res) {
   res.send("正则匹配");
 });
 
-app.listen(5003, function () {
-  console.log("BLOG实例，访问地址为 http://192.168.2.117:5003");
+app.listen(5005, function () {
+  console.log("BLOG实例，访问地址为 http://192.168.2.117:5005");
 });
