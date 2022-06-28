@@ -237,7 +237,7 @@ app.put("/put_comment", function (req, res) {
 app.get("/get_comment", function (req, res) {
   const { uper, article_id } = req.query;
   var file = "./article/" + uper + ".json";
-  let articleIndex = loadjson(file).list.findIndex((item) => {
+  let articleIndex = (loadjson(file).list).findIndex((item) => {
     return item.id == article_id;
   });
   var data = loadjson(file);
@@ -295,13 +295,13 @@ app.get("/side_list", function (req, res) {
 
 // 读取某个模块文章列表
 app.get("/get_article_moduleList", function (req, res) {
-  const { module } = req.query;
-  console.log(module);
-  let article_moduleList = [];
-  let data = fs.readdirSync("./article");
-  console.log(data);
+  const { module } = req.query
+  console.log(module)
+  let article_moduleList = []
+  let data = fs.readdirSync("./article")
+  console.log(data)
   data.forEach((item) => {
-    let article = loadjson("./article/" + item);
+    let article = loadjson("./article/" + item)
     article.list.forEach((i) => {
       if (i.article_classify == module) {
         article_moduleList.push(i);
