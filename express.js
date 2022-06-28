@@ -16,7 +16,7 @@ var jsonParser = bodyParser.json();
 // 创建 application/x-www-form-urlencoded 解析器
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 function loadjson(filepath) {
-  var data;
+  var data = '';
   try {
     var jsondata = iconv.decode(fs.readFileSync(filepath, "binary"), "utf8");
     data = JSON.parse(jsondata);
@@ -204,6 +204,7 @@ app.post("/update_article", jsonParser, function (req, res) {
 app.put("/put_comment", function (req, res) {
   const { uper, article_id, userId, comment } = req.body;
   var file = "./article/" + uper + ".json";
+  console.log(loadjson(file));
   let articleIndex = loadjson(file).list.findIndex((item) => {
     return item.id == article_id;
   });
@@ -260,7 +261,7 @@ app.delete("/delete_comment", function (req, res) {
     savejson(file, data);
   }
   wirte();
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     resolve({ code: 200, msg: "删除成功" });
   }).then((msg) => {
     res.send(msg);
@@ -295,18 +296,20 @@ app.get("/side_list", function (req, res) {
 // 读取某个模块文章列表
 app.get("/get_article_moduleList", function (req, res) {
   const { module } = req.query;
+  console.log(module);
   let article_moduleList = [];
-  let data = fs.readdirSync("./article", "utf-8");
+  let data = fs.readdirSync("./article");
+  console.log(data);
   data.forEach((item) => {
-    let list = fs.readFileSync("./article/" + item, "utf-8");
-    list = JSON.parse(list);
-    list.list.forEach((i) => {
+    let article = loadjson("./article/" + item);
+    article.list.forEach((i) => {
       if (i.article_classify == module) {
         article_moduleList.push(i);
       }
     });
   });
   article_moduleList.reverse();
+  console.log(article_moduleList);
   res.send({
     code: 200,
     message: "success",
@@ -321,8 +324,8 @@ app.get("/get_article_content", function (req, res) {
   fs.readFile(path, "utf-8", (err, data) => {
     if (err) return;
     data = JSON.parse(data);
-    let article_data = {};
     try {
+      let article_data = {};
       data.list.forEach((item) => {
         if (item.id == article_id) {
           article_data.article_content = item.content;
@@ -330,11 +333,11 @@ app.get("/get_article_content", function (req, res) {
           throw new Error();
         }
       });
-    } catch (error) { }
+    } catch (error) {error}
     let message = {
       code: 200,
       msg: "success",
-      article_content,
+      // article_content,
     };
     res.send(message);
   });
@@ -342,8 +345,6 @@ app.get("/get_article_content", function (req, res) {
 
 // 上传图片
 const img = require("./upload.js");
-const { send } = require("process");
-const { log } = require("console");
 app.use("/up", img);
 
 //  POST 请求
