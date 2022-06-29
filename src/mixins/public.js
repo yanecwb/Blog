@@ -47,7 +47,6 @@ let mixin = {
     },
     // 登陆拦截
     noLogin(){
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {
         const Toast = this.$Swal.mixin({
           toast: true,
           position: "bottom-end",
@@ -64,11 +63,12 @@ let mixin = {
           icon: "warning",
           title: "请先登录！",
         });
-        return true
-      }
     },
     go_up_article(article) {
-      if(this.noLogin()) return
+      if(!JSON.parse(localStorage.getItem("userInfo")).id) {
+        this.noLogin()
+        return
+      }
       //  if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
       //   const Toast = this.$Swal.mixin({
       //     toast: true,

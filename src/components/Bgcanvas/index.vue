@@ -14,7 +14,8 @@ export default {
         var c = document.getElementById("canv");
         var $ = c.getContext("2d");
 
-        var w = (c.width = window.innerWidth - 20);
+        var w = (c.width = window.screen.width - 20);
+        console.log(w);
         var h = (c.height = newval);
 
         var draw = function (a, b, t) {

@@ -1,0 +1,175 @@
+{
+  "list": [
+      {
+          "id": "49b78f60-f071-11ec-9aa4-554d647702af",
+          "article_classify": "frontend",
+          "coverUrl": "http://47.107.243.60:5005/img/c9825cd0-f070-11ec-9aa4-554d647702af.png",
+          "article_title": "记录一次vue里使用Lottie动画",
+          "content": "<h2 style=\"text-indent: 0px; text-align: start; line-height: 1.5;\"><strong>开始使用</strong></h2><p><span style=\"color: rgb(66, 144, 247); background-color: rgb(255, 255, 255); font-size: 19px; font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial;\"><em><strong>这里主要讲的是vue如何使用</strong></em></span></p><p><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); font-size: 16px; font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial;\"><strong>1.</strong></span><span style=\"font-size: 16px;\"><strong>安装依赖包&nbsp;vue-lottie</strong></span></p><pre><code class=\"language-javascript\">npm install --save vue-lottie\n</code></pre><p><span style=\"font-size: 16px;\"><strong>2.在vue工程main引用注册</strong></span></p><pre><code class=\"language-javascript\">import lottie from 'vue-lottie';\nVue.component('lottie', lottie)\n</code></pre><p><span style=\"font-size: 16px;\"><strong>3.在使用的页面组件引入设计好的lottiefiles或者UI给你的AE生成的json</strong></span></p><pre><code class=\"language-javascript\">&lt;lottie :options=\"defaultOptions\" :height=\"200\" :width=\"200\" v-on:animCreated=\"handleAnimation\" /&gt;\n</code></pre><p><span style=\"font-size: 16px;\"><strong>4.在data里面添加相应属性、</strong></span></p><pre><code class=\"language-javascript\">data(){\n    return {\n        defaultOptions: { animationData: animationData },\n        animationSpeed: 1,\n        anim: {}\n    }\n}\n\nmethods: {\n    handleAnimation: function(anim) {\n        this.anim = anim;\n    }\n}\n</code></pre><p><span style=\"font-size: 19px;\"><strong>搞定！！！</strong></span></p>",
+          "publish_time": "6/22/2022, 5:34:50 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+          "article_introduction": "这里主要讲的是vue如何使用"
+      },
+      {
+          "id": "f8ef3f00-f0ad-11ec-9aa4-554d647702af",
+          "article_classify": "news",
+          "coverUrl": "http://47.107.243.60:5005/img/3574fab0-f0ad-11ec-9aa4-554d647702af.png",
+          "article_title": "这几天好累",
+          "content": "<h3 style=\"text-align: center;\"><strong>写点...</strong></h3><p style=\"text-align: center;\">这几天基本在忙博客，前端第一个版本收尾工作。过段时间再处理后端吧✍️</p><p style=\"text-align: center;\">emmm...忘记配置图片上传地址了！</p><p style=\"text-align: center;\"><span style=\"color: rgb(252, 237, 225); background-color: rgb(216, 68, 147);\"><strong>来点网图先凑凑</strong></span><img src=\"https://image.baidu.com/search/down?tn=download&amp;word=download&amp;ie=utf8&amp;fr=detail&amp;url=http%3A%2F%2Fp3.qhimg.com%2Fbdr%2F__85%2Ft01aec6928716be6953.jpg\" alt=\"来点网图\" data-href=\"\" style=\"width: 100%;\"></p>",
+          "publish_time": "6/21/2022, 6:20:35 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a"
+      },
+      {
+          "id": "fbfdc6d0-f116-11ec-9aa4-554d647702af",
+          "article_classify": "frontend",
+          "coverUrl": "",
+          "article_title": "代码高亮测试",
+          "content": "<p><br></p><pre><code class=\"language-javascript\">editorConfig.MENU_CONF['uploadVideo'] = {\n    // 自定义上传\n    async customUpload(file: File, insertFn: InsertFnType) {\n        // file 即选中的文件\n        // 自己实现上传，并得到视频 url\n        // 最后插入视频\n        insertFn(url)\n    }\n}</code></pre><p><br></p>",
+          "publish_time": "6/21/2022, 12:02:56 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a"
+      },
+      {
+          "id": "d60df520-f11c-11ec-9aa4-554d647702af",
+          "article_classify": "android",
+          "coverUrl": "http://47.107.243.60:5005/img/cbdeb030-f11c-11ec-9aa4-554d647702af.png",
+          "article_title": "手机端测试",
+          "content": "<p>手机端测试</p>",
+          "publish_time": "6/21/2022, 12:44:29 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a"
+      },
+      {
+          "id": "5dcf4a00-f126-11ec-9aa4-554d647702af",
+          "article_classify": "frontend",
+          "coverUrl": "http://47.107.243.60:5005/img/8176c010-f125-11ec-9aa4-554d647702af.png",
+          "article_title": "给伪元素添加处理函数",
+          "content": "<p style=\"text-align: center;\"><img src=\"https://img.win3000.com/m00/34/bd/c7225e94364d2900e2ceadd18ffad1f5_c_700_395.png\" alt=\"雷神，神子\" data-href=\"https://www.win3000.com/tags/ldjj/\" style=\"width: 100%;\"></p><h3 style=\"text-indent: 0px; text-align: start; line-height: 1.5;\"><strong>通过子元素的事件冒泡原理，在子元素事件处理结束后return&nbsp;false，告知父元素事件处理完毕。这样只就屏蔽了父元素接收事件，然后:after伪元素是悬浮在子元素上面的，故点击伪元素的时候触发父元素事件</strong></h3><pre><code class=\"language-javascript\">// 代码块内容复制\n    const pre = document.getElementsByTagName(\"pre\");\n    // 给伪元素添加事件，采用事件冒泡的机制实现\n    Array.from(pre).forEach((item) =&gt; {\n      item.children[0].onclick = (e)=&gt;{\n        e.stopPropagation()//阻止真子元素冒泡\n        return\n      }\n      //父元素添加事件\n      item.addEventListener(\n        \"click\",\n        () =&gt; {\n          const content = item.children[0].innerText;\n          navigator.clipboard\n            .writeText(content)\n            .then(() =&gt; {\n              const Toast = this.$Swal.mixin({\n                toast: true,\n                position: \"top-end\",\n                showConfirmButton: false,\n                timer: 2000,\n                timerProgressBar: true,\n                didOpen: (toast) =&gt; {\n                  toast.addEventListener(\"mouseenter\", this.$Swal.stopTimer);\n                  toast.addEventListener(\"mouseleave\", this.$Swal.resumeTimer);\n                },\n              });\n\n              Toast.fire({\n                icon: \"success\",\n                title: \"复制成功🥰\",\n              });\n            })\n            .catch((err) =&gt; {});\n        },\n        false\n      );</code></pre><pre><code class=\"language-css\">pre {\n  background-color: #f6f8fa;\n  display: flex;\n  justify-content: space-between;\n  &::after {\n    content: \"copy\";\n    color: rgb(190, 179, 179);\n    cursor: pointer;\n  }\n}</code></pre><p><br></p>",
+          "publish_time": "6/21/2022, 6:20:02 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a"
+      },
+      {
+          "id": "5c24f020-f1fc-11ec-b1d4-1d193974e38a",
+          "article_classify": "frontend",
+          "coverUrl": "",
+          "article_title": "比较图片删除测试",
+          "content": "<p><img src=\"http://47.107.243.60:5005/img/51e9c450-f1fc-11ec-b1d4-1d193974e38a.png\" alt=\"\" data-href=\"\" style=\"\"/></p><p><br></p>",
+          "publish_time": "6/22/2022, 3:24:32 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+          "commenter": [
+              {
+                  "comment": [
+                      {
+                          "content": "@Default/default04!",
+                          "commentTime": "6/29/2022, 3:35:33 PM",
+                          "commentId": "0f7a3550-f77e-11ec-9c9a-d308e84666a5"
+                      }
+                  ],
+                  "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+                  "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+                  "nickname": "雁耳"
+              }
+          ]
+      },
+      {
+          "id": "74a31030-f203-11ec-940b-8783992e7cef",
+          "article_classify": "frontend",
+          "coverUrl": "http://47.107.243.60:5005/img/a3767680-f209-11ec-940b-8783992e7cef.png",
+          "article_title": "wangeditor如何配置图片上传地址",
+          "content": "<h3></h3><p><img src=\"http://47.107.243.60:5005/img/6cb44560-f203-11ec-940b-8783992e7cef.png\" alt=\"\" data-href=\"\" style=\"width: 100%;\"/></p><h3><strong>博客写到编辑器这里的时候这个问题就一直放着，因为项目中使用的版本和文档的版本不一致。不过今天终于搞定，记录一下</strong>😀</h3><p><strong>1.我安装的版本如下</strong></p><pre><code class=\"language-javascript\">@wangeditor/editor-for-vue</code></pre><p>不过根据我实测发现，这好像就是官方最新版，搞得我一直找旧版文档😨</p><p><strong>2.先把编辑器配置写一下</strong></p><pre><code class=\"language-javascript\"> // 编辑器配置\n    const editorConfig = { MENU_CONF: {} };\n    editorConfig.MENU_CONF[\"uploadImage\"] = {\n      base64LimitSize:5 * 1024, //如果图片小于这个大小，则直接是base64，不上传服务器\n      async customUpload(file, insertFn) {\n        getBase64(file, (img) =&gt; {\n          uploadImg(img).then((data) =&gt; {\n            const { url, alt, href } = data.data.data;\n            insertFn(url, alt, href);\n          });\n        });\n      },\n    };</code></pre><p><span style=\"color: rgb(66, 144, 247);\"><strong>**</strong></span><strong>如果图片比较小，可以选择直接使用base64的格式，就不用上传服务器，当然这可能会让你的&lt;img&gt;标签的src属性比较长。</strong></p><p><strong>3.file文件格式转base64上传</strong></p><pre><code class=\"language-javascript\">\n\n// file转base64\nasync function getBase64(img, callback) {\n  const reader = new FileReader();\n  reader.addEventListener(\"load\", () =&gt; callback(reader.result));\n  reader.readAsDataURL(img);\n}</code></pre><p><strong>4.图片上传axios</strong></p><pre><code class=\"language-javascript\">export const uploadImg = (coverUrl)=&gt;{\n    return axios({\n        method:'post',\n        url:`/node_api/up/profile`,\n        data:{\n          coverUrl\n        }\n    })\n}</code></pre><p><span style=\"font-size: 16px;\"><strong>以上就是配置图片上传地址的方法</strong></span></p><p><br></p><p><span style=\"font-size: 16px;\"><strong>不过还有一个问题就是当你</strong></span><span style=\"color: rgb(44, 62, 80); background-color: rgb(255, 255, 255); font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif;\"><strong>上传图片到编辑器，然后又把图片删除了。此时你可能想要拿到这张删除的图片，在服务器也把图片文件删了。所以再最后上传文章的时候需要对比最后文章中的图片以及再编辑中上传到服务器的图片，幸好官方文档中有此方法</strong></span></p><p><span style=\"color: rgb(44, 62, 80); background-color: rgb(255, 255, 255); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif;\"><strong>1.</strong></span><strong>收集所有上传或者插入的图片，记录为&nbsp;imageList1</strong></p><pre><code class=\"language-javascript\">editorConfig.MENU_CONF[\"insertImage\"] = {\n      onInsertedImage: (imageNode) =&gt; {\n        if (imageNode == null) return;\n\n        // const { src, alt, url, href } = imageNode;\n        const { src } = imageNode;\n        // console.log(\"inserted image\", src);\n        this.imageList1.push(src);\n      },\n      // checkImage: customCheckImageFn, // 也支持 async 函数\n      // parseImageSrc: customParseImageSrc, // 也支持 async 函数\n    };</code></pre><p><strong>2.编辑器失去焦点的时候获取当前还在编辑器的所有图片，记录为&nbsp;imageList2</strong></p><pre><code class=\"language-javascript\">document.querySelector(\"div[role='textarea']\").onblur = () =&gt; {\n      // console.log(editor.getElemsByType('image'));//获取当前编辑器的所有图片，记录为 imageList2\n      this.imageList2 = editor.getElemsByType(\"image\").map((item) =&gt; {\n        return item.src;\n      });\n    };</code></pre><p><strong>3.上传之前或之后把不要的图片从服务器删除，不要占用服务器资源</strong></p><pre><code class=\"language-javascript\">// 此处比较之前插入的图片如当前文章任存在的图片\n    vergleichenImg() {\n      let arr = [];\n      this.imageList1.forEach((item) =&gt; {\n        const existImg = this.imageList2.indexOf(item);\n        console.log(existImg);\n        if (existImg &lt; 0) {\n          //不存在\n          arr.push(item.slice(30, 66));\n        }\n      });\n      return arr\n    },\n    deleteImg (this.vergleichenImg())\n</code></pre><p><span style=\"color: rgb(235, 144, 58);\"><strong>这里是传入图片名称数组批量删除，减少http请求</strong></span></p>",
+          "publish_time": "6/22/2022, 4:59:50 PM",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+          "article_introduction": "博客写到编辑器这里的时候这个问题就一直放着，因为项目中使用的版本和文档的版本不一致。不过今天终于搞定，记录一下😀",
+          "commenter": [
+              {
+                  "comment": [
+                      {
+                          "content": "@Default/default03!",
+                          "commentTime": "6/29/2022, 6:05:06 PM",
+                          "commentId": "f3b4c8c0-f792-11ec-9c9a-d308e84666a5"
+                      },
+                      {
+                          "content": "大时代",
+                          "commentTime": "6/29/2022, 6:04:29 PM",
+                          "commentId": "dd4c6520-f792-11ec-9c9a-d308e84666a5"
+                      }
+                  ],
+                  "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+                  "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+                  "nickname": "雁耳"
+              }
+          ]
+      },
+      {
+          "id": "d54fbb10-f215-11ec-8b75-8b56e199807f",
+          "article_classify": "frontend",
+          "coverUrl": "",
+          "article_title": " 配置代码高亮",
+          "article_introduction": " 配置代码高亮",
+          "content": "<p><br></p><pre><code class=\"language-javascript\">   // 编辑器配置\r\n    const editorConfig = { MENU_CONF: {} };\r\n    editorConfig.MENU_CONF[\"uploadImage\"] = {\r\n      //  base64LimitSize:5 * 1024, //如果图片小于这个大小，则直接是base64，不上传服务器\r\n      async customUpload(file, insertFn) {\r\n        getBase64(file, (img) =&gt; {\r\n          uploadImg(img).then((data) =&gt; {\r\n            const { url, alt, href } = data.data.data;\r\n            insertFn(url, alt, href);\r\n          });\r\n        });\r\n      },\r\n    };</code></pre><p><br></p>",
+          "publish_time": "6/22/2022 18:26:52 GMT+0800 (China Standard Time)",
+          "uper": {
+              "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+              "nickname": "雁耳"
+          },
+          "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+          "commenter": [
+              {
+                  "comment": [
+                      {
+                          "content": "@Default/default04!",
+                          "commentTime": "6/29/2022, 6:05:22 PM",
+                          "commentId": "fcd7f4e0-f792-11ec-9c9a-d308e84666a5"
+                      }
+                  ],
+                  "userId": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+                  "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
+                  "nickname": "雁耳"
+              },
+              {
+                  "comment": [
+                      {
+                          "content": "删除测试",
+                          "commentTime": "6/29/2022, 11:49:42 AM",
+                          "commentId": "8235c070-f75e-11ec-ad4c-830cbad1dee7"
+                      },
+                      {
+                          "content": "@Default/default04!",
+                          "commentTime": "6/29/2022, 11:39:33 AM",
+                          "commentId": "177956d0-f75d-11ec-9b55-c1214945c166"
+                      }
+                  ],
+                  "userId": "5846f9b9-ece3-42ec-a071-e1c075dc61fe",
+                  "avatarUrl": "https://dl.zhutix.net/2022/04/9416046f256637822c7_1_avatar.jpg?x-oss-process=image/resize,m_fill,h_120,w_120",
+                  "nickname": "Alex"
+              }
+          ]
+      }
+  ]
+}

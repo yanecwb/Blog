@@ -11,11 +11,11 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="w-300 md:w-400 mx-auto flex justify-between" v-if="!$store.state.is_phone" :class="$store.state.is_phone ? '' : 'min-w-300'">
+      <div class="w-full md:w-400 mx-auto flex justify-between">
         <div
-          class="w-160 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
+          class="w-2/3 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
           ref="carousel">
-          <Carousel autoplay arrows class="h-full">
+          <Carousel autoplay arrows >
             <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">
               <Icon type="left-circle" />
             </div>
@@ -27,17 +27,17 @@
             <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
           </Carousel>
         </div>
-        <div class=" md:w-108 lg:w-112  shadow-lg animate__animated animate__backInRight" ref="food">
-          <img class="w-full h-64 rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
+        <div class="w-1/3 md:w-108 lg:w-112  shadow-lg animate__animated animate__backInRight" ref="food">
+          <img class="w-full rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
           <!-- <div class="backcolor"></div> -->
           <div class="bg-white px-5 pt-9 pb-0 box-border">
-            <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
+            <!-- <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
             <span style="color: #28a745">也说不定😜</span>
             <p class="md:text-xl lg:text-2xl font-bold">Want fluffy Japanese pancakes but can’t fly to Tokyo?</p>
             <p class="text-xs m-0 pb-2">
               <span>20minutes ago</span> ·
               <span>23k View</span>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -218,7 +218,6 @@ export default {
 
 .ant-carousel >>> .slick-slide {
   text-align: center;
-  height: 348px;
   line-height: 160px;
   overflow: hidden;
 }

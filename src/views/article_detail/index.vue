@@ -94,7 +94,7 @@
          <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
         <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
         <div class="mt-3 flex justify-between">
-          <div @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6">
+          <div @click="(e)=>{this.showexpression = true;e.stopPropagation();return false}" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
             <Icon type='smile' class='mr-1'/>
             <span>表情</span>
           </div>
@@ -244,6 +244,7 @@ export default {
     },
     // 格式化评论
    formatComment(comment) {
+     if(!comment) return
       if (comment.indexOf('@') >= 0) {
         let a = comment.match(/(?<=@).*?(?=!)/g)
         for (let i = 0; i < a.length; i++) {
@@ -268,7 +269,10 @@ export default {
     },
     //发布评论
     PutComment() {
-      if (this.noLogin()) return // 未登录
+      if (!JSON.parse(localStorage.getItem("userInfo")).id){// 未登录
+        this.noLogin()
+        return
+      }
       if (!this.commentContent) {
         this.is_commentContent = true
         return
