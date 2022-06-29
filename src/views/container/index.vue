@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-      <div class=" absolute md:2-108 w-86 h-24 bottom-0 right-0" style="background-image:url(http://47.107.243.60:5005/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
+      <div class=" absolute md:2-108 w-86 h-24 bottom-0 right-0 -z-50" style="background-image:url(http://47.107.243.60:5005/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
     </div>
 </template>
 

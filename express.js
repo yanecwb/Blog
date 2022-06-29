@@ -202,6 +202,7 @@ app.post("/update_article", jsonParser, function (req, res) {
 
 // 发表评论
 app.put("/put_comment", function (req, res) {
+  console.log('发表评论');
   let { uper, article_id, userId, comment } = req.body;
   var file = "./article/" + uper + ".json";
   var data = loadjson(file);
@@ -234,6 +235,7 @@ app.put("/put_comment", function (req, res) {
 
 //获取评论
 app.get("/get_comment", function (req, res) {
+  console.log('获取评论');
   const { uper, article_id } = req.query;
   var file = "./article/" + uper + ".json";
   let articleIndex = (loadjson(file).list).findIndex((item) => {
@@ -249,6 +251,7 @@ app.get("/get_comment", function (req, res) {
 });
 // 删除评论
 app.delete("/delete_comment", function (req, res) {
+  console.log('删除评论');
   const { uper, article_id, userId,commentId } = req.body;
   var file = "./article/" + uper + ".json"; //文章的发布者
   let data = loadjson(file)
@@ -275,6 +278,7 @@ app.delete("/delete_comment", function (req, res) {
 
 // 首页文章列表
 app.get("/article_list", function (req, res) {
+  console.log('首页文章列表');
   fs.readFile("./data/article_list.json", "utf-8", (err, data) => {
     if (err) return;
     let { current, size } = req.query;
@@ -301,10 +305,8 @@ app.get("/side_list", function (req, res) {
 // 读取某个模块文章列表
 app.get("/get_article_moduleList", function (req, res) {
   const { module } = req.query
-  console.log(module)
   let article_moduleList = []
   let data = fs.readdirSync("./article")
-  console.log(data)
   data.forEach((item) => {
     let article = loadjson("./article/" + item)
     article.list.forEach((i) => {
@@ -314,7 +316,6 @@ app.get("/get_article_moduleList", function (req, res) {
     });
   });
   article_moduleList.reverse();
-  console.log(article_moduleList);
   res.send({
     code: 200,
     message: "success",

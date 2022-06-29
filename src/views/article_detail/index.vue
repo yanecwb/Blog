@@ -46,10 +46,6 @@
             {{ article.publish_time }} 阅读9866
           </p>
         </div>
-        <button class="editBtn text-xs md:text-base" @click="go_up_article(article)"
-          v-if="article.userId == $store.state.userInfo.userInfo.id">
-          修改
-        </button>
         <Tooltip>
           <template slot="title">
             {{
@@ -70,6 +66,13 @@
             </span>
           </button>
         </Tooltip>
+          <button class="editBtn learn-more ml-2 text-xs md:text-base" @click="go_up_article(article)"
+          v-if="article.userId == $store.state.userInfo.userInfo.id">
+            <span class="circle" aria-hidden="true">
+              <span class="icon arrow"></span>
+              </span>
+              <span class="button-text">修改</span>
+        </button>
       </div>
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
     </div>
@@ -429,42 +432,6 @@ pre {
   transform: scale(1.2);
 }
 
-.editBtn {
-  width: 90px;
-  height: 35px;
-  margin: 0.5em;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.editBtn:hover {
-  color: black;
-}
-
-.editBtn:after {
-  content: "";
-  background: white;
-  position: absolute;
-  z-index: -1;
-  left: -20%;
-  right: -20%;
-  top: 0;
-  bottom: 0;
-  transform: skewX(-45deg) scale(0, 1);
-  transition: all 0.5s;
-}
-
-.editBtn:hover:after {
-  transform: skewX(-45deg) scale(1, 1);
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
 
 textarea {
   transition: 0.5s;
@@ -541,5 +508,95 @@ textarea:focus {
   100% {
     transform: translateX(5px) scale(1);
   }
+}
+
+/* 修改文章按钮 */
+.editBtn {
+ position: relative;
+ /* display: inline-block; */
+ display: none;
+ cursor: pointer;
+ outline: none;
+ border: 0;
+ vertical-align: middle;
+ text-decoration: none;
+ background: transparent;
+ padding: 0;
+ font-size: inherit;
+ font-family: inherit;
+}
+
+.editBtn.learn-more {
+ width: 10rem;
+ height: 39px;
+}
+
+.editBtn.learn-more .circle {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: relative;
+ display: block;
+ margin: 0;
+ width: 3rem;
+ height: 3rem;
+ background: #282936;
+ border-radius: 1.625rem;
+}
+
+.editBtn.learn-more .circle .icon {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ margin: auto;
+ background: #fff;
+}
+
+.editBtn.learn-more .circle .icon.arrow {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ left: 0.625rem;
+ width: 1.125rem;
+ height: 0.125rem;
+ background: none;
+}
+
+.editBtn.learn-more .circle .icon.arrow::before {
+ position: absolute;
+ content: "";
+ top: -0.29rem;
+ right: 0.0625rem;
+ width: 0.625rem;
+ height: 0.625rem;
+ border-top: 0.125rem solid #fff;
+ border-right: 0.125rem solid #fff;
+ transform: rotate(45deg);
+}
+
+.editBtn.learn-more .button-text {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ padding: 0.75rem 0;
+ margin: 0 0 0 1.85rem;
+ color: #282936;
+ font-weight: 700;
+ line-height: 1.6;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+.editBtn:hover .circle {
+ width: 100%;
+}
+
+.editBtn:hover .circle .icon.arrow {
+ background: #fff;
+ transform: translate(1rem, 0);
+}
+
+.editBtn:hover .button-text {
+ color: #fff;
 }
 </style>
