@@ -105,10 +105,9 @@ let mixin = {
           toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
         },
       });
-
       Toast.fire({
         icon: type,
-        title: msg
+        title: msg,
       });
     }
   }

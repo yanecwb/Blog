@@ -202,30 +202,29 @@ app.post("/update_article", jsonParser, function (req, res) {
 
 // 发表评论
 app.put("/put_comment", function (req, res) {
-  const { uper, article_id, userId, comment } = req.body;
+  let { uper, article_id, userId, comment } = req.body;
   var file = "./article/" + uper + ".json";
-  console.log(loadjson(file));
-  let articleIndex = loadjson(file).list.findIndex((item) => {
+  var data = loadjson(file);
+  let article= data.list.find((item) => {
     return item.id == article_id;
   });
   let userInfo = loadjson("./data/user.json").user_list.filter((item) => {
     return item.id == userId;
   });
-  delete userInfo[0].password
+  // 评论格式化
+  comment = {content:comment,commentTime:(new Date()).toLocaleString(),commentId:uuidV1()}
   function wirte() {
-    var data = loadjson(file);
-    if(data.list[articleIndex].commenter){
-      // 该用户评论过
-      const userComArrIndex = data.list[articleIndex].commenter.findIndex(i=>{
-        return i.id = userId
+    if(article.commenter && article.commenter.length > 0 ){// 该文章评论过
+      const userComArrIndex = article.commenter.findIndex(i=>{
+        return i.userId == userId
       })
-      if(userComArrIndex>= 0){
-        data.list[articleIndex].commenter[userComArrIndex].comment.unshift(comment)
+      if(userComArrIndex >= 0){
+        article.commenter[userComArrIndex].comment.unshift(comment)
       }else{
-        data.list[articleIndex].commenter.unshift({ comment: [comment], ...userInfo[0] })
+        article.commenter.unshift({ comment: [comment], userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname })
       }
     }else{
-       data.list[articleIndex].commenter = [{ comment: [comment], ...userInfo[0] }]
+      article.commenter = [{ comment: [comment],userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname  }]
     }
     savejson(file, data);
   }
@@ -250,20 +249,26 @@ app.get("/get_comment", function (req, res) {
 });
 // 删除评论
 app.delete("/delete_comment", function (req, res) {
-  const { uper, article_id, index } = req.body;
-  var file = "./article/" + uper + ".json";
-  let articleIndex = loadjson(file).list.findIndex((item) => {
+  const { uper, article_id, userId,commentId } = req.body;
+  var file = "./article/" + uper + ".json"; //文章的发布者
+  let data = loadjson(file)
+  let article = data.list.find((item) => {
     return item.id == article_id;
   });
   function wirte() {
-    var data = loadjson(file);
-    data.list[articleIndex].commenter.comment.splice(index, 1)
+    const commenter = article.commenter.find(item=>{
+      return item.userId == userId
+    })
+    let deleteindex = commenter.comment.findIndex(item=>{
+      return item.commentId == commentId
+    })
+    commenter.comment.splice(deleteindex, 1)
     savejson(file, data);
   }
   wirte();
   new Promise((resolve) => {
-    resolve({ code: 200, msg: "删除成功" });
-  }).then((msg) => {
+        resolve({ code: 200, msg: "删除成功" });
+      }).then((msg) => {
     res.send(msg);
   });
 });

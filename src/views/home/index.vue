@@ -1,6 +1,6 @@
 <template>
     <div class="animate__animated animate__fadeIn">
-        <Banner bg='http://47.107.243.60:5005/img/static_img/1003880.png' is_home='1'/>
+        <Banner bg='http://47.107.243.60:5005/img/static_img/home_banner.png' is_home='1'/>
         <Container />
     </div>
 </template>

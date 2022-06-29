@@ -8,8 +8,11 @@
       height="500px"
     ></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
-      <span class="px-5 text-yellow-500 cursor-pointer">
-        <svg @click="shareSpace" t="1656318782892" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2494" width="30" height="30"><path d="M648.64 366.4S538.56 87.36 512 87.36 375.36 366.4 375.36 366.4 80 387.52 70.08 411.2s220.96 217.28 220.96 217.28-68.16 293.76-52.16 306.72S512 790.4 512 790.4s256 163.04 273.28 144.8c12.8-13.28-20.16-166.56-39.52-251.2a148 148 0 0 1 29.28-8.32 78.4 78.4 0 0 0 25.6-9.44s-61.44 13.92-241.92 17.76-231.36-5.12-231.36-5.12l254.4-190.88s-79.04-14.56-139.04-20c-85.92-7.84-161.12-7.68-151.68-10.08A1320.32 1320.32 0 0 1 512 448a1475.84 1475.84 0 0 1 184.96 20.16L442.72 650.88s55.52 8.48 101.6 10.4c87.84 3.36 195.04 0.8 194.88 0-3.36-14.08-6.24-32-6.24-32S962.24 434.88 954.08 411.2s-305.44-44.8-305.44-44.8z" fill="#F5BE3F" p-id="2495"></path></svg>
+     <span class="px-5 cursor-pointer">
+        <svg @click="shareSpace('qq')" t="1656482100056" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5164" width="30" height="30"><path d="M511.037 986.94c-85.502 0-163.986-26.686-214.517-66.544-25.66 7.149-58.486 18.655-79.202 32.921-17.725 12.202-15.516 24.647-12.32 29.67 14.027 22.069 240.622 14.092 306.04 7.219v-3.265z" fill="#FAAD08" p-id="5165"></path><path d="M495.627 986.94c85.501 0 163.986-26.686 214.518-66.544 25.66 7.149 58.485 18.655 79.203 32.921 17.724 12.202 15.512 24.647 12.32 29.67-14.027 22.069-240.623 14.092-306.042 7.219v-3.265z" fill="#FAAD08" p-id="5166"></path><path d="M496.137 472.026c140.73-0.935 253.514-27.502 291.73-37.696 9.11-2.432 13.984-6.789 13.984-6.789 0.032-1.25 0.578-22.348 0.578-33.232 0-183.287-88.695-367.458-306.812-367.47C277.5 26.851 188.8 211.021 188.8 394.31c0 10.884 0.55 31.982 0.583 33.232 0 0 3.965 4.076 11.231 6.048 35.283 9.579 150.19 37.482 294.485 38.437h1.037z m387.364 154.941c-8.66-27.825-20.484-60.273-32.455-91.434 0 0-6.886-0.848-10.366 0.158-107.424 31.152-237.624 51.006-336.845 49.808h-1.026c-98.664 1.186-227.982-18.44-335.044-49.288-4.09-1.176-12.168-0.677-12.168-0.677-11.97 31.16-23.793 63.608-32.453 91.433-41.3 132.679-27.92 187.587-17.731 188.818 21.862 2.638 85.099-99.88 85.099-99.88 0 104.17 94.212 264.125 309.947 265.596a765.877 765.877 0 0 1 5.725 0c215.738-1.471 309.947-161.424 309.947-265.595 0 0 63.236 102.519 85.102 99.88 10.186-1.231 23.566-56.14-17.732-188.819" p-id="5167"></path><path d="M429.208 303.911c-29.76 1.323-55.195-32.113-56.79-74.62-1.618-42.535 21.183-78.087 50.95-79.417 29.732-1.305 55.149 32.116 56.765 74.64 1.629 42.535-21.177 78.08-50.925 79.397m220.448-74.62c-1.593 42.507-27.03 75.941-56.79 74.62-29.746-1.32-52.553-36.862-50.924-79.397 1.614-42.526 27.03-75.948 56.764-74.639 29.77 1.33 52.57 36.881 50.951 79.417" fill="#FFFFFF" p-id="5168"></path><path d="M695.405 359.069c-7.81-18.783-86.466-39.709-183.843-39.709h-1.045c-97.376 0-176.033 20.926-183.842 39.709a6.66 6.66 0 0 0-0.57 2.672c0 1.353 0.418 2.575 1.072 3.612 6.58 10.416 93.924 61.885 183.341 61.885h1.045c89.416 0 176.758-51.466 183.34-61.883a6.775 6.775 0 0 0 1.069-3.622 6.66 6.66 0 0 0-0.567-2.664" fill="#FAAD08" p-id="5169"></path><path d="M464.674 239.335c1.344 16.946-7.87 32-20.55 33.645-12.701 1.647-24.074-10.755-25.426-27.71-1.326-16.954 7.873-32.008 20.534-33.64 12.722-1.652 24.114 10.76 25.442 27.705m77.97 8.464c2.702-4.392 21.149-27.488 59.328-19.078 10.028 2.208 14.667 5.457 15.646 6.737 1.445 1.888 1.84 4.576 0.375 8.196-2.903 7.174-8.894 6.979-12.217 5.575-2.144-0.907-28.736-16.948-53.232 6.99-1.685 1.648-4.7 2.212-7.558 0.258-2.856-1.956-4.038-5.923-2.342-8.678" p-id="5170"></path><path d="M503.821 589.328h-1.031c-67.806 0.802-150.022-8.004-229.638-23.381-6.817 38.68-10.934 87.294-7.399 145.275 8.928 146.543 97.728 238.652 234.793 239.996h5.57c137.065-1.344 225.865-93.453 234.796-239.996 3.535-57.986-0.584-106.6-7.403-145.283-79.631 15.385-161.861 24.196-229.688 23.389" fill="#FFFFFF" p-id="5171"></path><path d="M310.693 581.35v146.633s69.287 13.552 138.7 4.17V596.897c-43.974-2.413-91.4-7.79-138.7-15.546" fill="#EB1C26" p-id="5172"></path><path d="M806.504 427.238s-130.112 43.08-302.66 44.309h-1.025c-172.264-1.224-302.217-44.161-302.66-44.309L156.58 541.321c108.998 34.464 244.093 56.677 346.238 55.387l1.024-0.002c102.152 1.297 237.226-20.917 346.24-55.385l-43.579-114.083z" fill="#EB1C26" p-id="5173"></path></svg>
+      </span>
+      <span class="px-5 cursor-pointer">
+        <svg @click="shareSpace('kj')" t="1656318782892" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2494" width="30" height="30"><path d="M648.64 366.4S538.56 87.36 512 87.36 375.36 366.4 375.36 366.4 80 387.52 70.08 411.2s220.96 217.28 220.96 217.28-68.16 293.76-52.16 306.72S512 790.4 512 790.4s256 163.04 273.28 144.8c12.8-13.28-20.16-166.56-39.52-251.2a148 148 0 0 1 29.28-8.32 78.4 78.4 0 0 0 25.6-9.44s-61.44 13.92-241.92 17.76-231.36-5.12-231.36-5.12l254.4-190.88s-79.04-14.56-139.04-20c-85.92-7.84-161.12-7.68-151.68-10.08A1320.32 1320.32 0 0 1 512 448a1475.84 1475.84 0 0 1 184.96 20.16L442.72 650.88s55.52 8.48 101.6 10.4c87.84 3.36 195.04 0.8 194.88 0-3.36-14.08-6.24-32-6.24-32S962.24 434.88 954.08 411.2s-305.44-44.8-305.44-44.8z" fill="#F5BE3F" p-id="2495"></path></svg>
       </span>
       <div class="px-5 relative cursor-pointer">
         <svg @click="()=>{
@@ -97,7 +100,7 @@
           </button>
          </div>
          <!-- 表情 -->
-        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute -bottom-56 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+        <div @click="(e)=>{e.stopPropagation()}" v-if="showexpression" class="absolute md:-bottom-60 -bottom-42 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
           <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
           <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
              <div  v-for="i in BiLiEmailTotal" :key="i" class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
@@ -122,7 +125,7 @@
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p class="text-sm"><span>{{ i.nickname }}</span><span class="text-xs inline-block ml-2">04-26</span></p>
+            <p class="text-sm"><span>{{ i.nickname }}</span><span class="text-xs inline-block ml-2">{{i.commentTime}}</span></p>
             <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between ">
@@ -139,7 +142,7 @@
                 $set(deleteVisi, 'r', index)
               }">
                 <Icon type="more" />
-                <div @click='deleteComment(index)' v-if="deleteVisi.r == index"
+                <div @click='deleteComment(i.userId,i.commentId)' v-if="deleteVisi.r == index"
                   class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
                   <Icon type="delete" />
                 </div>
@@ -190,13 +193,7 @@ export default {
     };
   },
   methods: {
-    shareSpace(){
-      const url = 'http://47.107.243.60/home'
-      const title = this.article.article_title
-      // const desc = this.article.article_introduction
-      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg`
-      window.open(href)
-    },
+   
     // 微信分享二维码
     createQrcode(){
        let text = this.href
@@ -238,7 +235,6 @@ export default {
     //发布评论
     PutComment() {
       if (this.noLogin()) return // 未登录
-      console.log(this.$store);
       if (!this.commentContent) {
         this.is_commentContent = true
         return
@@ -263,22 +259,28 @@ export default {
     async getComments(req) {
       const res = await getComment(req)
       let arr = []
-      console.log(res);
       res.data.commenter.forEach(i => {
         for (let index = 0; index < i.comment.length; index++) {
-          const comment = this.formatComment(i.comment[index])
-          arr.push({ comment, avatarUrl: i.avatarUrl, nickname: i.nickname })
+          const comment = this.formatComment(i.comment[index].content)
+          const {commentTime,commentId} = i.comment[index]
+          arr.push({ comment,userId:i.userId, avatarUrl: i.avatarUrl, nickname: i.nickname,commentTime,commentId })
         }
       })
       this.comment = arr
     },
     // 删除评论
-    async deleteComment(index) {
+    async deleteComment(userId,commentId) {
+      if(userId !== JSON.parse(localStorage.getItem('userInfo')).id){
+        this.miniMessage("<div class='text-sm'>你不能删除这条评论！</div>",'error')
+        return
+      }
       let req = {
         uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id: this.$route.params.id,
-        index
+        userId,
+        commentId
       }
+      console.log(req);
       await deleteComment(req)
       this.getComments(req)
       this.miniMessage('删除成功👌', 'success')
@@ -336,7 +338,6 @@ pre {
   display: flex;
   justify-content: space-between;
   color: white;
-  margin: 0 15px;
   code{
   font-family:'firaCode';
   font-size: 14px;
