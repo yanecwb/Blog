@@ -193,7 +193,38 @@ export default {
     };
   },
   methods: {
-   
+    shareSpace(val){
+      let url = ''
+      if (process.env.NODE_ENV === "development") {
+        url = 'http://47.107.243.60/home'
+      }else {
+        url = window.location.href
+      }
+      const title = this.article.article_title
+      const desc = this.article.article_introduction
+      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg`
+      if(val == 'qq'){
+        var p = {
+            url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+            desc, /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+            title,/*分享标题(可选)*/
+            summary : 'title',/*分享描述(可选)*/
+            pics : 'https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg',/*分享图片(可选)*/
+            flash : '', /*视频地址(可选)*/
+            //commonClient : true, /*客户端嵌入标志*/
+            site: 'QQ分享'/*分享来源 (可选) ，如：QQ分享*/
+        };
+        var s = [];
+        for (var i in p) {
+            s.push(i + '=' + encodeURIComponent(p[i] || ''));
+        }
+        var target_url = "http://connect.qq.com/widget/shareqq/iframe_index.html?" + s.join('&') ;
+        window.open(target_url, 'qq', 'height=520, width=720');
+    }
+    if(val == 'kj'){
+      window.open(href, 'kj', 'height=520, width=720')
+    }
+    },
     // 微信分享二维码
     createQrcode(){
        let text = this.href
