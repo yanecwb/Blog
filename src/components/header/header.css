@@ -78,19 +78,20 @@
   z-index: 999;
   position: fixed;
   top:0;
-  background-image: linear-gradient(to top,#fef9d7  0%,  #d299c2 100%);
-  color: white;
+  background-color: white;
+  color: black;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
 }
 .header_box_navBar ul {
   list-style: none;
-  width: 90vw;
+  width: 90%;
   height: 100%;
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
   display: flex;
   font-size: 14px;
+  font-family:inherit;
   font-weight: bolder;
 }
 .header_box_navBar ul li {

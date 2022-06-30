@@ -49,7 +49,7 @@ let mixin = {
     noLogin(){
         const Toast = this.$Swal.mixin({
           toast: true,
-          position: "bottom-end",
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,

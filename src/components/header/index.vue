@@ -2,25 +2,8 @@
   <div>
     <!-- 导航PC -->
     <div v-if="!$store.state.is_phone">
-      <header class="header_box_navBar h-8 md:h-12" ref="navBar">
+      <header class="header_box_navBar h-8 md:h-12 px-2" ref="navBar">
         <ul>
-          <div>
-            <span>
-              <Icon
-                :type="showmenu ? 'close' : 'user'"
-                class="text-xs md:text-base mr-1"
-                @click="change_showmenu"
-              />
-            </span>
-            <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
-            <Icon
-              type="eye"
-              class="text-xs md:text-base ml-1"
-              v-if="$route.name !== 'home'"
-              @click="showHeader(0)"
-              title="隐藏导航"
-            />
-          </div>
           <div ref="navBar_ul" class="flex text-xs md:text-sm">
             <li @click="goRouter('/home')" name="home">
               <Icon type="home" style="margin-right: 2px" />首 页
@@ -35,10 +18,22 @@
               写文章
               <Icon
                 type="edit"
-                style="font-size: 14px; color: white"
+                style="font-size: 14px"
                 title="写文章"
               />
             </li>
+          </div>
+          <div class="w-24 flex justify-between items-center">
+           <div @click="change_showmenu" class='cursor-pointer w-10 h-10 border-2 border-solid border-gray-100 rounded-full bg-cover' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg)'">
+           </div>
+            <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
+            <!-- <Icon
+              type="eye"
+              class="text-xs md:text-base ml-1 h-4"
+              v-if="$route.name !== 'home'"
+              @click="showHeader(0)"
+              title="隐藏导航"
+            /> -->
           </div>
         </ul>
       </header>
