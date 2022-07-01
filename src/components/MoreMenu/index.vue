@@ -30,8 +30,10 @@
       </div>
       <div class="usershow" ref="usershow">
         <div
+          @click="changeAvatarUrl"
           :style="`background-image:url(${userInfo.avatarUrl || 'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg'})`"
           class="avatar"
+          title="点击更换头像"
         />
         <p>{{ userInfo.nickname || "请登录" }}</p>
         <div class="userlv">
@@ -136,6 +138,7 @@
 import { Icon, Button, Modal,Input } from "ant-design-vue";
 import { mapMutations } from "vuex";
 import {changeUserInfo} from '../../api/userInfo.js'
+import { uploadImg } from "../../api/upload_img";
 export default {
   name: "MoreMenu",
   components: {
@@ -169,6 +172,34 @@ export default {
     },
   },
   methods: {
+    changeAvatarUrl(){
+          var inputObj=document.createElement('input')
+          inputObj.setAttribute('id','my_inputObj');
+          inputObj.setAttribute('type','file');
+          inputObj.setAttribute("style",'visibility:hidden');
+          document.body.appendChild(inputObj);
+          inputObj.click();
+          inputObj.addEventListener('change',(e)=>{
+              const file = e.target.files[0];
+              if(file.size > 1024000){
+                this.miniMessage('头像不要超过1M','error')
+                return
+              }
+              getBase64(file,(img) => {
+                const userId = this.$store.state.userInfo.userInfo.id
+                uploadImg(img,userId,'avatarUrl').then((data) => {
+                  const { url, alt, href } = data.data.data;
+                  this.userInfo.avatarUrl = url
+                  localStorage.setItem('userInfo',JSON.stringify(this.userInfo))
+                });
+              })
+          })
+          function getBase64(img, callback) {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => callback(reader.result));
+            reader.readAsDataURL(img);
+          }
+    },
     ...mapMutations({
       SAVE_USERINFO: "userInfo/" + "SAVE_USERINFO",
     }),

@@ -1,10 +1,12 @@
 import axios from 'axios'
-export const uploadImg = (coverUrl)=>{
+export const uploadImg = (coverUrl,userId,type)=>{
     return axios({
         method:'post',
         url:`/node_api/up/profile`,
         data:{
-          coverUrl
+          userId,
+          coverUrl,
+          type
         }
     })
 }
