@@ -325,6 +325,7 @@ export default {
     }
   },
   async created() {
+    this.$store.commit('change_isfixed',0)
     this.$route.params.content
       ? this.article = this.$route.params
       : (this.article = JSON.parse(localStorage.getItem("article_details")));

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="w-full h-20 md:h-40 opacity-90  bg-122 flex justify-center items-center flex-wrap">
+    <footer class="w-full h-20 md:h-40 opacity-90  bg-122 flex justify-center items-center flex-wrap"  :class="$store.state.isfixed ? 'fixed bottom-0':''">
       <p class="text-white">Flechazo的博客💗</p>
       <p class="text-white">记得留下足迹哦</p>
     </footer>

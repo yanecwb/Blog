@@ -84,9 +84,8 @@
 }
 .header_box_navBar ul {
   list-style: none;
-  width: 90%;
+  width: calc(100vw - 32px);
   height: 100%;
-  margin: 0 auto;
   align-items: center;
   justify-content: space-between;
   display: flex;

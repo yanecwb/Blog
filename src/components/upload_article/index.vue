@@ -396,6 +396,7 @@ export default {
   },
   created() {
     localStorage.removeItem("coverUrl", "");
+    this.$store.commit('change_isfixed',0)
     this.$store.commit("change_show_footer", false);
     this.$store.commit("change_show_header", false);
 

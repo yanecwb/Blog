@@ -11,33 +11,33 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="w-full md:w-400 mx-auto flex justify-between">
+      <div class="w-full md:w-400 min-w-200 mx-auto flex justify-between">
         <div
-          class="w-2/3 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 bg-[url('http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg')] bg-cover animate__animated animate__backInLeft"
+          class="w-2/3 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 animate__animated animate__backInLeft"
           ref="carousel">
-          <Carousel autoplay arrows >
+          <Carousel  arrows >
             <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">
               <Icon type="left-circle" />
             </div>
             <div slot="nextArrow"  class="custom-slick-arrow" style="right: 10px">
               <Icon type="right-circle" />
             </div>
-            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg">
-            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg">
-            <img class="bg-cover" src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg">
+            <img src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg" class="md:h-100 lg:h-144">
+            <img src="http://47.107.243.60:5005/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg" class="md:h-100 lg:h-144">
+            <img src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg" class="md:h-100 lg:h-144">
           </Carousel>
         </div>
-        <div class="w-1/3 md:w-108 lg:w-112  shadow-lg animate__animated animate__backInRight" ref="food">
+        <div class="w-1/3 md:w-108 lg:w-112  md:h-100 lg:h-144 shadow-lg animate__animated animate__backInRight" ref="food">
           <img class="w-full rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
           <!-- <div class="backcolor"></div> -->
           <div class="bg-white px-5 pt-9 pb-0 box-border">
-            <!-- <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
+            <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
             <span style="color: #28a745">也说不定😜</span>
             <p class="md:text-xl lg:text-2xl font-bold">Want fluffy Japanese pancakes but can’t fly to Tokyo?</p>
             <p class="text-xs m-0 pb-2">
               <span>20minutes ago</span> ·
               <span>23k View</span>
-            </p> -->
+            </p>
           </div>
         </div>
       </div>
@@ -107,9 +107,7 @@
             </div>
           </div>
         </div>
-        <div
-          class=" h-1/2 md:w-108 lg:w-112 p-5 block_border animate__animated animate__backInRight"
-         v-if="!$store.state.is_phone">
+        <div class=" h-1/2 md:w-108 lg:w-112 p-5 block_border animate__animated animate__backInRight" v-if="!$store.state.is_phone">
           <div class="input_top mx-auto">
             <h1 class="m-0 text-blue-600">——</h1>
             <span class="text-black">NewsLetter</span>
@@ -120,8 +118,8 @@
               <Icon type="search" />
             </div>
           </div>
-          <div class="list_ul mt-5 flex justify-center">
-            <ul>
+          <div class="list_ul mt-5 flex justify-center w-full">
+            <ul class="w-full">
               <li v-for="item in side_list" :key="item.id" class=" my-3 list-none">
                 <a class="flex justify-between text-base">
                   <span>{{ item.title }}</span>
@@ -267,7 +265,6 @@ export default {
 
 .list_ul ul li {
   height: 34px;
-  width: 380px;
 }
 
 li a {

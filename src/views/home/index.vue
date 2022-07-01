@@ -18,6 +18,7 @@ export default {
   created(){
     this.$store.commit('change_show_footer',false)
     this.$store.commit("change_show_header", true);
+    this.$store.commit('change_isfixed',0)
   }
 
 };

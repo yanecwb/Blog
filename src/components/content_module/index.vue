@@ -109,6 +109,12 @@ export default {
         })
         this.$nextTick(()=>{
             this.articleHeight = this.$refs.Article1.offsetHeight;
+            if(this.article_moduleList.length < 5 ){
+              this.articleHeight = 520
+               this.$store.commit('change_isfixed',1)
+            }else{
+                this.$store.commit('change_isfixed',0)
+            }
         })
       },
     },

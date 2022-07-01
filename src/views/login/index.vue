@@ -112,6 +112,7 @@ export default {
     },
     created(){
       this.$store.commit('change_show_header',false)
+      this.$store.commit('change_isfixed',0)
     },
     methods: {
         checkout_form() {

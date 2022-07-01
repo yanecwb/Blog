@@ -7,7 +7,8 @@ const store =  new Vuex.Store({
   state:{
     is_phone:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
     show_footer:false,
-    show_header:true
+    show_header:true,
+    isfixed:false
   },
   mutations:{
     change_show_footer(state,val){
@@ -15,6 +16,9 @@ const store =  new Vuex.Store({
     },
     change_show_header(state,val){
       state.show_header = val
+    },
+    change_isfixed(state,val){
+      state.isfixed = val
     }
   },
   modules:{
