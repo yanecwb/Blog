@@ -69,46 +69,31 @@ let mixin = {
         this.noLogin()
         return
       }
-      //  if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-      //   const Toast = this.$Swal.mixin({
-      //     toast: true,
-      //     position: "top",
-      //     showConfirmButton: false,
-      //     timer: 2000,
-      //     timerProgressBar: true,
-      //     didOpen: (toast) => {
-      //       toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-      //       toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-      //     },
-      //   });
-
-      //   Toast.fire({
-      //     width: "80%",
-      //     height: "100px",
-      //     icon: "info",
-      //     title: "请在PC端发布或修改文章...",
-      //     heightAuto: false,
-      //   });
-      //   return
-      // }
       article ? this.$router.push({name:'upload_article',params:article}) : this.goRouter("/upload_article");
     },
     miniMessage(msg,type){
-      const Toast = this.$Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: type,
-        title: msg,
-      });
+     return new Promise((resolve,reject)=>{
+        try {
+          const Toast = this.$Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+              toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+            },
+          });
+          Toast.fire({
+            icon: type,
+            title: msg,
+          });
+          resolve(1)
+        } catch (error) {
+          reject(0)
+        }
+     })
     }
   }
 }

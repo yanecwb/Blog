@@ -113,6 +113,28 @@ app.post("/login", jsonParser, function (req, res) {
   }
 });
 
+// 修改用户信息
+app.post('/changeuserInfo',jsonParser,function(req,res){
+  const {userId,changeInfo} = req.body
+  try {
+    let data = loadjson('./data/user.json')
+    let index = data.user_list.findIndex(i=>i.id == userId)
+    data.user_list[index] = {...data.user_list[index],...changeInfo}
+    savejson('./data/user.json', data);
+    res.send({
+      code:200,
+      msg:'修改成功'
+    })
+  } catch (error) {
+    res.send({
+      code:200,
+      msg:'修改失败',
+      error
+    })
+  }
+
+})
+
 // 上传文章
 app.post("/upload_article", jsonParser, function (req, res) {
   let message = {
@@ -351,6 +373,7 @@ app.get("/get_article_content", function (req, res) {
 
 // 上传图片
 const img = require("./upload.js");
+const { send } = require("process");
 app.use("/up", img);
 
 //  POST 请求
