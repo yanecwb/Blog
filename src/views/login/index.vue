@@ -1,8 +1,8 @@
 <template>
     <div class="animate__animated animate__fadeIn flex justify-center items-center h-screen login_box">
-            <div class="screen">
-                <div class="screen__content">
-                    <form class="login" ref="login">
+            <div class="screen rounded-2xl">
+                <div class="screen__content rounded-2xl">
+                    <form class="login rounded-2xl" ref="login">
                         <div class="login__field">
                             <i class="login__icon">
                                 <Icon type="user" />
@@ -43,6 +43,7 @@
                                 type="password"
                                 class="login__input"
                                 placeholder="RePassword"
+                                v-model="Repassword"
                                 autocomplete
                             />
                         </div>
@@ -53,19 +54,21 @@
                         >
                             <span class="button__text">{{is_login ? 'Log In Now' : 'register'}}</span>
                             <i class="button__icon fas fa-chevron-right">
-                                <Icon type="right" />
+                                <Icon type="loading" v-if="loadindg"/>
+                                <Icon type="right" v-else/>
                             </i>
                         </button>
                     </form>
                     <div class="checkout_form">
-                        <Icon type="home" style="color:black" @click="goRouter('/home')" />
+                        <!-- <Icon type="home" style="color:black" @click="goRouter('/home')" /> -->
+                        <div  @click="goRouter('/home')" class=" cursor-pointer"><svg t="1656665342613" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7876" width="20" height="20"><path d="M883.2 610.133333c-4.266667 0-12.8 0-17.066667-4.266666-8.533333-8.533333-8.533333-21.333333 0-29.866667 8.533333-8.533333 17.066667-25.6 17.066667-42.666667s-4.266667-34.133333-17.066667-42.666666l-320-375.466667c-21.333333-21.333333-59.733333-21.333333-81.066666 0L128 490.666667c-12.8 12.8-17.066667 25.6-17.066667 42.666666s4.266667 34.133333 17.066667 42.666667c8.533333 8.533333 8.533333 21.333333 0 29.866667s-21.333333 8.533333-29.866667 0c-17.066667-17.066667-29.866667-42.666667-29.866666-72.533334s8.533333-55.466667 29.866666-72.533333L435.2 85.333333c38.4-38.4 102.4-38.4 140.8 0l320 375.466667c17.066667 17.066667 25.6 42.666667 25.6 72.533333s-8.533333 55.466667-29.866667 72.533334c4.266667 4.266667-4.266667 4.266667-8.533333 4.266666zM401.066667 998.4c-12.8 0-21.333333-8.533333-21.333334-21.333333v-273.066667c0-51.2 38.4-89.6 89.6-89.6h76.8c51.2 0 89.6 38.4 89.6 89.6v209.066667c0 12.8-8.533333 21.333333-21.333333 21.333333s-21.333333-8.533333-21.333333-21.333333v-209.066667c0-25.6-21.333333-46.933333-46.933334-46.933333H469.333333c-25.6 0-46.933333 21.333333-46.933333 46.933333v273.066667c0 12.8-8.533333 21.333333-21.333333 21.333333z" fill="#7162AD" p-id="7877"></path><path d="M768 806.4c-12.8 0-21.333333-8.533333-21.333333-21.333333v-217.6h136.533333c12.8 0 21.333333 8.533333 21.333333 21.333333s-8.533333 21.333333-21.333333 21.333333h-93.866667v174.933334c0 12.8-8.533333 21.333333-21.333333 21.333333zM238.933333 913.066667c-12.8 0-21.333333-8.533333-21.333333-21.333334v-281.6H123.733333c-12.8 0-21.333333-8.533333-21.333333-21.333333s8.533333-21.333333 21.333333-21.333333h136.533334v324.266666c0 12.8-8.533333 21.333333-21.333334 21.333334z" fill="#7162AD" p-id="7878"></path><path d="M401.066667 998.4H324.266667c-59.733333 0-106.666667-46.933333-106.666667-106.666667v-42.666666c0-12.8 8.533333-21.333333 21.333333-21.333334s21.333333 8.533333 21.333334 21.333334v42.666666c0 34.133333 29.866667 64 64 64h76.8c12.8 0 21.333333 8.533333 21.333333 21.333334s-8.533333 21.333333-21.333333 21.333333z" fill="#7162AD" p-id="7879"></path><path d="M682.666667 998.4h-68.266667c-12.8 0-21.333333-8.533333-21.333333-21.333333s8.533333-21.333333 21.333333-21.333334H682.666667c34.133333 0 64-29.866667 64-64v-42.666666c0-12.8 8.533333-21.333333 21.333333-21.333334s21.333333 8.533333 21.333333 21.333334v42.666666c0 59.733333-46.933333 106.666667-106.666666 106.666667z" fill="#A495FC" p-id="7880"></path></svg></div>
                         <span
-                            style=" cursor: pointer;"
+                            style="cursor: pointer;"
                             @click="checkout_form"
                         >{{is_login ? '没有账号？去注册':'已有账号？去登陆'}}</span>
                     </div>
                     <div
-                        style="padding:0 30px;text-align:right;font-size:12px;color:white;font-weight:900"
+                        style="padding:0 30px;text-align:right;font-size:12px;color:#ccc;font-weight:900"
                         v-if="is_login"
                     >
                         <span
@@ -99,10 +102,12 @@ export default {
         return {
             is_login: true,
             is_code_login: false,
-            username: "123",
-            password: "456",
+            username: "",
+            password: "",
+            Repassword:'',
             is_get_code: false,
             code_time: 59,
+            loadindg:false
         };
     },
     created(){
@@ -128,10 +133,12 @@ export default {
             if (this.is_login) {
                 let { username, password, goRouter } = this;
                 if (username && password) {
+                    this.loadindg = true
                     Login(username, password).then((data) => {
                         if (data.data.code == 200) {
                             let gohometimer = setTimeout(() => {
-                                this.$message.success(data.data.msg, 1, () => {
+                                this.miniMessage(data.data.msg,'success') .then(() => {
+                                  this.loadindg =false
                                     this.$store.commit(
                                         "userInfo/SAVE_USERINFO",
                                         data.data.userInfo
@@ -142,22 +149,40 @@ export default {
                             }, 1000);
                         } else {
                             let gohometimer = setTimeout(() => {
-                                this.$message.error(data.data.msg);
+                                this.loadindg =false
+                                this.miniMessage(data.data.msg,'error');
                                 clearTimeout(gohometimer);
                             }, 1000);
                         }
                     });
                 } else {
-                    this.$message.info("请输入账号或密码");
+                    this.miniMessage("请输入账号或密码",'error');
                 }
                 return;
             }
+            if(!/^1[3-9]{1}[0-9]{9}$/.test(this.username) && !/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(com|cn|net)$/.test(this.username) ){
+                  this.miniMessage('请输入正确的手机号或邮箱','error')
+                  return
+            }
+            if(!this.password){
+              this.miniMessage('请输入密码','error')
+              return
+            }
+            if(this.Repassword !== this.password){
+                  this.miniMessage('两次密码不一样','error')
+                  return
+            }
             // 下面是注册时的代码
+            this.loadindg = true
             Register(this.username, this.password).then((res) => {
+                this.loadindg =false
                 if (res.data.code == 200) {
-                    this.$message.success("注册成功", 3, () => {
+                    this.miniMessage(res.data.msg,'success').then(() => {
                         this.is_login = true;
                     });
+                }
+                if(res.data.code == 300){
+                  this.miniMessage(res.data.msg,'error')
                 }
             });
         },
@@ -184,7 +209,7 @@ export default {
     width: 360px;
     padding: 0 30px;
     text-align: right;
-    color: rgba(0, 0, 0, 0.8);
+    color: #ccc;
     font-weight: 600;
     font-size: 12px;
     display: flex;
@@ -198,7 +223,8 @@ export default {
     font-weight: 900;
     color: white;
     margin-top: 10px;
-    background: #00000052;
+    background: #7f7cb9;
+    border-radius: 8px;
     width: 70px;
     height: 30px;
     text-align: center;
@@ -208,7 +234,7 @@ export default {
 .check_loginmethods {
     cursor: pointer;
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.8);
+    color: #ccc
 }
 .check_loginmethods:hover {
     color: white;

@@ -58,12 +58,12 @@
             <ul>
               <li @click="showinput('nickname')">
                 <span>昵称</span>
-                <Input :default-value='userInfo.nickname' ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 w-44"/>
-                <span v-else>{{ changeInfo.nickname || userInfo.nickname }}</span>
+                <Input :default-value="userInfo.nickname||''" ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 w-44"/>
+                <span v-else>{{ changeInfo.nickname || userInfo.nickname || '' }}</span>
               </li>
               <li @click="showinput('sex')">
                 <span>性别</span>
-                <Input default-value='填写man或者woman' ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 w-44"/>
+                <Input :default-value="userInfo.sex" ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 w-44"/>
                 <span v-else>{{  changeInfo.sex || (userInfo.sex == "man" ? "男♂" : "女♀") }}</span>
               </li>
               <li style="border: none" @click="showinput('birthday')">

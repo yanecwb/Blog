@@ -81,7 +81,7 @@ app.post("/register", jsonParser, function (req, res) {
   }
   res.status(200);
   message.code = 200;
-  message.msg = "注册success";
+  message.msg = "注册成功";
   res.send(message);
 });
 
@@ -97,7 +97,7 @@ app.post("/login", jsonParser, function (req, res) {
   });
   if (user && user.password == password) {
     res.status(200);
-    message.msg = "登陆success";
+    message.msg = "登陆成功";
     message.code = 200;
     delete user.password;
     message.userInfo = user;
