@@ -53,13 +53,16 @@ router.post("/profile", jsonParser, function (req, res, next) {
       } else {
         // res.send("保存成功！");
         saveUrl = saveUrl.replace("./assets", "");
-        if(type == 'avatarUrl'){
-          try {
-            let data = loadjson('./data/user.json')
+        if(type){
+          let data = loadjson('./data/user.json')
             let index = data.user_list.findIndex(i=>i.id == userId)
+          if(type=='avatarUrl'){
             data.user_list[index] = {...data.user_list[index],avatarUrl:"http://47.107.243.60:5005" +saveUrl}
-            savejson('./data/user.json', data);
-          } catch (error) {error}
+          }
+          else if(type == 'backgroundUrl'){
+            data.user_list[index] = {...data.user_list[index],backgroundUrl:"http://47.107.243.60:5005" +saveUrl}
+          }
+          savejson('./data/user.json', data);
         }
         //res.send({coverUrl:'http://47.107.243.60:5003'+saveUrl})
         res.send({

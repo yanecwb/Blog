@@ -5,7 +5,7 @@
             "username": "123@qq.com",
             "password": "456",
             "avatarUrl": "http://47.107.243.60:5005/img/705ae660-f92e-11ec-966e-f5f484c1fe1e.png",
-            "backgroundUrl": "https://p4.music.126.net/apj4EPxua_T53UO8Oe6t5Q==/109951164627723647.jpg",
+            "backgroundUrl": "http://47.107.243.60:5005/img/fc939150-f9e1-11ec-9e8a-5f1c1454acfb.png",
             "nickname": "雁耳",
             "sex": "man",
             "city": "江西 赣州",
@@ -39,16 +39,20 @@
             }
         },
         {
-            "id": "f2e34bc5-e253-405e-b338-24e7efb33a97",
+            "id": "ec304daa-3f0f-4149-9454-e29b60832b3d",
             "username": "cwb_offer@163.com",
             "password": "123",
-            "accountInfo": {},
-            "nickname": "新账号测试",
-            "birthday": "1998",
-            "city": "深圳",
-            "university": "JJU",
-            "autograph": "哈哈哈",
-            "avatarUrl": "http://47.107.243.60:5005/img/2bc28430-f92f-11ec-966e-f5f484c1fe1e.png"
+            "avatarUrl": "https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg",
+            "city": "哪里人🏡",
+            "birthday": "出生日期是👶",
+            "university": "哪个学校毕业的🏫",
+            "autograph": "这家伙很懒，还不写点东西🖋️",
+            "accountInfo": {
+                "lv": 0,
+                "blog_years": 0,
+                "follows": 0,
+                "fans": 0
+            }
         }
     ]
 }

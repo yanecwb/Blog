@@ -65,14 +65,16 @@ app.post("/register", jsonParser, function (req, res) {
     }
     const userDefalut = {
       avatarUrl:'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg',
-      university:'哪个学校毕业的',
-      birthday:'出生日期是',
-      autograph:'这家伙很懒，还不写点东西',
+      city:'哪里人🏡',
+      birthday:'出生日期是👶',
+      university:'哪个学校毕业的🏫',
+      autograph:'这家伙很懒，还不写点东西🖋️',
     }
     const userObj = {
       id: uuidv4(),
       username,
       password,
+      ...userDefalut,
       accountInfo: {
         "lv": 0,
         "blog_years": 0,
