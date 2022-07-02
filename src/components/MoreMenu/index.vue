@@ -56,44 +56,43 @@
           </span>
         </div>
         <div class="useredit_form_show useredit_form_hide" ref="useredit_form">
-          <form action>
+          <form action @submit="(e)=>{e.preventDefault()}">
             <ul>
               <li @click="showinput('nickname')">
-                <span>昵称</span>
-                <Input :default-value="userInfo.nickname||''" ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 w-44"/>
+                <span :class="inspectObj == 'nickname' ? 'text-red-500' : 'text-0a1'">昵称{{inspectObj== 'nickname' ? '*' : ''}}</span>
+                <Input placeholder="不超过5个字符" :default-value="userInfo.nickname||''" ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 w-44"/>
                 <span v-else>{{ changeInfo.nickname || userInfo.nickname || '' }}</span>
               </li>
               <li @click="showinput('sex')">
-                <span>性别</span>
-                <Input :default-value="userInfo.sex" ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 w-44"/>
+                <span :class="inspectObj == 'sex' ? 'text-red-500' : 'text-0a1'">性别{{inspectObj == 'sex' ? '*' : ''}}</span>
+                <Input placeholder='man或者woman' :default-value="userInfo.sex" ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 w-44"/>
                 <span v-else>{{  changeInfo.sex || (userInfo.sex == "man" ? "男♂" : "女♀") }}</span>
               </li>
               <li style="border: none" @click="showinput('birthday')">
-                <span>生日</span>
-                <Input :default-value='userInfo.birthday' ref='birthday' v-model="changeInfo.birthday" v-if="showIpunt == 'birthday'" class="py-0 w-44"/>
+                <span :class="inspectObj== 'birthday' ? 'text-red-500' : 'text-0a1'">生日{{inspectObj=='birthday'? '*' : ''}}</span>
+                <Input placeholder='1999-01-01' :default-value='userInfo.birthday' ref='birthday' v-model="changeInfo.birthday" v-if="showIpunt == 'birthday'" class="py-0 w-44"/>
                 <span  v-else>{{ changeInfo.birthday || userInfo.birthday }}</span>
               </li>
             </ul>
             <ul style="border: none">
               <li @click="showinput('city')">
                 <span>地区</span>
-                <Input :default-value='userInfo.city' ref='city' v-model="changeInfo.city" v-if="showIpunt == 'city'" class="py-0 w-44"/>
+                <Input placeholder='所在地区' :default-value='userInfo.city' ref='city' v-model="changeInfo.city" v-if="showIpunt == 'city'" class="py-0 w-44"/>
                 <span v-else>{{ changeInfo.city||userInfo.city }}</span>
               </li>
               <li @click="showinput('university')">
                 <span>大学</span>
-                <Input :default-value='userInfo.university' ref='university' v-model="changeInfo.university" v-if="showIpunt == 'university'" class="py-0 w-44"/>
+                <Input placeholder='毕业院校' :default-value='userInfo.university' ref='university' v-model="changeInfo.university" v-if="showIpunt == 'university'" class="py-0 w-44"/>
                 <span v-else>{{ changeInfo.university||userInfo.university }}</span>
               </li>
               <li style="border: none" @click="showinput('autograph')">
                 <span>简介</span>
-                <Input :default-value='userInfo.autograph' ref='autograph' v-model="changeInfo.autograph" v-if="showIpunt == 'autograph'" class="py-0 w-44"/>
+                <Input placeholder='说点什么...' :default-value='userInfo.autograph' ref='autograph' v-model="changeInfo.autograph" v-if="showIpunt == 'autograph'" class="py-0 w-44"/>
                 <div class="autograph" v-else :title="changeInfo.autograph || userInfo.autograph">{{ changeInfo.autograph||(userInfo.autograph || "这个人很懒，什么都没留下")}}</div>
               </li>
             </ul>
             <div class="save_useredit">
-              <Button style="background: #5869da; color: white; margin: 0 10px" @click='changeInfoHandler'>保存</Button
-              >
+              <Button style="background: #5869da; color: white; margin: 0 10px" @click='changeInfoHandler'>保存</Button>
             </div>
           </form>
         </div>
@@ -153,7 +152,8 @@ export default {
       is_savebg: false,
       game_visible: false,
       showIpunt:'',
-      changeInfo:{}
+      changeInfo:{},
+      inspectObj:[]
     };
   },
   computed: {
@@ -263,20 +263,34 @@ export default {
     },
     async changeInfoHandler(){
       this.showIpunt = ''
-      if(Object.keys(this.changeInfo).length === 0){
+      const {changeInfo} = this
+      if(Object.keys(changeInfo).length === 0){
         this.miniMessage('未作修改','warning')
         return
       }
+      if(changeInfo.nickname && changeInfo.nickname.length>5){
+        this.inspectObj = 'nickname' 
+        return 
+      }
+      if(changeInfo.sex && (changeInfo.sex != 'man' && changeInfo.sex != 'woman')){
+        this.inspectObj = 'sex' 
+        return 
+      }
+      if(changeInfo.birthday && (!/^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$/.test(changeInfo.birthday))){
+        this.inspectObj = 'birthday'
+        return 
+      }
       const req = {
-        changeInfo:this.changeInfo,
+        changeInfo,
         userId:this.$store.state.userInfo.userInfo.id
       }
       const res = await changeUserInfo(req)
       if(res.data.code == 200){
         this.miniMessage('修改成功，请重新登陆！','success').then(()=>{
           setTimeout(()=>{
+            this.inspectObj = []
             this.logout('out')
-          },2000)
+          },1200)
         })
       }
     }
@@ -427,7 +441,6 @@ export default {
 .useredit_form_show ul li span:nth-of-type(1) {
   font-size: 13px;
   width: 90px;
-  color: rgba(0, 0, 0, 0.95);
   display: block;
   transform: scale(0.96);
 }

@@ -1,42 +1,54 @@
 {
-  "user_list": [
-      {
-          "id": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
-          "username": "123",
-          "password": "456",
-          "avatarUrl": "https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg",
-          "backgroundUrl": "https://p4.music.126.net/apj4EPxua_T53UO8Oe6t5Q==/109951164627723647.jpg",
-          "nickname": "雁耳",
-          "sex": "man",
-          "city": "江西 赣州",
-          "birthday": "1998-03-13",
-          "autograph": "这个人不懒，晚点就会写好东西",
-          "university": "九江学院",
-          "accountInfo": {
-              "lv": 7,
-              "blog_years": 2,
-              "follows": 13,
-              "fans": 18
-          }
-      },
-      {
-          "id": "5846f9b9-ece3-42ec-a071-e1c075dc61fe",
-          "username": "789",
-          "password": "10",
-          "avatarUrl": "https://dl.zhutix.net/2022/04/9416046f256637822c7_1_avatar.jpg?x-oss-process=image/resize,m_fill,h_120,w_120",
-          "backgroundUrl": "https://p4.music.126.net/apj4EPxua_T53UO8Oe6t5Q==/109951164627723647.jpg",
-          "nickname": "Alex",
-          "sex": "women",
-          "city": "江西 赣州",
-          "birthday": "1998-03-13",
-          "autograph": "这个人不懒，晚点就会写好东西",
-          "university": "九江学院",
-          "accountInfo": {
-              "lv": 7,
-              "blog_years": 2,
-              "follows": 13,
-              "fans": 18
-          }
-      }
-  ]
+    "user_list": [
+        {
+            "id": "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a",
+            "username": "123@qq.com",
+            "password": "456",
+            "avatarUrl": "http://47.107.243.60:5005/img/705ae660-f92e-11ec-966e-f5f484c1fe1e.png",
+            "backgroundUrl": "https://p4.music.126.net/apj4EPxua_T53UO8Oe6t5Q==/109951164627723647.jpg",
+            "nickname": "雁耳",
+            "sex": "man",
+            "city": "江西 赣州",
+            "birthday": "1998-03-13",
+            "autograph": "这个人不懒，晚点就会写好东西",
+            "university": "九江学院",
+            "accountInfo": {
+                "lv": 7,
+                "blog_years": 2,
+                "follows": 13,
+                "fans": 18
+            }
+        },
+        {
+            "id": "5846f9b9-ece3-42ec-a071-e1c075dc61fe",
+            "username": "789@qq.com",
+            "password": "10",
+            "avatarUrl": "http://47.107.243.60:5005/img/65abdc90-f94e-11ec-966e-f5f484c1fe1e.png",
+            "backgroundUrl": "https://p4.music.126.net/apj4EPxua_T53UO8Oe6t5Q==/109951164627723647.jpg",
+            "nickname": "Alex",
+            "sex": "man",
+            "city": "江西 赣州",
+            "birthday": "1998-03-13",
+            "autograph": "这个人不懒，晚点就会写好东西",
+            "university": "九江学院",
+            "accountInfo": {
+                "lv": 7,
+                "blog_years": 2,
+                "follows": 13,
+                "fans": 18
+            }
+        },
+        {
+            "id": "f2e34bc5-e253-405e-b338-24e7efb33a97",
+            "username": "cwb_offer@163.com",
+            "password": "123",
+            "accountInfo": {},
+            "nickname": "新账号测试",
+            "birthday": "1998",
+            "city": "深圳",
+            "university": "JJU",
+            "autograph": "哈哈哈",
+            "avatarUrl": "http://47.107.243.60:5005/img/2bc28430-f92f-11ec-966e-f5f484c1fe1e.png"
+        }
+    ]
 }

@@ -63,11 +63,22 @@ app.post("/register", jsonParser, function (req, res) {
       res.send(message);
       return;
     }
+    const userDefalut = {
+      avatarUrl:'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg',
+      university:'哪个学校毕业的',
+      birthday:'出生日期是',
+      autograph:'这家伙很懒，还不写点东西',
+    }
     const userObj = {
       id: uuidv4(),
       username,
       password,
-      accountInfo: {},
+      accountInfo: {
+        "lv": 0,
+        "blog_years": 0,
+        "follows": 0,
+        "fans": 0
+      },
     };
 
     //修改数据
@@ -300,7 +311,7 @@ app.delete("/delete_comment", function (req, res) {
 
 // 首页文章列表
 app.get("/article_list", function (req, res) {
-  console.log('首页文章列表');
+  let message = {}
   fs.readFile("./data/article_list.json", "utf-8", (err, data) => {
     if (err) return;
     let { current, size } = req.query;
