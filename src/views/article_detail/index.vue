@@ -80,9 +80,9 @@
     <aside
       class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
-        <span>热门评论（76）</span>
+        <span>最新评论（{{comment.length}}）</span>
         <span class=" cursor-pointer">
-          <Icon type="menu" />按热度
+          <Icon type="menu" />按时间
         </span>
       </div>
       <!-- 输入框 -->
@@ -302,6 +302,9 @@ export default {
           const comment = this.formatComment(i.comment[index].content)
           const {commentTime,commentId} = i.comment[index]
           arr.push({ comment,userId:i.userId, avatarUrl: i.avatarUrl, nickname: i.nickname,commentTime,commentId })
+          arr.sort((a,b)=>{
+            return Date.parse(b.commentTime) - Date.parse(a.commentTime)
+          })
         }
       })
       this.comment = arr

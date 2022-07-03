@@ -25,7 +25,7 @@
           :src="userInfo.backgroundUrl"
           alt
           @click="show_savabgimg"
-          crossorigin
+          crossorigin="anonymous"
         />
       </div>
       <div class="usershow" ref="usershow">
@@ -35,7 +35,8 @@
           class="avatar"
           title="点击更换头像"
         /> 
-        <div class="p"><p class="m-0">{{ userInfo.id ?    (userInfo.nickname ? userInfo.nickname: '未设置昵称') : "请登录" }}</p></div>
+        <!-- <div class="p"><p class="m-0">{{ userInfo.id ?    (userInfo.nickname ? userInfo.username: '未设置昵称') : "请登录" }}</p></div> -->
+        <div class="p"><p class="m-0">{{ userInfo.username || "请登录" }}</p></div>
         <div class="userlv">
           <span>{{ userInfo.accountInfo.follows || 0 }}关注</span>
           <span>{{ userInfo.accountInfo.fans || 0 }}粉丝</span>

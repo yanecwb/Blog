@@ -73,20 +73,6 @@ export default {
   },
   methods: {
     down() {
-      // console.log(this.timer1);
-      // console.log(document.documentElement.scrollTop);
-      // if (this.timer1) return;
-      // let h = document.documentElement.scrollTop;
-      // const maxH = this.$refs.banner_box.clientHeight;
-      // this.timer1 = setInterval(() => {
-      //   // h += 3;
-      //   document.documentElement.scrollTop += 1;
-      //   console.log(document.documentElement.scrollTop);
-      //   // if (document.documentElement.scrollTop > maxH) {
-      //   //   clearInterval(this.timer1);
-      //   // }
-      // }, 1);
-      console.log(document.documentElement.scrollTop);
     },
   },
   mounted() {
