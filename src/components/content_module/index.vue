@@ -20,11 +20,11 @@
             @click="$router.push({ name: `article_detail`, params: list })"
           >
             <div
-              :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-auto' : ''"
+              :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-64' : ''"
             >
               <div class="content_list_author">
                 <span class="mr-2">{{
-                  article_classify(list.article_classify)
+                  list.uper.nickname
                 }}</span>
                 <span class="text-xs">{{
                  list.publish_time
@@ -33,7 +33,6 @@
               </div>
               <a class="title md:text-base font-semibold mt-1 md:w-56 xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden ">
                 <span>{{ list.article_title}}_</span>
-                <span class="text-xs text-gray">{{list.uper.nickname}}</span>
               </a>
               <p
                 class="my-2 md:my-4 md:w-56  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
@@ -46,11 +45,7 @@
                 <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
               </div>
             </div>
-            <img
-              v-if="list.coverUrl"
-              :src="list.coverUrl"
-              class="w-28 md:w-32 h-16 md:h-20 float-right mt-5"
-            />
+            <div  v-if="list.coverUrl" class="w-28 md:w-32 h-16 md:h-20 float-right mt-5" :style="{backgroundImage:`url(${list.coverUrl})`,backgroundSize:'100% 100%'}"></div>
           </li>
         </section>
       </article>
@@ -123,17 +118,6 @@ export default {
             }
         })
       },
-    },
-  },
-  methods: {
-    article_classify(classify) {
-      const obj = {
-        frontend: "前端",
-        backend: "后端",
-        android: "安卓",
-        news: "生活趣闻",
-      };
-      return obj[classify];
     },
   },
   created() {

@@ -36,10 +36,10 @@ let mixin = {
         return '刚刚'
       }
       if(pub_time > null_dian){//说明明是今天发布的
-        return '今天 '+ publish_time.substring(10,18)
+        return '今天 '+ publish_time.substring(9,18)
       }else{
         if(null_dian - pub_time < 86400){
-          return '昨天 '+ publish_time.substring(10,18)
+          return '昨天 '+ publish_time.substring(9,18)
         }else{
           return parseInt((now - pub_time)/(60*60*24) + 1) + '天前'
         }

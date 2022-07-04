@@ -42,7 +42,7 @@
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper.nickname }}</p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {{ article.publish_time }} 阅读9866
+            {{ format_publishTime(article.publish_time) }} 阅读9866
           </p>
         </div>
         <Tooltip>
@@ -74,9 +74,9 @@
       </div>
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
       <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray">
-          <div @click="likeIt"><i class="cursor-pointer iconfont icon-dianzan hover:text-blue-600 text-xl md:text-2xl" :class="like.like ? 'text-blue-600' : ''"></i></div>
-          <div @click='unlikeIt' style="transform: rotate(180deg)"><i class="cursor-pointer iconfont icon-dianzan hover:text-red-600 text-xl md:text-2xl" :class="like.unlike ? 'text-red-600' : ''"></i></div>
-          <div @click="collectionIt"><i class="cursor-pointer iconfont icon-shoucang1 hover:text-yellow-400 text-xl md:text-2xl" :class="like.collection ? 'text-yellow-400' : ''"></i></div>
+          <div @click="likeIt" title="点个赞😘"><i class="cursor-pointer iconfont icon-dianzan hover:text-blue-600 text-xl md:text-2xl" :class="like.like ? 'text-blue-600' : ''"></i></div>
+          <div @click='unlikeIt' style="transform: rotate(180deg)" title="😭"><i class="cursor-pointer iconfont icon-dianzan hover:text-red-600 text-xl md:text-2xl" :class="like.unlike ? 'text-red-600' : ''"></i></div>
+          <div @click="collectionIt" title="去吃灰📦"><i class="cursor-pointer iconfont icon-shoucang1 hover:text-yellow-400 text-xl md:text-2xl" :class="like.collection ? 'text-yellow-400' : ''"></i></div>
       </div>
     </div>
     <!-- 评论区 -->
@@ -91,7 +91,7 @@
       <!-- 输入框 -->
      <div class="py-3 flex justify-between">
        <div class=" w-12">
-         <img src="https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg" alt="" class=" w-7 h-7 rounded-full">
+         <div :style="{backgroundImage:`url(${$store.state.userInfo.userInfo.avatarUrl})`,backgroundSize:'100% 100%'}" class=" w-7 h-7 rounded-full"></div>
        </div>
        <form class="flex-1 relative" v-on:submit.prevent>
          <input type="text" v-model="commentContent" placeholder="发一条友善的评论" class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
@@ -125,7 +125,7 @@
         </form>
       </div>
       <!-- 评论展示区 -->
-      <section>
+      <section >
         <div class="w-full pb-3 pl-10 relative" v-for="(i, index) in comment" :key="index">
           <div class=" absolute left-0">
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
@@ -402,8 +402,10 @@ export default {
       const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
       this.article =  res.data.article
     // }
-    let {like,unlike,collection} = this.article.commenter.find(i=>i.userId == this.$store.state.userInfo.userInfo.id)
-    this.like.like = like;this.like.unlike = unlike;this.like.collection = collection
+    try {
+      let {like,unlike,collection} = this.article.commenter.find(i=>i.userId == this.$store.state.userInfo.userInfo.id)
+      this.like.like = like;this.like.unlike = unlike;this.like.collection = collection
+    } catch (error) {error}
     localStorage.setItem("article_details", JSON.stringify(this.article));
     const req = {
       uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
@@ -438,6 +440,9 @@ export default {
       );
     });
   },
+  beforeDestroy(){
+    localStorage.removeItem('article_details')
+  }
 };
 </script>
 

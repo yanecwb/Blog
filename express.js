@@ -396,18 +396,26 @@ app.get("/get_article_moduleList", function (req, res) {
 app.get("/get_article_content", function (req, res) {
   const { article_id } = req.query;
   let data = fs.readdirSync("./article")
-  let article_moduleList = []
   data.forEach(item=>{
-    let article = loadjson("./article/" + item)
-    article_moduleList.push(...article.list)
+    let articleList = loadjson("./article/" + item)
+    console.log(articleList.list);
+    let article = articleList.list.find(i=> i.id == article_id)
+    console.log(article);
+    if(article && article.readCount){
+      article.readCount++
+      res.send({article})
+      throw new Error()
+    }
+    if(article && !article.readCount){
+      article.readCount = 0
+    }
+    savejson("./article/" + item,article)
   })
-  article_moduleList.reverse()
-  res.send({article:article_moduleList.find(i=>i.id == article_id)})
 });
 
 // 上传图片
 const img = require("./upload.js");
-const { send } = require("process");
+// const { send } = require("process");
 app.use("/up", img);
 
 
