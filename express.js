@@ -65,7 +65,9 @@ app.post("/register", jsonParser, function (req, res) {
     }
     const userDefalut = {
       avatarUrl:'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg',
+      nickname:'无名',
       city:'哪里人🏡',
+      sex:'man',
       birthday:'出生日期是👶',
       university:'哪个学校毕业的🏫',
       autograph:'这家伙很懒，还不写点东西🖋️',
@@ -256,6 +258,8 @@ app.put("/put_comment", function (req, res) {
       })
       if(userComArrIndex >= 0){
         article.commenter[userComArrIndex].comment.unshift(comment)
+        article.commenter[userComArrIndex].avatarUrl = userInfo[0].avatarUrl
+        article.commenter[userComArrIndex].nickname = userInfo[0].nickname
       }else{
         article.commenter.unshift({ comment: [comment], userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname })
       }
