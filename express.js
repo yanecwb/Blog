@@ -70,7 +70,7 @@ app.post("/register", jsonParser, function (req, res) {
       sex:'man',
       birthday:'出生日期是👶',
       university:'哪个学校毕业的🏫',
-      autograph:'这家伙很懒，还不写点东西🖋️',
+      autograph:'这家伙很懒，还不写点东西🖋️'
     }
     const userObj = {
       id: uuidv4(),
@@ -81,7 +81,8 @@ app.post("/register", jsonParser, function (req, res) {
         "lv": 0,
         "blog_years": 0,
         "follows": 0,
-        "fans": 0
+        "fans": 0,
+        "registerTime":parseInt((new Date().getTime())/1000)
       },
     };
 
