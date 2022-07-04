@@ -37,8 +37,7 @@
         {{ article.article_title }}
       </div>
       <div class="w-full flex justify-between items-center my-3 shadow-sm">
-        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
-          <img :src="article.uper.avatarUrl" class="w-full h-full rounded-full" alt="" crossorigin />
+        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full" :style="{backgroundImage:`url(${article.uper.avatarUrl})`,backgroundSize:'100% 100%'}">
         </div>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper.nickname }}</p>
@@ -384,7 +383,6 @@ pre {
   font-family:'firaCode';
   font-size: 14px;
   }
-
   &::after {
     content: "";
     width: 20px;
@@ -393,6 +391,20 @@ pre {
     background-size: 100% 100%;
     color: rgb(190, 179, 179);
     cursor: pointer;
+  }
+  &::-webkit-scrollbar{/*滚动条整体样式*/
+      width: 3px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 7px;
+  }
+  &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      background:rgb(192, 224, 232)
+  }
+  &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      background: #ffffff;
   }
 }
 

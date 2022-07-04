@@ -42,9 +42,7 @@
               <div class="content_list_flow flex">
                 <div style="padding-left: 0"><Icon type="eye" />1.1w</div>
                 <div class="zan"><Icon type="like" />105</div>
-                <div class="comment">
-                  <Icon type="message" />
-                </div>
+                <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
               </div>
             </div>
             <img
@@ -102,8 +100,15 @@ export default {
       async handler(newval) {
         const res = await Get_Article_ModuleList(newval);
         this.article_moduleList = res.data.article_moduleList.map(item=>{
+          let commentCount = 0
+          if(item.commenter && item.commenter.length > 0){
+            item.commenter.forEach(i=>{
+              commentCount += i.comment.length
+            })
+          }
           return {
             ...item,
+            commentCount,
             publish_time:this.format_publishTime(item.publish_time)
           }
         })
