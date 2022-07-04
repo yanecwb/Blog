@@ -65,8 +65,7 @@
             </span>
           </button>
         </Tooltip>
-          <button class="editBtn learn-more ml-2 text-xs md:text-base" @click="go_up_article(article)"
-          v-if="article.userId == $store.state.userInfo.userInfo.id">
+          <button class="editBtn learn-more ml-2 text-xs md:text-base" @click="go_up_article(article)" v-if="article.userId == $store.state.userInfo.userInfo.id">
             <span class="circle" aria-hidden="true">
               <span class="icon arrow"></span>
               </span>
@@ -74,6 +73,11 @@
         </button>
       </div>
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
+      <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray">
+          <div @click="likeIt"><i class="cursor-pointer iconfont icon-dianzan hover:text-blue-600 text-xl md:text-2xl" :class="like.like ? 'text-blue-600' : ''"></i></div>
+          <div @click='unlikeIt' style="transform: rotate(180deg)"><i class="cursor-pointer iconfont icon-dianzan hover:text-red-600 text-xl md:text-2xl" :class="like.unlike ? 'text-red-600' : ''"></i></div>
+          <div @click="collectionIt"><i class="cursor-pointer iconfont icon-shoucang1 hover:text-yellow-400 text-xl md:text-2xl" :class="like.collection ? 'text-yellow-400' : ''"></i></div>
+      </div>
     </div>
     <!-- 评论区 -->
     <aside
@@ -158,7 +162,7 @@
         image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png" :image-style="{
           height: '200px',
         }">
-        <span slot="description"> 🤡 🤡</span>
+        <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
   </div>
@@ -167,7 +171,7 @@
 <script>
 import { Tooltip,Icon,Empty } from "ant-design-vue";
 import QRCode from 'qrcodejs2'
-import {putComment,getComment,deleteComment} from '../../api/comment'
+import {putComment,getComment,deleteComment,changeLike} from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
 export default {
   name: "article_detail",
@@ -192,19 +196,80 @@ export default {
       deleteVisi: {},//删除按钮
       sendtext:true,
       shoeqrcode:false,
-      href : window.location.href
+      sharehref : window.location.href,
+      like:{
+        like:false,
+        unlike:false,
+        collection:false
+      }
     };
   },
   methods: {
+    async likeIt(){
+      if (!JSON.parse(localStorage.getItem("userInfo")).id){// 未登录
+        this.noLogin()
+        return
+      }
+      if(!this.like.like && !this.like.unlike){
+        this.like.like = true
+      }
+      else if(!this.like.like && this.like.unlike){
+        this.like.like = true
+        this.like.unlike = false
+      }
+      else{
+        this.like.like = false
+      }
+      await changeLike({
+        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id: this.$route.params.id,
+        userId: this.$store.state.userInfo.userInfo.id,
+        ...this.like
+      })
+    },
+    async unlikeIt(){
+      if (!JSON.parse(localStorage.getItem("userInfo")).id){// 未登录
+        this.noLogin()
+        return
+      }
+      if(!this.like.like && !this.like.unlike){
+        this.like.unlike = true
+      }
+      else if(!this.like.unlike && this.like.like){
+        this.like.unlike = true
+        this.like.like = false
+      }
+      else{
+        this.like.unlike = false
+      }
+      await changeLike({
+        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id: this.$route.params.id,
+        userId: this.$store.state.userInfo.userInfo.id,
+        ...this.like
+      })
+    },
+    async collectionIt(){
+      if (!JSON.parse(localStorage.getItem("userInfo")).id){// 未登录
+        this.noLogin()
+        return
+      }
+      this.like.collection = !this.like.collection
+      await changeLike({
+        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+        article_id: this.$route.params.id,
+        userId: this.$store.state.userInfo.userInfo.id,
+        ...this.like
+      })
+    },
     shareSpace(val){
-      let url = window.location.href
       const title = this.article.article_title
-      const desc = this.article.article_introduction
-      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=http://47.107.243.60:5005/img/static_img/home_banner.png`
+      const summary = this.article.article_introduction
+      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${this.sharehref}&sharesource=qzone&title=${title}&pics=http://47.107.243.60:5005/img/static_img/share.jpg&summary=${summary}`
       if(val == 'qq'){
         var p = {
-            url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-            desc, /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+            url:this.sharehref,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+            // desc, /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
             title,/*分享标题(可选)*/
             summary : 'title',/*分享描述(可选)*/
             pics : 'http://47.107.243.60:5005/img/static_img/home_banner.png',/*分享图片(可选)*/
@@ -260,7 +325,6 @@ export default {
     // 输入表情处理
     inputexpression(expression_val) {
       this.commentContent += '@' + expression_val + '!'
-      // this.showexpression = false
     },
     //发布评论
     PutComment() {
@@ -289,6 +353,7 @@ export default {
         this.sendtext = true
       })
     },
+    // 获取最新评论
     async getComments(req) {
       const res = await getComment(req)
       let arr = []
@@ -306,6 +371,10 @@ export default {
     },
     // 删除评论
     async deleteComment(userId,commentId) {
+      if (!JSON.parse(localStorage.getItem("userInfo")).id){// 未登录
+        this.noLogin()
+        return
+      }
       if(userId !== JSON.parse(localStorage.getItem('userInfo')).id){
         this.miniMessage("<div class='text-sm'>你不能删除这条评论！</div>",'error')
         return
@@ -323,16 +392,18 @@ export default {
   },
   async created() {
     this.$store.commit('change_isfixed',0)
-    if(this.$route.params.content){
-      this.article = this.$route.params
-    }
-    else if(JSON.parse(localStorage.getItem("article_details")) && JSON.parse(localStorage.getItem("article_details")).content){
-      this.article = JSON.parse(localStorage.getItem("article_details"))
-    }else{
+    // if(this.$route.params.content){
+    //   this.article = this.$route.params
+    // }
+    // else if(JSON.parse(localStorage.getItem("article_details")) && JSON.parse(localStorage.getItem("article_details")).content){
+    //   this.article = JSON.parse(localStorage.getItem("article_details"))
+    // }else{
       // 分享时无缓存，读指定某条文章内容
       const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
       this.article =  res.data.article
-    }
+    // }
+    let {like,unlike,collection} = this.article.commenter.find(i=>i.userId == this.$store.state.userInfo.userInfo.id)
+    this.like.like = like;this.like.unlike = unlike;this.like.collection = collection
     localStorage.setItem("article_details", JSON.stringify(this.article));
     const req = {
       uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,

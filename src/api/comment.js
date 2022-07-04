@@ -23,4 +23,12 @@ export const deleteComment = (data)=>{
       data
   })
 }
+// get文章点赞点踩，收藏
+export const changeLike = (data)=>{
+  return axios({
+    method:'post',
+    url:'/node_api/change_like',
+    data
+  })
+}
 

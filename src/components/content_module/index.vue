@@ -2,7 +2,7 @@
   <div>
     <Banner :bg="module_headerBg" />
     <div
-      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__zoomIn"
+      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeInUp"
       v-show="article_moduleList.length > 0"
       ref="Article1"
     >
@@ -31,9 +31,10 @@
                 }}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title md:text-base font-semibold mt-1 md:w-56 xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden">{{
-                list.article_title
-              }}</a>
+              <a class="title md:text-base font-semibold mt-1 md:w-56 xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden ">
+                <span>{{ list.article_title}}_</span>
+                <span class="text-xs text-gray">{{list.uper.nickname}}</span>
+              </a>
               <p
                 class="my-2 md:my-4 md:w-56  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
               >
@@ -114,8 +115,8 @@ export default {
         })
         this.$nextTick(()=>{
             this.articleHeight = this.$refs.Article1.offsetHeight;
-            if(this.article_moduleList.length < 5 ){
-              this.articleHeight = 520
+            if(this.article_moduleList.length < 5 && this.article_moduleList.length>0 ){
+                this.articleHeight = 520
                this.$store.commit('change_isfixed',1)
             }else{
                 this.$store.commit('change_isfixed',0)

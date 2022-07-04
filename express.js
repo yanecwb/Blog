@@ -240,7 +240,6 @@ app.post("/update_article", jsonParser, function (req, res) {
 
 // 发表评论
 app.put("/put_comment", function (req, res) {
-  console.log('发表评论');
   let { uper, article_id, userId, comment } = req.body;
   var file = "./article/" + uper + ".json";
   var data = loadjson(file);
@@ -313,6 +312,38 @@ app.delete("/delete_comment", function (req, res) {
     res.send(msg);
   });
 });
+
+
+app.post('/change_like',function(req,res){
+  const {like,unlike,collection ,uper, article_id, userId} = req.body
+  var file = "./article/" + uper + ".json";
+  var data = loadjson(file);
+  let article= data.list.find((item) => {
+    return item.id == article_id;
+  });
+  let userInfo = loadjson("./data/user.json").user_list.filter((item) => {
+    return item.id == userId;
+  });
+  function wirte() {
+    if(article.commenter && article.commenter.length > 0 ){// 该文章评论过
+      const userComArrIndex = article.commenter.findIndex(i=>{
+        return i.userId == userId
+      })
+      if(userComArrIndex >= 0){
+        article.commenter[userComArrIndex].like = like
+        article.commenter[userComArrIndex].unlike = unlike
+        article.commenter[userComArrIndex].collection = collection
+      }else{
+        article.commenter.unshift({  userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection })
+      }
+    }else{
+      article.commenter = [{ userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection }]
+    }
+    savejson(file, data);
+  }
+  wirte();
+  res.send({ code: 200, msg: "成功" });
+})
 
 // 首页文章列表
 app.get("/article_list", function (req, res) {
