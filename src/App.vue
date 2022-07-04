@@ -4,10 +4,9 @@
       <div v-if="loaded">
         <Header v-if="$store.state.show_header" />
       </div>
-      <router-view>
-        <keep-alive :include="['content']">
-        </keep-alive>
-      </router-view>
+        <!-- <keep-alive :include="['content_module']"> -->
+          <router-view/>
+        <!-- </keep-alive> -->
       <Footer />
     </div>
     <div class="app" ref="lottie" v-if="!loaded">

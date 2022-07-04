@@ -187,6 +187,7 @@ app.post("/upload_article", jsonParser, function (req, res) {
       publish_time,
       uper,
       userId,
+      readCount:0
     });
     savejson(file, data);
   }
@@ -398,18 +399,14 @@ app.get("/get_article_content", function (req, res) {
   let data = fs.readdirSync("./article")
   data.forEach(item=>{
     let articleList = loadjson("./article/" + item)
-    console.log(articleList.list);
-    let article = articleList.list.find(i=> i.id == article_id)
-    console.log(article);
-    if(article && article.readCount){
-      article.readCount++
-      res.send({article})
+    let articleIndex = articleList.list.findIndex(i=> i.id == article_id)
+    console.log(articleList,articleIndex,articleList.list[articleIndex]);
+    if(articleIndex > -1){
+      articleList.list[articleIndex].readCount++
+      savejson("./article/" + item,articleList)
+      res.send({article:articleList.list[articleIndex]})
       throw new Error()
     }
-    if(article && !article.readCount){
-      article.readCount = 0
-    }
-    savejson("./article/" + item,article)
   })
 });
 

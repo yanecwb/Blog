@@ -37,12 +37,12 @@
         {{ article.article_title }}
       </div>
       <div class="w-full flex justify-between items-center my-3 shadow-sm">
-        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full" :style="{backgroundImage:`url(${article.uper.avatarUrl})`,backgroundSize:'100% 100%'}">
+        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full" :style="{backgroundImage:`url(${article.uper?article.uper.avatarUrl : ''})`,backgroundSize:'100% 100%'}">
         </div>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
-          <p class="m-0 text-black md:text-base">{{ article.uper.nickname }}</p>
+          <p class="m-0 text-black md:text-base">{{ article.uper ?  article.uper.nickname : '' }}</p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {{ format_publishTime(article.publish_time) }} 阅读9866
+            {{ format_publishTime(article.publish_time) }} 阅读{{article.readCount}}
           </p>
         </div>
         <Tooltip>

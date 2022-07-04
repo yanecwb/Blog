@@ -40,7 +40,7 @@
                 {{list.article_introduction}}
               </p>
               <div class="content_list_flow flex">
-                <div style="padding-left: 0"><Icon type="eye" />1.1w</div>
+                <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
                 <div class="zan"><Icon type="like" />105</div>
                 <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
               </div>
