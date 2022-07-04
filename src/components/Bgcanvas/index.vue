@@ -15,7 +15,6 @@ export default {
         var $ = c.getContext("2d");
 
         var w = (c.width = window.screen.width - 20);
-        console.log(w);
         var h = (c.height = newval);
 
         var draw = function (a, b, t) {

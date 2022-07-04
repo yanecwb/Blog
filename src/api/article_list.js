@@ -18,12 +18,12 @@ export const getSide_list = ()=>{
 }
 
 // 读指定某条文章内容
-export const Get_Article_Content = (data)=>{
+export const Get_Article_Content = (article_id)=>{
   return axios ({
     method:'get',
     url:'/node_api/get_article_content',
     params:{
-      ...data
+      article_id
     }
   })
 }

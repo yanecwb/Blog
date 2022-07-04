@@ -275,7 +275,6 @@ app.put("/put_comment", function (req, res) {
 
 //获取评论
 app.get("/get_comment", function (req, res) {
-  console.log('获取评论');
   const { uper, article_id } = req.query;
   var file = "./article/" + uper + ".json";
   let articleIndex = (loadjson(file).list).findIndex((item) => {
@@ -291,7 +290,6 @@ app.get("/get_comment", function (req, res) {
 });
 // 删除评论
 app.delete("/delete_comment", function (req, res) {
-  console.log('删除评论');
   const { uper, article_id, userId,commentId } = req.body;
   var file = "./article/" + uper + ".json"; //文章的发布者
   let data = loadjson(file)
@@ -365,34 +363,25 @@ app.get("/get_article_moduleList", function (req, res) {
 
 // 读指定某条文章内容
 app.get("/get_article_content", function (req, res) {
-  const { userId, article_id } = req.query;
-  const path = "./article/" + userId + ".json";
-  fs.readFile(path, "utf-8", (err, data) => {
-    if (err) return;
-    data = JSON.parse(data);
-    try {
-      let article_data = {};
-      data.list.forEach((item) => {
-        if (item.id == article_id) {
-          article_data.article_content = item.content;
-          article_data.title = item.article_title;
-          throw new Error();
-        }
-      });
-    } catch (error) {error}
-    let message = {
-      code: 200,
-      msg: "success",
-      // article_content,
-    };
-    res.send(message);
-  });
+  const { article_id } = req.query;
+  let data = fs.readdirSync("./article")
+  let article_moduleList = []
+  data.forEach(item=>{
+    let article = loadjson("./article/" + item)
+    article_moduleList.push(...article.list)
+  })
+  article_moduleList.reverse()
+  res.send({article:article_moduleList.find(i=>i.id == article_id)})
 });
 
 // 上传图片
 const img = require("./upload.js");
 const { send } = require("process");
 app.use("/up", img);
+
+
+
+
 
 //  POST 请求
 app.post("/", function (req, res) {
@@ -419,5 +408,5 @@ app.get("/ab*cd", function (req, res) {
 });
 
 app.listen(5005, function () {
-  console.log("BLOG实例，访问地址为 http://192.168.2.117:5005");
+  console.log("BLOG实例，访问地址为 http://47.107.243.60:5005");
 });

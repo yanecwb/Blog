@@ -1,4 +1,5 @@
 import Vue from "vue";
+import 'default-passive-events' //
 import App from "./App.vue";
 import "ant-design-vue/dist/antd.css";
 import "./assets/fonticon/iconfont.css";

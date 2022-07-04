@@ -32,31 +32,17 @@
             一往情深深几许？深山夕照深秋雨...
           </p>
         </div>
-        <Icon
-          v-if="is_home"
-          type="down"
-          class="absolute left-1/2 text-white text-4xl font-bold cursor-pointer transform -translate-x-3"
-          :style="{ bottom: bottom + 10 + 'px' }"
-          @click="down"
-          title="别这么懒🚀"
-        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Icon } from "ant-design-vue";
 export default {
   name: "Banner",
-  components: {
-    Icon,
-  },
   data() {
     return {
       msg: "",
-      bottom: -4,
-      isbottom: true,
     };
   },
   props: ["bg", "is_home"],
@@ -71,24 +57,7 @@ export default {
       },
     },
   },
-  methods: {
-    down() {
-    },
-  },
   mounted() {
-    setInterval(() => {
-      if (this.isbottom) {
-        this.bottom++;
-      } else {
-        this.bottom--;
-      }
-      if (this.bottom == 9) {
-        this.isbottom = false;
-      }
-      if (this.bottom == -2) {
-        this.isbottom = true;
-      }
-    }, 70);
     const msg_text = "Do what you like";
     let count = 0;
     this.timer = setInterval(() => {

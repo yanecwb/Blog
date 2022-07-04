@@ -168,6 +168,7 @@
 import { Tooltip,Icon,Empty } from "ant-design-vue";
 import QRCode from 'qrcodejs2'
 import {putComment,getComment,deleteComment} from '../../api/comment'
+import { Get_Article_Content } from '../../api/article_list'
 export default {
   name: "article_detail",
   components: {
@@ -196,22 +197,17 @@ export default {
   },
   methods: {
     shareSpace(val){
-      let url = ''
-      if (process.env.NODE_ENV === "development") {
-        url = 'http://47.107.243.60/home'
-      }else {
-        url = window.location.href
-      }
+      let url = window.location.href
       const title = this.article.article_title
       const desc = this.article.article_introduction
-      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg`
+      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&sharesource=qzone&title=${title}&pics=http://47.107.243.60:5005/img/static_img/home_banner.png`
       if(val == 'qq'){
         var p = {
             url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
             desc, /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
             title,/*分享标题(可选)*/
             summary : 'title',/*分享描述(可选)*/
-            pics : 'https://p3.music.126.net/WTRxTrA1rUhPgAcCWKEYWw==/109951163339630057.jpg',/*分享图片(可选)*/
+            pics : 'http://47.107.243.60:5005/img/static_img/home_banner.png',/*分享图片(可选)*/
             flash : '', /*视频地址(可选)*/
             //commonClient : true, /*客户端嵌入标志*/
             site: 'QQ分享'/*分享来源 (可选) ，如：QQ分享*/
@@ -320,23 +316,29 @@ export default {
         userId,
         commentId
       }
-      console.log(req);
       await deleteComment(req)
       this.getComments(req)
       this.miniMessage('删除成功👌', 'success')
-    }
+    },
   },
   async created() {
     this.$store.commit('change_isfixed',0)
-    this.$route.params.content
-      ? this.article = this.$route.params
-      : (this.article = JSON.parse(localStorage.getItem("article_details")));
+    if(this.$route.params.content){
+      this.article = this.$route.params
+    }
+    else if(JSON.parse(localStorage.getItem("article_details")) && JSON.parse(localStorage.getItem("article_details")).content){
+      this.article = JSON.parse(localStorage.getItem("article_details"))
+    }else{
+      // 分享时无缓存，读指定某条文章内容
+      const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
+      this.article =  res.data.article
+    }
+    localStorage.setItem("article_details", JSON.stringify(this.article));
     const req = {
       uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
       article_id: this.$route.params.id,
     }
     this.getComments(req)
-    localStorage.setItem("article_details", JSON.stringify(this.article));
 
     //页面标题为文章标题
     document.title  = this.article.article_title
@@ -453,11 +455,11 @@ pre {
 }
 
 
-textarea {
+input {
   transition: 0.5s;
 }
 
-textarea:focus {
+input:focus {
   height: 60px;
 }
 
