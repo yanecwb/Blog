@@ -335,10 +335,10 @@ app.post('/change_like',function(req,res){
         article.commenter[userComArrIndex].unlike = unlike
         article.commenter[userComArrIndex].collection = collection
       }else{
-        article.commenter.unshift({  userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection })
+        article.commenter.unshift({ comment:[], userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection })
       }
     }else{
-      article.commenter = [{ userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection }]
+      article.commenter = [{ comment:[], userId:userInfo[0].id, avatarUrl:userInfo[0].avatarUrl, nickname:userInfo[0].nickname,like,unlike,collection }]
     }
     savejson(file, data);
   }
