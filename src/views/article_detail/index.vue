@@ -5,7 +5,7 @@
       scrolling="no"
       src="http://47.107.243.60:5005/colokBanner.html"
       class="w-full"
-      height="500px"
+      height="800px"
     ></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
      <span class="px-5 cursor-pointer">
@@ -131,7 +131,7 @@
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p class="text-sm"><span>{{ i.nickname }}</span><span class="text-xs inline-block ml-2">{{i.commentTime}}</span></p>
+            <p class="text-sm"><span>{{ i.nickname }}</span><span class="text-xs inline-block ml-2">{{formatCommentTime(i.commentTime)}}</span></p>
             <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between ">
@@ -303,7 +303,7 @@ export default {
       // console.log(qrcode);
     },
     // 格式化评论
-   formatComment(comment) {
+    formatComment(comment) {
      if(!comment) return
       if (comment.indexOf('@') >= 0) {
         let a = comment.match(/(?<=@).*?(?=!)/g)
@@ -312,6 +312,14 @@ export default {
       }
     }
     return comment
+    },
+    formatCommentTime(commentTime){
+      if(commentTime.indexOf('AM') > -1){
+        commentTime = commentTime.replace('AM','')
+      }else{
+        commentTime = new Date(Date.parse(commentTime)).toLocaleString()
+      }
+      return commentTime
     },
     followsAuthor() {
       this.count++;
@@ -423,11 +431,13 @@ export default {
     Array.from(pre).forEach((item) => {
       item.children[0].onclick = (e) => {
         e.stopPropagation();
+          console.log(123);
         return;
       };
       item.addEventListener(
         "click",
         () => {
+          console.log(123);
           const content = item.children[0].innerText;
           navigator.clipboard
             .writeText(content)
@@ -440,8 +450,11 @@ export default {
       );
     });
   },
-  beforeDestroy(){
-    localStorage.removeItem('article_details')
+  beforeRouteLeave(to,from,next){
+    if(to.meta.title !== '写博客'){
+      localStorage.removeItem('article_details')
+    }
+    next()
   }
 };
 </script>
@@ -453,10 +466,10 @@ export default {
 }
 
 pre {
-  background-color: #292a25;
+  background-color: #CCC;
   display: flex;
   justify-content: space-between;
-  color: white;
+  color: rgb(140, 119, 119);
   code{
   font-family:'firaCode';
   font-size: 14px;
@@ -611,8 +624,8 @@ input:focus {
 /* 修改文章按钮 */
 .editBtn {
  position: relative;
- /* display: inline-block; */
- display: none;
+ display: inline-block;
+ /* display: none; */
  cursor: pointer;
  outline: none;
  border: 0;

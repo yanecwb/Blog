@@ -60,7 +60,7 @@ let mixin = {
         });
 
         Toast.fire({
-          icon: "warning",
+          icon: "info",
           title: "请先登录！",
         });
     },

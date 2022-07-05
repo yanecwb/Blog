@@ -7,7 +7,7 @@
             ? 'backgroundUrl'
             : 'not_login_bg backgroundUrl'
         "
-        :style="{backgroundImage:`url(${userInfo.backgroundUrl})`}"
+        :style="{backgroundImage:`url(${userInfo.backgroundUrl ? userInfo.backgroundUrl :'https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg'})`}"
         @click="show_savabgimg"
       >
         <div class="savebg" v-if="is_savebg">
@@ -162,16 +162,20 @@ export default {
   watch: {
     showmenu(newval) {
       if (newval) {
-        this.$refs.menu.style.right = 0;
+        this.$nextTick(()=>{
+          this.$refs.menu.style.right = 0;
+        })
       } else {
-        this.$refs.menu.style.right = -300 + "px";
+        this.$nextTick(()=>{
+          this.$refs.menu.style.right = -300 + "px";
+        })
       }
     },
   },
   methods: {
     // 格式化星座
     formatConstellation(birthday){
-      if(birthday.split('-').length == 0) return '星座'
+      if(!birthday || birthday.split('-').length == 0) return '星座'
       birthday = birthday.split('-')
       const getMonth = Number(birthday[1])
       const getDay = Number(birthday[2])
@@ -206,6 +210,7 @@ export default {
     },
     // 格式化博龄
     formatBlogOld(registerTime){
+      if(!registerTime) return ''
       const Timediff = parseInt(new Date().getTime()/1000) - registerTime
       if(Timediff<31536000){
         return parseInt(Timediff/2592000)+'个月'
@@ -264,7 +269,7 @@ export default {
     user_edit() {
       const UserInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (!UserInfo || !UserInfo.id) {
-        this.$message.info("请先登录");
+        this.noLogin();
         return;
       }
       const { usershow, useredit_form } = this.$refs;

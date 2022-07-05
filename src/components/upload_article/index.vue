@@ -12,28 +12,8 @@
     </h1>
     <div class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5">
       <div style="border: 1px solid #ccc" class="w-full mb-5">
-        <!-- <Toolbar
-          style="border-bottom: 1px solid #ccc"
-          :editor="editor"
-          :defaultConfig="toolbarConfig"
-          :mode="mode"
-        />
-        <Editor
-          :style="
-            $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }
-          "
-          v-model="html"
-          :defaultConfig="editorConfig"
-          :mode="mode"
-          @onCreated="onCreated"
-        /> -->
         <div id="toolbar-container"></div>
-        <div
-          id="editor-container"
-          :style="
-            $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }
-          "
-        ></div>
+        <div id="editor-container" :style=" $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }" ></div>
       </div>
       <div class="flex justify-between w-full">
         <button class="backBtn font-bold" @click="goBack()">
@@ -101,10 +81,11 @@
             >*</span
           >：
         </div>
-        <Input
+        <textarea
           ref="article_introduction"
           v-model="base_info.article_introduction"
-          class="w-84"
+          rows="5"
+          class="w-84 focus:outline-none focus:ring focus:border-blue-200  py-1 px-2 box-border"
           allow-clear
         />
       </div>
@@ -155,6 +136,7 @@
             </div>
           </Upload>
         </div>
+        <a @click="base_info.coverUrl = ''">不要封面</a>
       </div>
     </Modal>
   </div>
@@ -186,6 +168,7 @@ async function getBase64(img, callback) {
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 }
+var editor = {}
 export default {
   name: "upload_article",
   components: {
@@ -206,18 +189,6 @@ export default {
         // toolbarKeys: [
         //   'headerSelect', '|', 'bold', 'underline', 'italic', 'color', 'bgColor', '|', 'fontSize', 'fontFamily', 'lineHeight', '|', 'bulletedList', 'numberedList', 'todo', '|', 'emotion', 'insertLink', 'insertTable', 'codeBlock', 'divider',
         // ],
-      },
-      editorConfig: {
-        placeholder: "请输入内容...",
-        codeLangs: [
-          { text: "CSS", value: "css" },
-          { text: "HTML", value: "html" },
-          { text: "XML", value: "xml" },
-          { text: "JavaScript", value: "javascript" },
-          // 其他
-        ],
-        // 所有的菜单配置，都要在 MENU_CONF 属性下
-        MENU_CONF: {},
       },
       mode: "default", // or 'simple'
       base_info: {
@@ -262,20 +233,17 @@ export default {
       });
     },
     beforeUpload(file) {
+      console.log(file.type);
       const isJpgOrPng =
-        file.type === "image/jpeg" || file.type === "image/png";
+        file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/webp" || file.type === "image/gif";
       if (!isJpgOrPng) {
-        this.$message.error("You can only upload JPG file!");
+        this.$message.error("你只能上传 Jpg/Png/Webp/Gif 类型的图片!");
       }
-      const isLt2M = file.size / 1024 / 1024 < 5;
+      const isLt2M = file.size / 1024 / 1024 < 1;
       if (!isLt2M) {
-        this.$message.error("Image must smaller than 5MB!");
+        this.$message.error("封面图不能大于1MB!");
       }
       return isJpgOrPng && isLt2M;
-    },
-
-    onCreated(editor) {
-      this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
     },
     async uploadArticle() {
       function getText(str) {
@@ -330,8 +298,12 @@ export default {
       this.base_info.coverUrl = "";
       this.base_info.article_title = "";
       this.base_info.article_introduction = "";
+      this.html = "";
+      // 批量删除不需要的图片
+      this.vergleichenImg().length <= 0 ? "" : deleteImg (this.vergleichenImg())
       res.data.code == 200
-        ? this.$Swal.fire({
+        ? new Promise(resolve=>{
+          this.$Swal.fire({
             title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
             showClass: {
               popup: "animate__animated animate__fadeInDown",
@@ -340,15 +312,15 @@ export default {
               popup: "animate__animated animate__fadeOutUp",
             },
           })
+          resolve(1)
+        }).then(()=>{
+          this.$router.go(-1)
+        })
         : this.$Swal.fire({
             icon: "error",
             title: "发布失败...，请重试",
             footer: '<a href="">遇到问题?</a>',
-          });
-
-      this.html = "";
-      // 批量删除不需要的图片
-      this.vergleichenImg().length <= 0 ? "" : deleteImg (this.vergleichenImg())
+          })
     },
     // 此处比较之前插入的图片如当前文章任存在的图片
     vergleichenImg() {
@@ -450,57 +422,56 @@ export default {
       // const contentStr = JSON.stringify(content);
       // document.getElementById("textarea-1").value = contentStr;
 
-      this.html = this.editor.getHtml();
+      this.html = editor.getHtml();
       // console.log(editor.getText());//获取纯文本内容。不包括媒体资源
     };
 // 配置代码高亮
-editorConfig.MENU_CONF['codeSelectLang'] = {
-    // 代码语言
-    codeLangs: [
-        { text: 'CSS', value: 'css' },
-        { text: 'HTML', value: 'html' },
-        { text: 'XML', value: 'xml' },
-        { text: 'JavaScript', value: 'javascript' },
-        { text: 'TypeScript', value: 'typescript' },
-        { text: "JSX", value: "jsx" },
-        { text: 'Go', value: 'go' },
-        { text: 'Java', value: 'java' },
-        { text: 'Python', value: 'python' },
-        { text: 'PHP', value: 'php' },
-        { text: 'C++', value: 'cpp' },
-        { text: 'SQL', value: 'sql' },
-        { text: 'MarkDown', value: 'markdown' },
-        // 其他
-    ]
-}
+// editorConfig.MENU_CONF['codeSelectLang'] = {
+//     // 代码语言
+//     codeLangs: [
+//         { text: 'CSS', value: 'css' },
+//         { text: 'HTML', value: 'html' },
+//         { text: 'XML', value: 'xml' },
+//         { text: 'JavaScript', value: 'javascript' },
+//         { text: 'TypeScript', value: 'typescript' },
+//         { text: "JSX", value: "jsx" },
+//         { text: 'Go', value: 'go' },
+//         { text: 'Java', value: 'java' },
+//         { text: 'Python', value: 'python' },
+//         { text: 'PHP', value: 'php' },
+//         { text: 'C++', value: 'cpp' },
+//         { text: 'SQL', value: 'sql' },
+//         { text: 'MarkDown', value: 'markdown' },
+//         // 其他
+//     ]
+// }
     // 工具栏配置
     const toolbarConfig = {};
     // 创建编辑器
-    this.editor = createEditor({
+    editor = createEditor({
       selector: "#editor-container",
       config: editorConfig,
       mode: "default", // 或 'simple'
       html: this.html,
     });
     // console.log(this.editor);
-    console.log(this.editor.getMenuConfig('codeSelectLang').codeLangs);
+    console.log(editor.getMenuConfig('codeSelectLang').codeLangs);
     // 创建工具栏
-    const _this = this
     createToolbar({
-      editor:_this.editor,
+      editor,
       selector: "#toolbar-container",
       config: toolbarConfig,
       mode: "default",
     });
     document.querySelector("div[role='textarea']").onblur = () => {
       // console.log(editor.getElemsByType('image'));//获取当前编辑器的所有图片，记录为 imageList2
-      this.imageList2 = this.editor.getElemsByType("image").map((item) => {
+      this.imageList2 = editor.getElemsByType("image").map((item) => {
         return item.src;
       });
     };
   },
   beforeDestroy() {
-    this.editor.destroy()
+    editor.destroy()
     document.body.style.position = "static"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = 'auto';
     this.$store.commit("change_show_header", true);

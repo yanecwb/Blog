@@ -251,7 +251,7 @@ app.put("/put_comment", function (req, res) {
     return item.id == userId;
   });
   // 评论格式化
-  comment = {content:comment,commentTime:(new Date()).toLocaleString(),commentId:uuidV1()}
+  comment = {content:comment,commentTime:(new Date()).toLocaleString() ,commentId:uuidV1()}
   function wirte() {
     if(article.commenter && article.commenter.length > 0 ){// 该文章评论过
       const userComArrIndex = article.commenter.findIndex(i=>{
@@ -400,8 +400,14 @@ app.get("/get_article_content", function (req, res) {
   data.forEach(item=>{
     let articleList = loadjson("./article/" + item)
     let articleIndex = articleList.list.findIndex(i=> i.id == article_id)
-    console.log(articleList,articleIndex,articleList.list[articleIndex]);
+    console.log(articleList.list[articleIndex]);
+    let userInfo = loadjson('./data/user.json');
+    const user = userInfo.user_list.find(i=>{
+      return i.id == articleList.list[articleIndex].userId
+    })
     if(articleIndex > -1){
+      articleList.list[articleIndex].uper.avatarUrl =user.avatarUrl
+      articleList.list[articleIndex].uper.nickname =user.nickname
       articleList.list[articleIndex].readCount++
       savejson("./article/" + item,articleList)
       res.send({article:articleList.list[articleIndex]})

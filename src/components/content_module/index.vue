@@ -31,17 +31,17 @@
                 }}</span>
                 <!-- <span>面试</span> -->
               </div>
-              <a class="title md:text-base font-semibold mt-1 md:w-56 xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden ">
-                <span>{{ list.article_title}}_</span>
-              </a>
+              <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs">
+                {{ list.article_title}}_
+              </p>
               <p
-                class="my-2 md:my-4 md:w-56  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
+                class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
               >
                 {{list.article_introduction}}
               </p>
               <div class="content_list_flow flex">
                 <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
-                <div class="zan"><Icon type="like" />105</div>
+                <div class="zan"><Icon type="like" />{{list.like}}</div>
                 <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
               </div>
             </div>
@@ -96,15 +96,18 @@ export default {
       async handler(newval) {
         const res = await Get_Article_ModuleList(newval);
         this.article_moduleList = res.data.article_moduleList.map(item=>{
-          let commentCount = 0
+          let commentCount = 0 //文章阅读量
+          let like = 0//文章点赞量
           if(item.commenter && item.commenter.length > 0){
             item.commenter.forEach(i=>{
+              i.like ? like++ : ''
               commentCount += i.comment.length
             })
           }
           return {
             ...item,
             commentCount,
+            like,
             publish_time:this.format_publishTime(item.publish_time)
           }
         })
@@ -136,10 +139,9 @@ export default {
       .title {
         line-height: 24px;
         color: #1d2129;
-        display: -webkit-box;
+        white-space: nowrap;
+        overflow: hidden;
         text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
       }
 
       p {
