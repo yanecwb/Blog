@@ -22,7 +22,7 @@
             <div slot="nextArrow"  class="custom-slick-arrow" style="right: 10px">
               <Icon type="right-circle" />
             </div>
-            <img src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg" class="md:h-100 lg:h-144">
+            <img src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg" :onload="()=>{}" class="md:h-100 lg:h-144">
             <img src="http://47.107.243.60:5005/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg" class="md:h-100 lg:h-144">
             <img src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg" class="md:h-100 lg:h-144">
           </Carousel>
