@@ -29,7 +29,7 @@
       </span>
     </div>
     <div
-      class="w-full md:w-3/5 md:mt-10 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-b-3xl"
+      class="w-full lg:w-3/5 md:mt-10 pt-1 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-b-3xl"
     >
       <div
         class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0"
@@ -81,7 +81,7 @@
     </div>
     <!-- 评论区 -->
     <aside
-      class="w-full px-3 md:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{comment.length}}）</span>
         <span class=" cursor-pointer">
