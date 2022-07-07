@@ -12,7 +12,9 @@ npm install
 npm run dev
 
 # build for production with minification
-npm run build
+jenkins自动化部署地址 http://47.107.243.60:8080/
+Flechazo
+Flechazo123.
 
 # build for production and view the bundle analyzer report
 npm run build --report
