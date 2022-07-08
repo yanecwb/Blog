@@ -65,18 +65,18 @@
             </span>
           </button>
         </Tooltip>
-          <button class="editBtn learn-more ml-2 text-xs md:text-base" @click="go_up_article(article)" v-if="article.userId == $store.state.userInfo.userInfo.id">
-            <span class="circle" aria-hidden="true">
-              <span class="icon arrow"></span>
-              </span>
-              <span class="button-text">修改</span>
-        </button>
       </div>
       <div v-html="article.content" class="px-3 md:px-18 w-full"></div>
-      <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray">
+      <div class="w-full flex justify-between">
+        <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘"><i class="cursor-pointer iconfont icon-dianzan hover:text-blue-600 text-xl md:text-2xl" :class="like.like ? 'text-blue-600' : ''"></i></div>
           <div @click='unlikeIt' style="transform: rotate(180deg)" title="😭"><i class="cursor-pointer iconfont icon-dianzan hover:text-red-600 text-xl md:text-2xl" :class="like.unlike ? 'text-red-600' : ''"></i></div>
           <div @click="collectionIt" title="去吃灰📦"><i class="cursor-pointer iconfont icon-shoucang1 hover:text-yellow-400 text-xl md:text-2xl" :class="like.collection ? 'text-yellow-400' : ''"></i></div>
+        </div>
+        <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)" v-if="article.userId == $store.state.userInfo.userInfo.id">
+             <svg t="1657293342548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2250" width="18" height="18"><path d="M652.4 156.6125a112.5 112.5 0 1 1 155.925 161.15625L731.375 394.71875 572.3 235.5875l79.5375-79.5375 0.5625 0.5625zM333.63125 792.40625v0.1125H174.5v-159.1875l358.03125-357.975 159.075 159.13125-357.975 357.91875zM62 849.5h900v112.5H62v-112.5z" fill="#7e97b8" p-id="2251"></path></svg>
+              修改博客
+        </button>
       </div>
     </div>
     <!-- 评论区 -->
@@ -623,91 +623,34 @@ input:focus {
 
 /* 修改文章按钮 */
 .editBtn {
- position: relative;
- display: inline-block;
- /* display: none; */
- cursor: pointer;
- outline: none;
- border: 0;
- vertical-align: middle;
- text-decoration: none;
- background: transparent;
- padding: 0;
- font-size: inherit;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
  font-family: inherit;
-}
-
-.editBtn.learn-more {
- width: 10rem;
- height: 39px;
-}
-
-.editBtn.learn-more .circle {
- transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
- position: relative;
- display: block;
- margin: 0;
- width: 3rem;
- height: 3rem;
- background: #282936;
- border-radius: 1.625rem;
-}
-
-.editBtn.learn-more .circle .icon {
- transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
- position: absolute;
- top: 0;
- bottom: 0;
- margin: auto;
- background: #fff;
-}
-
-.editBtn.learn-more .circle .icon.arrow {
- transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
- left: 0.625rem;
- width: 1.125rem;
- height: 0.125rem;
- background: none;
-}
-
-.editBtn.learn-more .circle .icon.arrow::before {
- position: absolute;
- content: "";
- top: -0.29rem;
- right: 0.0625rem;
- width: 0.625rem;
- height: 0.625rem;
- border-top: 0.125rem solid #fff;
- border-right: 0.125rem solid #fff;
- transform: rotate(45deg);
-}
-
-.editBtn.learn-more .button-text {
- transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- padding: 0.75rem 0;
- margin: 0 0 0 1.85rem;
- color: #282936;
- font-weight: 700;
- line-height: 1.6;
- text-align: center;
+ font-size: 13px;
+ font-weight: 500;
  text-transform: uppercase;
+ letter-spacing: 0.4px;
+ color: #7e97b8;
+ background-color: #e0e8ef;
+ border-style: solid;
+ border-width: 2px 2px 2px 2px;
+ border-color: rgba(255, 255, 255, 0.333);
+ border-radius: 40px 40px 40px 40px;
+ padding: 10px 14px 10px 18px;
+ transform: translate(0px, 0px) rotate(0deg);
+ transition: 0.2s;
+ box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%);
 }
 
-.editBtn:hover .circle {
- width: 100%;
+.editBtn:hover {
+ color: #335581;
+ background-color: #E5EDF5;
+ box-shadow: -2px -1px 8px 0px #ffffff, 2px 1px 8px 0px rgb(95 157 231 / 48%);
 }
 
-.editBtn:hover .circle .icon.arrow {
- background: #fff;
- transform: translate(1rem, 0);
-}
-
-.editBtn:hover .button-text {
- color: #fff;
+.editBtn:active {
+ box-shadow: none;
 }
 </style>
