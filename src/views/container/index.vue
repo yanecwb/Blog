@@ -11,7 +11,7 @@
           <span># Stay home</span>
         </p>
       </div>
-      <div class="w-full md:w-400 min-w-200 mx-auto flex justify-between">
+      <!-- <div class="w-full md:w-400 min-w-200 mx-auto flex justify-between">
         <div
           class="w-2/3 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 animate__animated animate__backInLeft"
           ref="carousel">
@@ -29,7 +29,7 @@
         </div>
         <div class="w-1/3 md:w-108 lg:w-112  md:h-100 lg:h-144 shadow-lg animate__animated animate__backInRight" ref="food">
           <img class="w-full rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
-          <!-- <div class="backcolor"></div> -->
+          <div class="backcolor"></div>
           <div class="bg-white px-5 pt-9 pb-0 box-border">
             <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
             <span style="color: #28a745">也说不定😜</span>
@@ -40,7 +40,7 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="flex mx-auto md:mt-7  w-screen md:w-400 md:justify-between">
         <div class="article_left w-full md:w-200 lg:w-260 animate__animated animate__backInLeft">
           <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"
@@ -139,7 +139,7 @@
 
 <script>
 import "./container.css";
-import { Icon, Pagination, Carousel } from "ant-design-vue";
+import { Icon, Pagination } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
 
 // api
@@ -158,7 +158,6 @@ export default {
   components: {
     Icon,
     Pagination,
-    Carousel,
     Bgcanvas
   },
   methods: {
