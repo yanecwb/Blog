@@ -58,6 +58,11 @@ const routes = [
 const router = new VueRouter({
     mode: "history",
     routes,
+    scrollBehavior (to, from, savedPosition) {
+      if(to.meta.title == '博客列表'){
+        return {x:0,y:0}
+      }
+    }
 });
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
