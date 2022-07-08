@@ -14,6 +14,7 @@
       "
       ref="banner_box"
     >
+      <div class=" w-1/2 h-full bg-122 opacity-40 absolute left-0" v-if="is_home"></div>
       <div
         class="banner_info flex items-center justify-center mx-auto"
         v-if="is_home"
@@ -26,7 +27,7 @@
             {{ msg }}|
           </div>
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
-            你好, 我是 <span style="color: #5869da">Alex</span>
+            你好, 我是 <span style="color: #5869da">Flechazo</span>
           </p>
           <p class="lg:text-base text-sm text-white">
             一往情深深几许？深山夕照深秋雨...
