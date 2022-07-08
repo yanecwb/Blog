@@ -50,9 +50,6 @@ export default {
       });
     };
   },
-  created(){
-    document.title  = 'this.article.article_title'
-  },
   methods: {
     change_show_footer(val) {
       this.show_footer = val;
