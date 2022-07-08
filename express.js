@@ -2,7 +2,16 @@ var express = require("express"),
   path = require("path");
 var iconv = require("iconv-lite");
 // const router = exprss.Router()
+// var cors = require('cors')
+// app.use(cors())
 var app = express();
+// app.all('*',function (req, res, next) {
+//   res.header('access-control-allow-origin','http://47.107.243.60:3010'); //当允许携带cookies此处的白名单不能写’*’
+//   res.header('Access-Control-Allow-Headers','content-type,Content-Length, Authorization,Origin,Accept,X-Requested-With'); //允许的请求头
+//   res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT'); //允许的请求方法
+//   res.header('Access-Control-Allow-Credentials',true);  //允许携带cookies
+//   next();
+// });
 app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.json({ limit: "50mb" })); //解决413Payload Too Large
 const fs = require("fs");
@@ -152,7 +161,7 @@ app.post('/changeuserInfo',jsonParser,function(req,res){
 })
 
 // 上传文章
-app.post("/upload_article", jsonParser, function (req, res) {
+app.post("/upload_article",jsonParser, function (req, res) {
   let message = {
     code: 200,
     msg: "",

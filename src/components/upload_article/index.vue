@@ -302,8 +302,7 @@ export default {
       // 批量删除不需要的图片
       this.vergleichenImg().length <= 0 ? "" : deleteImg (this.vergleichenImg())
       res.data.code == 200
-        ? new Promise(resolve=>{
-          this.$Swal.fire({
+        ? this.$Swal.fire({
             title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
             showClass: {
               popup: "animate__animated animate__fadeInDown",
@@ -311,11 +310,7 @@ export default {
             hideClass: {
               popup: "animate__animated animate__fadeOutUp",
             },
-          })
-          resolve(1)
-        }).then(()=>{
-          this.$router.go(-1)
-        })
+          }).then(()=>{this.$router.go(-1)})
         : this.$Swal.fire({
             icon: "error",
             title: "发布失败...，请重试",
