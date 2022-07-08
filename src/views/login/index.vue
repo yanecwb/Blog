@@ -144,7 +144,7 @@ export default {
                                         "userInfo/SAVE_USERINFO",
                                         data.data.userInfo
                                     );
-                                    goRouter("/home");
+                                    this.$router.back()
                                 });
                                 clearTimeout(gohometimer);
                             }, 1000);
