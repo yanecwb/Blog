@@ -102,9 +102,6 @@
                   Read More</div>
               </div>
             </div>
-            <div class="w-full mb-12 flex justify-center">
-              <Pagination size="small" :total="total" :pageSize="size" @change="current_Change" :current='current' />
-            </div>
           </div>
         </div>
         <div class=" h-1/2 md:w-108 lg:w-112 p-5 block_border animate__animated animate__backInRight" v-if="!$store.state.is_phone">
@@ -139,7 +136,7 @@
 
 <script>
 import "./container.css";
-import { Icon, Pagination } from "ant-design-vue";
+import { Icon } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
 
 // api
@@ -157,7 +154,6 @@ export default {
   },
   components: {
     Icon,
-    Pagination,
     Bgcanvas
   },
   methods: {

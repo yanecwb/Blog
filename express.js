@@ -406,23 +406,27 @@ app.get("/get_article_moduleList", function (req, res) {
 app.get("/get_article_content", function (req, res) {
   const { article_id } = req.query;
   let data = fs.readdirSync("./article")
-  data.forEach(item=>{
-    let articleList = loadjson("./article/" + item)
-    let articleIndex = articleList.list.findIndex(i=> i.id == article_id)
-    console.log(articleList.list[articleIndex]);
-    let userInfo = loadjson('./data/user.json');
-    const user = userInfo.user_list.find(i=>{
-      return i.id == articleList.list[articleIndex].userId
+  try {
+    data.forEach(item=>{
+      let articleList = loadjson("./article/" + item)
+      let articleIndex = articleList.list.findIndex(i=> {
+        return i.id == article_id
+      })
+      if(articleIndex<0) return 
+      let userInfo = loadjson('./data/user.json');
+      const user = userInfo.user_list.find(i=>{
+        return i.id == articleList.list[articleIndex].userId
+      })
+      if(articleIndex > -1){
+        articleList.list[articleIndex].uper.avatarUrl =user.avatarUrl
+        articleList.list[articleIndex].uper.nickname =user.nickname
+        articleList.list[articleIndex].readCount++
+        savejson("./article/" + item,articleList)
+        res.send({article:articleList.list[articleIndex]})
+        throw new Error()
+      }
     })
-    if(articleIndex > -1){
-      articleList.list[articleIndex].uper.avatarUrl =user.avatarUrl
-      articleList.list[articleIndex].uper.nickname =user.nickname
-      articleList.list[articleIndex].readCount++
-      savejson("./article/" + item,articleList)
-      res.send({article:articleList.list[articleIndex]})
-      throw new Error()
-    }
-  })
+  } catch (error) {}
 });
 
 // 上传图片
