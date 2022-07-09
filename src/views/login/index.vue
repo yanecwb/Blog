@@ -223,8 +223,6 @@ export default {
         async get_code() {
             if (this.is_get_code) return;
             this.is_get_code = true;
-
-            
             let get_code_timer = setInterval(() => {
                 this.code_time--;
                 if (this.code_time == -1) {
