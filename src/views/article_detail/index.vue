@@ -474,37 +474,37 @@ export default {
 }
 
 pre {
-  background-color: #CCC;
-  display: flex;
-  justify-content: space-between;
-  color: rgb(140, 119, 119);
-  code{
+  background-color: rgb(236, 230, 230);
+//   display: flex;
+//   justify-content: space-between;
+  color: rgb(29, 25, 25);
+//   code{
   font-family:'firaCode';
-  font-size: 14px;
-  }
-  &::after {
-    content: "";
-    width: 20px;
-    height: 20px;
-    background-image: url(http://img1.3png.com/81c41e9a6ac6aefdef1845b4d9bc2b994130.png);
-    background-size: 100% 100%;
-    color: rgb(190, 179, 179);
-    cursor: pointer;
-  }
-  &::-webkit-scrollbar{/*滚动条整体样式*/
-      width: 3px;     /*高宽分别对应横竖滚动条的尺寸*/
-      height: 7px;
-  }
-  &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      background:rgb(192, 224, 232)
-  }
-  &::-webkit-scrollbar-track {/*滚动条里面轨道*/
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      border-radius: 10px;
-      background: #ffffff;
-  }
+//   font-size: 14px;
+//   }
+//   &::after {
+//     content: "";
+//     width: 20px;
+//     height: 20px;
+//     background-image: url(http://img1.3png.com/81c41e9a6ac6aefdef1845b4d9bc2b994130.png);
+//     background-size: 100% 100%;
+//     color: rgb(190, 179, 179);
+//     cursor: pointer;
+//   }
+//   &::-webkit-scrollbar{/*滚动条整体样式*/
+//       width: 3px;     /*高宽分别对应横竖滚动条的尺寸*/
+//       height: 7px;
+//   }
+//   &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+//       border-radius: 10px;
+//       -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+//       background:rgb(192, 224, 232)
+//   }
+//   &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+//       -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+//       border-radius: 10px;
+//       background: #ffffff;
+//   }
 }
 
 .h {

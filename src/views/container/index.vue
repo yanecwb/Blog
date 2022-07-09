@@ -2,14 +2,14 @@
     <div class=" relative">
       <Bgcanvas :height="930"/>
       <div class="flex justify-between mx-auto md:px-0 py-1 px-6 w-full md:w-400">
-        <h4 v-if="!$store.state.is_phone">FEATURED POSTS</h4>
-        <p class="text-sm">
+        <h4 v-if="!$store.state.is_phone" class="m-0 text-base font-mono" >今日精选博客</h4>
+        <!-- <p class="text-sm m-0">
           <Icon type="tags" />Hot tags:
           <span># Covid-19</span>
           <span># Inspiration</span>
           <span># Work online</span>
           <span># Stay home</span>
-        </p>
+        </p> -->
       </div>
       <!-- <div class="w-full md:w-400 min-w-200 mx-auto flex justify-between">
         <div
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div> -->
-      <div class="flex mx-auto md:mt-7  w-screen md:w-400 md:justify-between">
+      <div class="flex mx-auto   w-screen md:w-400 md:justify-between">
         <div class="article_left w-full md:w-200 lg:w-260 animate__animated animate__backInLeft">
           <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"
             v-if="!$store.state.is_phone">

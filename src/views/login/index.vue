@@ -91,7 +91,7 @@
 <script>
 import { Icon } from "ant-design-vue";
 
-import { Login } from "../../api/login";
+import { Login,getCode } from "../../api/login";
 import { Register } from "../../api/register";
 export default {
     name: "login",
@@ -131,8 +131,40 @@ export default {
         },
         login_register($event) {
             $event.preventDefault();
+            if(this.is_code_login){//验证码登录
+                let { username, password } = this;
+                const code = password
+                this.loadindg = true
+                if (username && code) {
+                    this.loadindg = true
+                    Login(username, code,'code').then((data) => {
+                        if (data.data.code == 200) {
+                            let gohometimer = setTimeout(() => {
+                                this.miniMessage(data.data.msg,'success') .then(() => {
+                                  this.loadindg =false
+                                    this.$store.commit(
+                                        "userInfo/SAVE_USERINFO",
+                                        data.data.userInfo
+                                    );
+                                    this.$router.back()
+                                });
+                                clearTimeout(gohometimer);
+                            }, 1000);
+                        } else {
+                            let gohometimer = setTimeout(() => {
+                                this.loadindg =false
+                                this.miniMessage(data.data.msg,'error');
+                                clearTimeout(gohometimer);
+                            }, 1000);
+                        }
+                    });
+                } else {
+                    this.miniMessage("请输入账号或验证码",'error');
+                }
+                return 
+            }
             if (this.is_login) {
-                let { username, password, goRouter } = this;
+                let { username, password } = this;
                 if (username && password) {
                     this.loadindg = true
                     Login(username, password).then((data) => {
@@ -188,7 +220,7 @@ export default {
             });
         },
         // 获取登陆验证码
-        get_code() {
+        async get_code() {
             if (this.is_get_code) return;
             this.is_get_code = true;
             let get_code_timer = setInterval(() => {
@@ -199,6 +231,22 @@ export default {
                     clearInterval(get_code_timer);
                 }
             }, 1000);
+            const data = await getCode(this.username)
+            const Toast = this.$Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 60000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+              toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+            },
+            });
+            Toast.fire({
+                icon: 'success',
+                title: '请复制你的验证码登录，一分钟内有效' + data.data,
+            });
         },
     },
 };

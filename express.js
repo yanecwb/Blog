@@ -112,24 +112,29 @@ app.post("/register", jsonParser, function (req, res) {
 
 // Blog账号登陆
 app.post("/login", jsonParser, function (req, res) {
+  let message ={}
   // 定义初始化返回信息
-  const { username, password } = req.body;
+  const { username, password,code } = req.body;
   //读取
   var data = loadjson("./data/user.json");
   // 判断是否已有账号
   let user = data.user_list.find((item) => {
     return item.username == username;
   });
-  if (user && user.password == password) {
+  if (user && (code ? user.code == password : user.password == password)) {
     res.status(200);
     message.msg = "登陆成功";
     message.code = 200;
     delete user.password;
     message.userInfo = user;
     res.send(message);
-  } else if (user && user.password !== password) {
+  } else if (user) {
     message.code = 300;
-    message.msg = "密码错误";
+    if(!code){
+      user.password != password ? message.msg = "密码错误" : ''
+    }else{
+      user.code != password ? message.msg = "验证码错误" : ''
+    }
     res.send(message);
   } else {
     message.msg = "账号不存在";
@@ -137,6 +142,32 @@ app.post("/login", jsonParser, function (req, res) {
     res.send(message);
   }
 });
+
+// 获取验证码
+let time
+app.get('/getCode',function(req,res){
+  const {username} = req.query
+  console.log(username);
+  let data = loadjson('./data/user.json')
+  const userIndex = data.user_list.findIndex(i=>i.username == username)
+  console.log(userIndex);
+  if(userIndex>=0){
+    const VerificationCode = Math.random().toFixed(6).slice(-6)
+    data.user_list[userIndex].code = VerificationCode
+    res.send(VerificationCode)
+    savejson('./data/user.json',data)
+    clearTimeout(time)
+    time = setTimeout(() => {
+      let data = loadjson('./data/user.json')
+      const userIndex = data.user_list.findIndex(i=>i.username == username)
+      delete data.user_list[userIndex].code
+      savejson('./data/user.json',data)
+    }, 60000);
+  }else{
+    res.send('没有此账号，请先注册')
+  }
+
+})
 
 // 修改用户信息
 app.post('/changeuserInfo',jsonParser,function(req,res){

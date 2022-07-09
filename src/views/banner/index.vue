@@ -14,14 +14,14 @@
       "
       ref="banner_box"
     >
-      <div class=" w-1/2 h-full bg-122 opacity-40 absolute left-0" v-if="is_home"></div>
+      <!-- <div class=" w-1/2 h-full bg-122 opacity-40 absolute left-0" v-if="is_home"></div> -->
       <div
         class="banner_info flex items-center justify-center mx-auto"
         v-if="is_home"
       >
         <div class="px-5 font-black text-center">
           <div
-            class="text-base lg:text-xl"
+            class="text-base lg:text-2xl"
             style="font-family: 'Gabriola'; color: wheat"
           >
             {{ msg }}|
@@ -29,7 +29,7 @@
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
             你好, 我是 <span style="color: #5869da">Flechazo</span>
           </p>
-          <p class="lg:text-xl md:text-base text-sm text-white">
+          <p class="lg:text-xl md:text-base text-sm text-white" style="font-family: 'Gabriola';">
             {{mingrenmingyan}}
           </p>
         </div>

@@ -59,7 +59,7 @@ const router = new VueRouter({
     mode: "history",
     routes,
     scrollBehavior (to, from, savedPosition) {
-      if(to.meta.title == '博客列表'){
+      if(to.meta.title == '博客列表' || to.meta.title == '博客详情'){
         return {x:0,y:0}
       }
     }
