@@ -479,12 +479,18 @@ export default {
 
 <style lang="less">
 /* From uiverse.io by @adamgiebl */
+@font-face {
+  font-family: firaCode;
+  src: url("../../assets/font/FiraCode-Bold-5.ttf") format("truetype")
+}
+
 pre {
-  background-color: #292a25;
+  background-color: rgb(236, 230, 230);
   display: flex;
   justify-content: space-between;
-  color: white;
+  color: rgb(29, 25, 25);
   code{
+  background-color: rgb(236, 230, 230) !important;
   font-family:'firaCode';
   font-size: 14px;
   }
