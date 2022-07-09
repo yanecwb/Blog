@@ -232,6 +232,7 @@ export default {
                 }
             }, 1000);
             const data = await getCode(this.username)
+            
             const Toast = this.$Swal.mixin({
             toast: true,
             position: "top-end",
