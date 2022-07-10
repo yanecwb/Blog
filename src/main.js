@@ -1,3 +1,22 @@
+Function.prototype.makeMulti = function  () {
+  let l = new String(this)
+  l = l.substring(l.indexOf("/*") + 3, l.lastIndexOf("*/"))
+  return l
+}
+console.log(string.makeMulti());
+function string () {
+  /*                                                                                               
+________  __                      __                                     
+|        \|  \                    |  \                                    
+| $$$$$$$$| $$  ______    _______ | $$____    ______   ________   ______  
+| $$__    | $$ /      \  /       \| $$    \  |      \ |        \ /      \ 
+| $$  \   | $$|  $$$$$$\|  $$$$$$$| $$$$$$$\  \$$$$$$\ \$$$$$$$$|  $$$$$$\
+| $$$$$   | $$| $$    $$| $$      | $$  | $$ /      $$  /    $$ | $$  | $$
+| $$      | $$| $$$$$$$$| $$_____ | $$  | $$|  $$$$$$$ /  $$$$_ | $$__/ $$
+| $$      | $$ \$$     \ \$$     \| $$  | $$ \$$    $$|  $$    \ \$$    $$
+\$$       \$$  \$$$$$$$  \$$$$$$$ \$$   \$$  \$$$$$$$ \$$$$$$$$  \$$$$$$ 
+*/
+}
 import Vue from "vue";
 import App from "./App.vue";
 import "ant-design-vue/dist/antd.css";

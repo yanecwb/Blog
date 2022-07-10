@@ -112,7 +112,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="pl-6 pr-2 md:px-18 w-full"></div>
+      <div v-html="article.content" class="pl-6 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
       <div class="w-full flex justify-between">
         <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
@@ -224,7 +224,7 @@
                 class="text-xs inline-block ml-2">{{ formatCommentTime(i.commentTime) }}</span></p>
             <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-              <div class="w-1/3 md:w-28 flex justify-between ">
+              <div class="w-1/3 md:w-28 flex justify-between" >
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
                 <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
                 <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
@@ -243,6 +243,38 @@
                   <Icon type="delete" />
                 </div>
               </div>
+            </div>
+            <!-- 回复区 -->
+            <div class="p-5 bg-gray-50 rounded-xl">
+            <p class="text-sm">
+              <img :src="i.avatarUrl" alt="" class="mr-2 w-10 h-10 rounded-full">
+              <span>{{ i.nickname }}<span class="text-blue-500 inline-block m-2">回复</span>{{ i.nickname }}</span>
+              <span class="text-xs inline-block ml-2">{{ formatCommentTime(i.commentTime) }}</span>
+            </p>
+            <div class="px-12">
+              <p class="text-0a1" v-html="i.comment"></p>
+              <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
+              <div class="w-1/3 md:w-28 flex justify-between" >
+                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
+                <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
+                <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
+              </div>
+              <!-- $set给没再data中定义的数据添加响应式 -->
+              <div class="relative cursor-pointer" @click="() => {
+                if (deleteVisi.r == index) {
+                  deleteVisi.r = null
+                  return
+                }
+                $set(deleteVisi, 'r', index)
+              }">
+                <Icon type="more" />
+                <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == index"
+                  class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                  <Icon type="delete" />
+                </div>
+              </div>
+            </div>
+            </div>
             </div>
           </div>
         </div>
