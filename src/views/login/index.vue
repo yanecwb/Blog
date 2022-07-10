@@ -146,6 +146,7 @@ export default {
                                         "userInfo/SAVE_USERINFO",
                                         data.data.userInfo
                                     );
+                                    localStorage.setItem('loginTime',new Date().getTime())
                                     this.$router.back()
                                 });
                                 clearTimeout(gohometimer);
@@ -176,6 +177,7 @@ export default {
                                         "userInfo/SAVE_USERINFO",
                                         data.data.userInfo
                                     );
+                                    localStorage.setItem('loginTime',new Date().getTime())
                                     this.$router.back()
                                 });
                                 clearTimeout(gohometimer);
@@ -232,7 +234,7 @@ export default {
                 }
             }, 1000);
             const data = await getCode(this.username)
-            
+
             const Toast = this.$Swal.mixin({
             toast: true,
             position: "top-end",

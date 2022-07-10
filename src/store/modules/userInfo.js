@@ -1,3 +1,11 @@
+// let Info = JSON.parse( localStorage.getItem('userInfo')) || {accountInfo:{}}
+// const loginTime = localStorage.getItem('loginTime')
+// if(!(new Date().getTime() - loginTime > 259200000) ){
+//   Info = {accountInfo:{}}
+//   if(location.pathname !== '/login'){
+//     location.href = location.origin + '/login'
+//   }
+// }
 const userInfo ={
   namespaced: true,
   state:{

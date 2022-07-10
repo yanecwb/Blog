@@ -386,7 +386,7 @@ export default {
     },
     // 微信分享二维码
     createQrcode() {
-      let text = this.href
+      let text = this.sharehref
       // let qrcode =
       new QRCode(this.$refs.qrcode, {
         text: text, //二维码内容字符串
