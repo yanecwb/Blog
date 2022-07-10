@@ -10,7 +10,7 @@
     <div
       class="w-full flex justify-center items-center"
       :class="
-        is_home ? 'h-screen' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'
+        is_home ? 'h-screen md:min-h-300' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'
       "
       ref="banner_box"
     >
@@ -22,12 +22,12 @@
         <div class="px-5 font-black text-center">
           <div
             class="text-base lg:text-2xl"
-            style="font-family: 'Gabriola'; color: wheat"
+            style="font-family: 'Gabriola'; color: #789da6"
           >
             {{ msg }}|
           </div>
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
-            你好, 我是 <span style="color: #5869da">Flechazo</span>
+            你好, 我是 <span style="color: #4e81ba">Flechazo</span>
           </p>
           <p class="lg:text-xl md:text-base text-sm text-white" style="font-family: 'Gabriola';">
             {{mingrenmingyan}}

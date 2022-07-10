@@ -1,11 +1,12 @@
 <template>
-  <div class="menu" ref="menu">
+  <div class="menu" ref="menu" >
     <div class="userInfo_box">
       <div
+        v-if="backimg || showmenu"
         :class="
           userInfo.backgroundUrl
-            ? 'backgroundUrl hvr-curl-top-right'
-            : 'not_login_bg hvr-curl-top-right backgroundUrl'
+            ? 'backgroundUrl hvr-curl-top-right animate__animated  animate__fadeIn animate__slower'
+            : 'not_login_bg hvr-curl-top-right animate__animated  animate__fadeIn animate__slower backgroundUrl'
         "
         :style="{backgroundImage:`url(${userInfo.backgroundUrl ? userInfo.backgroundUrl :'https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg'})`}"
         @click="show_savabgimg"
@@ -150,7 +151,8 @@ export default {
       game_visible: false,
       showIpunt:'',
       changeInfo:{},
-      inspectObj:[]
+      inspectObj:[],
+      backimg:''
     };
   },
   computed: {
@@ -162,6 +164,7 @@ export default {
   watch: {
     showmenu(newval) {
       if (newval) {
+        this.backimg = 1
         this.$nextTick(()=>{
           this.$refs.menu.style.right = 0;
         })
@@ -229,7 +232,11 @@ export default {
           inputObj.addEventListener('change',(e)=>{
               const file = e.target.files[0];
               if(file.size > 1024000 && type==1){
-                this.miniMessage('头像不要超过1M','error')
+                this.miniMessage('头像不要超过1M😱','error')
+                return
+              }
+              if(file.size > 2048000 && type==2){
+                this.miniMessage('背景土片不要超过2M😱','error')
                 return
               }
               getBase64(file,(img) => {

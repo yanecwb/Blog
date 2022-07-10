@@ -42,10 +42,10 @@
         </div>
       </div> -->
       <div class="flex mx-auto   w-screen md:w-400 md:justify-between">
-        <div class="article_left w-full md:w-200 lg:w-260 animate__animated animate__backInLeft">
-          <div class="article_left_hot felx md:justify-between justify-center" ref="article_left_hot"
+        <div class="article_left w-full md:w-200 lg:w-260 ">
+          <div class="article_left_hot felx md:justify-between justify-center animate__animated animate__backInLeft" ref="article_left_hot"
             v-if="!$store.state.is_phone">
-            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full"></div>
+            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full " :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(http://47.107.243.60:5005/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg)' && (hotUrl = 'url(http://47.107.243.60:5005/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg)') : ''}"></div>
             <div class="article_left_hot_content group block_border">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
@@ -73,10 +73,9 @@
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"
-              v-for="item in article_list" :key="item.id" ref="article_left_natural">
-              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content"
-                :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"></div>
+            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id" ref="article_left_natural">
+              <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
+              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"></div>
               <div class=" bg-white py-4 px-8 w-full relative bottom-5">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
@@ -100,6 +99,7 @@
                 <div
                   class="readmore_btn">
                   Read More</div>
+              </div>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </div>
-      <div class="  md:absolute md:2-108 w-86 h-24 bottom-0 right-0 -z-50" style="background-image:url(http://47.107.243.60:5005/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
+      <div v-if="arr[5]" class="md:absolute md:2-108 w-86 h-24 bottom-0 right-0 -z-50" style="background-image:url(http://47.107.243.60:5005/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
     </div>
 </template>
 
@@ -150,6 +150,8 @@ export default {
       current: 1,
       size: 6,
       total: 0,
+      arr:[],
+      hotUrl:''
     };
   },
   components: {
@@ -169,30 +171,31 @@ export default {
       const res2 = await getSide_list();
       this.side_list = res2.data.list;
     },
-    // watch_scrolltop() {
-    //   const css = "article_left_natural animate__animated animate__slideInUp";
-    //   let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
-    //     if (newval >= 700) {
-    //       for (let i = 0; i < this.$refs.article_left_natural.length; i++) {
-    //         this.$refs.article_left_natural[i].className = css;
-    //         if (i == 1) {
-    //           break;
-    //         }
-    //       }
-    //       if (newval >= 1500) {
-    //         this.$refs.article_left_natural[2].className += css;
-    //         this.$refs.article_left_natural[3].className += css;
-    //       }
-    //       if (newval >= 2000) {
-    //         this.$refs.article_left_natural[4].className += css;
-    //         this.$refs.article_left_natural[5].className += css;
-    //       }
-    //     }
-    //     if (newval > 2100) {
-    //       unwatch_scrolltop();
-    //     }
-    //   });
-    // },
+    watch_scrolltop() {
+      let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
+        if (newval >= 750) {
+          if(this.arr.indexOf(1)<0) {
+            this.arr.push(1) 
+            this.arr.push(2) 
+          }
+        }
+        if (newval >= 1200) {
+          if(this.arr.indexOf(3)<0) {
+            this.arr.push(3) 
+            this.arr.push(4) 
+          }
+        }
+        if (newval >= 1600) {
+          if(this.arr.indexOf(5)<0) {
+            this.arr.push(5) 
+            this.arr.push(6) 
+          }
+        }
+        if (newval > 2100) {
+          unwatch_scrolltop();
+        }
+      });
+    },
   },
   computed: {
     scrolltop() {
@@ -201,7 +204,7 @@ export default {
   },
   mounted() {
     this.get_article_list()
-    // this.watch_scrolltop();
+    this.watch_scrolltop();
   },
 };
 </script>
