@@ -112,7 +112,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="pl-8 pr-2 md:px-18 w-full"></div>
+      <div v-html="article.content" class="pl-6 pr-2 md:px-18 w-full"></div>
       <div class="w-full flex justify-between">
         <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
