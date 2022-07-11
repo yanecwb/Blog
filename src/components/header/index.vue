@@ -12,7 +12,7 @@
               前 端
             </li>
             <li name="backend" @click="goRouter('/content/backend')">后 端</li>
-            <li name="android" @click="goRouter('/content/android')">安 卓</li>
+            <li name="android" @click="goRouter('/content/android')">web3.0</li>
             <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
             <li name="article" @click="go_up_article()">
               写文章
@@ -114,7 +114,7 @@
                   }
                 "
               >
-                😭安卓技术
+                😭区块链技术
               </div>
               <div
                 class="phone_select"

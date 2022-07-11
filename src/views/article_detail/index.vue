@@ -114,7 +114,7 @@
       </div>
       <div v-html="article.content" class="pl-6 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
       <div class="w-full flex justify-between">
-        <div class="p-4 w-1/4 md:w-1/5 flex justify-between items-center text-gray ">
+        <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
             <svg v-if="special" t="1657294617925"
               class="icon absolute left-2 -top-2 animate__fadeOutUp animate__animated " viewBox="0 0 1221 1024"
@@ -553,7 +553,7 @@ export default {
     document.title = this.article.article_title
   },
   mounted() {
-    
+
 
   },
   watch: {

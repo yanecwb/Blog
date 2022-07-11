@@ -137,7 +137,7 @@ export default {
                 this.loadindg = true
                 if (username && code) {
                     this.loadindg = true
-                    Login(username, code,'code').then((data) => {
+                    Login(username, Number(code) == 0 ? code : Number(code) == 0,'code').then((data) => {
                         if (data.data.code == 200) {
                             let gohometimer = setTimeout(() => {
                                 this.miniMessage(data.data.msg,'success') .then(() => {
@@ -162,7 +162,7 @@ export default {
                 } else {
                     this.miniMessage("请输入账号或验证码",'error');
                 }
-                return 
+                return
             }
             if (this.is_login) {
                 let { username, password } = this;
@@ -224,6 +224,10 @@ export default {
         // 获取登陆验证码
         async get_code() {
             if (this.is_get_code) return;
+            if(!this.username){
+              this.miniMessage('请输入账号或密码','error')
+              return
+            }
             this.is_get_code = true;
             let get_code_timer = setInterval(() => {
                 this.code_time--;
@@ -235,21 +239,21 @@ export default {
             }, 1000);
             const data = await getCode(this.username)
 
-            const Toast = this.$Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 60000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", this.$Swal.stopTimer);
-              toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
-            },
-            });
-            Toast.fire({
-                icon: 'success',
-                title: '请复制你的验证码登录，一分钟内有效' + data.data,
-            });
+              const Toast = this.$Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: Number(data.data) ?  60000 : 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener("mouseenter", this.$Swal.stopTimer);
+                toast.addEventListener("mouseleave", this.$Swal.resumeTimer);
+              },
+              });
+              Toast.fire({
+                  icon:Number(data.data) ?  'success' : 'error',
+                  title: Number(data.data) ?  '请复制你的验证码登录，一分钟内有效' + data.data : data.data
+              });
         },
     },
 };
