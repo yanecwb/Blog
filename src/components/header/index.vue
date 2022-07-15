@@ -24,7 +24,7 @@
             </li>
           </div>
           <div class=" flex justify-between items-center">
-           <div @click="change_showmenu" class='cursor-pointer w-10 h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg)'">
+           <div @click="change_showmenu" :class="playMusic ? 'animate-spin' : ''" class='cursor-pointer w-10 h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg)'">
            </div>
             <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
             <!-- <Icon
@@ -189,8 +189,10 @@ export default {
       weather: "",
       visible:false,
       Mune_left: "Mune_left_hidden g-bg",
+      playMusic:false
     };
   },
+  // emits:['playMusic'],
   methods: {
     MobileshowMenu(type) {
       if (type == 1) {
@@ -208,6 +210,8 @@ export default {
       // }, 1);
     },
     change_showmenu() {
+      this.$emit('play')
+      this.playMusic = true
       this.showmenu = !this.showmenu;
     },
     showHeader(val) {

@@ -49,7 +49,7 @@
           </li>
         </section>
       </article>
-      <Pagination v-model="current" :total="totalb" show-less-items class="my-5" @change='current_Change'/>
+      <Pagination v-model="current" :total="total" show-less-items class="my-5" @change='current_Change'/>
     </div>
     <Empty
       v-if='article_moduleList.length == 0'

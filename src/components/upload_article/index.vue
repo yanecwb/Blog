@@ -304,7 +304,7 @@ export default {
       this.base_info.article_introduction = "";
       this.html = "";
       // 批量删除不需要的图片
-      this.vergleichenImg().length <= 0 ? "" : deleteImg (this.vergleichenImg())
+      this.vergleichenImg().length > 0 ? deleteImg (this.vergleichenImg()) : ""
       res.data.code == 200
         ? this.$Swal.fire({
             title: `${this.$route.params.id ? "修改" : "发布"}成功...`,
@@ -328,7 +328,6 @@ export default {
       let arr = [];
       this.imageList1.forEach((item) => {
         const existImg = this.imageList2.indexOf(item);
-        console.log(existImg);
         if (existImg < 0) {
           //不存在
           arr.push(item.slice(30, 66));
@@ -476,6 +475,7 @@ export default {
     document.body.style.position = "static"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = 'auto';
     this.$store.commit("change_show_header", true);
+    this.vergleichenImg().length > 0 ? deleteImg (this.vergleichenImg()) : ""
   },
   beforeRouteEnter(to, from, next) {
     next();
