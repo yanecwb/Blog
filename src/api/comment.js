@@ -3,7 +3,7 @@ import axios from 'axios'
 export const putComment = (data)=>{
     return axios({
         method:'put',
-        url:`/node_api/put_comment`,
+        url:`/node_api/articleCRUD/put_comment`,
         data
     })
 }
@@ -11,7 +11,7 @@ export const putComment = (data)=>{
 export const getComment = (params)=>{
     return axios({
         method:'get',
-        url:'/node_api/get_comment',
+        url:'/node_api/articleCRUD/get_comment',
         params
     })
 }
@@ -19,15 +19,42 @@ export const getComment = (params)=>{
 export const deleteComment = (data)=>{
   return axios({
       method:'delete',
-      url:'/node_api/delete_comment',
+      url:'/node_api/articleCRUD/delete_comment',
       data
   })
 }
-// get文章点赞点踩，收藏
+// 文章点赞点踩
 export const changeLike = (data)=>{
   return axios({
     method:'post',
-    url:'/node_api/change_like',
+    url:'/node_api/articleCRUD/change_like',
+    data
+  })
+}
+
+// 收藏
+export const changeCollection = (data)=>{
+  return axios({
+    method:'post',
+    url:'/node_api/articleCRUD/change_collection',
+    data
+  })
+}
+
+// 查询是否点赞点踩，收藏
+export const getLike = (params)=>{
+  return axios({
+    methods:'get',
+    url:'/node_api/articleCRUD/get_like',
+    params
+  })
+}
+
+//
+export const releaseReply = (data)=>{
+  return axios({
+    method:'post',
+    url:'/node_api/articleCRUD/releaseReply',
     data
   })
 }

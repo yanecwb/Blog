@@ -107,7 +107,7 @@
         >
           <option value="frontend">前端</option>
           <option value="backend">后端</option>
-          <option value="android">安卓</option>
+          <option value="android">web3.0</option>
           <option value="news">我的生活趣闻</option>
         </select>
         <!-- <Input
@@ -314,7 +314,9 @@ export default {
             hideClass: {
               popup: "animate__animated animate__fadeOutUp",
             },
-          }).then(()=>{this.$router.go(-1)})
+          }).then(()=>{
+            this.$router.go(-1)
+          })
         : this.$Swal.fire({
             icon: "error",
             title: "发布失败...，请重试",

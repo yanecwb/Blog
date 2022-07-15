@@ -1,8 +1,9 @@
 module.exports = {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   corePlugins: {//关闭tailwindcss的预设值
         preflight: false,
   },
-  content: [],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
         inset: {
@@ -299,6 +300,9 @@ module.exports = {
             '17':'5rem',
         }
     }
-},
+  },
+  variants: {
+    extend: {}
+  },
   plugins: [],
 }

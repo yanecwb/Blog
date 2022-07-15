@@ -3,7 +3,7 @@ import axios from 'axios'
 export const uploadArticle = (data)=>{
     return axios({
         method:'post',
-        url:`/node_api/upload_article`,
+        url:`/node_api/articleCRUD/upload_article`,
         data
     })
 }
@@ -11,7 +11,7 @@ export const uploadArticle = (data)=>{
 export const updateArticle = (data)=>{
   return axios({
       method:'post',
-      url:`/node_api/update_article`,
+      url:`/node_api/articleCRUD/update_article`,
       data
   })
 }

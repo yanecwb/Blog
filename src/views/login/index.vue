@@ -216,7 +216,7 @@ export default {
                         this.is_login = true;
                     });
                 }
-                if(res.data.code == 300){
+                if(res.data.code == 201){
                   this.miniMessage(res.data.msg,'error')
                 }
             });

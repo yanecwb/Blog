@@ -27,21 +27,19 @@ let mixin = {
     // 格式化发布时间
     format_publishTime(publish_time){
       if(!publish_time) return
-      const now = Date.parse(new Date()) / 1000 ;
-      const pub_time = Date.parse(publish_time) / 1000 //当天0点
-      const null_dian = (new Date(new Date().toDateString()).getTime())/1000
-      // console.log(null_dian);
-      // console.log(pub_time);
-      if(now - pub_time < 60*2){
+      publish_time = publish_time * 1
+      const now = Date.parse(new Date())  ;
+      const null_dian = (new Date(new Date().toDateString()).getTime()) //当天0点
+      if(now - publish_time < 60000*2){
         return '刚刚'
       }
-      if(pub_time > null_dian){//说明明是今天发布的
-        return '今天 '+ publish_time.substring(9,18)
+      if(publish_time > null_dian){//说明明是今天发布的
+        return '今天 '+ new Date(publish_time).toLocaleTimeString()
       }else{
-        if(null_dian - pub_time < 86400){
-          return '昨天 '+ publish_time.substring(9,18)
+        if(null_dian - publish_time < 86400000){
+          return '昨天 '+ new Date(publish_time).toLocaleTimeString()
         }else{
-          return parseInt((now - pub_time)/(60*60*24) + 1) + '天前'
+          return parseInt((now - publish_time)/(60*60*24*1000) + 1) + '天前'
         }
       }
     },

@@ -2,7 +2,7 @@
   <div>
     <Banner :bg="module_headerBg" />
     <div
-      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeInUp"
+      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeIn flex-col items-center"
       v-show="article_moduleList.length > 0"
       ref="Article1"
     >
@@ -24,7 +24,7 @@
             >
               <div class="content_list_author">
                 <span class="mr-2">{{
-                  list.uper.nickname
+                  list.nickname
                 }}</span>
                 <span class="text-xs">{{
                  list.publish_time
@@ -41,7 +41,7 @@
               </p>
               <div class="content_list_flow flex">
                 <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
-                <div class="zan"><Icon type="like" />{{list.like}}</div>
+                <div class="zan"><Icon type="like" />{{list.likeCount}}</div>
                 <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
               </div>
             </div>
@@ -49,6 +49,7 @@
           </li>
         </section>
       </article>
+      <Pagination v-model="current" :total="totalb" show-less-items class="my-5" @change='current_Change'/>
     </div>
     <Empty
       v-if='article_moduleList.length == 0'
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-import { Icon , Empty } from "ant-design-vue";
+import { Icon , Empty,Pagination } from "ant-design-vue";
 import Banner from "../../views/banner";
 import Bgcanvas from "../../components/Bgcanvas/index.vue";
 import { Get_Article_ModuleList } from "../../api/article_list";
@@ -74,6 +75,8 @@ export default {
     return {
       article_moduleList: [],
       articleHeight: 0,
+      total:0,
+      current:1
     };
   },
   components: {
@@ -81,6 +84,7 @@ export default {
     Banner,
     Empty,
     Bgcanvas,
+    Pagination
   },
   computed: {
     module_name() {
@@ -94,23 +98,7 @@ export default {
     module_name: {
       immediate: true,
       async handler(newval) {
-        const res = await Get_Article_ModuleList(newval);
-        this.article_moduleList = res.data.article_moduleList.map(item=>{
-          let commentCount = 0 //文章阅读量
-          let like = 0//文章点赞量
-          if(item.commenter && item.commenter.length > 0){
-            item.commenter.forEach(i=>{
-              i.like ? like++ : ''
-              commentCount += i.comment.length
-            })
-          }
-          return {
-            ...item,
-            commentCount,
-            like,
-            publish_time:this.format_publishTime(item.publish_time)
-          }
-        })
+        this.getArticle(newval,1)
         this.$nextTick(()=>{
             this.articleHeight = this.$refs.Article1.offsetHeight;
             if(this.article_moduleList.length < 5 && this.article_moduleList.length>0 ){
@@ -122,6 +110,33 @@ export default {
         })
       },
     },
+  },
+  methods:{
+   async getArticle(newval,current){
+        const res = await Get_Article_ModuleList(newval,current);
+        this.total = res.data.total
+        this.article_moduleList = res.data.article_moduleList.map(item=>{
+          let commentCount = 0 //文章评论量
+          let like = 0//文章点赞量
+          item.commenter = JSON.parse(item.commenter)
+          if(item.commenter && item.commenter.length > 0){
+            item.commenter.forEach(i=>{
+              // i.like ? like++ : ''
+              commentCount += i.comment.length
+            })
+          }
+          return {
+            ...item,
+            commentCount,
+            like,
+            publish_time:this.format_publishTime(item.publish_time)
+          }
+        })
+    },
+    current_Change(current){
+      this.current = current
+      this.getArticle(this.$route.fullPath.split('/')[2],current)
+    }
   },
   created() {
     this.$store.commit("change_show_header", true);

@@ -88,7 +88,7 @@
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}</p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
-            {{ format_publishTime(article.publish_time) }} 阅读{{ article.readCount }}
+            {{ format_publishTime(article.publish_time)  }} 阅读{{ article.readCount }}
           </p>
         </div>
         <Tooltip>
@@ -112,13 +112,13 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="pl-6 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
+      <div v-html="article.content" class="pl-2 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
       <div class="w-full flex justify-between">
         <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
             <svg v-if="special" t="1657294617925"
               class="icon absolute left-2 -top-2 animate__fadeOutUp animate__animated " viewBox="0 0 1221 1024"
-              version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2285" width="10" height="10">
+              version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2285" width="15" height="15">
               <path
                 d="M1204.814491 122.670376l-104.202498-9.819364a18.026592 18.026592 0 0 1-14.655767-11.138382L1048.290907 11.139994a17.880035 17.880035 0 0 0-33.122032 0l-37.079088 90.572636a17.586919 17.586919 0 0 1-14.655767 11.138382l-104.349055 9.819364a18.026592 18.026592 0 0 0-10.112479 31.363339l78.554907 69.028659a17.733477 17.733477 0 0 1 5.715749 17.58692L908.91457 337.084236a18.026592 18.026592 0 0 0 26.673495 19.638727l86.908693-51.002067a17.586919 17.586919 0 0 1 18.173151 0L1128.751064 357.162636A18.026592 18.026592 0 0 0 1154.69177 337.084236l-23.302668-96.874615a17.733477 17.733477 0 0 1 5.715749-17.58692l78.554907-69.028659a18.319708 18.319708 0 0 0-10.845267-31.363339z"
                 fill="#FED150" p-id="2286"></path>
@@ -132,15 +132,14 @@
                 d="M205.43779 713.590871l5.276076-24.768245a41.768934 41.768934 0 0 0-13.336747-41.036146L14.912829 487.012725A8.295164 8.295164 0 0 1 11.542003 483.641898 42.355164 42.355164 0 0 0 14.912829 544.463328l183.05052 161.213429a43.967299 43.967299 0 0 1 7.474441 7.914114zM871.542366 484.81436l-2.051807 2.198365-183.197078 161.213428a41.768934 41.768934 0 0 0-13.19019 41.036146l6.008864 24.621687a42.64828 42.64828 0 0 1 7.181326-8.353787l183.197078-161.213428a42.355164 42.355164 0 0 0 2.051807-59.502411zM460.887796 840.802922a41.622376 41.622376 0 0 0-40.596473 0.732788l-202.689247 119.15138a41.622376 41.622376 0 0 1-55.985027-13.19019l-6.008864 24.47513a42.062049 42.062049 0 0 0 61.993891 46.019106l190.524961-112.116612a173.524272 173.524272 0 0 0 52.760759-65.071602zM727.476184 971.97203l-5.862307-24.328572a41.622376 41.622376 0 0 1-56.131584 13.043632l-166.049832-97.607403a203.275478 203.275478 0 0 1-27.113168 41.475818l193.163 113.435631a41.915491 41.915491 0 0 0 61.993891-46.019106z"
                 fill="#FED150" opacity=".5" p-id="2289"></path>
             </svg>
-            <i class="cursor-pointer iconfont icon-dianzan  text-xl md:text-2xl hvr-grow-shadow"
-              :class="like.like ? 'text-blue-800' : ''"></i>
+            <i class="cursor-pointer iconfont icon-dianzan_kuai text-xl md:text-2xl hvr-grow-shadow " :style="{color:like.like ? '#00c3ff' : '#e3dddd'}"></i>
           </div>
           <div @click='unlikeIt' style="transform: rotate(180deg)" title="😭"><i
-              class="cursor-pointer iconfont icon-dianzan text-xl md:text-2xl hvr-grow"
-              :class="like.unlike ? 'text-red-600' : ''"></i></div>
+              class="cursor-pointer iconfont icon-dianzan_kuai text-xl md:text-2xl hvr-grow"
+               :style="{color:like.unlike ? '#00c3ff' : '#e3dddd'}"></i></div>
           <div @click="collectionIt" title="去吃灰📦"><i
-              class="cursor-pointer iconfont icon-shoucang1 hover:text-yellow-400 text-xl md:text-2xl hvr-grow-shadow"
-              :class="like.collection ? 'text-yellow-400' : ''"></i></div>
+              class="cursor-pointer iconfont icon-shoucang1  text-xl md:text-2xl hvr-grow-shadow"
+              :style="{color:like.collection ? '#ff7700' : '#e3dddd'}"></i></div>
         </div>
         <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)"
           v-if="article.userId == $store.state.userInfo.userInfo.id">
@@ -156,7 +155,7 @@
     </div>
     <!-- 评论区 -->
     <aside
-      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mb-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
         <span class=" cursor-pointer">
@@ -170,11 +169,11 @@
             class=" w-7 h-7 rounded-full"></div>
         </div>
         <form class="flex-1 relative" v-on:submit.prevent>
-          <input type="text" v-model="commentContent" placeholder="发一条友善的评论"
+          <input type="text" inputcentent v-model="commentContent" placeholder="轻轻敲醒沉睡的心灵，让我看看你的点评"
             class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
           <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
           <div class="mt-3 flex justify-between">
-            <div @click="(e) => { this.showexpression = true; e.stopPropagation(); return false }" type='button'
+            <div @click="smallExpression(1,$event)" type='button'
               class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
               <Icon type='smile' class='mr-1' />
               <span>表情</span>
@@ -187,7 +186,7 @@
           </div>
           <!-- 表情 -->
           <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-            class="absolute md:-bottom-60 -bottom-42 bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md ">
+            class="fixed bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
             <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
             <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
               <div v-for="i in BiLiEmailTotal" :key="i"
@@ -220,63 +219,76 @@
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p class="text-sm"><span>{{ i.nickname }}</span><span
+            <p class="text-sm"><span class="text-blue-500 font-bold">{{ i.nickname }}</span><span
                 class="text-xs inline-block ml-2">{{ formatCommentTime(i.commentTime) }}</span></p>
             <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between" >
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
                 <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
-                <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
+                <Icon type="message" :title="'回复'+i.nickname" class="hover:text-blue-400 cursor-pointer" @click="showreplyInput = i.commentId" />
               </div>
               <!-- $set给没再data中定义的数据添加响应式 -->
               <div class="relative cursor-pointer" @click="() => {
-                if (deleteVisi.r == index) {
+                if (deleteVisi.r == i.commentId) {
                   deleteVisi.r = null
                   return
                 }
-                $set(deleteVisi, 'r', index)
+                $set(deleteVisi, 'r', i.commentId)
               }">
                 <Icon type="more" />
-                <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == index"
+                <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == i.commentId"
                   class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
                   <Icon type="delete" />
                 </div>
               </div>
             </div>
             <!-- 回复区 -->
-            <div class="p-5 bg-gray-50 rounded-xl">
-            <p class="text-sm">
-              <img :src="i.avatarUrl" alt="" class="mr-2 w-10 h-10 rounded-full">
-              <span>{{ i.nickname }}<span class="text-blue-500 inline-block m-2">回复</span>{{ i.nickname }}</span>
-              <span class="text-xs inline-block ml-2">{{ formatCommentTime(i.commentTime) }}</span>
-            </p>
-            <div class="px-12">
-              <p class="text-0a1" v-html="i.comment"></p>
-              <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-              <div class="w-1/3 md:w-28 flex justify-between" >
-                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
-                <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
-                <Icon type="message" title="评论" class="hover:text-blue-400 cursor-pointer" />
-              </div>
-              <!-- $set给没再data中定义的数据添加响应式 -->
-              <div class="relative cursor-pointer" @click="() => {
-                if (deleteVisi.r == index) {
-                  deleteVisi.r = null
-                  return
-                }
-                $set(deleteVisi, 'r', index)
-              }">
-                <Icon type="more" />
-                <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == index"
-                  class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
-                  <Icon type="delete" />
+           <div style="background:#f7f8fc">
+              <div v-for="(reply,index) in i.replyContent" :key="index" class="mt-3 pl-10 relative ">
+                <div class=" px-2" >
+                  <div class=" absolute left-0">
+                      <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
+                  </div>
+                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}</span></p>
+                  <p class="text-0a1" v-html="formatComment(reply.content)"></p>
+                  <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
+                    <div class="w-5/6 md:w-52 flex justify-between" >
+                      <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
+                      <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
+                      <!-- <Icon type="message" :title="'回复'+reply.nickname" class="hover:text-blue-400 cursor-pointer" /> -->
+                      <span
+                      class="text-xs inline-block ml-2">{{ formatCommentTime(reply.commentTime) }}</span>
+                    </div>
+                    <!-- $set给没再data中定义的数据添加响应式 -->
+                    <div class="relative cursor-pointer" @click="() => {
+                      if (deleteVisi.r == reply.commentId) {
+                        deleteVisi.r = null
+                        return
+                      }
+                      $set(deleteVisi, 'r', reply.commentId)
+                    }">
+                      <Icon type="more" />
+                      <div @click='deleteComment(i.userId, reply.commentId,reply.userId)' v-if="deleteVisi.r == reply.commentId"
+                        class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                        <Icon type="delete" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+           </div>
+          <div v-if="showreplyInput==i.commentId" class="animate__animated animate__lightSpeedInRight">
+              <input type="text" inputcentent v-model="replyContent" placeholder="请开始你的表演"  class="focus:outline-none focus:ring-2 focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block mt-3"/>
+              <div class="w-full flex justify-between items-center m-2">
+                <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+                <Icon type='smile' class='mr-1' />
+                <span>表情</span>
+              </div>
+                <button @click="toReply(i.userId,i.commentId)" class="py-1 px-5 border-none rounded text-white text-sm" style="background:#00c3ff">评论</button>
+              </div>
             </div>
-            </div>
-            </div>
-          </div>
+        </div>
         </div>
       </section>
       <!-- 无评论时 -->
@@ -293,7 +305,7 @@
 <script>
 import { Tooltip, Icon, Empty } from "ant-design-vue";
 import QRCode from 'qrcodejs2'
-import { putComment, getComment, deleteComment, changeLike } from '../../api/comment'
+import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
 export default {
   name: "article_detail",
@@ -310,7 +322,7 @@ export default {
       comment: [],
       tip: "您时刻都在关注您自己！😁",
       count: 0,
-      commentContent: '',//内容
+      commentContent: '',//评论文章内容
       showexpression: false,//小表情展示框判断变量
       BiLiEmaili: 'Default/default0',//表情地址
       BiLiEmailTotal: 80,//该系列表情数量,
@@ -324,10 +336,35 @@ export default {
         unlike: false,
         collection: false
       },
-      special: false //点赞特效
+      special: false, //点赞特效
+      showreplyInput:'',
+      replyContent:'',//回复内容
+      inputType:1, //判断小表情输入框
+      expressionLeft:0,
+      expressionTop:0
     };
   },
   methods: {
+    smallExpression(type,e){
+      this.showexpression = true
+      e.stopPropagation();
+      type == 2 ? this.inputType = 2 : this.inputType = 1
+      console.log(e.clientX,e.clientY);
+      this.$nextTick(()=>{
+        this.expressionLeft = e.clientX
+        this.expressionTop = e.clientY
+      })
+      return false
+    },
+    // 回复评论
+    async toReply(BerepliederId,BecommentId){//BecommentId被回复内容Id，BerepliederId被评论作者Id
+      console.log(this.$route.params.id,this.$store.state.userInfo.userInfo.id,BerepliederId,BecommentId,this.replyContent);
+      if(!this.replyContent) return
+      const req = {article_id:this.$route.params.id,userId:this.$store.state.userInfo.userInfo.id,BerepliederId,BecommentId,replyContent:this.replyContent}
+      await releaseReply(req)
+      this.replyContent = ''
+      this.getComments({article_id:this.$route.params.id})
+    },
     async likeIt() {
       if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
         this.noLogin()
@@ -339,7 +376,7 @@ export default {
         clearTimeout(this.specialTimer)
         this.specialTimer = setTimeout(() => {
           this.special = false
-        }, 1000)
+        }, 2000)
       }
       else if (!this.like.like && this.like.unlike) {
         this.like.like = true
@@ -349,10 +386,10 @@ export default {
         this.like.like = false
       }
       await changeLike({
-        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id: this.$route.params.id,
         userId: this.$store.state.userInfo.userInfo.id,
-        ...this.like
+        like:this.like.like,
+        unlike:this.like.unlike
       })
     },
     async unlikeIt() {
@@ -370,11 +407,12 @@ export default {
       else {
         this.like.unlike = false
       }
+      delete
       await changeLike({
-        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id: this.$route.params.id,
         userId: this.$store.state.userInfo.userInfo.id,
-        ...this.like
+        like:this.like.like,
+        unlike:this.like.unlike
       })
     },
     async collectionIt() {
@@ -383,11 +421,10 @@ export default {
         return
       }
       this.like.collection = !this.like.collection
-      await changeLike({
-        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
+      await changeCollection({
         article_id: this.$route.params.id,
         userId: this.$store.state.userInfo.userInfo.id,
-        ...this.like
+        collection:this.like.collection
       })
     },
     shareSpace(val) {
@@ -442,12 +479,12 @@ export default {
       return comment
     },
     formatCommentTime(commentTime) {
-      if (commentTime.indexOf('AM') > -1) {
-        commentTime = commentTime.replace('AM', '')
-      } else {
-        commentTime = new Date(Date.parse(commentTime)).toLocaleString()
-      }
-      return commentTime
+      // if (commentTime.indexOf('AM') > -1) {
+      //   commentTime = commentTime.replace('AM', '')
+      // } else {
+      //   commentTime = new Date(Date.parse(commentTime)).toLocaleString()
+      // }
+      return new Date(commentTime).toLocaleString()
     },
     followsAuthor() {
       this.count++;
@@ -460,7 +497,7 @@ export default {
     },
     // 输入表情处理
     inputexpression(expression_val) {
-      this.commentContent += '@' + expression_val + '!'
+      this.inputType == 1 ? this.commentContent += '@' + expression_val + '!' :  this.replyContent += '@' + expression_val + '!'
     },
     //发布评论
     PutComment() {
@@ -468,66 +505,71 @@ export default {
         this.noLogin()
         return
       }
-      if (!this.commentContent) {
-        this.is_commentContent = true
-        return
-      }
+      if (!this.commentContent && (this.is_commentContent = true)) return
       this.sendtext = false
       let req = {
-        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id: this.$route.params.id,
         userId: this.$store.state.userInfo.userInfo.id,
         comment: this.commentContent,
       }
       this.is_commentContent = false
       this.commentContent = ''
-      putComment(req).then(async () => {
-        this.miniMessage('评论成功🥰', 'success')
-        delete req.comment
-        // 更新评论
-        this.getComments(req)
-        this.sendtext = true
+      putComment(req).then(async (res) => {
+        if(res.data.code == 200 ){
+          this.miniMessage(res.data.msg, 'success')
+          delete req.comment
+          delete req.userId
+          // 更新评论
+          this.getComments(req)
+          this.sendtext = true
+        }else{
+          this.miniMessage(res.data.msg, 'error')
+        }
       })
     },
     // 获取最新评论
     async getComments(req) {
+      this.showreplyInput = ''
+      this.replyContent = ''
+      this.commentContent = ''
       const res = await getComment(req)
       let arr = []
       res.data.commenter.forEach(i => {
         for (let index = 0; index < i.comment.length; index++) {
           const comment = this.formatComment(i.comment[index].content)
-          const { commentTime, commentId } = i.comment[index]
-          arr.push({ comment, userId: i.userId, avatarUrl: i.avatarUrl, nickname: i.nickname, commentTime, commentId })
+          const { commentTime, commentId,replyContent } = i.comment[index]
+          arr.push({ comment, userId: i.userId, avatarUrl: i.avatarUrl, nickname: i.nickname, commentTime, commentId,replyContent })
           arr.sort((a, b) => {
-            return Date.parse(b.commentTime) - Date.parse(a.commentTime)
+            return b.commentTime - a.commentTime
           })
         }
       })
       this.comment = arr
     },
     // 删除评论
-    async deleteComment(userId, commentId) {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
+    async deleteComment(userId, commentId,replyUserId) {
+      const id =  JSON.parse(localStorage.getItem('userInfo')).id
+      if (!id) {// 未登录
         this.noLogin()
         return
       }
-      if (userId !== JSON.parse(localStorage.getItem('userInfo')).id) {
+      if (userId !== id && replyUserId !== id) {
         this.miniMessage("<div class='text-sm'>你不能删除这条评论！</div>", 'error')
         return
       }
       let req = {
-        uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
         article_id: this.$route.params.id,
         userId,
         commentId
       }
-      await deleteComment(req)
+      const res = await deleteComment(req)
+      res.data.code == 200 &&  this.miniMessage('删除成功👌', 'success');
       this.getComments(req)
-      this.miniMessage('删除成功👌', 'success')
     },
   },
   async created() {
     this.$store.commit('change_isfixed', 0)
+      this.$store.commit('change_show_header',true)
     // if(this.$route.params.content){
     //   this.article = this.$route.params
     // }
@@ -536,25 +578,28 @@ export default {
     // }else{
     // 分享时无缓存，读指定某条文章内容
     const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
-    this.article = res.data.article
-    // }
-    try {
-      let { like, unlike, collection } = this.article.commenter.find(i => i.userId == this.$store.state.userInfo.userInfo.id)
-      this.like.like = like; this.like.unlike = unlike; this.like.collection = collection
-    } catch (error) { error }
-    localStorage.setItem("article_details", JSON.stringify(this.article));
-    const req = {
-      uper: this.$route.params.userId ? this.$route.params.userId : JSON.parse(localStorage.getItem('article_details')).userId,
-      article_id: this.$route.params.id,
+    function escape2Html(str) {
+             var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
     }
-    this.getComments(req)
-
+    // console.log(escape2Html());
+    this.article = res.data
+    this.article.content = escape2Html(this.article.content)
+    // }
+    // try {
+      //   let { like, unlike, collection } = this.article.commenter.find(i => i.userId == this.$store.state.userInfo.userInfo.id)
+    //   this.like.like = like; this.like.unlike = unlike; this.like.collection = collection
+    // } catch (error) { error }
+    localStorage.setItem("article_details", JSON.stringify(this.article));
+    this.getComments({article_id: this.$route.params.id,})
+    getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
+      const {like_art,unlike_art,collection_art} = res1.data.result
+      this.like.like = JSON.parse(like_art).includes(this.$route.fullPath.split('/')[2])
+      this.like.unlike = JSON.parse(unlike_art).includes(this.$route.fullPath.split('/')[2])
+      this.like.collection = JSON.parse(collection_art).includes(this.$route.fullPath.split('/')[2])
+    })
     //页面标题为文章标题
     document.title = this.article.article_title
-  },
-  mounted() {
-
-
   },
   watch: {
     article(newval) {
@@ -694,11 +739,11 @@ pre {
 }
 
 
-input {
+input[inputcentent] {
   transition: 0.5s;
 }
 
-input:focus {
+input[inputcentent]:focus {
   height: 60px;
 }
 

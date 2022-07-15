@@ -309,7 +309,7 @@ export default {
     //上下滚动时的具体处理函数
     const handle = (delta) => {
       if (this.$store.state.is_phone) return;
-      if (this.$route.path !== "/home") return;
+      // if (this.$route.path !== "/home") return;
       if (delta < 0) {
         //向下滚动
         if (this.scrolltop > 200) {

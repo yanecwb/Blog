@@ -21,7 +21,7 @@ export const getSide_list = ()=>{
 export const Get_Article_Content = (article_id)=>{
   return axios ({
     method:'get',
-    url:'/node_api/get_article_content',
+    url:'/node_api/articleCRUD/get_article_content',
     params:{
       article_id
     }
@@ -29,12 +29,13 @@ export const Get_Article_Content = (article_id)=>{
 }
 
 // 读取某个模块文章列表
-export const Get_Article_ModuleList = (module)=>{
+export const Get_Article_ModuleList = (module,current)=>{
   return axios ({
     method:'get',
-    url:'/node_api/get_article_moduleList',
+    url:'/node_api/articleCRUD/get_article_moduleList',
     params:{
-      module
+      module,
+      current
     }
   })
 }
