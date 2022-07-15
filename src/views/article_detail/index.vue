@@ -220,7 +220,7 @@
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
             <p class="text-sm"><span class="text-blue-500 font-bold">{{ i.nickname }}</span><span
-                class="text-xs inline-block ml-2">{{ formatCommentTime(i.commentTime) }}</span></p>
+                class="text-xs inline-block ml-2">{{ format_publishTime(i.commentTime) }}</span></p>
             <p class="text-0a1" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between" >
@@ -258,7 +258,7 @@
                       <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
                       <!-- <Icon type="message" :title="'回复'+reply.nickname" class="hover:text-blue-400 cursor-pointer" /> -->
                       <span
-                      class="text-xs inline-block ml-2">{{ formatCommentTime(reply.commentTime) }}</span>
+                      class="text-xs inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span>
                     </div>
                     <!-- $set给没再data中定义的数据添加响应式 -->
                     <div class="relative cursor-pointer" @click="() => {
@@ -358,12 +358,15 @@ export default {
     },
     // 回复评论
     async toReply(BerepliederId,BecommentId){//BecommentId被回复内容Id，BerepliederId被评论作者Id
-      console.log(this.$route.params.id,this.$store.state.userInfo.userInfo.id,BerepliederId,BecommentId,this.replyContent);
       if(!this.replyContent) return
       const req = {article_id:this.$route.params.id,userId:this.$store.state.userInfo.userInfo.id,BerepliederId,BecommentId,replyContent:this.replyContent}
-      await releaseReply(req)
-      this.replyContent = ''
-      this.getComments({article_id:this.$route.params.id})
+      releaseReply(req).then((res)=>{
+        if(res.data.code == 200){
+          this.miniMessage(res.data.msg,'success')
+          this.replyContent = ''
+          this.getComments({article_id:this.$route.params.id})
+        }
+      })
     },
     async likeIt() {
       if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
