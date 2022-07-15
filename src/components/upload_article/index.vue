@@ -128,19 +128,21 @@
             :before-upload="beforeUpload"
             @change="handleChange"
           >
-            <img
+            <div v-if="base_info.coverUrl">
+              <img
               class="w-36 h-24"
-              v-if="base_info.coverUrl"
               :src="base_info.coverUrl"
               alt="avatar"
             />
+            <span class="absolute -top-2 right-0 text-base" @click='deleteCoverUrl' title="删除">x</span>
+            </div>
+
             <div v-else>
               <Icon :type="loading ? 'loading' : 'plus'" />
               <div class="ant-upload-text">Upload</div>
             </div>
           </Upload>
         </div>
-        <a @click="base_info.coverUrl = ''">不要封面</a>
       </div>
     </Modal>
   </div>
@@ -206,6 +208,10 @@ export default {
     };
   },
   methods: {
+    deleteCoverUrl(){
+      deleteImg([this.base_info.coverUrl.slice(34,66)])
+      this.base_info.coverUrl = ''
+    },
     // 取消Modal
     modal_close() {
       this.modal_visible = false;
@@ -330,7 +336,7 @@ export default {
         const existImg = this.imageList2.indexOf(item);
         if (existImg < 0) {
           //不存在
-          arr.push(item.slice(30, 66));
+          arr.push(item.slice(34, 66));
         }
       });
       return arr
@@ -484,6 +490,9 @@ export default {
 </script>
 
 <style lang="less">
+.ant-upload{
+  position: relative;
+}
 /* From uiverse.io by @adamgiebl */
 @font-face {
   font-family: firaCode;
