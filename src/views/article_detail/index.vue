@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-aotu" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
+  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
     <iframe frameborder="0" scrolling="no" src="http://47.107.243.60:5005/colokBanner.html" class="w-full"
       height="800px"></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
@@ -112,7 +112,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="pl-2 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
+      <div v-html="article.content" class="pl-4 pr-2 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
       <div class="w-full flex justify-between">
         <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">

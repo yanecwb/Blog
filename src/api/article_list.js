@@ -1,11 +1,10 @@
 // import request from "../utils/request";
 import axios from 'axios'
 // 首页文章列表
-export const getArticle_list = (data)=>{
+export const getArticle_list = ()=>{
     return axios({
         method:'get',
-        url:`/node_api/article_list`,
-        params:{...data}
+        url:`/node_api/articleCRUD/article_list`,
     })
 }
 
@@ -14,6 +13,14 @@ export const getSide_list = ()=>{
   return axios ({
     methods:'get',
     url:"/node_api/side_list"
+  })
+}
+// 搜索文章
+export const serach_article = (params)=>{
+  return axios({
+    methods:'get',
+    url:'/node_api/articleCRUD/search_article',
+    params
   })
 }
 

@@ -33,6 +33,7 @@
         <div class="w-3/5 text-white text-center font-bold" >
           <p>1.如果文章有图片请务必点击图片选择图片百分比大小，不要自定义。否则可能出现超出显示区的情况</p>
           <p>2.不要上传视频，必须上传时可将视屏给我，我把链接地址发你（懒得写视频的上传配置了😳）</p>
+          <p>3.不要使用尖括号'<'或者'>',不然就锤你👊</p>
         </div>
         <button class="sendBtn" @click="uploadArticle">
           <div class="svg-wrapper-1">

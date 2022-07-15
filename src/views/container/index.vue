@@ -50,54 +50,51 @@
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
-                  <Icon type="calendar" />March 14, 2020
+                  <Icon type="calendar" />{{format_publishTime(selectedArticle.publish_time)}}
                 </span>
                 <span>
-                  <Icon type="message" />099
+                  <Icon type="message" />{{selectedArticle.commentCount}}
                 </span>
               </div>
               <div class="article_left_hot_content_title">
-                <h2>Nest Protect: 2nd Gen Smoke + CO Alarm</h2>
+                <h2>{{selectedArticle.article_title}}</h2>
               </div>
               <div class="article_left_hot_content_content">
-                <p style="font-family: 'Gabriola'; font-size: 20px">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip.
+                <p style="font-family: 'Gabriola'; font-size: 15px">
+                  {{selectedArticle.article_introduction}}
                 </p>
               </div>
               <div
-                class="readmore_btn">
+                class="readmore_btn" @click="goRouter(`/article_detail/${selectedArticle.id}`)">
                 Read More</div>
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
             <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id" ref="article_left_natural">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
-              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(' + item.imgUrl + ')' }"></div>
+              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(http://47.107.243.60:5005/img/home_img/' + article_listBg[index] + ')' }"></div>
               <div class=" bg-white py-4 px-8 w-full relative bottom-5">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
                   <span>
                     <Icon type="calendar" />
-                    {{ item.date }}
+                    {{ format_publishTime(item.publish_time) }}
                   </span>
                   <span>
                     <Icon type="message" />
-                    {{ item.read_count }}
+                    {{ item.commentCount }}
                   </span>
                 </div>
                 <div class="article_left_natural_content_title">
-                  <h3 class="m-0">{{ item.title }}</h3>
+                  <h3 class="m-0">{{ item.article_title }}</h3>
                 </div>
                 <div class="article_left_natural_content_content">
                   <p style="font-family: 'Gabriola'; font-size: 12px">
-                    {{ item.synopsis }}
+                    {{ item.article_introduction }}
                   </p>
                 </div>
-                <div
-                  class="readmore_btn">
+                <div  @click="goRouter(`/article_detail/${item.id}`)"
+                  class="readmore_btn" >
                   Read More</div>
               </div>
               </div>
@@ -110,9 +107,9 @@
             <span class="text-black">NewsLetter</span>
           </div>
           <div class="flex items-center  justify-center">
-            <input type="text" placeholder="search more"  class="w-56 p-3 box-border h-8 outline-none block_border border-r-0 font-serif"/>
-            <div class="search_icon h-8 text-center inline-block border-l-0 cursor-pointer" title="搜索文章">
-              <Icon type="search" />
+            <input type="text"  v-model="serachText" placeholder="search more"  class="w-56 p-3 box-border h-8 outline-none block_border border-r-0 font-serif"/>
+            <div  class="search_icon h-8 text-center inline-block border-l-0 cursor-pointer" title="搜索文章">
+              <Icon type="search" @click="SearchArticle"/>
             </div>
           </div>
           <div class="list_ul mt-5 flex justify-center w-full">
@@ -140,18 +137,25 @@ import { Icon } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
 
 // api
-import { getArticle_list, getSide_list } from "../../api/article_list";
+import { getArticle_list, getSide_list,serach_article } from "../../api/article_list";
 export default {
   name: "container",
   data() {
     return {
       article_list: [],
       side_list: [],
-      current: 1,
-      size: 6,
-      total: 0,
       arr:[],
-      hotUrl:''
+      hotUrl:'',
+      article_listBg:[
+        '031ab8a623a963f0002c3290f17ce00.jpg520w_390h_1c_1e_2o_100sh.jpg',
+        '0317981623fc7660002c4212c6f0166.jpg520w_390h_1c_1e_2o_100sh.jpg',
+        '01e11062427f6b0002c4212ceee019.jpg520w_390h_1c_1e_2o_100sh.jpg',
+        '01d1fa623c5a920002c3290fef58ff.jpg520w_390h_1c_1e_2o_100sh.jpg',
+        '015a5e621d330a11013f01cda0ced0.jpg520w_390h_1c_1e_2o_100sh.jpg',
+        '0106b2624121050002c4212c00bd01.jpg520w_390h_1c_1e_2o_100sh.jpg'
+      ],
+      selectedArticle:{},
+      serachText:''
     };
   },
   components: {
@@ -159,15 +163,33 @@ export default {
     Bgcanvas
   },
   methods: {
+    SearchArticle(){
+      serach_article({serachText:this.serachText}).then((res)=>{
+        console.log(res);
+      })
+    },
     current_Change(current) {
       this.current = current
       this.get_article_list()
     },
     async get_article_list() {
-      const { current, size } = this
-      const res = await getArticle_list({ current, size });
-      this.article_list = res.data.list;
-      this.total = res.data.total;
+      const res = await getArticle_list();
+      this.selectedArticle = res.data.result.splice(3,1)[0];
+      this.article_list = res.data.result
+      this.article_list = res.data.result.map(item=>{
+          let commentCount = 0 //文章评论量
+          item.commenter = JSON.parse(item.commenter)
+          if(item.commenter && item.commenter.length > 0){
+            item.commenter.forEach(i=>{
+              // i.like ? like++ : ''
+              commentCount += i.comment.length
+            })
+          }
+          return {
+            ...item,
+            commentCount,
+          }
+        })
       const res2 = await getSide_list();
       this.side_list = res2.data.list;
     },
@@ -175,20 +197,20 @@ export default {
       let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
         if (newval >= 750) {
           if(this.arr.indexOf(1)<0) {
-            this.arr.push(1) 
-            this.arr.push(2) 
+            this.arr.push(1)
+            this.arr.push(2)
           }
         }
         if (newval >= 1200) {
           if(this.arr.indexOf(3)<0) {
-            this.arr.push(3) 
-            this.arr.push(4) 
+            this.arr.push(3)
+            this.arr.push(4)
           }
         }
         if (newval >= 1600) {
           if(this.arr.indexOf(5)<0) {
-            this.arr.push(5) 
-            this.arr.push(6) 
+            this.arr.push(5)
+            this.arr.push(6)
           }
         }
         if (newval > 2100) {

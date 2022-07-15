@@ -36,7 +36,7 @@ let mixin = {
       if(publish_time > null_dian){//说明明是今天发布的
         const time = (now - publish_time)/1000/60
         if( time >= 60){
-          return time % 60 + ' 小时前'
+          return parseInt(time % 60) + ' 小时前'
         }else{
           return parseInt(time)  + ' 分钟前'
         }
