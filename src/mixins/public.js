@@ -34,11 +34,11 @@ let mixin = {
         return '刚刚'
       }
       if(publish_time > null_dian){//说明明是今天发布的
-        const time = (now - publish_time)/1000/60
-        if( time >= 60){
-          return parseInt(time % 60) + ' 小时前'
+        const time = (now - publish_time)/1000/3600
+        if( time >= 1){
+          return parseInt(time) + ' 小时前'
         }else{
-          return parseInt(time)  + ' 分钟前'
+          return parseInt(time*60)  + ' 分钟前'
         }
       }else{
         if(null_dian - publish_time < 86400000){

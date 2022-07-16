@@ -221,9 +221,9 @@ export default {
       if(!registerTime) return ''
       const Timediff = parseInt(new Date().getTime()) - registerTime
       if(Timediff<31536000000){
-        return parseInt(Timediff/2592000)+'个月'
+        return parseInt(Timediff/2592000000)+'个月'
       }else{
-        return parseInt(Timediff/31536000)+'年'
+        return parseInt(Timediff/31104000000)+'年'
       }
     },
     // 更换图片handler

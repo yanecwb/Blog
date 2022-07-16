@@ -244,8 +244,8 @@
               </div>
             </div>
             <!-- 回复区 -->
-           <div style="background:#f7f8fc">
-              <div v-for="(reply,index) in i.replyContent" :key="index" class="mt-3 pl-10 relative ">
+           <div style="background:#f7f8fc" class="rounded-xl">
+              <div v-for="(reply,index) in i.replyContent" :key="index" class="m-3 pl-10 pt-3 pb-1 relative">
                 <div class=" px-2" >
                   <div class=" absolute left-0">
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">

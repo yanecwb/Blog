@@ -45,7 +45,7 @@ module.exports = {
     },
     proxy: {
       "/node_api": {
-        target: "http://192.168.2.109:5005",
+        target: "http://flechazoblog.site:5006",
         ws: true,
         secure: false,
         changeOrigin: true,
