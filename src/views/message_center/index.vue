@@ -14,22 +14,41 @@
         <div class="w-full h-12 flex items-center bg-white rounded-md pl-5 mx-auto mt-3">
           {{messageModule}}
         </div>
+        <div class="mt-10 w-full bg-white rounded-md pl-5 mx-auto">
+          <input type="text"  v-model="websocketmsg">
+          <button @click="sendwebsocketmsg">发送消息</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+var ws = new WebSocket("ws://127.0.0.1:3000");
+ws.onopen = function(){
+	  // Web Socket 已连接上，在页面中显示消息
+	 console.log("当前客户端已经连接到websocket服务器");
+};
 import {ref} from 'vue'
 export default {
   name: "Message_center",
   setup(){
     let messageModule = ref('回复我的')
+    let websocketmsg = ref('')
     const changeMessageM = (e)=>{
       messageModule.value = e.target.innerText
     }
+    const sendwebsocketmsg = ()=>{
+      console.log(websocketmsg.value);
+		  ws.send(websocketmsg.value);
+    }
+    ws.onmessage = function (evt) { 
+	    console.log(evt.data);
+	  };
     return {
       messageModule,
-      changeMessageM
+      websocketmsg,
+      changeMessageM,
+      sendwebsocketmsg
     }
   },
   created(){
