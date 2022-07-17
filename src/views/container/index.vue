@@ -56,7 +56,7 @@
                   <Icon type="message" />{{selectedArticle.commentCount}}
                 </span>
               </div>
-              <div class="article_left_hot_content_title">
+              <div class="article_left_hot_content_title mb-5">
                 <h2>{{selectedArticle.article_title}}</h2>
               </div>
               <div class="article_left_hot_content_content">
@@ -107,9 +107,9 @@
             <span class="text-black">NewsLetter</span>
           </div>
           <div class="flex items-center  justify-center">
-            <input type="text"  v-model="serachText" placeholder="search more"  class="w-56 p-3 box-border h-8 outline-none block_border border-r-0 font-serif"/>
-            <div  class="search_icon h-8 text-center inline-block border-l-0 cursor-pointer" title="搜索文章">
-              <Icon type="search" @click="SearchArticle"/>
+            <input type="text"  v-model="serachText" placeholder="search more for title"  class="w-56 p-3 box-border h-8 outline-none block_border  font-serif " style="border-right: 0;"/>
+            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer " title="搜索文章">
+              <Icon type="search" />
             </div>
           </div>
           <div class="list_ul mt-5 flex justify-center w-full">
@@ -164,6 +164,10 @@ export default {
   },
   methods: {
     SearchArticle(){
+      if(!this.serachText){
+        this.miniMessage('请输入搜索内容','warning')
+        return 
+      } 
       serach_article({serachText:this.serachText}).then((res)=>{
         console.log(res);
       })
@@ -271,7 +275,7 @@ export default {
 
 .search_icon {
   width: 50px;
-  line-height: 30px;
+  line-height: 22px;
   border: 1px solid #e9e9e9;
   color: #777777;
   transition: 0.5s;

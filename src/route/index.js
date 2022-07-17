@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article} from './router-path.js'
+import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center} from './router-path.js'
 
 Vue.use(VueRouter);
 const routes = [
@@ -51,6 +51,14 @@ const routes = [
       component:Upload_article,
       meta:{
         title:'写博客'
+      }
+    },
+    {
+      path:'/message_center/:id?',
+      name:'message_center',
+      component:Message_center,
+      meta:{
+        title:'消息中心'
       }
     }
 ];

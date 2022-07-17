@@ -113,7 +113,7 @@
         </Tooltip>
       </div>
       <div v-html="article.content" class="md:px-10 px-1 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
-      <div class="w-full flex justify-between">
+      <div class="w-full flex justify-between items-center">
         <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
             <svg v-if="special" t="1657294617925"
@@ -141,16 +141,16 @@
               class="cursor-pointer iconfont icon-shoucang1  text-xl md:text-2xl hvr-grow-shadow"
               :style="{color:like.collection ? '#ff7700' : '#e3dddd'}"></i></div>
         </div>
-        <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)"
-          v-if="article.userId == $store.state.userInfo.userInfo.id">
-          <svg t="1657293342548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <!-- <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)" -->
+          <!-- v-if="article.userId == $store.state.userInfo.userInfo.id"> -->
+          <svg title="修改博客" v-if="article.userId == $store.state.userInfo.userInfo.id" t="1657293342548" class="icon cursor-pointer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
             p-id="2250" width="18" height="18">
             <path
               d="M652.4 156.6125a112.5 112.5 0 1 1 155.925 161.15625L731.375 394.71875 572.3 235.5875l79.5375-79.5375 0.5625 0.5625zM333.63125 792.40625v0.1125H174.5v-159.1875l358.03125-357.975 159.075 159.13125-357.975 357.91875zM62 849.5h900v112.5H62v-112.5z"
               fill="#7e97b8" p-id="2251"></path>
           </svg>
-          修改博客
-        </button>
+          <!-- 修改博客 -->
+        <!-- </button> -->
       </div>
     </div>
     <!-- 评论区 -->
