@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
+  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
     <iframe frameborder="0" scrolling="no" src="http://47.107.243.60:5005/colokBanner.html" class="w-full"
       height="800px"></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
@@ -155,7 +155,7 @@
     </div>
     <!-- 评论区 -->
     <aside
-      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mb-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
         <span class=" cursor-pointer">
@@ -221,7 +221,7 @@
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
             <p class="text-sm"><span class="text-blue-500 font-bold">{{ i.nickname }}</span><span
                 class="text-xs inline-block ml-2">{{ format_publishTime(i.commentTime) }}</span></p>
-            <p class="text-0a1" v-html="i.comment"></p>
+            <p class="text-0a1 py-3" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
               <div class="w-1/3 md:w-28 flex justify-between" >
                 <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
@@ -251,9 +251,9 @@
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
                   </div>
                   <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}</span></p>
-                  <p class="text-0a1" v-html="formatComment(reply.content)"></p>
+                  <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>
                   <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-                    <div class="w-5/6 md:w-52 flex justify-between" >
+                    <div class="w-5/6 md:w-36 flex justify-between" >
                       <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
                       <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
                       <!-- <Icon type="message" :title="'回复'+reply.nickname" class="hover:text-blue-400 cursor-pointer" /> -->
@@ -358,6 +358,10 @@ export default {
     },
     // 回复评论
     async toReply(BerepliederId,BecommentId){//BecommentId被回复内容Id，BerepliederId被评论作者Id
+      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
+        this.noLogin()
+        return
+      }
       if(!this.replyContent) return
       const req = {article_id:this.$route.params.id,userId:this.$store.state.userInfo.userInfo.id,BerepliederId,BecommentId,replyContent:this.replyContent}
       releaseReply(req).then((res)=>{
@@ -369,7 +373,7 @@ export default {
       })
     },
     async likeIt() {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
+      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
         this.noLogin()
         return
       }
@@ -396,7 +400,7 @@ export default {
       })
     },
     async unlikeIt() {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
+      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
         this.noLogin()
         return
       }
@@ -419,7 +423,7 @@ export default {
       })
     },
     async collectionIt() {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
+      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
         this.noLogin()
         return
       }
@@ -504,7 +508,7 @@ export default {
     },
     //发布评论
     PutComment() {
-      if (!JSON.parse(localStorage.getItem("userInfo")).id) {// 未登录
+      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
         this.noLogin()
         return
       }

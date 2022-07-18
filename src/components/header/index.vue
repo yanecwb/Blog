@@ -15,7 +15,7 @@
             <li name="android" @click="goRouter('/content/android')">web3.0</li>
             <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
             <li name="article" @click="go_up_article()">
-              写文章
+              投稿
               <Icon
                 type="edit"
                 style="font-size: 14px"
