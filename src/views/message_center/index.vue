@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen overflow-hidden h-screen min-h-300 bg-cover bg-center" style="background-image: url(https://initiate.alphacoders.com/images/695/cropped-1920-1080-69561.jpg?3701); background-repeat: no-repeat;">
+  <div class="w-screen overflow-hidden h-screen min-h-300 bg-cover bg-center" style="background-image: url(http://47.107.243.60:5005/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg); background-repeat: no-repeat;">
     <div  class=" w-300 h-full mx-auto flex justify-between">
       <div class=" w-1/6 h-full mr-5" style="background-color: rgba(255,255,255,.7);">
         <ul class=" list-none text-center flex flex-col justify-between" style="color: #6b757b;" @click="changeMessageM">
@@ -17,16 +17,28 @@
         <div class="mt-10 w-full bg-white rounded-md pl-5 mx-auto">
           <input type="text"  v-model="websocketmsg">
           <button @click="sendwebsocketmsg">发送消息</button>
+          <button @click="closewebsocket">关闭连接</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-var ws = new WebSocket("ws://127.0.0.1:3000");
+var ws = new WebSocket("ws://127.0.0.1:3000/?userId="+123);
+
+// 只读属性 readyState 表示连接状态，可以是以下值：
+
+// 0 - 表示连接尚未建立。
+
+// 1 - 表示连接已建立，可以进行通信。
+
+// 2 - 表示连接正在进行关闭。
+
+// 3 - 表示连接已经关闭或者连接不能打开。
 ws.onopen = function(){
-	  // Web Socket 已连接上，在页面中显示消息
-	 console.log("当前客户端已经连接到websocket服务器");
+  console.log(ws.readyState);
+	// Web Socket 已连接上，在页面中显示消息
+	console.log("当前客户端已经连接到websocket服务器");
 };
 import {ref} from 'vue'
 export default {
@@ -39,16 +51,21 @@ export default {
     }
     const sendwebsocketmsg = ()=>{
       console.log(websocketmsg.value);
-		  ws.send(websocketmsg.value);
+      ws.send(websocketmsg.value);
     }
-    ws.onmessage = function (evt) { 
-	    console.log(evt.data);
-	  };
+    ws.onmessage = function (evt) {
+      console.log(evt.data);
+    };
+    const closewebsocket=()=>{
+      console.log("当前客户端已经关闭连接到websocket服务器");
+      ws.close()
+    }
     return {
       messageModule,
       websocketmsg,
       changeMessageM,
-      sendwebsocketmsg
+      sendwebsocketmsg,
+      closewebsocket
     }
   },
   created(){

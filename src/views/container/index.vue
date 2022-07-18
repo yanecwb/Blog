@@ -106,9 +106,14 @@
             <h1 class="m-0 text-blue-600">——</h1>
             <span class="text-black">NewsLetter</span>
           </div>
-          <div class="flex items-center  justify-center">
-            <input type="text"  v-model="serachText" placeholder="search more for title"  class="w-56 p-3 box-border h-8 outline-none block_border  font-serif " style="border-right: 0;"/>
-            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer " title="搜索文章">
+          <div class="flex items-center  justify-center ">
+             <div class="w-56">
+              <input type="text"  v-model="serachText" placeholder="search more for title"  class="w-full p-3 box-border h-8 outline-none block_border  font-serif " style="border-right: 0;"/>
+              <ul class=" absolute block_border w-56" style="border-top:none">
+                <li class="bg-white hover:bg-indigo-50 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" @click="goRouter(`/article_detail/${i.id}`)" :title="i.article_title">{{i.article_title}}</li>
+              </ul>
+            </div>
+            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer" title="搜索文章">
               <Icon type="search" />
             </div>
           </div>
@@ -155,7 +160,8 @@ export default {
         '0106b2624121050002c4212c00bd01.jpg520w_390h_1c_1e_2o_100sh.jpg'
       ],
       selectedArticle:{},
-      serachText:''
+      serachText:'',
+      searchArticle:[]
     };
   },
   components: {
@@ -166,10 +172,10 @@ export default {
     SearchArticle(){
       if(!this.serachText){
         this.miniMessage('请输入搜索内容','warning')
-        return 
-      } 
+        return
+      }
       serach_article({serachText:this.serachText}).then((res)=>{
-        console.log(res);
+        this.searchArticle = res.data.result
       })
     },
     current_Change(current) {
@@ -223,6 +229,13 @@ export default {
       });
     },
   },
+  watch:{
+    serachText(newVal){
+      if(!newVal){
+        this.searchArticle = []
+      }
+    }
+  },
   computed: {
     scrolltop() {
       return this.$store.state.scroll.scrollTop;
@@ -275,15 +288,11 @@ export default {
 
 .search_icon {
   width: 50px;
-  line-height: 22px;
+  line-height: 32px;
   border: 1px solid #e9e9e9;
-  color: #777777;
-  transition: 0.5s;
-}
-
-.search_icon:hover {
-  background-color: #6f6fff;
   color: white;
+  transition: 0.5s;
+  background-color: #6f6fff;
 }
 
 

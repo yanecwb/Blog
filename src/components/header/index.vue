@@ -26,9 +26,9 @@
           <div class=" flex justify-between items-center">
            <div @click="change_showmenu" :class="playMusic ? 'animate-spin' : ''" class='cursor-pointer w-10 h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg)'">
            </div>
-           <router-link to="/message_center" class="text-white" target="_Blank">
-              <div class="flex flex-col justify-between items-center mx-2 hvr-grow-shadow message">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="right-entry-icon">
+           <router-link to="/message_center" target="_Blank" class="hvr-icon-up">
+              <div class="flex flex-col justify-between items-center mx-2 text-white  message">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="right-entry-icon fa fa-arrow-circle-o-up hvr-icon">
                 <path d="M15.435 17.7717H4.567C2.60143 17.7717 1 16.1723 1 14.2047V5.76702C1 3.80144 2.59942 2.20001 4.567 2.20001H15.433C17.3986 2.20001 19 3.79943 19 5.76702V14.2047C19.002 16.1703 17.4006 17.7717 15.435 17.7717ZM4.567 4.00062C3.59327 4.00062 2.8006 4.79328 2.8006 5.76702V14.2047C2.8006 15.1784 3.59327 15.9711 4.567 15.9711H15.433C16.4067 15.9711 17.1994 15.1784 17.1994 14.2047V5.76702C17.1994 4.79328 16.4067 4.00062 15.433 4.00062H4.567Z" fill="currentColor"></path>
                 <path d="M9.99943 11.2C9.51188 11.2 9.02238 11.0667 8.59748 10.8019L8.5407 10.7635L4.3329 7.65675C3.95304 7.37731 3.88842 6.86226 4.18996 6.50976C4.48954 6.15544 5.0417 6.09699 5.4196 6.37643L9.59412 9.45943C9.84279 9.60189 10.1561 9.60189 10.4067 9.45943L14.5812 6.37643C14.9591 6.09699 15.5113 6.15544 15.8109 6.50976C16.1104 6.86409 16.0478 7.37731 15.6679 7.65675L11.4014 10.8019C10.9765 11.0667 10.487 11.2 9.99943 11.2Z" fill="currentColor"></path>
               </svg>
@@ -362,17 +362,18 @@ export default {
   z-index: 1;
 }
 .message::after{
-    content: "2";
+    content: "1";
     display: block;
     font-size: 12px;
     // transform: scale(0.8); // 将字体缩小80% 也就是9.6px;
     transform-origin: 0 0;
     text-align: center;
     line-height: 15px;
-    top: 0;
-    right: 0;
+    top: -4px;
+    right: 9px;
     // padding: 2px 5px;
-    width: 15px;
+    // width: px;
+    padding: 0 3px;
     height: 15px;
     border-radius: 50%;
     background-color: skyblue;

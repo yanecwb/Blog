@@ -10,7 +10,7 @@
     <div
       class="w-full flex justify-center items-center"
       :class="
-        is_home ? 'h-screen md:min-h-300' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'
+        is_home ? 'h-screen md:min-h-240' : 'h-36 md:h-100 lg:h-120 xl:h-140 2xl:h-160'
       "
       ref="banner_box"
     >
