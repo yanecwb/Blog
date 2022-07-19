@@ -77,7 +77,7 @@
       </span>
     </div>
     <div
-      class="w-full lg:w-1/2 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
+      class="w-full lg:w-3/5 xl:w-1/2 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
       <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
       </div>
@@ -154,7 +154,7 @@
     </div>
     <!-- 评论区 -->
     <aside
-      class="w-full px-3 lg:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3  lg:w-3/5 xl:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
         <span class=" cursor-pointer">

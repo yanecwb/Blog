@@ -4,7 +4,7 @@ body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; 
 address, cite, dfn, em, var { font-style:normal; }
 code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
 small{ font-size:12px; }
-ul, ol { list-style:none; }
+/* ul, ol { list-style:none; } */
 a { text-decoration:none; }
 a:hover { text-decoration:underline; }
 sup { vertical-align:text-top; }
@@ -12,7 +12,7 @@ sub{ vertical-align:text-bottom; }
 legend { color:#000; }
 fieldset, img { border:0; }
 button, input, select, textarea { font-size:100%; }
-table { border-collapse:collapse; border-spacing:0; } 
+table { border-collapse:collapse; border-spacing:0; }
 html {
   overflow-y: scroll;
 }
@@ -20,8 +20,7 @@ html {
   overflow-y: auto;
   overflow-x: hidden;
 }
- 
+
 :root body {
   position: absolute;
 }
- 
