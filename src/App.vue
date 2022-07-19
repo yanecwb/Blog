@@ -7,7 +7,7 @@
         <!-- <keep-alive :include="['content_module']"> -->
           <router-view/>
         <!-- </keep-alive> -->
-      <Footer />
+      <Footer v-if="$store.state.show_footer"/>
     </div>
     <div class="app" ref="lottie" v-if="!loaded && $route.name !== 'message_center'">
       <lottie
@@ -44,7 +44,7 @@ export default {
       // window.location.href = "https://gitee.com/";
     }
     window.onload = () => {
-      if(this.$route.name == 'message_center') return 
+      if(this.$route.name == 'message_center') return
       Promise.resolve().then(() => {
         this.$refs.lottie.className = "app animate__animated  animate__fadeOut";
         setTimeout(() => {

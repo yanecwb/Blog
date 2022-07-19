@@ -306,6 +306,7 @@ import { Tooltip, Icon, Empty } from "ant-design-vue";
 import QRCode from 'qrcodejs2'
 import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
+import Prism from 'prismjs'
 export default {
   name: "article_detail",
   components: {
@@ -575,7 +576,7 @@ export default {
   },
   async created() {
     this.$store.commit('change_isfixed', 0)
-      this.$store.commit('change_show_header',true)
+    this.$store.commit('change_show_header',true)
     // if(this.$route.params.content){
     //   this.article = this.$route.params
     // }
@@ -586,11 +587,23 @@ export default {
     const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
     function escape2Html(str) {
              var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
-             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+             return replaceHtml(str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}))
+             function replaceHtml(htmlContent) {
+                let reg=new RegExp("<pre","g"); //创建正则RegExp对象
+                let reg1=new RegExp("<code class=\"lang-\"","g");
+                let stringObj=htmlContent
+                let newstr=stringObj.replace(reg,`<pre class="line-numbers language-javascript"`);
+                let newstr2=newstr.replace(reg1,`<code class="language-javascript"`);
+               return newstr2
+              }
     }
+
     // console.log(escape2Html());
     this.article = res.data
     this.article.content = escape2Html(this.article.content)
+    setTimeout(()=>{
+        Prism.highlightAll()
+    },1)
     // }
     // try {
       //   let { like, unlike, collection } = this.article.commenter.find(i => i.userId == this.$store.state.userInfo.userInfo.id)
@@ -649,6 +662,11 @@ export default {
       localStorage.removeItem('article_details')
     }
     next()
+  },
+  mounted(){
+    setTimeout(()=>{
+        Prism.highlightAll()
+    },1)
   }
 };
 </script>
@@ -660,44 +678,44 @@ export default {
 }
 
 pre {
-  background-color: rgb(236, 230, 230);
+  // background-color: rgb(236, 230, 230);
   display: flex;
   justify-content: space-between;
   code {
-    font-family:Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;
+    font-family:'firaCode';
     font-size: 14px;
     flex: 1;
   }
   &::after {
-    content: "";
+    content: "复制";
     width: 20px;
     height: 20px;
-    background-image: url(http://img1.3png.com/81c41e9a6ac6aefdef1845b4d9bc2b994130.png);
+    // background-image: url(http://img1.3png.com/81c41e9a6ac6aefdef1845b4d9bc2b994130.png);
     background-size: 100% 100%;
     color: rgb(190, 179, 179);
     cursor: pointer;
   }
 
-  &::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 3px;
-    /*高宽分别对应横竖滚动条的尺寸*/
-    height: 7px;
-  }
+  // &::-webkit-scrollbar {
+  //   /*滚动条整体样式*/
+  //   width: 3px;
+  //   /*高宽分别对应横竖滚动条的尺寸*/
+  //   height: 7px;
+  // }
 
-  &::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: rgb(192, 224, 232)
-  }
+  // &::-webkit-scrollbar-thumb {
+  //   /*滚动条里面小方块*/
+  //   border-radius: 10px;
+  //   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  //   background: rgb(192, 224, 232)
+  // }
 
-  &::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #ffffff;
-  }
+  // &::-webkit-scrollbar-track {
+  //   /*滚动条里面轨道*/
+  //   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  //   border-radius: 10px;
+  //   background: #ffffff;
+  // }
 }
 
 .h {

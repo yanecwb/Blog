@@ -168,6 +168,7 @@ Vue.use(Modal);
 // api
 import { uploadArticle, updateArticle } from "../../api/upload_article";
 import { uploadImg,deleteImg } from "../../api/upload_img";
+import Prism from 'prismjs'
 
 // file转base64
 async function getBase64(img, callback) {
@@ -476,12 +477,16 @@ export default {
         return item.src;
       });
     };
+    setTimeout(()=>{
+        Prism.highlightAll()
+    },1)
   },
   beforeDestroy() {
     editor.destroy()
     document.body.style.position = "static"; //解决再移动端hidden失效问题
     document.getElementsByTagName("body")[0].style.overflow = 'auto';
     this.$store.commit("change_show_header", true);
+    this.$store.commit("change_show_footer", true);
     this.vergleichenImg().length > 0 ? deleteImg (this.vergleichenImg()) : ""
   },
   beforeRouteEnter(to, from, next) {
@@ -493,23 +498,6 @@ export default {
 <style lang="less">
 .ant-upload{
   position: relative;
-}
-/* From uiverse.io by @adamgiebl */
-@font-face {
-  font-family: firaCode;
-  src: url("../../assets/font/FiraCode-Bold-5.ttf") format("truetype")
-}
-
-pre {
-  background-color: rgb(236, 230, 230);
-  display: flex;
-  justify-content: space-between;
-  color: rgb(29, 25, 25);
-  code{
-  background-color: rgb(236, 230, 230) !important;
-  font-family:'firaCode';
-  font-size: 14px;
-  }
 }
 .sendBtn {
   font-family: inherit;

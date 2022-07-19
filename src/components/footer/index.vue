@@ -17,10 +17,6 @@ export default {
     };
   },
   props:['show_footer'],
-  computed:{
-    },
-  mounted(){
-  }
 };
 </script>
 

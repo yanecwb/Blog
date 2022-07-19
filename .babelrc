@@ -14,4 +14,12 @@
   //     "presets": ["env", "stage-2"]
   //   }
   // }
+  "plugins": [
+    ["prismjs", {
+      "languages": ["html","javascript", "css","xml","typescript","jsx","php","java","cpp","csharp","visual-basic","sql", "markdown","markup", "python","go"],
+      "plugins": ["line-numbers"],
+      "theme": "tomorrow",
+      "css": true
+    }]
+  ]
 }
