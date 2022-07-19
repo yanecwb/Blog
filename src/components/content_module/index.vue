@@ -7,7 +7,7 @@
       ref="Article1"
     >
       <Bgcanvas :height="articleHeight" />
-      <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl">
+      <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
         <section
           v-for="(list, index) in article_moduleList"
           :key="index"
@@ -53,7 +53,7 @@
     </div>
     <Empty
       v-if='article_moduleList.length == 0'
-      class="my-24"
+      class="my-24 min-h-116"
       image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png"
       :image-style="{
         height: '200px',

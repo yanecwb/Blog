@@ -7,7 +7,7 @@
         <!-- <keep-alive :include="['content_module']"> -->
           <router-view/>
         <!-- </keep-alive> -->
-      <Footer v-if="$store.state.show_footer"/>
+      <Footer/>
     </div>
     <div class="app" ref="lottie" v-if="!loaded && $route.name !== 'message_center'">
       <lottie

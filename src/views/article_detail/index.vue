@@ -587,15 +587,15 @@ export default {
     const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
     function escape2Html(str) {
              var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
-             return replaceHtml(str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}))
-             function replaceHtml(htmlContent) {
-                let reg=new RegExp("<pre","g"); //创建正则RegExp对象
-                let reg1=new RegExp("<code class=\"lang-\"","g");
-                let stringObj=htmlContent
-                let newstr=stringObj.replace(reg,`<pre class="line-numbers language-javascript"`);
-                let newstr2=newstr.replace(reg1,`<code class="language-javascript"`);
-               return newstr2
-              }
+             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];})
+            //  function replaceHtml(htmlContent) {
+            //     let reg=new RegExp("<pre","g"); //创建正则RegExp对象
+            //     let reg1=new RegExp("<code class=\"lang-\"","g");
+            //     let stringObj=htmlContent
+            //     let newstr=stringObj.replace(reg,`<pre class="line-numbers language-javascript"`);
+            //     let newstr2=newstr.replace(reg1,`<code class="language-javascript"`);
+            //    return newstr2
+            //   }
     }
 
     // console.log(escape2Html());
@@ -666,6 +666,7 @@ export default {
   mounted(){
     setTimeout(()=>{
         Prism.highlightAll()
+        console.log(Prism);
     },1)
   }
 };
