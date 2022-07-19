@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-var ws = new WebSocket("ws://127.0.0.1:3000/?userId="+123);
+var ws = new WebSocket("ws://127.0.0.1:5006/?userId="+123);
 
 // 只读属性 readyState 表示连接状态，可以是以下值：
 

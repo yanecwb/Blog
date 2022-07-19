@@ -110,7 +110,7 @@
              <div class="w-56">
               <input type="text"  v-model="serachText" placeholder="search more for title"  class="w-full p-3 box-border h-8 outline-none block_border  font-serif " style="border-right: 0;"/>
               <ul class=" absolute block_border w-56" style="border-top:none">
-                <li class="bg-white hover:bg-indigo-50 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" @click="goRouter(`/article_detail/${i.id}`)" :title="i.article_title">{{i.article_title}}</li>
+                <li class="bg-white hover:bg-indigo-50 hover:text-blue-400 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" @click="goRouter(`/article_detail/${i.id}`)" :title="i.article_title">{{i.article_title}}</li>
               </ul>
             </div>
             <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer" title="搜索文章">

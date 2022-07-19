@@ -77,7 +77,7 @@
       </span>
     </div>
     <div
-      class="w-full lg:w-3/5 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
+      class="w-full lg:w-1/2 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
       <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
       </div>
@@ -141,9 +141,8 @@
               class="cursor-pointer iconfont icon-shoucang1  text-xl md:text-2xl hvr-grow-shadow"
               :style="{color:like.collection ? '#ff7700' : '#e3dddd'}"></i></div>
         </div>
-        <!-- <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)" -->
-          <!-- v-if="article.userId == $store.state.userInfo.userInfo.id"> -->
-          <svg title="修改博客" v-if="article.userId == $store.state.userInfo.userInfo.id" t="1657293342548" class="icon cursor-pointer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <!-- <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)"  v-if="article.userId == $store.state.userInfo.userInfo.id"> -->
+          <svg @click="go_up_article(article)" title="修改博客" v-if="article.userId == $store.state.userInfo.userInfo.id" t="1657293342548" class="icon cursor-pointer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
             p-id="2250" width="18" height="18">
             <path
               d="M652.4 156.6125a112.5 112.5 0 1 1 155.925 161.15625L731.375 394.71875 572.3 235.5875l79.5375-79.5375 0.5625 0.5625zM333.63125 792.40625v0.1125H174.5v-159.1875l358.03125-357.975 159.075 159.13125-357.975 357.91875zM62 849.5h900v112.5H62v-112.5z"
@@ -155,7 +154,7 @@
     </div>
     <!-- 评论区 -->
     <aside
-      class="w-full px-3 lg:w-3/5 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3 lg:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
         <span class=" cursor-pointer">

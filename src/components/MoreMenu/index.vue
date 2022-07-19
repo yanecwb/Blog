@@ -28,7 +28,7 @@
       <div class="usershow" ref="usershow">
         <div
           @click="changeAvatarUrl(1)"
-          :style="`background-image:url(${userInfo.avatarUrl || 'https://img.zcool.cn/community/01b91e5d368512a80120695c617f59.jpg@1280w_1l_2o_100sh.jpg'})`"
+          :style="`background-image:url(${userInfo.avatarUrl || 'http://www.flechazoblog.site:5006/img/home_img/notLogin.svg'})`"
           class="avatar hvr-grow-shadow"
           title="点击更换头像"
         />
