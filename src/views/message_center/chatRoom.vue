@@ -81,16 +81,20 @@ export default {
       if (e.keyCode == 13) this.sendwebsocketmsg();
     },
      intoChat(){
-      this.isIntoChat = true
       const {id,nickname,avatarUrl} = this.$store.state.userInfo.userInfo
-      if(!id) this.noLogin()
-      if(!this.socket)  this.socket = io('http://localhost:5006/');
+      if(!id) {
+        this.noLogin()
+        return
+      }
+      this.isIntoChat = true
+      if(!this.socket)  this.socket = io('http://flechazoblog.site:5006');
       this.socket.emit("into_chat", {
         id,
         nickname,
         avatarUrl
       });
       this.$nextTick(()=>{
+        if(!id) return
         this.$refs.websocketmsgInput.focus()
       })
     },
@@ -152,7 +156,7 @@ export default {
     },
   },
   mounted(){
-    this.socket = io('http://localhost:5006/');
+    this.socket = io('http://flechazoblog.site:5006');
     this.socket.emit('deleteUser',this.$store.state.userInfo.userInfo.id)
     this.socket.on("receiveMessage", data => {
         this.scrollToBottom()
