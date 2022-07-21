@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center} from './router-path.js'
+import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center,Chat_room,Personal_letter,Reply,Praise,Sys_notify} from './router-path.js'
 
 Vue.use(VueRouter);
 const routes = [
@@ -57,6 +57,48 @@ const routes = [
       path:'/message_center/:id?',
       name:'message_center',
       component:Message_center,
+      children:[
+        {
+          path:'chat_room',
+          name:'chat_room',
+          component:Chat_room,
+          meta:{
+            title:'技术讨论'
+          }
+        },
+        {
+          path:'personal_letter',
+          name:'personal_letter',
+          component:Personal_letter,
+          meta:{
+            title:'我的私信'
+          }
+        },
+        {
+          path:'reply',
+          name:'reply',
+          component:Reply,
+          meta:{
+            title:'回复我的'
+          }
+        },
+        {
+          path:'praise',
+          name:'praise',
+          component:Praise,
+          meta:{
+            title:'收到的赞'
+          }
+        },
+        {
+          path:'sys_notify',
+          name:'sys_notify',
+          component:Sys_notify,
+          meta:{
+            title:'系统通知'
+          }
+        }
+      ],
       meta:{
         title:'消息中心'
       }

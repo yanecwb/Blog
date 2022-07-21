@@ -45,8 +45,8 @@ module.exports = {
     },
     proxy: {
       "/node_api": {
-        // target: "http://localhost:5006/",
-        target: "http://www.flechazoblog.site:5006/",
+        target: "http://localhost:5006/",
+        // target: "http://www.flechazoblog.site:5006/",
         ws: true,
         secure: false,
         changeOrigin: true,

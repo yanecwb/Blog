@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "881739",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
+      "icon_id": "1727422",
+      "name": "205设置",
+      "font_class": "shezhi",
+      "unicode": "e8b8",
+      "unicode_decimal": 59576
+    },
+    {
+      "icon_id": "2085033",
+      "name": "发送",
+      "font_class": "fasong",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "6337457",
+      "name": "插入图片",
+      "font_class": "charutupian",
+      "unicode": "ec7f",
+      "unicode_decimal": 60543
+    },
+    {
+      "icon_id": "18170188",
+      "name": "退出,出",
+      "font_class": "exit-full",
+      "unicode": "e97f",
+      "unicode_decimal": 59775
+    },
+    {
       "icon_id": "6380878",
       "name": "点赞_块",
       "font_class": "dianzan_kuai",
