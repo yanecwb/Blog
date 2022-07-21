@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen overflow-hidden h-screen min-h-300 bg-cover bg-center" style="background-image: url(http://47.107.243.60:5005/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg); background-repeat: no-repeat;">
+  <div class="w-screen overflow-hidden h-screen min-h-300 bg-cover bg-center animate__animated animate__fadeIn" style="background-image: url(http://47.107.243.60:5005/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg); background-repeat: no-repeat;">
     <div  class=" w-300 h-full mx-auto flex justify-between">
       <div class=" w-1/6 h-full mr-5" style="background-color: rgba(255,255,255,.7);">
         <ul class=" list-none text-center flex flex-col justify-between" style="color: #6b757b;" @click="(e)=>{ messageModule = e.target.innerText;goRouter(`/message_center/${childrenRouter(e.target.innerText)}`)}">

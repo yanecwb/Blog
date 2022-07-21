@@ -101,7 +101,7 @@ export default {
       }
       // 群聊
       const {id,nickname,avatarUrl} = this.$store.state.userInfo.userInfo
-      this.socket.emit("sendMessage",{
+      this.socket.emit("send_message",{
         id,
         nickname,
         avatarUrl,
@@ -112,8 +112,9 @@ export default {
     },
     closewebsocket(){
       if (this.socket){
-        this.socket.disconnect();
-        this.socket = null
+        // this.socket.disconnect();
+        // this.socket = null
+        this.socket.emit('out_chatroom')
         this.isIntoChat = false
         this.miniMessage("您已退出聊天室",'info');
       }
@@ -152,6 +153,7 @@ export default {
   },
   mounted(){
     this.socket = io('http://localhost:5006/');
+    this.socket.emit('deleteUser',this.$store.state.userInfo.userInfo.id)
     this.socket.on("receiveMessage", data => {
         this.scrollToBottom()
         this.message.push(data)
@@ -159,12 +161,20 @@ export default {
     this.socket.on('add_user',data=>{
        this.miniMessage("<img src="+data.avatarUrl+" class='w-8 h-8 rounded-full mr-2'>"+data.nickname+"加入群聊",'success')
     })
-    this.socket.on('char_userCount',userCount=>{
+    this.socket.on('chat_userCount',userCount=>{
        this.userCount = userCount['count(1)']
     })
+    // window.onbeforeunload=()=>{
+    //   if(this.isIntoChat){
+    //     this.miniMessage('请先退出聊天室','error')
+    //   }
+    //   return '123'
+    // }
   },
   beforeDestroy(){
-      if (this.socket) this.socket.disconnect();
+    // this.socket.emit('out_chatroom');
+    // 离开页面清除onbeforeunload事件
+    // window.onbeforeunload = () => {}
   }
 }
 </script>

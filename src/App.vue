@@ -9,7 +9,7 @@
         <!-- </keep-alive> -->
       <Footer/>
     </div>
-    <div class="app" ref="lottie" v-if="!loaded && $route.name !== 'message_center'">
+    <div class="app" ref="lottie" v-if="!loaded && $route.name !== 'chat_room'">
       <lottie
         :options="defaultOptions"
         v-on:animCreated="handleAnimation"
@@ -44,7 +44,7 @@ export default {
       // window.location.href = "https://gitee.com/";
     }
     window.onload = () => {
-      if(this.$route.name == 'message_center') return
+      if(this.$route.name == 'chat_room') return
       Promise.resolve().then(() => {
         this.$refs.lottie.className = "app animate__animated  animate__fadeOut";
         setTimeout(() => {
