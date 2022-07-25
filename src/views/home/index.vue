@@ -1,7 +1,7 @@
 <template>
     <div class="animate__animated animate__fadeIn">
-        <!-- <Banner bg='http://47.107.243.60:5005/img/static_img/1069099.png' is_home='1'/> -->
-        <Banner bg='http://47.107.243.60:5005/img/static_img/home_banner.jpg' is_home='1'/>
+        <!-- <Banner bg='http://47.107.243.60:5006/img/static_img/1069099.png' is_home='1'/> -->
+        <Banner bg='http://flechazoblog.site:5006/img/static_img/home_banner.jpg' is_home='1'/>
         <Container />
     </div>
 </template>

@@ -23,7 +23,7 @@
               <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
                 <div v-for="i in BiLiEmailTotal" :key="i"
                   class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
-                  <img :src="'http://flechazoblog.site:5005/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
+                  <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
                     class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
                 </div>
               </div>
@@ -31,10 +31,10 @@
                 <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
                   class="h-full w-1/5 flex justify-center items-center"
                   :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                  <img src="http://flechazoblog.site:5005/img/BiLiEmail/Default/default01.png" alt=""
+                  <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
                     class="md:w-7 w-5 md:h-7 h-5">
                 </div>
-                <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 5; e.stopPropagation() }"
+                <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
                   class="h-full w-1/5  flex justify-center items-center"
                   :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
                   <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""

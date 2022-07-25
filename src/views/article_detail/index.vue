@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
-    <iframe frameborder="0" scrolling="no" src="http://47.107.243.60:5005/colokBanner.html" class="w-full"
+    <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full"
       height="800px"></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
       <span class="px-5 cursor-pointer">
@@ -190,7 +190,7 @@
             <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
               <div v-for="i in BiLiEmailTotal" :key="i"
                 class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
-                <img :src="'http://47.107.243.60:5005/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
+                <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
                   class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
               </div>
             </div>
@@ -198,13 +198,13 @@
               <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
                 class="h-full w-1/5 flex justify-center items-center"
                 :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                <img src="http://47.107.243.60:5005/img/BiLiEmail/Default/default01.png" alt=""
+                <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
                   class="md:w-7 w-5 md:h-7 h-5">
               </div>
-              <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 5; e.stopPropagation() }"
+              <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
                 class="h-full w-1/5  flex justify-center items-center"
                 :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                <img :src="'http://47.107.243.60:5005/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
+                <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
                   class="md:w-7 w-5 md:h-7 h-5">
               </div>
             </div>
@@ -437,14 +437,14 @@ export default {
     shareSpace(val) {
       const title = this.article.article_title
       const summary = this.article.article_introduction
-      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${this.sharehref}&sharesource=qzone&title=${title}&pics=http://47.107.243.60:5005/img/static_img/share.jpg&summary=${summary}`
+      const href = `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${this.sharehref}&sharesource=qzone&title=${title}&pics=http://flechazoblog.site:5006/img/static_img/share.jpg&summary=${summary}`
       if (val == 'qq') {
         var p = {
           url: this.sharehref,/*获取URL，可加上来自分享到QQ标识，方便统计*/
           // desc, /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
           title,/*分享标题(可选)*/
           summary: 'title',/*分享描述(可选)*/
-          pics: 'http://47.107.243.60:5005/img/static_img/home_banner.png',/*分享图片(可选)*/
+          pics: 'http://flechazoblog.site:5006/img/static_img/home_banner.png',/*分享图片(可选)*/
           flash: '', /*视频地址(可选)*/
           //commonClient : true, /*客户端嵌入标志*/
           site: 'QQ分享'/*分享来源 (可选) ，如：QQ分享*/
@@ -480,7 +480,7 @@ export default {
       if (comment.indexOf('@') >= 0) {
         let a = comment.match(/(?<=@).*?(?=!)/g)
         for (let i = 0; i < a.length; i++) {
-          comment = comment.replace('@' + a[i] + '!', `<img src='http://47.107.243.60:5005/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
+          comment = comment.replace('@' + a[i] + '!', `<img src='http://flechazoblog.site:5006/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
         }
       }
       return comment
