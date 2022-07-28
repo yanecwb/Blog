@@ -6,7 +6,7 @@
       v-show="article_moduleList.length > 0"
       ref="Article1"
     >
-      <Bgcanvas :height="articleHeight" />
+      <Bgcanvas  />
       <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
         <section
           v-for="(list, index) in article_moduleList"

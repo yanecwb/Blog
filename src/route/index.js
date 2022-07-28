@@ -63,7 +63,7 @@ const routes = [
           name:'chat_room',
           component:Chat_room,
           meta:{
-            title:'技术讨论'
+            title:'消息中心-技术讨论'
           }
         },
         {
@@ -71,7 +71,7 @@ const routes = [
           name:'personal_letter',
           component:Personal_letter,
           meta:{
-            title:'我的私信'
+            title:'消息中心-我的私信'
           }
         },
         {
@@ -79,7 +79,7 @@ const routes = [
           name:'reply',
           component:Reply,
           meta:{
-            title:'回复我的'
+            title:'消息中心-回复我的'
           }
         },
         {
@@ -87,7 +87,7 @@ const routes = [
           name:'praise',
           component:Praise,
           meta:{
-            title:'收到的赞'
+            title:'消息中心-收到的赞'
           }
         },
         {
@@ -95,7 +95,7 @@ const routes = [
           name:'sys_notify',
           component:Sys_notify,
           meta:{
-            title:'系统通知'
+            title:'消息中心-系统通知'
           }
         }
       ],

@@ -1,6 +1,6 @@
 <template>
     <div class=" relative">
-      <Bgcanvas :height="930"/>
+      <Bgcanvas :height="1300"/>
       <div class="flex justify-between mx-auto md:px-0 py-1 px-6 w-full md:w-400">
         <h4 v-if="!$store.state.is_phone" class="m-0 text-base font-mono" >今日精选博客</h4>
         <!-- <p class="text-sm m-0">

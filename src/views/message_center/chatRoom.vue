@@ -81,12 +81,12 @@ export default {
       if (e.keyCode == 13) this.sendwebsocketmsg();
     },
      intoChat(){
-      this.isIntoChat = true
-      const {id,nickname,avatarUrl} = this.$store.state.userInfo.userInfo
+       const {id,nickname,avatarUrl} = this.$store.state.userInfo.userInfo
       if(!id){
-         this.noLogin()
+        this.noLogin()
          return
       }
+      this.isIntoChat = true
       if(!this.socket)  this.socket = io('http://flechazoblog.site:5006/');
       this.socket.emit("into_chat", {
         id,

@@ -5,7 +5,12 @@
 <script>
 export default {
   name: "Bgcanvas",
-  props: ["height"],
+  props: {
+     height: {
+      type: Number,
+      default: 520
+    },
+  },
   watch: {
     height:{
       immediate:true,
