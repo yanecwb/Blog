@@ -142,17 +142,6 @@ export default {
     inputexpression(expression_val) {
        this.websocketmsg += '@' + expression_val + '!'
     },
-    // 格式化评论
-    formatComment(comment) {
-      if (!comment) return
-      if (comment.indexOf('@') >= 0) {
-        let a = comment.match(/(?<=@).*?(?=!)/g)
-        for (let i = 0; i < a.length; i++) {
-          comment = comment.replace('@' + a[i] + '!', `<img src='http://flechazoblog.site:5006/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
-        }
-      }
-      return comment
-    },
   },
   mounted(){
     this.socket = io('http://flechazoblog.site:5006/');
@@ -181,29 +170,3 @@ export default {
   }
 }
 </script>
-
-<style lang='less' scoped>
-.msgScoll{
-  &::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 7px;
-    /*高宽分别对应横竖滚动条的尺寸*/
-    height: 7px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: rgb(189, 196, 198)
-  }
-
-  &::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #ffffff;
-  }
-}
-
-</style>

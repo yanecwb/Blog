@@ -81,10 +81,11 @@
       <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
       </div>
-      <div class="w-full flex justify-between items-center my-3 shadow-sm">
-        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full"
+      <div class="w-full flex justify-between items-center my-3 shadow-sm relative">
+        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full hvr-float-shadow cursor-pointer relative" @mouseenter="show_callingCard" @mouseleave="callingCardShow = false"
           :style="{ backgroundImage: `url(${article.uper ? article.uper.avatarUrl : ''})`, backgroundSize: '100% 100%' }">
         </div>
+        <CallingCard v-if="callingCardShow"/>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}</p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
@@ -303,6 +304,7 @@
 
 <script>
 import { Tooltip, Icon, Empty } from "ant-design-vue";
+import CallingCard from '../../components/calling_card'
 import QRCode from 'qrcodejs2'
 import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
@@ -312,7 +314,8 @@ export default {
   components: {
     Tooltip,
     Icon,
-    Empty
+    Empty,
+    CallingCard
   },
   data() {
     return {
@@ -341,15 +344,21 @@ export default {
       replyContent:'',//回复内容
       inputType:1, //判断小表情输入框
       expressionLeft:0,
-      expressionTop:0
+      expressionTop:0,//表情定位
+      callingCardShow:false//名片
     };
   },
   methods: {
+    // 名片
+    show_callingCard(e){
+      console.log(e.clientX,e.clientY);
+      this.callingCardShow = true
+    },
+
     smallExpression(type,e){
       this.showexpression = true
       e.stopPropagation();
       type == 2 ? this.inputType = 2 : this.inputType = 1
-      console.log(e.clientX,e.clientY);
       this.$nextTick(()=>{
         this.expressionLeft = e.clientX
         this.expressionTop = e.clientY
@@ -473,17 +482,6 @@ export default {
         correctLevel: QRCode.CorrectLevel.H, //容错级别
       })
       // console.log(qrcode);
-    },
-    // 格式化评论
-    formatComment(comment) {
-      if (!comment) return
-      if (comment.indexOf('@') >= 0) {
-        let a = comment.match(/(?<=@).*?(?=!)/g)
-        for (let i = 0; i < a.length; i++) {
-          comment = comment.replace('@' + a[i] + '!', `<img src='http://flechazoblog.site:5006/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
-        }
-      }
-      return comment
     },
     formatCommentTime(commentTime) {
       // if (commentTime.indexOf('AM') > -1) {
@@ -612,6 +610,7 @@ export default {
     localStorage.setItem("article_details", JSON.stringify(this.article));
     this.getComments({article_id: this.$route.params.id,})
     getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
+      if(res1.data.code == 201) return
       const {like_art,unlike_art,collection_art} = res1.data.result
       this.like.like = JSON.parse(like_art).includes(this.$route.fullPath.split('/')[2])
       this.like.unlike = JSON.parse(unlike_art).includes(this.$route.fullPath.split('/')[2])
@@ -666,7 +665,7 @@ export default {
   mounted(){
     setTimeout(()=>{
         Prism.highlightAll()
-        console.log(Prism);
+        // console.log(Prism);
     },1)
   }
 };

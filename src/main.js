@@ -8,7 +8,7 @@ import "hover.css";
 import "./assets/tailwindcss.css"
 import NProgress from 'nprogress' // 进度条
 import 'nprogress/nprogress.css' // 引入进度条样式
-import './main.css'
+import './main.less'
 
 import lottie from 'vue-lottie'; //lottie动画
 Vue.component('lottie', lottie) //注册lottie动画

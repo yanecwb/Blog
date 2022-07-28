@@ -295,7 +295,8 @@ module.exports = {
             'FFD': '#FFD800',
             '464': '#464646',
             'FFE': '#FFED89',
-            '6C7': '#FFF6C7'
+            '6C7': '#FFF6C7',
+            '03f':'#00c3ff'
         },
         top:{
             '17':'5rem',
