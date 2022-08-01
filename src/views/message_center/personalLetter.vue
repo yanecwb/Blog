@@ -99,8 +99,8 @@ export default {
   created(){
     this.chatList = JSON.parse(localStorage.getItem('chatList')) || []
     this.received = JSON.parse(localStorage.getItem('received')) || {}
-    // this.socket = io('http://flechazoblog.site:5006/');
-    this.socket = io('http://localhost:5006/');
+    this.socket = io('http://flechazoblog.site:5006/');
+    // this.socket = io('http://localhost:5006/');
     this.socket.on('sengperbackMsg',data=>{
       const {sendUser,fromid,toid,personMessage,time} = data
       if(fromid == this.userInfo.id){
