@@ -6,3 +6,10 @@ export const changeUserInfo = (data)=>{
         data
       })
 }
+export const getUser = (id)=>{
+  return axios({
+    method:'get',
+    url:`/node_api/userCRUD/getUser`,
+    params:{id}
+  })
+}

@@ -82,10 +82,10 @@
         {{ article.article_title }}
       </div>
       <div class="w-full flex justify-between items-center my-3 shadow-sm relative">
-        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full hvr-float-shadow cursor-pointer relative" @mouseenter="show_callingCard" @mouseleave="callingCardShow = false"
+        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full hvr-float-shadow cursor-pointer relative" @mouseenter="show_callingCard(article.userId)" @mouseleave='AddcallingCardTimer'
           :style="{ backgroundImage: `url(${article.uper ? article.uper.avatarUrl : ''})`, backgroundSize: '100% 100%' }">
         </div>
-        <CallingCard v-if="callingCardShow"/>
+        <CallingCard :callingCardUserId='callingCardUserId' @mouseenter.native="ClearcallingCardTimer" @mouseleave.native="callingCardShow = false" v-if="callingCardShow"/>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
           <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}</p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
@@ -345,16 +345,25 @@ export default {
       inputType:1, //判断小表情输入框
       expressionLeft:0,
       expressionTop:0,//表情定位
-      callingCardShow:false//名片
+      callingCardShow:false,//名片
+      callingCardUserId:''
     };
   },
   methods: {
-    // 名片
-    show_callingCard(e){
-      console.log(e.clientX,e.clientY);
-      this.callingCardShow = true
+    AddcallingCardTimer(){
+      this.callingCardTimer = setTimeout(()=>{
+        this.callingCardShow = false
+      },1500)
     },
-
+    ClearcallingCardTimer(){
+      clearTimeout(this.callingCardTimer)
+    },
+    // 名片
+    show_callingCard(callingCardUserId){
+      clearTimeout(this.callingCardTimer)
+      this.callingCardShow = true
+      this.callingCardUserId = callingCardUserId
+    },
     smallExpression(type,e){
       this.showexpression = true
       e.stopPropagation();

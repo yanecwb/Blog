@@ -9,7 +9,7 @@
           <p class="mt-3 text-xs text-061 text-opacity-90">{{userInfo.accountInfo.follows}}<span class="mr-3">关注</span>{{userInfo.accountInfo.fans}}<span class="mr-3">粉丝</span>{{userInfo.accountInfo.lv}}<span>等级</span></p>
           <p class="my-4 text-xs">{{userInfo.autograph}}</p>
           <button class="border-0 px-5 py-0.5 mr-3 bg-03f text-white rounded cursor-pointer">+ 关注</button>
-          <button class="border-0 px-5 py-0.5 rounded block_border bg-white cursor-pointer">发消息</button>
+          <a :href="sendMsgToHeHref" @click="sendMsgToHe()" target="_blank" rel="noopener noreferrer"><button class="border-0 px-5 py-0.5 rounded block_border bg-white cursor-pointer">发消息</button></a>
         </div>
       </div>
     </div>
@@ -17,16 +17,61 @@
 </template>
 
 <script>
+import {getUser} from '../../api/userInfo'
+import {getIsChat} from '../../api/chat'
 export default {
-  name:'calling card',
+  name:'calling_card',
   props:{
     bottom:{
-      default:80+'px'
+      default:80+'px',
+    },
+    callingCardUserId:{
+      require:true,
+      type:String
     }
   },
   data(){
     return {
-      userInfo:this.$store.state.userInfo.userInfo
+      userInfo:{accountInfo:{}},
+      sendMsgToHeHref:""
+    }
+  },
+  async created(){
+      const res = await getUser(this.callingCardUserId)
+      this.userInfo = res.data.result
+      const accountInfo =this.userInfo.accountInfo.split(',')
+      this.userInfo.accountInfo = {
+        "lv": accountInfo[0],
+        "follows": accountInfo[1],
+        "fans": accountInfo[2],
+      }
+  },
+  methods:{
+    async sendMsgToHe(){
+      if(this.callingCardUserId == this.$store.state.userInfo.userInfo.id) {
+        this.miniMessage('您不能给自己发消息！','warning')
+        this.sendMsgToHeHref = "javascript:void(0);"
+        return
+      }
+      this.sendMsgToHeHref = location.origin + '/message_center/personal_letter'
+      const chatList = JSON.parse(localStorage.getItem('chatList')) || []
+      const chatId = Math.random().toFixed(8).slice(-8)
+      let arr = []
+      chatList.forEach(i=>{
+        arr.push(getIsChat(i.chatId))
+      })
+      const res =await Promise.all(arr)
+      const is_chatarr = res.map(item=>{
+        return item.data.is_chated
+      })
+      const index = chatList.findIndex(i=>i.toid == this.userInfo.id)
+      if(index == -1){
+        chatList.push({chatId,toid:this.callingCardUserId,nickname:this.userInfo.nickname,avatarUrl:this.userInfo.avatarUrl})
+        localStorage.setItem('chatList',JSON.stringify(chatList))
+        localStorage.setItem('newChat',JSON.stringify({chatId,toid:this.callingCardUserId,nickname:this.userInfo.nickname,avatarUrl:this.userInfo.avatarUrl}))
+        return
+      }
+      localStorage.setItem('newChat',JSON.stringify({...chatList[index],toid:this.callingCardUserId}))
     }
   }
 }
