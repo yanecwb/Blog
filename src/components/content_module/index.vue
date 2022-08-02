@@ -1,9 +1,10 @@
 <template>
   <div>
     <Banner :bg="module_headerBg" />
-    <div
+    <div v-if="!loadingLottie">
+      <div
       class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeIn flex-col items-center"
-      v-show="article_moduleList.length > 0"
+      v-if="!loadingLottie &&article_moduleList.length > 0"
       ref="Article1"
     >
       <Bgcanvas  />
@@ -52,7 +53,7 @@
       <Pagination v-model="current" :total="total" show-less-items class="my-5" @change='current_Change'/>
     </div>
     <Empty
-      v-if='article_moduleList.length == 0'
+      v-if='!loadingLottie && article_moduleList.length == 0'
       class="my-24 min-h-116"
       image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png"
       :image-style="{
@@ -61,11 +62,19 @@
     >
       <span slot="description">💨</span>
     </Empty>
+    </div>
+    <lottie
+        v-else
+        style="width: 200px; height: 600px;"
+        :options="defaultOptions"
+        class="z-9999 opacity-80"
+      />
   </div>
 </template>
 
 <script>
 import { Icon , Empty,Pagination } from "ant-design-vue";
+import animationData from "../../assets/lottie/loadingLottie.json";
 import Banner from "../../views/banner";
 import Bgcanvas from "../../components/Bgcanvas/index.vue";
 import { Get_Article_ModuleList } from "../../api/article_list";
@@ -76,7 +85,9 @@ export default {
       article_moduleList: [],
       articleHeight: 0,
       total:0,
-      current:1
+      current:1,
+      defaultOptions: { animationData: animationData },
+      loadingLottie:true
     };
   },
   components: {
@@ -98,8 +109,10 @@ export default {
     module_name: {
       immediate: true,
       async handler(newval) {
+        this.loadingLottie = true
         this.getArticle(newval,1)
         this.$nextTick(()=>{
+            if(!this.$refs.Article1) return
             this.articleHeight = this.$refs.Article1.offsetHeight;
             if(this.article_moduleList.length < 5 && this.article_moduleList.length>0 ){
                 this.articleHeight = 520
@@ -132,15 +145,21 @@ export default {
             publish_time:this.format_publishTime(item.publish_time)
           }
         })
+        this.lottieTimer = setTimeout(() => {
+            this.loadingLottie=false
+        }, 300);
     },
     current_Change(current){
       this.current = current
       this.getArticle(this.$route.fullPath.split('/')[2],current)
-    }
+    },
   },
   created() {
     this.$store.commit("change_show_header", true);
   },
+  beforeDestroy(){
+    clearTimeout(this.lottieTimer)
+  }
 };
 </script>
 
