@@ -78,7 +78,8 @@
     </div>
     <div
       class="w-full lg:w-3/5 xl:w-1/2 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
-      <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
+      <div  v-if="!loadingLottie">
+        <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
       </div>
       <div class="w-full flex justify-between items-center my-3 shadow-sm relative">
@@ -114,6 +115,13 @@
         </Tooltip>
       </div>
       <div v-html="article.content" class="md:px-10 px-1 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
+      </div>
+       <lottie
+        v-else
+        style="width: 200px; height: 600px;"
+        :options="defaultOptions"
+        class="z-9999 opacity-80"
+      />
       <div class="w-full flex justify-between items-center">
         <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
           <div @click="likeIt" title="点个赞😘" class=" relative">
@@ -153,6 +161,7 @@
         <!-- </button> -->
       </div>
     </div>
+
     <!-- 评论区 -->
     <aside
       class="w-full px-3  lg:w-3/5 xl:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
@@ -309,6 +318,7 @@ import QRCode from 'qrcodejs2'
 import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
 import Prism from 'prismjs'
+import animationData from "../../assets/lottie/loadingLottie.json";
 export default {
   name: "article_detail",
   components: {
@@ -346,7 +356,9 @@ export default {
       expressionLeft:0,
       expressionTop:0,//表情定位
       callingCardShow:false,//名片
-      callingCardUserId:''
+      callingCardUserId:'',
+      defaultOptions: { animationData: animationData },
+      loadingLottie:true
     };
   },
   methods: {
@@ -584,12 +596,6 @@ export default {
   async created() {
     this.$store.commit('change_isfixed', 0)
     this.$store.commit('change_show_header',true)
-    // if(this.$route.params.content){
-    //   this.article = this.$route.params
-    // }
-    // else if(JSON.parse(localStorage.getItem("article_details")) && JSON.parse(localStorage.getItem("article_details")).content){
-    //   this.article = JSON.parse(localStorage.getItem("article_details"))
-    // }else{
     // 分享时无缓存，读指定某条文章内容
     const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
     function escape2Html(str) {
@@ -604,18 +610,8 @@ export default {
             //    return newstr2
             //   }
     }
-
-    // console.log(escape2Html());
     this.article = res.data
     this.article.content = escape2Html(this.article.content)
-    setTimeout(()=>{
-        Prism.highlightAll()
-    },1)
-    // }
-    // try {
-      //   let { like, unlike, collection } = this.article.commenter.find(i => i.userId == this.$store.state.userInfo.userInfo.id)
-    //   this.like.like = like; this.like.unlike = unlike; this.like.collection = collection
-    // } catch (error) { error }
     localStorage.setItem("article_details", JSON.stringify(this.article));
     this.getComments({article_id: this.$route.params.id,})
     getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
@@ -627,6 +623,13 @@ export default {
     })
     //页面标题为文章标题
     document.title = this.article.article_title
+    this.lottieTimer = setTimeout(() => {
+      this.loadingLottie=false
+    }, 200);
+    setTimeout(()=>{
+      Prism.highlightAll()
+    },201)
+
   },
   watch: {
     article(newval) {
