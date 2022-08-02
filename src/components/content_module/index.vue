@@ -9,46 +9,45 @@
     >
       <Bgcanvas  />
       <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
-        <section
-          v-for="(list, index) in article_moduleList"
-          :key="index"
-          :style="index == 0 ? { padding: 'none' } : ''"
-          class="cursor-pointer py-0 px-4  hover:bg-gray-100"
-        >
-          <li
-            class="mb-1 flow-root list-none  pt-4 hover:opacity-100"
-            :style="index == 0 ? {border:'none'} : ''"
-            @click="$router.push({ name: `article_detail`, params: list })"
+        <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index">
+          <section
+            :style="index == 0 ? { padding: 'none' } : ''"
+            class="cursor-pointer py-0 px-4  hover:bg-gray-100"
           >
-            <div
-              :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-64' : ''"
+            <li
+              class="mb-1 flow-root list-none  pt-4 hover:opacity-100"
+              :style="index == 0 ? {border:'none'} : ''"
             >
-              <div class="content_list_author">
-                <span class="mr-2">{{
-                  list.nickname
-                }}</span>
-                <span class="text-xs">{{
-                 list.publish_time
-                }}</span>
-                <!-- <span>面试</span> -->
-              </div>
-              <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs">
-                {{ list.article_title}}_
-              </p>
-              <p
-                class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
+              <div
+                :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-64' : ''"
               >
-                {{list.article_introduction}}
-              </p>
-              <div class="content_list_flow flex">
-                <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
-                <div class="zan"><Icon type="like" />{{list.likeCount}}</div>
-                <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
+                <div class="content_list_author">
+                  <span class="mr-2">{{
+                    list.nickname
+                  }}</span>
+                  <span class="text-xs">{{
+                    list.publish_time
+                  }}</span>
+                  <!-- <span>面试</span> -->
+                </div>
+                <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs">
+                  {{ list.article_title}}_
+                </p>
+                <p
+                  class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
+                >
+                  {{list.article_introduction}}
+                </p>
+                <div class="content_list_flow flex">
+                  <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
+                  <div class="zan"><Icon type="like" />{{list.likeCount}}</div>
+                  <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
+                </div>
               </div>
-            </div>
-            <div  v-if="list.coverUrl" class="w-28 md:w-32 h-16 md:h-20 float-right mt-5" :style="{backgroundImage:`url(${list.coverUrl})`,backgroundSize:'100% 100%'}"></div>
-          </li>
-        </section>
+              <div  v-if="list.coverUrl" class="w-28 md:w-32 h-16 md:h-20 float-right mt-5" :style="{backgroundImage:`url(${list.coverUrl})`,backgroundSize:'100% 100%'}"></div>
+            </li>
+          </section>
+        </a>
       </article>
       <Pagination v-model="current" :total="total" show-less-items class="my-5" @change='current_Change'/>
     </div>
@@ -125,7 +124,7 @@ export default {
     },
   },
   methods:{
-   async getArticle(newval,current){
+    async getArticle(newval,current){
         const res = await Get_Article_ModuleList(newval,current);
         this.total = res.data.total
         this.article_moduleList = res.data.article_moduleList.map(item=>{
@@ -149,10 +148,13 @@ export default {
             this.loadingLottie=false
         }, 300);
     },
-    current_Change(current){
+      current_Change(current){
       this.current = current
       this.getArticle(this.$route.fullPath.split('/')[2],current)
     },
+    formatHref(id){
+      return location.origin + '/article_detail/'+id
+    }
   },
   created() {
     this.$store.commit("change_show_header", true);
