@@ -59,7 +59,7 @@
             <div  v-if='msgIngId' class="w-full flex justify-between items-center">
               <i  class='iconfont icon-biaoqing mx-2 cursor-pointer hvr-bounce-in text-xl ' @click="showexpression = 1"/>
               <i  class='iconfont icon-charutupian mx-2 cursor-pointer hvr-bounce-in text-xl ' />
-              <Input ref="websocketmsgInput" v-model="personMessage" class=" outline-none px-3 py-1 resize-none" />
+              <Input ref="websocketmsgInput" v-focus v-model="personMessage" class=" outline-none px-3 py-1 resize-none" />
               <i class="iconfont icon-fasong mx-2 cursor-pointer hvr-bounce-in text-2xl text-blue-500" @click="sendperMsg"/>
             </div>
              <div v-else class="w-full text-center cursor-pointer bg-white">

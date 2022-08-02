@@ -44,6 +44,12 @@ Vue.config.productionTip = false;
 import mixin from "./mixins/public";
 Vue.mixin(mixin);
 
+Vue.directive('focus', {
+  inserted:  (el)=> {
+    el.focus()
+  }
+})
+
 new Vue({
   render: (h) => h(App),
   store,

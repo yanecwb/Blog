@@ -288,7 +288,7 @@
               </div>
            </div>
           <div v-if="showreplyInput==i.commentId" class="animate__animated animate__lightSpeedInRight">
-              <input type="text" inputcentent v-model="replyContent" placeholder="请开始你的表演"  class="focus:outline-none focus:ring-2 focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block mt-3"/>
+              <input type="text" inputcentent v-focus v-model="replyContent" placeholder="请开始你的表演"  class="focus:outline-none focus:ring-2 focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block mt-3"/>
               <div class="w-full flex justify-between items-center m-2">
                 <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
                 <Icon type='smile' class='mr-1' />
