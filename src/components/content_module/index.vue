@@ -108,7 +108,6 @@ export default {
     module_name: {
       immediate: true,
       async handler(newval) {
-        this.loadingLottie = true
         this.getArticle(newval,1)
         this.$nextTick(()=>{
             if(!this.$refs.Article1) return
@@ -125,6 +124,7 @@ export default {
   },
   methods:{
     async getArticle(newval,current){
+        this.loadingLottie = true
         const res = await Get_Article_ModuleList(newval,current);
         this.total = res.data.total
         this.article_moduleList = res.data.article_moduleList.map(item=>{
@@ -148,7 +148,7 @@ export default {
             this.loadingLottie=false
         }, 300);
     },
-      current_Change(current){
+    current_Change(current){
       this.current = current
       this.getArticle(this.$route.fullPath.split('/')[2],current)
     },
