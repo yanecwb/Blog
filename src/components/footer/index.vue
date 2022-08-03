@@ -19,6 +19,3 @@ export default {
   props:['show_footer'],
 };
 </script>
-
-<style>
-</style>

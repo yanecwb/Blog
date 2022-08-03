@@ -1,17 +1,17 @@
 <template>
   <div class="menu" ref="menu" >
-    <div class="userInfo_box">
+    <div class="userInfo_box w-full h-9/10 relative">
       <div
         v-if="backimg || showmenu"
         :class="
           userInfo.backgroundUrl
             ? 'backgroundUrl hvr-curl-top-right animate__animated  animate__fadeIn animate__slower'
-            : 'not_login_bg hvr-curl-top-right animate__animated  animate__fadeIn animate__slower backgroundUrl'
+            : 'not_login_bg bg-cover hvr-curl-top-right animate__animated  animate__fadeIn animate__slower backgroundUrl'
         "
         :style="{backgroundImage:`url(${userInfo.backgroundUrl ? userInfo.backgroundUrl :'https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg'})`}"
         @click="show_savabgimg"
       >
-        <div class="savebg" v-if="is_savebg">
+        <div class="savebg text-center bg-white absolute text-xs cursor-pointer" v-if="is_savebg">
           <span @click="changeImg">更换图片</span>
           <span
             style="border-bottom: none"
@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="login_button" v-if="userInfo.id">
+    <div class="text-center w-full p-5" v-if="userInfo.id">
       <Button
         style="background: #5869da; color: white; margin: 0 10px"
         @click="logout('switch')"
@@ -109,7 +109,7 @@
         >退出登陆</Button
       >
     </div>
-    <div class="login_button" v-else>
+    <div class="text-center w-full p-5" v-else>
       <Button
         style="background: #5869da; color: white; margin: 0 10px"
         @click="game_visible = true"
@@ -377,12 +377,8 @@ export default {
   background-color: #f1f2f3;
 }
 .userInfo_box {
-  width: 100%;
-  height: 90vh;
-  position: relative;
   .not_login_bg {
     background-image: url("https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg");
-    background-size: cover;
   }
 }
 .userInfo_box .backgroundUrl {
@@ -393,13 +389,8 @@ export default {
 .backgroundUrl .savebg {
   width: 55px;
   height: 48px;
-  background-color: white;
-  position: absolute;
-  text-align: center;
-  font-size: 12px;
   z-index: 1003;
   color: #8d8282;
-  cursor: pointer;
 }
 .savebg span {
   display: inline-block;
@@ -528,11 +519,5 @@ export default {
 .save_useredit {
   top: 95px;
   left: 99px;
-}
-
-.login_button {
-  width: 100%;
-  padding: 20px;
-  text-align: center;
 }
 </style>

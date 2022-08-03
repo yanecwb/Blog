@@ -730,11 +730,6 @@ pre {
   // }
 }
 
-.h {
-  img {
-    width: 100%;
-  }
-}
 
 /* From uiverse.io */
 .follows {

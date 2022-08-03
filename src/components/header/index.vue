@@ -24,7 +24,7 @@
             </li>
           </div>
           <div class=" flex justify-between items-center">
-           <div @click="change_showmenu" :class="playMusic ? 'animate-spin' : ''" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
+           <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
            </div>
            <router-link to="/message_center/chat_room" target="_Blank" class="hvr-icon-up">
               <div class="flex flex-col justify-between items-center mx-2 text-white  message">
@@ -173,7 +173,7 @@
       <span class="iconfont icon-icon--fanhuidingbu text-2xl"></span>
     </div>
     <!-- 遮罩层 -->
-    <div class="Mask" v-if="showmenu" @click="change_showmenu"></div>
+    <div class="Mask w-screen h-screen fixed top-0" v-if="showmenu" @click="change_showmenu"></div>
     <!-- 菜单 -->
     <MoreMenu :showmenu="showmenu" @change_showmenu="change_showmenu" />
   </div>
@@ -198,7 +198,6 @@ export default {
       weather: "",
       visible:false,
       Mune_left: "Mune_left_hidden g-bg",
-      playMusic:false
     };
   },
   // emits:['playMusic'],
@@ -220,7 +219,6 @@ export default {
     },
     change_showmenu() {
       this.$emit('play')
-      this.playMusic = true
       this.showmenu = !this.showmenu;
     },
     showHeader(val) {

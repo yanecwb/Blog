@@ -8,7 +8,7 @@
       ref="Article1"
     >
       <Bgcanvas  />
-      <article class="content_list w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
+      <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
         <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index">
           <section
             :style="index == 0 ? { padding: 'none' } : ''"
@@ -168,8 +168,6 @@ export default {
 <style lang="less" scoped>
 .content_moduleBox {
   .content_list {
-    background-color: white;
-    opacity: 0.9;
     li {
       border-top: solid 1px #e5e6eb;
       .title {
@@ -199,18 +197,6 @@ export default {
           color: #5869da;
         }
       }
-    }
-  }
-
-  .aside {
-    width: calc(100% - 790px);
-    height: 200px;
-    background-color: white;
-
-    .t {
-      align-items: center;
-      display: flex;
-      justify-content: center;
     }
   }
 }
