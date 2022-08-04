@@ -1,12 +1,95 @@
 <template>
-    <div class="about_me_box">
-        <div class="about_me_bg"></div>
+    <div class="about_me_box relative top-0">
+        <Banner bg="http://flechazoblog.site:5006/img/module_headerBg/about_mg.jpg" class="w-screen h-full" style="z-index:-100"/>
+        <div class="about_me_bg w-4/5 md:w-1/2 left-1/2 mt-20 absolute top-0">
+          <div class="p-3" style="background-color: rgba(255,255,255,.6);">
+            <div class="mb-3">
+              <p class="font-bold opacity-90 md:text-xl text-base">基本信息</p>
+              <div class="p-6">
+                <ul>
+                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">陈文滨(Flechazo)/男/汉/1998</li>
+                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">九江学院(JJU)/软件技术/2020</li>
+                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">TEL:18397871804/EMAIL:cwb_offer@163.com</li>
+                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">职业专长:web前端开发工程师,Vue,React,Nodejs,Java,MySql...</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mb-3">
+              <p class="font-bold opacity-90 md:text-xl text-base">工作经历</p>
+              <div class="p-6">
+                  <div class="font-bold  mb-3" v-for="item in experienceInfo">
+                    <p class="md:text-xl opacity-80 mb-2">{{item.time}}</p>
+                    <p class="font-bold opacity-60 mb-3 md:text-sm text-xs">{{item.desc}}</p>
+                  </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <a @click="showEnterpw = true" class="font-bold text-xs md:text-xl opacity-90">查看更多>></a>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
 <script>
+import Banner from "../../views/banner";
+import { ref } from 'vue';
+import {getResume} from '../../api/userInfo'
 export default {
     name: "about_me",
+    components:{Banner},
+    setup(){
+      const experienceInfo = [
+        {
+          time:'2021-12 ~ 今',
+          desc:'参与云平台研发，主要负责开发框架、部署平台、监控平台、分布式事务、消息推送、消息总线服务等。'
+        },
+        {
+          time:'2021-1 ~ 2021-12',
+          desc:'参与转账产品研发，主要负责收款主页系分、开放平台。'
+        },
+        {
+          time:'2019-12 ~ 2020-12',
+          desc:'参与云南电网办公自动化系统、流程引擎研发。'
+        }
+      ]
+      // const ctx = getCurrentInstance()
+      const showEnterpw = ref(false)
+      return {
+        experienceInfo,
+        showEnterpw
+      }
+    },
+    watch:{
+      async showEnterpw(newval){
+        if(newval){
+          const res = await this.$Swal.fire({
+            title: '请输入访问密码',
+            input: 'password',
+            inputPlaceholder: 'Enter resume password',
+            confirmButtonText:'确定',
+            inputAttributes: {
+              maxlength: 6,
+              autocapitalize: 'off',
+              autocorrect: 'off'
+            }
+          })
+          const {value:password,isConfirmed} = res
+          this.showEnterpw = false
+          if(!password) return
+          const getResumeHandler =async ()=>{
+            const {code,msg} = (await getResume({password})).data
+            if(code == 200){
+              window.open( 'http://flechazoblog.site:5006/resume/Cwb_WebResume.pdf')
+            }else{
+              this.miniMessage(msg, 'error')
+            }
+          }
+          isConfirmed && getResumeHandler()
+
+        }
+      }
+    }
 };
 </script>
 
@@ -15,11 +98,7 @@ export default {
   width: 100%;
   height: 100vh;
   .about_me_bg{
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://cdn.rawchen.com/cover.jpg');
-    background-size: cover;
+    transform: translateX(-50%);
   }
 }
 </style>

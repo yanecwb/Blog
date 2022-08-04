@@ -13,3 +13,11 @@ export const getUser = (id)=>{
     params:{id}
   })
 }
+
+export const getResume = (params)=>{
+  return axios({
+    method:'get',
+    url:"/node_api/userCRUD/get_resume",
+    params
+  })
+}

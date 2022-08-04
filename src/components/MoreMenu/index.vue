@@ -122,7 +122,7 @@
       >
       <Modal v-model="game_visible" title="Basic Modal" width="100">
         <iframe
-          src="http://47.107.243.60:3009/"
+          src="http://flechazoblog.site:3009/"
           frameborder="0"
           width="700"
           height="410"
