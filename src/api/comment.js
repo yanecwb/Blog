@@ -1,9 +1,10 @@
 import axios from 'axios'
+const baseUrl = '/node_api/articleCRUD'
 // 发表评论
 export const putComment = (data)=>{
     return axios({
         method:'put',
-        url:`/node_api/articleCRUD/put_comment`,
+        url:`${baseUrl}/put_comment`,
         data
     })
 }
@@ -11,7 +12,7 @@ export const putComment = (data)=>{
 export const getComment = (params)=>{
     return axios({
         method:'get',
-        url:'/node_api/articleCRUD/get_comment',
+        url:`${baseUrl}/get_comment`,
         params
     })
 }
@@ -19,7 +20,7 @@ export const getComment = (params)=>{
 export const deleteComment = (data)=>{
   return axios({
       method:'delete',
-      url:'/node_api/articleCRUD/delete_comment',
+      url:`${baseUrl}/delete_comment`,
       data
   })
 }
@@ -27,7 +28,7 @@ export const deleteComment = (data)=>{
 export const changeLike = (data)=>{
   return axios({
     method:'post',
-    url:'/node_api/articleCRUD/change_like',
+    url:`${baseUrl}/change_like`,
     data
   })
 }
@@ -36,7 +37,7 @@ export const changeLike = (data)=>{
 export const changeCollection = (data)=>{
   return axios({
     method:'post',
-    url:'/node_api/articleCRUD/change_collection',
+    url:`${baseUrl}/change_collection`,
     data
   })
 }
@@ -45,7 +46,7 @@ export const changeCollection = (data)=>{
 export const getLike = (params)=>{
   return axios({
     methods:'get',
-    url:'/node_api/articleCRUD/get_like',
+    url:`${baseUrl}/get_like`,
     params
   })
 }
@@ -54,7 +55,7 @@ export const getLike = (params)=>{
 export const releaseReply = (data)=>{
   return axios({
     method:'post',
-    url:'/node_api/articleCRUD/releaseReply',
+    url:`${baseUrl}/releaseReply`,
     data
   })
 }

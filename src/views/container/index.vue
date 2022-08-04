@@ -70,7 +70,7 @@
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id" ref="article_left_natural">
+            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
               <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(http://flechazoblog.site:5006/img/home_img/' + article_listBg[index] + ')' }"></div>
               <div class=" bg-white py-4 px-8 w-full relative bottom-5">

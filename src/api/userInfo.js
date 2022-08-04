@@ -1,15 +1,16 @@
 import axios from 'axios'
+const baseUrl = '/node_api/userCRUD'
 export const changeUserInfo = (data)=>{
        return  axios({
         method:'post',
-        url:`/node_api/userCRUD/changeuserInfo`,
+        url:`${baseUrl}/changeuserInfo`,
         data
       })
 }
 export const getUser = (id)=>{
   return axios({
     method:'get',
-    url:`/node_api/userCRUD/getUser`,
+    url:`${baseUrl}/getUser`,
     params:{id}
   })
 }
@@ -17,7 +18,7 @@ export const getUser = (id)=>{
 export const getResume = (params)=>{
   return axios({
     method:'get',
-    url:"/node_api/userCRUD/get_resume",
+    url:`${baseUrl}/get_resume`,
     params
   })
 }

@@ -1,10 +1,12 @@
 // import request from "../utils/request";
 import axios from 'axios'
+const baseUrl = '/node_api/articleCRUD'
+
 // 首页文章列表
 export const getArticle_list = ()=>{
     return axios({
         method:'get',
-        url:`/node_api/articleCRUD/article_list`,
+        url:`${baseUrl}/article_list`,
     })
 }
 
@@ -19,7 +21,7 @@ export const getSide_list = ()=>{
 export const serach_article = (params)=>{
   return axios({
     methods:'get',
-    url:'/node_api/articleCRUD/search_article',
+    url:`${baseUrl}/search_article`,
     params
   })
 }
@@ -28,7 +30,7 @@ export const serach_article = (params)=>{
 export const Get_Article_Content = (article_id)=>{
   return axios ({
     method:'get',
-    url:'/node_api/articleCRUD/get_article_content',
+    url:`${baseUrl}/get_article_content`,
     params:{
       article_id
     }
@@ -39,7 +41,7 @@ export const Get_Article_Content = (article_id)=>{
 export const Get_Article_ModuleList = (module,current)=>{
   return axios ({
     method:'get',
-    url:'/node_api/articleCRUD/get_article_moduleList',
+    url:`${baseUrl}/get_article_moduleList`,
     params:{
       module,
       current
