@@ -11,6 +11,7 @@
                   <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">九江学院(JJU)/软件技术/2020</li>
                   <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">TEL:18397871804/EMAIL:cwb_offer@163.com</li>
                   <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">职业专长:web前端开发工程师,Vue,React,Nodejs,Java,MySql...</li>
+                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">GitHub:<a href="https://github.com/yanecwb?tab=repositories">https://github.com/yanecwb?tab=repositories</a></li>
                 </ul>
               </div>
             </div>
