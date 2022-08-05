@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center,Chat_room,Personal_letter,Reply,Praise,Sys_notify,Friend_link} from './router-path.js'
+import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center,Chat_room,Personal_letter,Reply,Praise,Sys_notify,Friend_link,Leaving_message} from './router-path.js'
 
 Vue.use(VueRouter);
 const routes = [
@@ -109,6 +109,14 @@ const routes = [
       component:Friend_link,
       meta:{
         title:'🔗友链'
+      }
+    },
+    {
+      path:'/leaving_message',
+      name:'leaving_message',
+      component:Leaving_message,
+      meta:{
+        title:'留言板'
       }
     }
 ];

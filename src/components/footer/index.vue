@@ -19,3 +19,8 @@ export default {
   props:['show_footer'],
 };
 </script>
+<style lang="less" scoped>
+*{
+  font-family: serif;
+}
+</style>

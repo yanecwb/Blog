@@ -1,15 +1,11 @@
 <template>
-  <div>
-    friendasfas
+  <div>Leaving_message
+   
   </div>
 </template>
 
 <script>
 export default {
-  name:'friend_link'
+  name:'leaving_message'
 }
 </script>
-
-<style>
-
-</style>

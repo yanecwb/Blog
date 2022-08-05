@@ -47,7 +47,7 @@
                 <span class="text-xs md:text-sm">友链</span>
               </div>
             </router-link>
-            <router-link to="/message_center/chat_room" target="_Blank">
+            <router-link to="/leaving_message" target="_Blank">
               <div class="hvr-pulse flex header_right">
                 <img src='http://flechazoblog.site/Img/%E7%95%99%E8%A8%80.svg' style="width:20px;height:20px" />
                 <span class="text-xs md:text-sm">留言</span>
