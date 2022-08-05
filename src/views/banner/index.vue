@@ -61,10 +61,12 @@ export default {
   },
  async mounted() {
     var xhr = new XMLHttpRequest();
-    xhr.open('get', 'https://api.xygeng.cn/one');
+    xhr.open('get', 'https://api.codelife.cc/yiyan/info?lang=cn');
+    xhr.setRequestHeader('signaturekey','U2FsdGVkX18c0tV1HrDsOxE1GpqOjSFRnXUCZfiOKS4=')
     xhr.onreadystatechange =  ()=> {
       if (xhr.readyState === 4) {
         var data = JSON.parse(xhr.responseText);
+        console.log(data);
         this.mingrenmingyan = data.data.content;
       }
     }

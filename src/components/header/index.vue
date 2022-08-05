@@ -24,26 +24,35 @@
             </li>
           </div>
           <div class=" flex justify-between items-center">
-           <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
+           <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover mr-2 hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
            </div>
-            <router-link to="/message_center/chat_room" target="_Blank" class="hvr-icon-up">
-              <div class="flex flex-col justify-between items-center mx-2 text-white  message">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="right-entry-icon fa fa-arrow-circle-o-up hvr-icon  w-4 h-4 md:w-5 md:h-5 ">
-                  <path d="M15.435 17.7717H4.567C2.60143 17.7717 1 16.1723 1 14.2047V5.76702C1 3.80144 2.59942 2.20001 4.567 2.20001H15.433C17.3986 2.20001 19 3.79943 19 5.76702V14.2047C19.002 16.1703 17.4006 17.7717 15.435 17.7717ZM4.567 4.00062C3.59327 4.00062 2.8006 4.79328 2.8006 5.76702V14.2047C2.8006 15.1784 3.59327 15.9711 4.567 15.9711H15.433C16.4067 15.9711 17.1994 15.1784 17.1994 14.2047V5.76702C17.1994 4.79328 16.4067 4.00062 15.433 4.00062H4.567Z" fill="currentColor"></path>
-                  <path d="M9.99943 11.2C9.51188 11.2 9.02238 11.0667 8.59748 10.8019L8.5407 10.7635L4.3329 7.65675C3.95304 7.37731 3.88842 6.86226 4.18996 6.50976C4.48954 6.15544 5.0417 6.09699 5.4196 6.37643L9.59412 9.45943C9.84279 9.60189 10.1561 9.60189 10.4067 9.45943L14.5812 6.37643C14.9591 6.09699 15.5113 6.15544 15.8109 6.50976C16.1104 6.86409 16.0478 7.37731 15.6679 7.65675L11.4014 10.8019C10.9765 11.0667 10.487 11.2 9.99943 11.2Z" fill="currentColor"></path>
-                </svg>
+            <router-link to="/message_center/chat_room" target="_Blank">
+              <div class="hvr-pulse flex header_right relative  message">
+                <img src='http://flechazoblog.site/Img/%E4%BF%A1%E5%B0%81.svg' style="width:17px" />
                 <span class="text-xs md:text-sm">消息</span>
               </div>
             </router-link>
-            <a @mouseenter='showWeather = true' @mouseleave="showWeather = false" class=" mx-2 no-underline relative">
-              <div class="hvr-pulse flex flex-col justify-between items-center">
+            <router-link :to="$route.fullPath" @mouseenter.native='showWeather = true' @mouseleave.native="showWeather = false" class=" relative">
+              <div class="hvr-pulse flex header_right">
                 <img :src='WeatherSvg' style="width:20px;height:20px" />
-                <span class="text-xs md:text-sm text-white">天气</span>
+                <span class="text-xs md:text-sm ">天气</span>
               </div>
-              <div v-show="showWeather" :class="WeatherCss" style="transform: translateX(-170px)">
+              <div v-show="showWeather" :class="WeatherCss" style="transform: translateX(-175px)">
                 <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/CSS/Weather/index.html"  height="400px"></iframe>
               </div>
-            </a>
+            </router-link>
+            <router-link to="/friend_link" target="_Blank">
+              <div class="hvr-pulse flex header_right">
+                <img src='http://flechazoblog.site/Img/%E5%8F%8B%E9%93%BE.svg' style="width:20px;height:20px" />
+                <span class="text-xs md:text-sm">友链</span>
+              </div>
+            </router-link>
+            <router-link to="/message_center/chat_room" target="_Blank">
+              <div class="hvr-pulse flex header_right">
+                <img src='http://flechazoblog.site/Img/%E7%95%99%E8%A8%80.svg' style="width:20px;height:20px" />
+                <span class="text-xs md:text-sm">留言</span>
+              </div>
+            </router-link>
             <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
             <!-- <Icon
               type="eye"
@@ -361,6 +370,9 @@ export default {
 };
 </script>
 <style lang="less">
+header{
+  font-family: serif;
+}
 .phone_select {
   @apply w-2/3 h-14 mb-8 rounded-full flex justify-center items-center cursor-pointer;
 }
@@ -369,6 +381,9 @@ export default {
 }
 .Mune_left_show {
   @apply h-screen w-63 fixed top-0 left-0  ease-in-out duration-700;
+}
+.header_right{
+  @apply flex-col justify-between items-center mr-2 text-white;
 }
 
 .navBar_show {
@@ -393,7 +408,7 @@ export default {
     text-align: center;
     line-height: 15px;
     top: -4px;
-    right: 9px;
+    right: 5px;
     // padding: 2px 5px;
     // width: px;
     padding: 0 3px;
