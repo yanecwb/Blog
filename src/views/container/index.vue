@@ -132,9 +132,6 @@
             </ul>
           </div>
          </div>
-         <div>
-          <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/CSS/Weather/index.html" class="w-full" height="500px"></iframe>
-         </div>
         </div>
       </div>
       <div v-if="arr[5]" class="md:absolute md:2-108 w-86 h-24 bottom-0 right-0 -z-50" style="background-image:url(http://flechazoblog.site:5006/img/static_img/fan_girl.gif);background-size:100% 100%"></div>
