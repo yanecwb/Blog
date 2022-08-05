@@ -28,7 +28,7 @@
            </div>
             <router-link to="/message_center/chat_room" target="_Blank">
               <div class="hvr-pulse flex header_right relative  message">
-                <img src='http://flechazoblog.site/Img/%E4%BF%A1%E5%B0%81.svg' style="width:17px" />
+                <img src='http://flechazoblog.site/Img/message.svg' style="width:20px;height:20px"/>
                 <span class="text-xs md:text-sm">消息</span>
               </div>
             </router-link>
@@ -43,13 +43,13 @@
             </router-link>
             <router-link to="/friend_link" target="_Blank">
               <div class="hvr-pulse flex header_right">
-                <img src='http://flechazoblog.site/Img/%E5%8F%8B%E9%93%BE.svg' style="width:20px;height:20px" />
+                <img src='http://flechazoblog.site/Img/f_link.svg' style="width:20px;height:20px" />
                 <span class="text-xs md:text-sm">友链</span>
               </div>
             </router-link>
             <router-link to="/leaving_message" target="_Blank">
               <div class="hvr-pulse flex header_right">
-                <img src='http://flechazoblog.site/Img/%E7%95%99%E8%A8%80.svg' style="width:20px;height:20px" />
+                <img src='http://flechazoblog.site/Img/liuyan.svg' style="width:20px;height:20px" />
                 <span class="text-xs md:text-sm">留言</span>
               </div>
             </router-link>
