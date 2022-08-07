@@ -88,8 +88,9 @@
         </div>
         <CallingCard :callingCardUserId='callingCardUserId' @mouseenter.native="ClearcallingCardTimer" @mouseleave.native="callingCardShow = false" v-if="callingCardShow"/>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
-          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}</p>
-          <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}<span v-if="article.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></p>
+          <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis my-2">
             {{ format_publishTime(article.publish_time)  }} 阅读{{ article.readCount }}
           </p>
         </div>
@@ -228,7 +229,8 @@
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p class="text-sm"><span class="text-blue-500 font-bold">{{ i.nickname }}</span><span
+            <p><span class="text-blue-500 font-bold">{{ i.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
                 class="text-xs inline-block ml-2">{{ format_publishTime(i.commentTime) }}</span></p>
             <p class="text-0a1 py-3" v-html="i.comment"></p>
             <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
@@ -259,7 +261,8 @@
                   <div class=" absolute left-0">
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
                   </div>
-                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}</span></p>
+                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span></p>
                   <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>
                   <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
                     <div class="w-5/6 md:w-36 flex justify-between" >

@@ -15,12 +15,12 @@
             <li name="android" @click="goRouter('/content/android')">web3.0</li>
             <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
             <li name="article" @click="go_up_article()">
-              投稿
               <Icon
                 type="edit"
                 style="font-size: 14px"
                 title="写文章"
               />
+              投稿
             </li>
           </div>
           <div class=" flex justify-between items-center">
@@ -28,7 +28,7 @@
            </div>
             <router-link to="/message_center/chat_room" target="_Blank">
               <div class="hvr-pulse flex header_right relative  message">
-                <img src='http://flechazoblog.site/Img/message.svg' style="width:20px;height:20px"/>
+                <img src='http://flechazoblog.site/Img/message.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">消息</span>
               </div>
             </router-link>

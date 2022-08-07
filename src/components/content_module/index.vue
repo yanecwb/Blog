@@ -24,7 +24,8 @@
                 <div class="content_list_author">
                   <span class="mr-2">{{
                     list.nickname
-                  }}</span>
+                  }}<span v-if="list.nickname == 'Flechazo'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span>
                   <span class="text-xs">{{
                     list.publish_time
                   }}</span>
