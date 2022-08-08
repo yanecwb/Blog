@@ -9,10 +9,10 @@
     >
       <Bgcanvas  />
       <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
-        <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index">
+        <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index"  style="text-decoration:none">
           <section
             :style="index == 0 ? { padding: 'none' } : ''"
-            class="cursor-pointer py-0 px-4  hover:bg-gray-100"
+            class="cursor-pointer py-0 px-4  hover:bg-gray-100 group"
           >
             <li
               class="mb-1 flow-root list-none  pt-4 hover:opacity-100"
@@ -31,11 +31,11 @@
                   }}</span>
                   <!-- <span>面试</span> -->
                 </div>
-                <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs">
+                <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs group-hover:underline" >
                   {{ list.article_title}}_
                 </p>
                 <p
-                  class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden"
+                  class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden group-hover:underline"
                 >
                   {{list.article_introduction}}
                 </p>

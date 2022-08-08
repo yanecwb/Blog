@@ -58,6 +58,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 .selete_navBar {
-  color: #c15146;
+  color: #08d9d6;
+  /* background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%); */
   font-size:15px
 }
