@@ -115,7 +115,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" @click="showImg" class="md:px-10 px-1 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
+      <div  v-html="article.content" @click="showImg" class="md:px-10 px-1 md:px-18 w-full articleContent" style="border-bottom: 1px solid #f0f0f0;"></div>
       </div>
        <lottie
         v-else
@@ -311,12 +311,12 @@
         <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
-    <div @click="showimg  = false" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
+    <div @click="showimg = 0" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
       <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-0 md:left-10 cursor-pointer" style="transform: rotate(180deg);"><svg t="1659950640276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2267" width="20" height="20"><path d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z" fill="" p-id="2268"></path></svg></div>
-      <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" class="w-4/5 md:w-1/3 max-h-screen animate__fast animate__animated animate__zoomIn">
-      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 md:right-12  cursor-pointer"><svg t="1659950640276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2267" width="20" height="20"><path d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z" fill="" p-id="2268"></path></svg></div>
-      <div @click="(e)=>{e.stopPropagation();}" class=" absolute bottom-1 flex ">
-          <li v-for="item in contentImgUl" :key="item" class="mx-3 list-none cursor-pointer" @click="()=>{contentImgUrl = item.url}"><img :src="item.url" class="w-14 h-20" alt=""></li>
+      <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" class="w-4/5 md:w-1/3 max-h-4/5 animate__fast animate__animated" :class="contentImgAnimate">
+      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 md:right-10  cursor-pointer"><svg t="1659950640276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2267" width="20" height="20"><path d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z" fill="" p-id="2268"></path></svg></div>
+      <div @click="(e)=>{e.stopPropagation();}" class="absolute bottom-0 flex w-full justify-center" style="background: rgba(0,0,0,.6)">
+            <li v-for="item,index in contentImgUl" :key="index" class="mx-3 list-none cursor-pointer relative" :class="item.url == contentImgUrl ? '':'mask'"  @click="()=>{contentImgUrl = item.url}"><div  class="w-14 h-28 bg-cover bg-center" :style="{backgroundImage:'url('+item.url+')'}" ></div></li>
       </div>
     </div>
   </div>
@@ -372,7 +372,8 @@ export default {
       loadingLottie:true,
       contentImgUl:[],
       contentImgUrl:'',
-      showimg:false
+      showimg:false,
+      contentImgAnimate:'animate__zoomIn'
     };
   },
   computed:{
@@ -381,6 +382,14 @@ export default {
     }
   },
   methods: {
+    // hideImg(){
+    //   clearTimeout(this.contentImgTimre)
+    //   this.contentImgAnimate = 'animate__zoomOut'
+    //   this.contentImgTimre = setTimeout(()=>{
+    //     this.contentImgAnimate = 'animate__zoomIn'
+    //     this.showimg = false
+    //   },800)
+    // },
     showImg(e){
       if(e.target.nodeName == 'IMG'){
         this.showimg = true
@@ -637,7 +646,7 @@ export default {
     }
     this.article = res.data
     this.article.content = escape2Html(this.article.content)
-    this.article.content = this.article.content.replace(/<img/g,"<img class='cursor-pointer'")
+    // this.article.content = this.article.content.replace(/<img/g,"<img :style='cursor: zoom-in;'")
 
     var patt = /<img[^>]+src=['"]([^'"]+)['"]+/g;
     var result = [],temp;
@@ -700,6 +709,9 @@ export default {
           });
         })
       }
+    },
+    showimg(newval){
+      newval ? document.getElementsByTagName("body")[0].style.overflow = "hidden" : document.getElementsByTagName("body")[0].style.overflow = "auto";
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -913,5 +925,18 @@ input[inputcentent]:focus {
 
 .editBtn:active {
   box-shadow: none;
+}
+
+.mask::after{
+  content: ' ';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  top: 0;
+}
+.articleContent  img{
+cursor: zoom-in;
 }
 </style>
