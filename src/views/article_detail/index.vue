@@ -88,7 +88,7 @@
         </div>
         <CallingCard :callingCardUserId='callingCardUserId' @mouseenter.native="ClearcallingCardTimer" @mouseleave.native="callingCardShow = false" v-if="callingCardShow"/>
         <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
-          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}<span v-if="article.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}<span v-if="article.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></p>
           <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis my-2">
             {{ format_publishTime(article.publish_time)  }} 阅读{{ article.readCount }}
@@ -115,7 +115,7 @@
           </button>
         </Tooltip>
       </div>
-      <div v-html="article.content" class="md:px-10 px-1 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
+      <div v-html="article.content" @click="showImg" class="md:px-10 px-1 md:px-18 w-full" style="border-bottom: 1px solid #f0f0f0;"></div>
       </div>
        <lottie
         v-else
@@ -229,7 +229,7 @@
             <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
           </div>
           <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p><span class="text-blue-500 font-bold">{{ i.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+            <p><span class="text-blue-500 font-bold">{{ i.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
                 class="text-xs inline-block ml-2">{{ format_publishTime(i.commentTime) }}</span></p>
             <p class="text-0a1 py-3" v-html="i.comment"></p>
@@ -261,7 +261,7 @@
                   <div class=" absolute left-0">
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
                   </div>
-                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span></p>
                   <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>
                   <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
@@ -311,6 +311,14 @@
         <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
+    <div @click="showimg  = false" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
+      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-10 cursor-pointer" style="transform: rotate(180deg);"><svg t="1659950640276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2267" width="20" height="20"><path d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z" fill="" p-id="2268"></path></svg></div>
+      <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" class="w-4/5 md:w-1/3 max-h-screen animate__fast animate__animated animate__zoomIn">
+      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-10  cursor-pointer"><svg t="1659950640276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2267" width="20" height="20"><path d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z" fill="" p-id="2268"></path></svg></div>
+      <div @click="(e)=>{e.stopPropagation();}" class=" absolute bottom-1 flex ">
+          <li v-for="item in contentImgUl" :key="item" class="mx-3 list-none cursor-pointer" @click="()=>{contentImgUrl = item.url}"><img :src="item.url" class="w-14 h-20" alt=""></li>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -328,7 +336,7 @@ export default {
     Tooltip,
     Icon,
     Empty,
-    CallingCard
+    CallingCard,
   },
   data() {
     return {
@@ -361,10 +369,24 @@ export default {
       callingCardShow:false,//名片
       callingCardUserId:'',
       defaultOptions: { animationData: animationData },
-      loadingLottie:true
+      loadingLottie:true,
+      contentImgUl:[],
+      contentImgUrl:'',
+      showimg:false
     };
   },
+  computed:{
+    contentImgUrlIndex(){
+      return this.contentImgUl.findIndex(i=>i.url == this.contentImgUrl)
+    }
+  },
   methods: {
+    showImg(e){
+      if(e.target.nodeName == 'IMG'){
+        this.showimg = true
+        this.contentImgUrl = e.target.currentSrc
+      }
+    },
     AddcallingCardTimer(){
       this.callingCardTimer = setTimeout(()=>{
         this.callingCardShow = false
@@ -615,6 +637,15 @@ export default {
     }
     this.article = res.data
     this.article.content = escape2Html(this.article.content)
+    this.article.content = this.article.content.replace(/<img/g,"<img class='cursor-pointer'")
+
+    var patt = /<img[^>]+src=['"]([^'"]+)['"]+/g;
+    var result = [],temp;
+    while ((temp = patt.exec(this.article.content)) != null) {
+      result.push({'url':temp[1]});
+    }
+    this.contentImgUl = result
+
     localStorage.setItem("article_details", JSON.stringify(this.article));
     this.getComments({article_id: this.$route.params.id,})
     getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
