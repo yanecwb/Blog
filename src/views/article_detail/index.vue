@@ -261,16 +261,15 @@
                   <div class=" absolute left-0">
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
                   </div>
-                  <p class="text-sm "><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
-                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span></p>
+                  <p ><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
+                      class="text-sm inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span></p>
                   <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>
                   <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-                    <div class="w-5/6 md:w-36 flex justify-between" >
+                    <div class="w-5/6 md:w-20 flex justify-between" >
                       <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
-                      <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
+                      <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer mx-2" />
                       <!-- <Icon type="message" :title="'回复'+reply.nickname" class="hover:text-blue-400 cursor-pointer" /> -->
-                      <span
-                      class="text-xs inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span>
                     </div>
                     <!-- $set给没再data中定义的数据添加响应式 -->
                     <div class="relative cursor-pointer" @click="() => {
@@ -297,7 +296,10 @@
                 <Icon type='smile' class='mr-1' />
                 <span>表情</span>
               </div>
-                <button @click="toReply(i.userId,i.commentId)" class="py-1 px-5 border-none rounded text-white text-sm" style="background:#00c3ff">评论</button>
+               <div>
+                  <button @click="showreplyInput = ''" class="py-1 px-5 border-none rounded text-black text-sm block_border mr-2 cursor-pointer" style="background:#fff">取消</button>
+                  <button @click="toReply(i.userId,i.commentId)" class="py-1 px-5 border-none rounded text-white text-sm cursor-pointer" style="background:#00c3ff">评论</button>
+               </div>
               </div>
             </div>
         </div>
@@ -311,11 +313,15 @@
         <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
-    <div @click="showimg = 0" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
+    <div @click="showimg = 0;hasmaxHeight = true" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
       <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-0 md:left-10 cursor-pointer" style="transform: rotate(180deg);" :title="contentImgUrlIndex !== 0 ? '上一张' : '已经是第一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
-      <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" class="w-4/5 md:w-1/3 max-h-4/5 animate__fast animate__animated" :class="contentImgAnimate">
+      <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" ref="contentImgRef" :class="hasmaxHeight ? contentImgAnimate+'max-h-4/5' : 'contentImgAnimate'" class="w-4/5 md:w-1/3 animate__fast animate__animated" >
       <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 md:right-10  cursor-pointer" :title="contentImgUrlIndex !== contentImgUl.length-1 ? '下一张' : '已经是最后一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
       <div @click="(e)=>{e.stopPropagation();}" class="absolute bottom-0 flex w-full justify-center" style="background: rgba(0,0,0,.6)">
+            <div class=" absolute bottom-0 right-10 flex justify-center">
+              <div @click="enlargeImg" class="ml-3 cursor-pointer"><svg t="1659974581864" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5349" width="20" height="20"><path d="M977.454545 81.454545v236.125091a34.909091 34.909091 0 0 1-69.818181 0V165.701818l-269.870546 269.870546a34.816 34.816 0 0 1-49.338182 0 34.909091 34.909091 0 0 1 0-49.384728L858.251636 116.363636h-151.831272a34.909091 34.909091 0 1 1 0.046545-69.818181h236.078546a34.909091 34.909091 0 0 1 34.90909 34.90909zM386.280727 588.381091L116.363636 858.251636v-151.924363a34.909091 34.909091 0 1 0-69.818181 0.046545v236.171637a34.909091 34.909091 0 0 0 34.90909 34.90909h236.171637a34.909091 34.909091 0 0 0 0-69.818181H165.748364l269.917091-269.917091a34.909091 34.909091 0 1 0-49.384728-49.338182zM165.748364 116.363636h151.924363A34.909091 34.909091 0 1 0 317.626182 46.545455H81.454545a34.909091 34.909091 0 0 0-34.90909 34.90909v236.125091a34.909091 34.909091 0 0 0 69.818181 0V165.701818l269.917091 269.870546a34.816 34.816 0 0 0 49.338182 0 34.909091 34.909091 0 0 0 0-49.384728L165.748364 116.363636zM942.545455 671.464727a34.909091 34.909091 0 0 0-34.909091 34.909091v151.924364l-269.870546-269.917091a34.909091 34.909091 0 1 0-49.384727 49.384727l269.870545 269.917091h-151.831272A34.909091 34.909091 0 1 0 706.466909 977.454545h236.078546a34.909091 34.909091 0 0 0 34.90909-34.90909v-236.171637a34.909091 34.909091 0 0 0-34.90909-34.909091z" p-id="5350" fill="#ffffff"></path></svg></div>
+              <div @click="narrowImg" class="ml-3 cursor-pointer"> <svg t="1659974402776" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4012" width="20" height="20"><path d="M745.12399 745.104035l185.747471 0c16.093537 0 29.283953-13.135158 29.283953-29.321816 0-16.303314-13.114692-29.323862-29.283953-29.323862L715.764312 686.458357c-8.037047 0-15.34857 3.28379-20.656459 8.591679-5.383614 5.306866-8.628518 12.617365-8.628518 20.694321l0 215.106126c0 16.07307 13.134135 29.283953 29.321816 29.283953 16.303314 0 29.321816-13.114692 29.321816-29.283953L745.122967 745.104035zM275.966751 745.104035l-185.747471 0c-16.093537 0-29.283953-13.135158-29.283953-29.321816 0-16.303314 13.114692-29.323862 29.283953-29.323862l215.107149 0c8.037047 0 15.34857 3.28379 20.656459 8.591679 5.383614 5.306866 8.628518 12.617365 8.628518 20.694321l0 215.106126c0 16.07307-13.133112 29.283953-29.321816 29.283953-16.303314 0-29.321816-13.114692-29.321816-29.283953L275.967774 745.104035zM745.12399 275.945773l185.747471 0c16.093537 0 29.283953 13.134135 29.283953 29.322839 0 16.303314-13.114692 29.321816-29.283953 29.321816L715.764312 334.590428c-8.037047 0-15.34857-3.282766-20.656459-8.590656-5.383614-5.306866-8.628518-12.618389-8.628518-20.693298L686.479335 90.199325c0-16.074094 13.134135-29.283953 29.321816-29.283953 16.303314 0 29.321816 13.114692 29.321816 29.283953L745.122967 275.945773zM275.966751 275.945773l-185.747471 0c-16.093537 0-29.283953 13.134135-29.283953 29.322839 0 16.303314 13.114692 29.321816 29.283953 29.321816l215.107149 0c8.037047 0 15.34857-3.282766 20.656459-8.590656 5.383614-5.306866 8.628518-12.618389 8.628518-20.693298L334.611405 90.199325c0-16.074094-13.133112-29.283953-29.321816-29.283953-16.303314 0-29.321816 13.114692-29.321816 29.283953L275.967774 275.945773z" p-id="4013" fill="#ffffff"></path></svg></div>
+            </div>
             <li v-for="item,index in contentImgUl" :key="index" class="mx-3 list-none cursor-pointer relative" :class="item.url == contentImgUrl ? '':'mask'"  @click="()=>{contentImgUrl = item.url}"><div  class="w-14 h-24 bg-cover bg-center" :style="{backgroundImage:'url('+item.url+')'}" ></div></li>
       </div>
     </div>
@@ -373,7 +379,8 @@ export default {
       contentImgUl:[],
       contentImgUrl:'',
       showimg:false,
-      contentImgAnimate:'animate__zoomIn'
+      contentImgAnimate:'animate__zoomIn',
+      hasmaxHeight:true
     };
   },
   computed:{
@@ -382,6 +389,21 @@ export default {
     }
   },
   methods: {
+    narrowImg(){
+      this.$nextTick(()=>{
+        const w = this.$refs.contentImgRef.offsetWidth
+        if (w<=200) return
+        this.$refs.contentImgRef.style.width = (w - 100)+'px'
+      })
+    },
+    enlargeImg(){
+      this.hasmaxHeight = false
+      this.$nextTick(()=>{
+        const w = this.$refs.contentImgRef.offsetWidth
+        if (w>=2000) return
+        this.$refs.contentImgRef.style.width = (w + 100)+'px'
+      })
+    },
     // hideImg(){
     //   clearTimeout(this.contentImgTimre)
     //   this.contentImgAnimate = 'animate__zoomOut'
