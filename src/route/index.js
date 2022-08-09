@@ -125,7 +125,7 @@ const router = new VueRouter({
     mode: "history",
     routes,
     scrollBehavior (to, from, savedPosition) {
-      if(to.meta.title == '博客列表' || to.meta.title == '博客详情'){
+      if(to.meta.title == '博客列表' || to.meta.title == '博客详情'|| to.meta.title == 'Flechazo\'s Blog'){
         return {x:0,y:0}
       }
     }
