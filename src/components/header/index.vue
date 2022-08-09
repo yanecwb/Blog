@@ -4,24 +4,43 @@
     <div v-if="!$store.state.is_phone" >
       <header class="header_box_navBar h-12 px-2" ref="navBar">
         <ul class="min-w-300">
-          <div ref="navBar_ul" class="flex text-xs md:text-sm">
-            <li @click="goRouter('/home')" name="home">
-              <Icon type="home" style="margin-right: 2px" />首 页
-            </li>
-            <li name="frontend" @click="goRouter('/content/frontend')">
-              前 端
-            </li>
-            <li name="backend" @click="goRouter('/content/backend')">后 端</li>
-            <li name="android" @click="goRouter('/content/android')">web3.0</li>
-            <li name="news" @click="goRouter('/content/news')">我 的 生 活</li>
-            <li name="article" @click="go_up_article()">
-              <Icon
-                type="edit"
-                style="font-size: 14px"
-                title="写文章"
-              />
-              投稿
-            </li>
+          <div ref="navBar_ul" class="flex">
+            <router-link to="/home">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/home.svg' style="width:17px;height:20px"/>
+                <span name='home' class="text-xs md:text-sm">首页</span>
+              </div>
+            </router-link>
+            <router-link to="/content/frontend">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">前端</span>
+              </div>
+            </router-link>
+            <router-link to="/content/backend">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">后端</span>
+              </div>
+            </router-link>
+            <router-link to="/content/android">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">web3.0</span>
+              </div>
+            </router-link>
+             <router-link to="/content/news">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">记录</span>
+              </div>
+            </router-link>
+             <router-link to="/upload_article" target="_Blank">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/upload.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">投稿</span>
+              </div>
+            </router-link>
           </div>
           <div class=" flex justify-between items-center">
            <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover mr-2 hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
