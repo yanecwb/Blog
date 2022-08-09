@@ -313,7 +313,7 @@
         <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
-    <div @click="showimg = 0;hasmaxHeight = true" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
+    <!-- <div @click="showimg = 0;hasmaxHeight = true" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
       <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-0 md:left-10 cursor-pointer" style="transform: rotate(180deg);" :title="contentImgUrlIndex !== 0 ? '上一张' : '已经是第一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
       <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" ref="contentImgRef" :class="hasmaxHeight ? contentImgAnimate+'max-h-4/5' : 'contentImgAnimate'" class="w-4/5 md:w-1/3 animate__fast animate__animated" >
       <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 md:right-10  cursor-pointer" :title="contentImgUrlIndex !== contentImgUl.length-1 ? '下一张' : '已经是最后一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
@@ -324,13 +324,16 @@
             </div>
             <li v-for="item,index in contentImgUl" :key="index" class="mx-3 list-none cursor-pointer relative" :class="item.url == contentImgUrl ? '':'mask'"  @click="()=>{contentImgUrl = item.url}"><div  class="w-14 h-20 bg-cover bg-center" :style="{backgroundImage:'url('+item.url+')'}" ></div></li>
       </div>
-    </div>
+    </div> -->
+    <ViewerImg  v-if="showimg" @hideImg="hideImg" :options='{contentImgUl,contentImgUrl}' />
   </div>
 </template>
 
 <script>
+
 import { Tooltip, Icon, Empty } from "ant-design-vue";
 import CallingCard from '../../components/calling_card'
+import ViewerImg from '../../components/viewerImg'
 import QRCode from 'qrcodejs2'
 import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
 import { Get_Article_Content } from '../../api/article_list'
@@ -343,6 +346,7 @@ export default {
     Icon,
     Empty,
     CallingCard,
+    ViewerImg
   },
   data() {
     return {
@@ -379,36 +383,11 @@ export default {
       contentImgUl:[],
       contentImgUrl:'',
       showimg:false,
-      contentImgAnimate:'animate__zoomIn',
-      hasmaxHeight:true
     };
   },
-  computed:{
-    contentImgUrlIndex(){
-      return this.contentImgUl.findIndex(i=>i.url == this.contentImgUrl)
-    }
-  },
   methods: {
-    narrowImg(){
-      this.$nextTick(()=>{
-        const w = this.$refs.contentImgRef.offsetWidth
-        if (w<=200) {
-          this.$message.info('不能再小了')
-          return
-        }
-        this.$refs.contentImgRef.style.width = (w - 100)+'px'
-      })
-    },
-    enlargeImg(){
-      this.hasmaxHeight = false
-      this.$nextTick(()=>{
-        const w = this.$refs.contentImgRef.offsetWidth
-        if (w>=2000) {
-          this.$message.info('不能再大了')
-          return
-        }
-        this.$refs.contentImgRef.style.width = (w + 100)+'px'
-      })
+    hideImg(){
+      this.showimg = false
     },
     // hideImg(){
     //   clearTimeout(this.contentImgTimre)
