@@ -3,6 +3,7 @@
 2.自定义的图片列表
 3.翻页
 4.放大缩小
+5.旋转
 
 1.父的组件使用showimg响应式数据(boolean)控制显示隐藏 ，并在父组件内点击图片显示(showimg = true)
 2.传入自定义事件，hideImg修改showimg = false
