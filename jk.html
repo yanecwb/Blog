@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel=stylesheet href="https://www.lbzi.cn/usr/themes/pigeon/assets/css/style.css?v4.1">
+<style>
+                                       .content{max-width:1000px}       @font-face {
+	font-family:'Material Icons';
+	font-style:normal;
+	font-weight:400;
+	src:url(https://www.lbzi.cn/usr/themes/pigeon/assets/fonts/MaterialIcons-Regular.woff2) format('woff2');
+}
+    /*给A标签添加鼠标触碰字体变色跟阴影部分--开始*/
+a:hover{
+	background: transparent;
+	color: rgb(255, 105, 180);
+	text-shadow: 0px 0px 5px rgb(4,26,37);
+}
+/*给A标签添加鼠标触碰字体变色跟阴影部分--结束*/
+
+/*文章缩略图放大效果--开始*/
+.index_album_img img,.index_list_pic img {
+    /*文章缩略图放大效*/
+    transition: .35s;
+    /*图片模糊*/
+    /*filter: blur(15px);
+-webkit-filter: blur(15px);*/
+
+}
+.index_album_img img:hover,.index_list_pic img:hover  {
+    /*图片模糊变清晰*/
+   /* filter: blur(0);
+-webkit-filter: blur(0);*/
+
+/*文章缩略图放大效*/
+    -ms-transform: scale(1.305);
+    -moz-transform: scale(1.305);
+    -webkit-transform: scale(1.305);
+    transform: scale(1.305)
+
+    /*鼠标触碰图片开始旋转从慢到块*/
+/*    transform: rotate(666turn);*/
+/*transition-delay: 1s;*/
+/*transition-property: all;*/
+/*transition-duration: 59s;*/
+/*transition-timing-function: cubic-bezier(.34,0,.84,1);*/
+
+}
+/*文章缩略图放大效果--结束*/
+
+
+/*首页头像跳动--开始*/
+#header .header_avatar img{
+    -webkit-animation: swing 3s .4s ease both;
+    -moz-animation: swing 3s .4s ease both;
+}
+@-webkit-keyframes swing {
+
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        -webkit-transform-origin: top center
+    }
+
+    20% {
+        -webkit-transform: rotate(15deg)
+    }
+
+    40% {
+        -webkit-transform: rotate(-10deg)
+    }
+
+    60% {
+        -webkit-transform: rotate(5deg)
+    }
+
+    80% {
+        -webkit-transform: rotate(-5deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(0deg)
+    }
+}
+
+@-moz-keyframes swing {
+
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        -moz-transform-origin: top center
+    }
+
+    20% {
+        -moz-transform: rotate(15deg)
+    }
+
+    40% {
+        -moz-transform: rotate(-10deg)
+    }
+
+    60% {
+        -moz-transform: rotate(5deg)
+    }
+
+    80% {
+        -moz-transform: rotate(-5deg)
+    }
+
+    100% {
+        -moz-transform: rotate(0deg)
+    }
+}
+/*首页头像跳动--结束*/
+
+
+/*首页幻灯片底部加一个阴影部分--开始*/
+.slide_card {
+    box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+    box-shadow: 0 34px 20px -24px rgb(0 36 100 / 30%);
+}
+/*首页幻灯片底部加一个阴影部分--结束*/
+
+/*音乐播放器开始*/
+ @font-face {
+	font-family:'Material Icons';
+	font-style:normal;
+	font-weight:400;
+	src:url(https://www.lbzi.cn/usr/themes/pigeon/assets/fonts/MaterialIcons-Regular.woff2) format('woff2');
+}
+/*音乐播放器结束*/
+
+
+/* 首页文章获取焦点放大 */
+/*.index_card{*/
+/*    cursor: pointer;  */
+/*    transition: all 0.6s;  */
+/*}*/
+
+/*.index_card:hover{*/
+/*      transform: scale(1.05); */
+/*    box-shadow: 0 34px 20px -24px rgb(0 36 100 / 30%);*/
+/*}*/
+
+
+/*文章边框美化开始*/
+
+.obje .index_card:hover{
+    /*box-shadow: 1px 1px 5px 5px rgba(255,222,233);*/
+    /*-moz-box-shadow: 1px 1px 5px 5px rgba(0,0,0,0);*/
+     box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+    box-shadow: 0 34px 20px -24px rgb(0 36 100 / 30%);
+}
+.song:hover{
+    box-shadow: 1px 1px 5px 5px rgba(255,222,233);
+    -moz-box-shadow: 1px 1px 5px 5px rgba(0,0,0,0);
+}
+/*
+.dark.obje .index_list{
+   box-shadow: 1px 1px 5px 5px rgba(0,0,0);
+    -moz-box-shadow: 1px 1px 5px 5px rgba(0,0,0);
+}*/
+.dark.obje .index_list:hover{
+    box-shadow: 1px 1px 5px 5px rgba(255,222,233);
+    -moz-box-shadow: 1px 1px 5px 5px rgba(0,0,0,0);
+}
+/*文章边框美化结束*/
+/* 名字闪烁 */
+#header .header_info_name{
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 33.3%, rgba(252,176,69,1) 66.6%, rgba(131,58,180,1) 100%);
+            -webkit-background-clip: text; /*截取背景区域为文字*/
+            color: transparent !important;
+            background-size: 300% 100%; /*扩大背景区域*/
+            animation: text 4s infinite linear;
+        }
+        @keyframes text{
+            0%  { background-position: 0 0;}
+            100% { background-position: -150% 0;}
+        }
+
+
+
+
+/* 全局默认鼠标指针 */
+/*body,html{  cursor: url('/文件/鼠标/normal.cur'),auto !important;}*/
+/* 悬停图片时的鼠标指针 */
+/*img{  cursor: url('/文件/鼠标/ayuda.cur'),auto !important;}*/
+/* 选择链接标签时的鼠标指针 */
+/*a:hover{    cursor: url('/文件/鼠标/ayuda.cur'),auto;}*/
+/* 选中的标签的鼠标指针 */
+/*div,h2:hover,p:hover{    cursor: url('/文件/鼠标/normal.cur'),auto;}*/
+/* 选中输入框时的鼠标指针 */
+/*input:hover{    cursor: url('/文件/鼠标/texto.cur'),auto;}*/
+/* 悬停按钮时的鼠标指针 */
+/*button:hover{    cursor: url('https://www.zhetengmao.com/文件/鼠标样式/猫咪/btn.cur'),auto;}*/
+/* 悬停列表标签时的鼠标指针 */
+/*i:hover{    cursor: url('/文件/鼠标/normal.cur'),auto;}*/
+/* 悬停页脚链接标签（例如页脚徽标）时的鼠标指针 */
+/*#footer-wrap a:hover{      cursor: url('/文件/鼠标/normal.cur'),auto;}*/
+/* 悬停页码时的鼠标指针 */
+/*#pagination .page-number:hover{      cursor: url('/文件/鼠标/normal.cur'),auto;}*/
+/* 悬停菜单栏时的鼠标指针 */
+/*#nav .site-page:hover{      cursor: url('/文件/鼠标/normal.cur'),auto;}.nav-search{   cursor: url('/文件/鼠标/normal.cur'),auto;}*/</style>
+
+    </head>
+
+
+    <body class="normal match ">
+        <div class="content">
+            <div id="pjax">
+            <div class="content_top">
+                <article class="public">
+                    <input type="radio" name="tab" id="link_info" class="reward_none" checked="">
+                    <input type="radio" name="tab" id="link_friend" class="reward_none">
+                    <input type="radio" name="tab" id="link_recom" class="reward_none">
+
+                    <div class="link_tab">
+                        <div class="link_tab_list">
+                            <label for="link_info"><span class="douban_option_info">友链申请</span></label>
+                            <label for="link_friend"><span class="douban_option_friend">友情链接</span></label>
+                        </div>
+                    </div>
+
+                    <div class="link_body links reward_none">
+                        <div class="song">
+                        <h2>申请条件：</h2><blockquote><p>1：直接在下面留言申请，格式按照下面（本站链接的格式留言即可）；<br>2：确保您的网站/博客内容健康，不含政治内容以及擦边球内容；<br>3：与道德相违或明显违法的，本博客永远拒绝做友情链接；<br>4：注意：申请链接前先做好本站链接</p></blockquote><h2>本站链接：</h2><blockquote><p>博客名称：LBZICNの小站<br>博客地址：<a href="https://www.lbzi.cn" target="_blank">https://www.lbzi.cn</a><br>博客描述：因为喜欢,所以折腾。<br>链接头像：<a href="https://www.lbzi.cn/tx.jpg" target="_blank">https://www.lbzi.cn/tx.jpg</a></p></blockquote><h2>其他说明：</h2><blockquote><p>1、本站将不定期检查死链等无效链接，如果发现贵站取消了本站的链接，我们也将删除，恕不通知;<br>2、对于长期无更新、无法访问的博客，本站有权终止其友情链接；<br>3、希望在友链之后，能互勉互动，在我看来友情最重要O(∩_∩)O<br>4、请确定贵站能长期稳定运营下去，再做申请！<br>5、链接变更请联系告知。</p></blockquote>                        </div>
+                    </div>
+
+                    <div class="links_body_friend links reward_none">
+
+                        <div class="link_body_friend">
+                                                    <a href="https://www.qwbk.net/" target="_blank" ><div class="link_body_list"><div class="link_body_img"><img src="https://www.lbzi.cn/tx.jpg"></div><div class="link_body_name">轻微博客</div></div></a> </div>
+                    </div>
+                </article>
+
+                <div class="post_comments">
+                    <div class="line">
+                        <div class="line_name">评论 <small>( 6 )</small></div>
+                    </div>
+
+
+<div id="comments" class="jia">
+                <div id="respond-page-3" class="respond">
+
+            <form method="post" action="https://www.lbzi.cn/youlian/comment" id="comment-form" role="form" class="new_comment_form">
+            <div class="comment_box">
+                <div class="comment_box_avatar">
+                                        <img class="avatars" src="https://www.lbzi.cn/usr/themes/pigeon/assets/img/moren.png">
+                                    </div>
+                <div class="comment_right">
+                <div class="comment-inputs">
+                                            <div class="comment_xin_name"><input type="text" name="author" id="comment-name" class="text" placeholder="名字" value="w" required /></div>
+                        <div class="comment_xin_box">
+                        <div class="comment_xin"><input type="email" name="mail" id="comment-mail" class="text" placeholder="邮箱" value="w@ee.com"  required /></div>
+                        <div class="comment_xin"><input type="url" name="url" id="comment-url" class="text" placeholder="网址" value="http://http:///sss.com"  /></div>
+                        </div>
+                                    </div>
+
+                <div class="comment_editor">
+                <div class="comment-editor_box">
+                    <textarea name="text" id="textarea" placeholder="撰写评论" class="textarea textarea_box OwO-textarea" required onkeydown="if((event.ctrlKey||event.metaKey)&&event.keyCode==13){document.getElementById('submitComment').click();return false};"></textarea>
+                </div>
+                <div class="comment-huifu">
+                    <div class="comment_huifu_right">
+                <div class="comment-buttons">
+                    <button id="submitComment" type="submit" class="submit">发表评论</button>
+                </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+            </div>
+
+
+
+            </form>
+        </div>
+        <div class="comments_lie">
+            <ol class="comment-list">
+    <li id="li-comment-49" class="comment-body comment-parent comment-odd">
+        <div id="comment-49">
+            <div class="comment_list_box">
+                <div class="comment_list_avatar"><img class="avatar" src="https://q.qlogo.cn/g?b=qq&k=ny0CyXlFj3M7NwqRPj1iaqA&s=100&t=1619515035"&s=100" /></div>
+
+                <div class="comment_main">
+                 <div class="comment_author"><a href="https://91biu.work/"" target="_blank" rel="external nofollow">森羅萬象</a> </div>
+                 <div class="comment_excerpt">
+                                                  <p>滴滴滴~<br>博客名称：森羅萬象<br>博客地址：<a href="https://www.91biu.work">https://www.91biu.work</a><br>博客Logo：<a href="https://www.91biu.work/logo">https://www.91biu.work/logo</a><br>博客简介：做一个分享快乐的小小网站✨</p>                </div>
+                <div class="comment_meta">
+                    <span class="comment_time">26天前</span><i class="text-primary">•</i><span class="comment-reply cp-comment-49 text-muted comment-reply-link"><a href="https://www.lbzi.cn/youlian?replyTo=49#respond-page-3" rel="nofollow" onclick="return TypechoComment.reply('comment-49', 49);">回复</a></span><span id="cancel-comment-reply" class="cancel-comment-reply cl-comment-49 text-muted comment-reply-link" style="display:none" ><a id="cancel-comment-reply-link" href="https://www.lbzi.cn/youlian#respond-page-3" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消</a></span>
+                </div>
+            </div>
+            </div>
+
+
+        </div>
+        <div class="comment-children"><ol class="comment-list">    <li id="li-comment-50" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+        <div id="comment-50">
+            <div class="comment_list_box">
+                <div class="comment_list_avatar"><img class="avatar" src="https://q.qlogo.cn/g?b=qq&k=ibbGWjeX8KU2UtSu60a8vEw&s=100&t=1653071210"&s=100" /></div>
+
+                <div class="comment_main">
+                 <div class="comment_author"><a href="https://www.lbzi.cn/"" target="_blank" rel="external nofollow">折腾猫</a>  <span class="comment_admin"><i class="iconfont icon-safetycertificate-f"></i></span> </div>
+                 <div class="comment_excerpt">
+                 <a class="parent" href="#comment-49">@森羅萬象</a>                                 <p>已添加！欢迎来访嘿嘿嘿嘿</p>                </div>
+                <div class="comment_meta">
+                    <span class="comment_time">26天前</span><i class="text-primary">•</i><span class="comment-reply cp-comment-50 text-muted comment-reply-link"><a href="https://www.lbzi.cn/youlian?replyTo=50#respond-page-3" rel="nofollow" onclick="return TypechoComment.reply('comment-50', 50);">回复</a></span><span id="cancel-comment-reply" class="cancel-comment-reply cl-comment-50 text-muted comment-reply-link" style="display:none" ><a id="cancel-comment-reply-link" href="https://www.lbzi.cn/youlian#respond-page-3" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消</a></span>
+                </div>
+            </div>
+            </div>
+
+
+        </div>
+            </li>
+</ol></div>    </li>
+</ol>        <div class="paging">
+        </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+function showhidediv(id){var sbtitle=document.getElementById(id);if(sbtitle){if(sbtitle.style.display=='flex'){sbtitle.style.display='none';}else{sbtitle.style.display='flex';}}}
+(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},pom:function(id){return document.getElementsByClassName(id)[0]},iom:function(id,dis){var alist=document.getElementsByClassName(id);if(alist){for(var idx=0;idx<alist.length;idx++){var mya=alist[idx];mya.style.display=dis}}},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom("respond-page-3"),input=this.dom("comment-parent"),form="form"==response.tagName?response:response.getElementsByTagName("form")[0],textarea=response.getElementsByTagName("textarea")[0];if(null==input){input=this.create("input",{"type":"hidden","name":"parent","id":"comment-parent"});form.appendChild(input)}input.setAttribute("value",coid);if(null==this.dom("comment-form-place-holder")){var holder=this.create("div",{"id":"comment-form-place-holder"});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.iom("comment-reply","");this.pom("cp-"+cid).style.display="none";this.iom("cancel-comment-reply","none");this.pom("cl-"+cid).style.display="";if(null!=textarea&&"text"==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom("respond-page-3"),holder=this.dom("comment-form-place-holder"),input=this.dom("comment-parent");if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.iom("comment-reply","");this.iom("cancel-comment-reply","none");holder.parentNode.insertBefore(response,holder);return false}}})();
+</script>
+
+                </div>
+
+            </div>
+
+            <meta charset="UTF-8">
+
+
+
+<!--底部导航-->
+<style>
+#footgundong{margin-left:20px;overflow: overlay;display: inline-flex;text-align: right;}.item-foot{color: var(--minor);height: 45px;line-height: 45px;transition: color 0.35s;white-space: nowrap;}.swal-footer{text-align:center;}.swal-button {font-size: 20px;}.count>svg,.count>text{display:none;}
+</style>
+
+
+<!--底部导航-->
+<style>
+    /* start */
+.my-face {
+animation: my-face 5s infinite ease-in-out;
+color: #00f1ff;
+display: inline-block;
+margin: 0 5px;
+}
+@-webkit-keyframes my-face {
+2%, 24%, 80% {
+-webkit-transform: translate(0, 1.5px) rotate(1.5deg);
+transform: translate(0, 1.5px) rotate(1.5deg)
+}
+4%, 68%, 98% {
+-webkit-transform: translate(0, -1.5px) rotate(-.5deg);
+transform: translate(0, -1.5px) rotate(-.5deg)
+}
+38%, 6% {
+-webkit-transform: translate(0, 1.5px) rotate(-1.5deg);
+transform: translate(0, 1.5px) rotate(-1.5deg)
+}
+8%, 86% {
+-webkit-transform: translate(0, -1.5px) rotate(-1.5deg);
+transform: translate(0, -1.5px) rotate(-1.5deg)
+}
+10%, 72% {
+-webkit-transform: translate(0, 2.5px) rotate(1.5deg);
+transform: translate(0, 2.5px) rotate(1.5deg)
+}
+12%, 64%, 78%, 96% {
+-webkit-transform: translate(0, -.5px) rotate(1.5deg);
+transform: translate(0, -.5px) rotate(1.5deg)
+}
+14%, 54% {
+-webkit-transform: translate(0, -1.5px) rotate(1.5deg);
+transform: translate(0, -1.5px) rotate(1.5deg)
+}
+16% {
+-webkit-transform: translate(0, -.5px) rotate(-1.5deg);
+transform: translate(0, -.5px) rotate(-1.5deg)
+}
+18%, 22% {
+-webkit-transform: translate(0, .5px) rotate(-1.5deg);
+transform: translate(0, .5px) rotate(-1.5deg)
+}
+20%, 36%, 46% {
+-webkit-transform: translate(0, -1.5px) rotate(2.5deg);
+transform: translate(0, -1.5px) rotate(2.5deg)
+}
+26%, 50% {
+-webkit-transform: translate(0, .5px) rotate(.5deg);
+transform: translate(0, .5px) rotate(.5deg)
+}
+28% {
+-webkit-transform: translate(0, .5px) rotate(1.5deg);
+transform: translate(0, .5px) rotate(1.5deg)
+}
+30%, 40%, 62%, 76%, 88% {
+-webkit-transform: translate(0, -.5px) rotate(2.5deg);
+transform: translate(0, -.5px) rotate(2.5deg)
+}
+32%, 34%, 66% {
+-webkit-transform: translate(0, 1.5px) rotate(-.5deg);
+transform: translate(0, 1.5px) rotate(-.5deg)
+}
+42% {
+-webkit-transform: translate(0, 2.5px) rotate(-1.5deg);
+transform: translate(0, 2.5px) rotate(-1.5deg)
+}
+44%, 70% {
+-webkit-transform: translate(0, 1.5px) rotate(.5deg);
+transform: translate(0, 1.5px) rotate(.5deg)
+}
+48%, 74%, 82% {
+-webkit-transform: translate(0, -.5px) rotate(.5deg);
+transform: translate(0, -.5px) rotate(.5deg)
+}
+52%, 56%, 60% {
+-webkit-transform: translate(0, 2.5px) rotate(2.5deg);
+transform: translate(0, 2.5px) rotate(2.5deg)
+}
+58% {
+-webkit-transform: translate(0, .5px) rotate(2.5deg);
+transform: translate(0, .5px) rotate(2.5deg)
+}
+84% {
+-webkit-transform: translate(0, 1.5px) rotate(2.5deg);
+transform: translate(0, 1.5px) rotate(2.5deg)
+}
+90% {
+-webkit-transform: translate(0, 2.5px) rotate(-.5deg);
+transform: translate(0, 2.5px) rotate(-.5deg)
+}
+92% {
+-webkit-transform: translate(0, .5px) rotate(-.5deg);
+transform: translate(0, .5px) rotate(-.5deg)
+}
+94% {
+-webkit-transform: translate(0, 2.5px) rotate(.5deg);
+transform: translate(0, 2.5px) rotate(.5deg)
+}
+0%, 100% {
+-webkit-transform: translate(0, 0) rotate(0);
+transform: translate(0, 0) rotate(0)
+}
+}
+@keyframes my-face {
+2%, 24%, 80% {
+-webkit-transform: translate(0, 1.5px) rotate(1.5deg);
+transform: translate(0, 1.5px) rotate(1.5deg)
+}
+4%, 68%, 98% {
+-webkit-transform: translate(0, -1.5px) rotate(-.5deg);
+transform: translate(0, -1.5px) rotate(-.5deg)
+}
+38%, 6% {
+-webkit-transform: translate(0, 1.5px) rotate(-1.5deg);
+transform: translate(0, 1.5px) rotate(-1.5deg)
+}
+8%, 86% {
+-webkit-transform: translate(0, -1.5px) rotate(-1.5deg);
+transform: translate(0, -1.5px) rotate(-1.5deg)
+}
+10%, 72% {
+-webkit-transform: translate(0, 2.5px) rotate(1.5deg);
+transform: translate(0, 2.5px) rotate(1.5deg)
+}
+12%, 64%, 78%, 96% {
+-webkit-transform: translate(0, -.5px) rotate(1.5deg);
+transform: translate(0, -.5px) rotate(1.5deg)
+}
+14%, 54% {
+-webkit-transform: translate(0, -1.5px) rotate(1.5deg);
+transform: translate(0, -1.5px) rotate(1.5deg)
+}
+16% {
+-webkit-transform: translate(0, -.5px) rotate(-1.5deg);
+transform: translate(0, -.5px) rotate(-1.5deg)
+}
+18%, 22% {
+-webkit-transform: translate(0, .5px) rotate(-1.5deg);
+transform: translate(0, .5px) rotate(-1.5deg)
+}
+20%, 36%, 46% {
+-webkit-transform: translate(0, -1.5px) rotate(2.5deg);
+transform: translate(0, -1.5px) rotate(2.5deg)
+}
+26%, 50% {
+-webkit-transform: translate(0, .5px) rotate(.5deg);
+transform: translate(0, .5px) rotate(.5deg)
+}
+28% {
+-webkit-transform: translate(0, .5px) rotate(1.5deg);
+transform: translate(0, .5px) rotate(1.5deg)
+}
+30%, 40%, 62%, 76%, 88% {
+-webkit-transform: translate(0, -.5px) rotate(2.5deg);
+transform: translate(0, -.5px) rotate(2.5deg)
+}
+32%, 34%, 66% {
+-webkit-transform: translate(0, 1.5px) rotate(-.5deg);
+transform: translate(0, 1.5px) rotate(-.5deg)
+}
+42% {
+-webkit-transform: translate(0, 2.5px) rotate(-1.5deg);
+transform: translate(0, 2.5px) rotate(-1.5deg)
+}
+44%, 70% {
+-webkit-transform: translate(0, 1.5px) rotate(.5deg);
+transform: translate(0, 1.5px) rotate(.5deg)
+}
+48%, 74%, 82% {
+-webkit-transform: translate(0, -.5px) rotate(.5deg);
+transform: translate(0, -.5px) rotate(.5deg)
+}
+52%, 56%, 60% {
+-webkit-transform: translate(0, 2.5px) rotate(2.5deg);
+transform: translate(0, 2.5px) rotate(2.5deg)
+}
+58% {
+-webkit-transform: translate(0, .5px) rotate(2.5deg);
+transform: translate(0, .5px) rotate(2.5deg)
+}
+84% {
+-webkit-transform: translate(0, 1.5px) rotate(2.5deg);
+transform: translate(0, 1.5px) rotate(2.5deg)
+}
+90% {
+-webkit-transform: translate(0, 2.5px) rotate(-.5deg);
+transform: translate(0, 2.5px) rotate(-.5deg)
+}
+92% {
+-webkit-transform: translate(0, .5px) rotate(-.5deg);
+transform: translate(0, .5px) rotate(-.5deg)
+}
+94% {
+-webkit-transform: translate(0, 2.5px) rotate(.5deg);
+transform: translate(0, 2.5px) rotate(.5deg)
+}
+0%, 100% {
+-webkit-transform: translate(0, 0) rotate(0);
+transform: translate(0, 0) rotate(0)
+}
+}
+/* end */
+/*底部导航*/
+@media (max-width: 800px){.footwaveline{display: none;}}
+</style>
+<script>
+// 滚动进度条百分比
+$(function(){var $this=$("#footgundong");var scrollTimer;$this.hover(function(){clearInterval(scrollTimer)},function(){scrollTimer=setInterval(function(){scrollNews($this)},2000)}).trigger("mouseleave");function scrollNews(obj){var $self=obj.find("ul");var lineHeight=$self.find("li:first").height();$self.animate({"marginTop":-lineHeight+"px"},500,function(){$self.css({marginTop:0}).find("li:first").appendTo($self)})}})
+window.onscroll = function() {
+let scrollNow = window.pageYOffset;
+let pageClientHeight = document.documentElement.clientHeight;
+let scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight) - pageClientHeight;
+let fullWindowHeightInPercentage = Math.round((scrollNow / scrollHeight) * 100);
+let percentage = document.getElementById('percentage');
+percentage.innerHTML = '' + fullWindowHeightInPercentage + '%';
+if (fullWindowHeightInPercentage == 0) percentage.innerHTML = ' 到顶啦';
+if (fullWindowHeightInPercentage == 100) percentage.innerHTML = ' 到底啦';
+if (fullWindowHeightInPercentage == Infinity) percentage.innerHTML = ' 返回顶部！';
+}
+</script>
+</div>
+
+
+<style>
+.hg-yj p span {
+font: 700 3.7em/1"Oswald", sans-serif;
+letter-spacing: 0;
+padding: .25em 0 .325em;
+display: block;
+margin: 0 auto;
+text-shadow: 0 0 80px rgb(255 255 255 / 50%);
+background: url(https://www.lbzi.cn/图片/wordpresszimushandongxiaogongjutu202255.png) repeat-y;
+-webkit-background-clip: text;
+background-clip: text;
+-webkit-text-fill-color: transparent;
+-webkit-animation: aitf 80s linear infinite;
+-webkit-transform: translate3d(0, 0, 0);
+-webkit-backface-visibility: hidden;
+}
+
+.hg-yj {
+text-align: center;
+}
+
+.hg-yj p {
+text-transform: uppercase;
+letter-spacing: .5em;
+display: inline-block;
+}
+
+@-webkit-keyframes aitf {
+0% {
+background-position: 0% 50%;
+}
+
+100% {
+background-position: 100% 50%;
+}
+}
+</style>
+
+</body>
+</html>
+

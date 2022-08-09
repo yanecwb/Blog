@@ -346,7 +346,7 @@ export default {
     Icon,
     Empty,
     CallingCard,
-    ViewerImg
+    ViewerImg,
   },
   data() {
     return {
@@ -826,13 +826,6 @@ pre {
 }
 
 
-input[inputcentent] {
-  transition: 0.5s;
-}
-
-input[inputcentent]:focus {
-  height: 60px;
-}
 
 // 文字闪烁
 .twinkle {
