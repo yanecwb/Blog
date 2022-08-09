@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="min-w-300">
     <!-- 导航PC -->
-    <div v-if="!$store.state.is_phone">
-      <header class="header_box_navBar h-8 md:h-12 px-2" ref="navBar">
-        <ul>
+    <div v-if="!$store.state.is_phone" >
+      <header class="header_box_navBar h-12 px-2" ref="navBar">
+        <ul class="min-w-300">
           <div ref="navBar_ul" class="flex text-xs md:text-sm">
             <li @click="goRouter('/home')" name="home">
               <Icon type="home" style="margin-right: 2px" />首 页

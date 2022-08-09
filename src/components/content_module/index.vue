@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Banner :bg="module_headerBg" />
+    <Banner :bg="module_headerBg"/>
     <div v-if="!loadingLottie">
       <div
-      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeIn flex-col items-center"
+      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeInUp flex-col items-center"
       v-if="!loadingLottie &&article_moduleList.length > 0"
       ref="Article1"
     >
@@ -24,7 +24,7 @@
                 <div class="content_list_author">
                   <span class="mr-2">{{
                     list.nickname
-                  }}<span v-if="list.nickname == 'Flechazo'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif; 
+                  }}<span v-if="list.nickname == 'Flechazo'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span>
                   <span class="text-xs">{{
                     list.publish_time

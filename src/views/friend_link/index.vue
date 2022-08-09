@@ -1,11 +1,11 @@
 <template>
   <div
-    class="w-screen bg-cover bg-center py-20"
+    class="w-screen bg-cover bg-center py-20 "
     style="background-image: url(http://flechazoblog.site/Img/friend_linkBg.jpg)"
     @click="() => { showexpression = false; return false }"
   >
     <article
-      class="w-2/3 mx-auto  py-8 px-10 bg-cover"
+      class="w-2/3 mx-auto min-w-300  py-8 px-10 bg-cover"
       style="
         box-shadow: 1px 1px 5px 2px #ccc;
         background-color: rgba(255, 255, 255,.7);
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="py-10 px-20 flex justify-between flex-wrap" style="background-color: rgba(255, 255, 255,.9);" v-show="tab == 2">
-          <a v-for="item in 15" href="" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
+          <a v-for="item in 4" href="" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
             <div style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
                 <img src="https://www.lbzi.cn/tx.jpg"  class="w-12 h-12"/>
                 <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">轻微博客</span>
@@ -144,6 +144,14 @@
 
           </form>
         </div>
+        <!-- 无评论时 -->
+      <Empty v-if='1'
+        image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png" :image-style="{
+          height: '200px',
+          'margin-bottom':'20px'
+        }">
+        <span slot="description" class="inline-block "> </span>
+      </Empty>
       </aside>
 
     </article>
@@ -151,11 +159,11 @@
 </template>
 
 <script>
-import {Icon} from 'ant-design-vue'
+import {Icon,Empty} from 'ant-design-vue'
 import { putCommentFriendLink } from '../../api/friendlink'
 export default {
   name: "friend_link",
-  components:{Icon},
+  components:{Icon,Empty},
   data() {
     return {
       tab: 1,

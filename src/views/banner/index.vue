@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-cover bg-center"
+    class="bg-cover bg-center  animate__animated animate__fadeInDown"
     :style="
       is_home
         ? { backgroundImage: `url(${bg})` }
