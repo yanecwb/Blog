@@ -29,9 +29,10 @@
           <p class="m-0 text-3xl lg:text-5xl my-6 lg:my-8 text-white">
             你好, 我是 <span style="color: #4e81ba">Flechazo</span>
           </p>
-          <p class="lg:text-xl md:text-base text-sm text-white" style="font-family: 'Gabriola';">
-            {{mingrenmingyan}}
-          </p>
+          <div class=" group lg:text-xl md:text-base text-white h-20 rounded-2xl p-3 flex flex-col justify-between mingyan" >
+            <span>{{'『'+mingrenmingyan+'』'}}</span>
+            <span class="mingyanfrom">{{'--'+from}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -44,7 +45,8 @@ export default {
   data() {
     return {
       msg: "",
-      mingrenmingyan:''
+      mingrenmingyan:'',
+      from:''
     };
   },
   props: ["bg", "is_home"],
@@ -59,29 +61,66 @@ export default {
       },
     },
   },
- async mounted() {
+  methods:{
+    clearmasg_text(){
+      this.clearmasg_timer = setInterval(() => {
+        this.msg=this.msg.slice(0,this.msg.length-1)
+        if(!this.msg){
+          clearInterval(this.clearmasg_timer)
+          this.addmsg_text()
+        }
+      }, 50);
+    },
+    addmsg_text(){
+      const msg_text = "Do what you like";
+      let count = 0;
+      this.timer = setInterval(() => {
+        this.msg += msg_text[count];
+        if (count == msg_text.length-1) {
+          count = 0;
+          this.clearmasg_text()
+          clearInterval(this.timer)
+        } else {
+          count++;
+        }
+      }, 200);
+    }
+  },
+  async mounted() {
     var xhr = new XMLHttpRequest();
-    xhr.open('get', 'https://api.codelife.cc/yiyan/info?lang=cn');
-    xhr.setRequestHeader('signaturekey','U2FsdGVkX18c0tV1HrDsOxE1GpqOjSFRnXUCZfiOKS4=')
+    xhr.open('get', 'https://v1.hitokoto.cn/?c=i&encode=json');
+    // xhr.setRequestHeader('signaturekey','U2FsdGVkX18c0tV1HrDsOxE1GpqOjSFRnXUCZfiOKS4=')
     xhr.onreadystatechange =  ()=> {
       if (xhr.readyState === 4) {
         var data = JSON.parse(xhr.responseText);
-        console.log(data);
-        this.mingrenmingyan = data.data.content;
+        this.mingrenmingyan = data.hitokoto;
+        this.from = data.from
       }
     }
     xhr.send();
-    const msg_text = "Do what you like";
-    let count = 0;
-    this.timer = setInterval(() => {
-      this.msg += msg_text[count];
-      if (count == msg_text.length) {
-        count = 0;
-        this.msg = "";
-      } else {
-        count++;
-      }
-    }, 200);
+
+    this.addmsg_text()
   },
 };
 </script>
+
+<style lang="less" scoped>
+.mingyan{
+  font-family: 'fangsong';
+  background: rgba(255, 255, 255,0);
+  font-size: small;
+  transition: 1s;
+      color: rgb(119, 116, 116);
+  .mingyanfrom{
+    transition: 1s;
+    opacity: 0;
+  }
+}
+.mingyan:hover{
+    background: rgba(255, 255, 255,.2);
+}
+.mingyan:hover .mingyanfrom{
+      opacity: 1;
+}
+
+</style>
