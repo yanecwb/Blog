@@ -49,11 +49,11 @@
           >
             <p>
               博客名称：Flechazo`s Blog<br />博客地址：<a
-                href="https://flechazoblog.site"
+                href="http://flechazoblog.site"
                 target="_blank"
                 class="text-red-500 hover:text-red-500"
-                >https://flechazoblog.site</a
-              ><br />博客描述：因为喜欢,所以折腾。<br />链接头像：<a
+                >http://flechazoblog.site</a
+              ><br />博客描述：做自己喜欢的事情。<br />链接头像：<a
                 href="http://www.flechazoblog.site/favicon.ico/"
                 target="_blank"
                 class="text-red-500 hover:text-red-500"
@@ -88,7 +88,7 @@
       <!-- 留言 -->
       <aside class="w-full px-3  md:mt-10 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl">
          <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
-          <span>最新评论（{{ 9 }}）</span>
+          <span>最新评论（{{ CommentFriendLink.length }}）</span>
           <span class=" cursor-pointer">
             <Icon type="menu" />按时间
           </span>
@@ -144,8 +144,44 @@
 
           </form>
         </div>
+
+        <section>
+          <div class="w-full pb-3 pl-10 relative" v-for="(i, index) in CommentFriendLink" :key="index">
+            <div class=" absolute left-0">
+              <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
+            </div>
+            <div class="md:px-4 px-2" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
+              <p><span class="text-blue-400 font-bold">{{ i.nickname}}<span v-if="!i.userId" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                      color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: skyblue;">游客</span></span><span
+                  class="text-xs inline-block ml-2 font-semibold opacity-80" >{{ format_publishTime(i.commentTime) }}</span></p>
+              <p class="text-0a1 text-sm py-3" v-html="formatComment(i.content)"></p>
+              <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
+                <div class="w-1/3 md:w-28 flex justify-between" >
+                  <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
+                  <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
+                  <Icon type="message" :title="'回复'+i.nickname" class="hover:text-blue-400 cursor-pointer" @click="showreplyInput = i.commentId" />
+                </div>
+                <!-- $set给没再data中定义的数据添加响应式 -->
+                <div class="relative cursor-pointer" @click="() => {
+                  // if (deleteVisi.r == i.commentId) {
+                  //   deleteVisi.r = null
+                  //   return
+                  // }
+                  // $set(deleteVisi, 'r', i.commentId)
+                }">
+                  <Icon type="more" />
+                  <!-- <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == i.commentId"
+                    class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                    <Icon type="delete" />
+                  </div> -->
+                </div>
+              </div>
+              <!-- 回复区 -->
+          </div>
+        </div>
+      </section>
         <!-- 无评论时 -->
-      <Empty v-if='1'
+      <Empty v-if='CommentFriendLink.length==0'
         image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png" :image-style="{
           height: '200px',
           'margin-bottom':'20px'
@@ -174,7 +210,8 @@ export default {
       expressionLeft:0,
       expressionTop:0,//表情定位
       showexpression: false,//小表情展示框判断变量
-      inputType:1
+      inputType:1,
+      CommentFriendLink:[]
     };
   },
   methods: {
@@ -197,31 +234,30 @@ export default {
       this.inputType == 1 ? this.commentContent += '@' + expression_val + '!' :  this.replyContent += '@' + expression_val + '!'
     },
     PutComment() {
-      if (!this.$store.state.userInfo.userInfo.id) {// 未登录
-        this.noLogin()
-        return
-      }
       if (!this.commentContent && (this.is_commentContent = true)) return
       let req = {
-        userId: this.$store.state.userInfo.userInfo.id,
+        userId: this.$store.state.userInfo.userInfo.id || '0',
         comment: this.commentContent,
+        avatarUrl:this.$store.state.userInfo.userInfo.avatarUrl || 'http://www.flechazoblog.site:5006/img/home_img/notLogin.svg',
+        nickname:this.$store.state.userInfo.userInfo.nickname || '游客',
       }
-      console.log(req);
       this.is_commentContent = false
       this.commentContent = ''
       putCommentFriendLink(req).then(async (res) => {
         if(res.data.code == 200 ){
           this.miniMessage(res.data.msg, 'success')
           // // 更新评论
-          getCommentFriendLink()
+          const res1 =  await getCommentFriendLink()
+          this.CommentFriendLink = res1.data.data
         }else{
           this.miniMessage(res.data.msg, 'error')
         }
       })
     },
   },
-  mounted(){
-    getCommentFriendLink()
+  async mounted(){
+    const res =  await getCommentFriendLink()
+    this.CommentFriendLink = res.data.data
   }
 };
 </script>

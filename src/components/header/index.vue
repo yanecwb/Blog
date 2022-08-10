@@ -349,7 +349,7 @@ export default {
     xhr.onreadystatechange =  ()=> {
       if (xhr.readyState === 4) {
         var data = JSON.parse(xhr.responseText);
-        console.log(data);
+        // console.log(data);
         this.WeatherSvg = 'https://cdn.heweather.com/img/plugin/190516/icon/c/'+data.now.cond_code + 'd.png'
       }
     }
