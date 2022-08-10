@@ -160,7 +160,7 @@
 
 <script>
 import {Icon,Empty} from 'ant-design-vue'
-import { putCommentFriendLink } from '../../api/friendlink'
+import { putCommentFriendLink,getCommentFriendLink } from '../../api/friendlink'
 export default {
   name: "friend_link",
   components:{Icon,Empty},
@@ -212,16 +212,17 @@ export default {
       putCommentFriendLink(req).then(async (res) => {
         if(res.data.code == 200 ){
           this.miniMessage(res.data.msg, 'success')
-          delete req.comment
-          delete req.userId
-          // 更新评论
-          this.getCommentsFriendLink(req)
+          // // 更新评论
+          getCommentFriendLink()
         }else{
           this.miniMessage(res.data.msg, 'error')
         }
       })
     },
   },
+  mounted(){
+    getCommentFriendLink()
+  }
 };
 </script>
 
