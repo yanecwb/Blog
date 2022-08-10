@@ -101,7 +101,7 @@
           </div>
           <form class="flex-1 relative" v-on:submit.prevent>
             <textarea type="text" style="background: #FFF url(https://rawchen.com/usr/themes/rawchen/images/comments-bg.jpg) right center no-repeat;background-size:130px" inputcentent v-model="commentContent" placeholder="轻轻敲醒沉睡的心灵，让我看看你的点评"
-              class="block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
+              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
             <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">*请输入内容*</p>
             <div class="mt-3 flex justify-between">
               <div @click="smallExpression(1,$event)" type='button'
