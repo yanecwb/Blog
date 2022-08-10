@@ -13,19 +13,19 @@
             </router-link>
             <router-link to="/content/frontend">
               <div class="hvr-pulse flex header_right relative ">
-                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <img src='http://flechazoblog.site/Img/frontend.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">前端</span>
               </div>
             </router-link>
             <router-link to="/content/backend">
               <div class="hvr-pulse flex header_right relative ">
-                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <img src='http://flechazoblog.site/Img/backend.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">后端</span>
               </div>
             </router-link>
             <router-link to="/content/android">
               <div class="hvr-pulse flex header_right relative ">
-                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
+                <img src='http://flechazoblog.site/Img/web3.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">web3.0</span>
               </div>
             </router-link>

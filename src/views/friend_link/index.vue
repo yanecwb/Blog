@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-screen bg-cover bg-center py-20 "
-    style="background-image: url(http://flechazoblog.site/Img/friend_linkBg.jpg)"
+    style="background-image: url(http://tva1.sinaimg.cn/large/e8a55238gy1h51qsqcej4j22yo1o0tvb.jpg)"
     @click="() => { showexpression = false; return false }"
   >
     <article
