@@ -261,7 +261,7 @@
                   <div class=" absolute left-0">
                       <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
                   </div>
-                  <p ><span class="text-blue-400">{{ reply.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                  <p ><span class="text-blue-400">{{ reply.nickname }}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
                       class="text-sm inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span></p>
                   <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>

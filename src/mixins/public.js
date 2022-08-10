@@ -107,7 +107,7 @@ let mixin = {
         comment = comment.replace('@' + a[i] + '!', `<img src='http://flechazoblog.site:5006/img/BiLiEmail/${a[i]}.png' class='w-6 h-6'/>`)
       }
     }
-    return comment
+    return comment.replace(/\n/g,'<br />')
   },
   }
 }

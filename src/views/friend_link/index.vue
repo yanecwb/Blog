@@ -73,13 +73,13 @@
         </div>
       </div>
       <div class="py-10 px-20 flex justify-between flex-wrap" style="background-color: rgba(255, 255, 255,.9);" v-show="tab == 2">
-          <a v-for="item in 4" href="" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
-            <div style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
-                <img src="https://www.lbzi.cn/tx.jpg"  class="w-12 h-12"/>
+          <a v-for="item in 1" href="https://axznb.cn/" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
+            <div class="p-2 rounded" style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
+                <img src="https://axznb.cn/wp-content/uploads/2019/08/749b1548586945.jpg"  class="w-12 h-12 rounded-full"/>
                 <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">轻微博客</span>
             </div>
           </a>
-          <a v-for="item in 5-(15%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
+          <a v-for="item in 5-(1%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
             <div style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0;width:165.6px">
             </div>
           </a>
@@ -150,12 +150,13 @@
             <div class=" absolute left-0">
               <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
             </div>
-            <div class="md:px-4 px-2" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
+            <div class="md:px-4 px-2 relative" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
+              <div class=" absolute right-10 top-5 text-6xl text-gray opacity-10"><i>{{index + 1}}</i></div>
               <p><span class="text-blue-400 font-bold">{{ i.nickname}}<span v-if="!i.userId" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                       color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: skyblue;">游客</span></span><span
                   class="text-xs inline-block ml-2 font-semibold opacity-80" >{{ format_publishTime(i.commentTime) }}</span></p>
-              <p class="text-0a1 text-sm py-3" v-html="formatComment(i.content)"></p>
-              <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
+              <p class="text-0a1 text-sm py-3 w-9/10" v-html="formatComment(i.content)"></p>
+              <div class='w-full flex justify-between text-0a1 opacity-60 items-center mb-2'>
                 <div class="w-1/3 md:w-28 flex justify-between" >
                   <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
                   <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
