@@ -45,7 +45,7 @@
         <div class="article_left w-full md:w-200 lg:w-260 ">
           <div class="article_left_hot felx md:justify-between justify-center animate__animated animate__backInLeft" ref="article_left_hot"
             v-if="!$store.state.is_phone">
-            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full " :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(http://flechazoblog.site:5006/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg)' && (hotUrl = 'url(http://flechazoblog.site:5006/img/home_img/fa7a162e40a540f57b3c80aeb8c8fe0f.jpg)') : ''}"></div>
+            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full " :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
             <div class="article_left_hot_content group block_border">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
@@ -72,7 +72,7 @@
           <div class="flex justify-center md:justify-between flex-wrap w-full">
             <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
-              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(http://flechazoblog.site:5006/img/home_img/' + article_listBg[index] + ')' }"></div>
+              <div class="w-full h-68 md:rounded-2xl bg-cover bg-origin-content" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
               <div class=" bg-white py-4 px-8 w-full relative bottom-5">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
@@ -154,12 +154,12 @@ export default {
       arr:[],
       hotUrl:'',
       article_listBg:[
-        '031ab8a623a963f0002c3290f17ce00.jpg520w_390h_1c_1e_2o_100sh.jpg',
-        '0317981623fc7660002c4212c6f0166.jpg520w_390h_1c_1e_2o_100sh.jpg',
-        '01e11062427f6b0002c4212ceee019.jpg520w_390h_1c_1e_2o_100sh.jpg',
-        '01d1fa623c5a920002c3290fef58ff.jpg520w_390h_1c_1e_2o_100sh.jpg',
-        '015a5e621d330a11013f01cda0ced0.jpg520w_390h_1c_1e_2o_100sh.jpg',
-        '0106b2624121050002c4212c00bd01.jpg520w_390h_1c_1e_2o_100sh.jpg'
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e89oj20eg0audi0.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e9ygj20eg0auabl.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e9qvj20eg0augmr.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2eu0xj20eg0aujsr.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2evisj20eg0aumzb.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2fj6aj20eg0auwft.jpg'
       ],
       selectedArticle:{},
       serachText:'',

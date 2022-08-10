@@ -102,7 +102,13 @@ export default {
       return this.$route.params.module;
     },
     module_headerBg() {
-      return `http://flechazoblog.site:5006/img/module_headerBg/${this.$route.params.module}.jpg`;
+      const obj = {
+        'frontend':()=> 'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48hzmaj22yo1o0wxb.jpg',
+        'backend':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48ifl7j22yo1o0njp.jpg',
+        'android':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48kxy9j22yo1tohdt.jpg',
+        'news':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51vnfkhcbj23vc2qdhdu.jpg'
+      }
+      return obj[this.$route.params.module]()
     },
   },
   watch: {
