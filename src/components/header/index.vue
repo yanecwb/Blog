@@ -35,6 +35,12 @@
                 <span class="text-xs md:text-sm">记录</span>
               </div>
             </router-link>
+             <router-link to="/music/index.html">
+              <div class="hvr-pulse flex header_right relative ">
+                <img src='http://flechazoblog.site/Img/music.svg' style="width:17px;height:20px"/>
+                <span class="text-xs md:text-sm">音乐</span>
+              </div>
+            </router-link>
              <a href="http://flechazoblog.site/upload_article" @click="()=>{if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}" target="_Blank">
               <div class="hvr-pulse flex header_right relative ">
                 <img src='http://flechazoblog.site/Img/upload.svg' style="width:17px;height:20px"/>

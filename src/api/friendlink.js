@@ -29,3 +29,10 @@ export const putReplyCommentFriendLink = (data)=>{
   })
 }
 
+// 获取友链
+export const getFriendLink = ()=>{
+  return axios({
+    method:'get',
+    url:`${baseUrl}/get_friendLink`,
+  })
+}

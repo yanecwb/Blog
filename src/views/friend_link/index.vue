@@ -73,13 +73,13 @@
         </div>
       </div>
       <div class="py-10 px-20 flex justify-between flex-wrap" style="background-color: rgba(255, 255, 255,.9);" v-show="tab == 2">
-          <a v-for="item in 1" href="https://axznb.cn/" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
+          <a v-for="item in friendLink" :href="item.link" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
             <div class="p-2 rounded" style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
-                <img src="https://axznb.cn/wp-content/uploads/2019/08/749b1548586945.jpg"  class="w-12 h-12 rounded-full"/>
-                <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">啊小州</span>
+                <img :src="item.avatarUrl"  class="w-12 h-12 rounded-full"/>
+                <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">{{item.remarks}}</span>
             </div>
           </a>
-          <a v-for="item in 5-(1%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
+          <a v-for="item in 5-(friendLink.length%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
             <div style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0;width:165.6px">
             </div>
           </a>
@@ -256,7 +256,7 @@ function getSystem(){
 
 
 import {Icon,Empty} from 'ant-design-vue'
-import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink } from '../../api/friendlink'
+import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink ,getFriendLink} from '../../api/friendlink'
 export default {
   name: "friend_link",
   components:{Icon,Empty},
@@ -274,6 +274,7 @@ export default {
       CommentFriendLink:[],
       showreplyInput:'',
       replyContent:'',
+      friendLink:[]
     };
   },
   methods: {
@@ -354,6 +355,9 @@ export default {
   watch:{
     showreplyInput(){
       this.replyContent = ''
+    },
+    tab(newval){
+      newval == 2 ? getFriendLink().then((res)=>{this.friendLink = res.data.data}) : ''
     }
   },
   created(){
