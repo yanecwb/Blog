@@ -120,7 +120,12 @@
 }
 
 .article_left_natural {
-	border: 0.5px #e8e8e8 solid;
+	background-size:100% auto;
+	transition: 1.5s;
+}
+
+.article_left_natural:hover {
+	background-size: 130%;
 }
 
 
