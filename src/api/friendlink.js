@@ -18,46 +18,13 @@ export const getCommentFriendLink = (params)=>{
         params
     })
 }
-//删除评论（自己的评论）
-export const deleteComment = (data)=>{
-  return axios({
-      method:'delete',
-      url:`${baseUrl}/delete_comment`,
-      data
-  })
-}
-// 文章点赞点踩
-export const changeLike = (data)=>{
-  return axios({
-    method:'post',
-    url:`${baseUrl}/change_like`,
-    data
-  })
-}
 
-// 收藏
-export const changeCollection = (data)=>{
-  return axios({
-    method:'post',
-    url:`${baseUrl}/change_collection`,
-    data
-  })
-}
-
-// 查询是否点赞点踩，收藏
-export const getLike = (params)=>{
-  return axios({
-    methods:'get',
-    url:`${baseUrl}/get_like`,
-    params
-  })
-}
 
 //
-export const releaseReply = (data)=>{
+export const putReplyCommentFriendLink = (data)=>{
   return axios({
-    method:'post',
-    url:`${baseUrl}/releaseReply`,
+    method:'put',
+    url:`${baseUrl}/put_replyCommentFriendLink`,
     data
   })
 }

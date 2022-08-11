@@ -76,7 +76,7 @@
           <a v-for="item in 1" href="https://axznb.cn/" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
             <div class="p-2 rounded" style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
                 <img src="https://axznb.cn/wp-content/uploads/2019/08/749b1548586945.jpg"  class="w-12 h-12 rounded-full"/>
-                <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">轻微博客</span>
+                <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">啊小州</span>
             </div>
           </a>
           <a v-for="item in 5-(1%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
@@ -102,7 +102,7 @@
           <form class="flex-1 relative" v-on:submit.prevent>
             <textarea type="text" style="background: #FFF url(https://rawchen.com/usr/themes/rawchen/images/comments-bg.jpg) right center no-repeat;background-size:130px" inputcentent v-model="commentContent" placeholder="轻轻敲醒沉睡的心灵，让我看看你的点评"
               class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
-            <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">*请输入内容*</p>
+            <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[1] && !commentContent">*请输入内容*</p>
             <div class="mt-3 flex justify-between">
               <div @click="smallExpression(1,$event)" type='button'
                 class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
@@ -156,28 +156,41 @@
                       color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: skyblue;">游客</span></span><span
                   class="text-xs inline-block ml-2 font-semibold opacity-80" >{{ format_publishTime(i.commentTime) }}</span></p>
               <p class="text-0a1 text-sm py-3 w-9/10" v-html="formatComment(i.content)"></p>
-              <div class='w-full flex justify-between text-0a1 opacity-60 items-center mb-2'>
-                <div class="w-1/3 md:w-28 flex justify-between" >
-                  <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
-                  <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
-                  <Icon type="message" :title="'回复'+i.nickname" class="hover:text-blue-400 cursor-pointer" @click="showreplyInput = i.commentId" />
-                </div>
+              <div class='w-full flex justify-end text-0a1 opacity-60 items-center mb-2'>
                 <!-- $set给没再data中定义的数据添加响应式 -->
-                <div class="relative cursor-pointer" @click="() => {
-                  // if (deleteVisi.r == i.commentId) {
-                  //   deleteVisi.r = null
-                  //   return
-                  // }
-                  // $set(deleteVisi, 'r', i.commentId)
-                }">
-                  <Icon type="more" />
-                  <!-- <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == i.commentId"
-                    class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
-                    <Icon type="delete" />
-                  </div> -->
+                <div class="relative cursor-pointer" @click="showreplyInput = i.id">
+                  <img src="http://flechazoblog.site/Img/reply.svg" class="w-5" alt="">
                 </div>
               </div>
               <!-- 回复区 -->
+           <div style="background:#f7f8fc" class="rounded-xl">
+              <div v-for="(reply,index) in JSON.parse(i.reply)" :key="index" class="m-3 pl-10 py-4  relative">
+                <div class="px-2" >
+                  <div class=" absolute left-0">
+                      <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" alt="" class="w-9 h-9 rounded-full">
+                  </div>
+                  <p><span class="text-blue-400">{{ 'Flechazo'}}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
+                      class="text-sm inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span></p>
+                  <p class="text-0a1 py-3 text-xs" v-html="formatComment(reply.content)"></p>
+                </div>
+              </div>
+           </div>
+              <div v-if="showreplyInput==i.id" class="animate__animated animate__lightSpeedInRight">
+               <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:130px" inputcentent v-model="replyContent" placeholder="请开始你的表演"
+              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
+                 <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[2] && !replyContent">*请输入内容*</p>
+                <div class="w-full flex justify-between items-center m-2">
+                  <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+                  <Icon type='smile' class='mr-1' />
+                  <span>表情</span>
+                </div>
+                <div>
+                  <button @click="showreplyInput = ''" class="py-1 px-5 border-none rounded text-black text-sm block_border mr-2 cursor-pointer" style="background:#fff">取消</button>
+                  <button @click="replyCommentFriendLink(i.id)" class="py-1 px-5 border-none rounded text-white text-sm cursor-pointer" style="background:#00c3ff">评论</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -197,14 +210,14 @@
 
 <script>
 import {Icon,Empty} from 'ant-design-vue'
-import { putCommentFriendLink,getCommentFriendLink } from '../../api/friendlink'
+import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink } from '../../api/friendlink'
 export default {
   name: "friend_link",
   components:{Icon,Empty},
   data() {
     return {
       tab: 1,
-      is_commentContent: false,
+      is_commentContent: {1:false,2:false},
       commentContent:'',
       BiLiEmaili: 'Default/default0',//表情地址
       BiLiEmailTotal:80,
@@ -212,7 +225,9 @@ export default {
       expressionTop:0,//表情定位
       showexpression: false,//小表情展示框判断变量
       inputType:1,
-      CommentFriendLink:[]
+      CommentFriendLink:[],
+      showreplyInput:'',
+      replyContent:'',
     };
   },
   methods: {
@@ -235,7 +250,7 @@ export default {
       this.inputType == 1 ? this.commentContent += '@' + expression_val + '!' :  this.replyContent += '@' + expression_val + '!'
     },
     PutComment() {
-      if (!this.commentContent && (this.is_commentContent = true)) return
+      if (!this.commentContent && (this.is_commentContent[1] = true)) return
       let req = {
         userId: this.$store.state.userInfo.userInfo.id || '0',
         comment: this.commentContent,
@@ -248,17 +263,29 @@ export default {
         if(res.data.code == 200 ){
           this.miniMessage(res.data.msg, 'success')
           // // 更新评论
-          const res1 =  await getCommentFriendLink()
-          this.CommentFriendLink = res1.data.data
+          this.getNewComment()
         }else{
           this.miniMessage(res.data.msg, 'error')
         }
       })
     },
+    async getNewComment(){
+        const res =  await getCommentFriendLink()
+        this.CommentFriendLink = res.data.data
+    },
+    async replyCommentFriendLink(id){
+      if (!this.replyContent && (this.is_commentContent[2] = true)) return
+      await putReplyCommentFriendLink({id,content:this.replyContent})
+      this.getNewComment()
+    }
+  },
+  watch:{
+    showreplyInput(){
+      this.replyContent = ''
+    }
   },
   async mounted(){
-    const res =  await getCommentFriendLink()
-    this.CommentFriendLink = res.data.data
+    this.getNewComment()
   }
 };
 </script>
