@@ -172,7 +172,7 @@
                   <div class=" absolute left-0">
                       <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" alt="" class="w-9 h-9 rounded-full">
                   </div>
-                  <p><span class="text-blue-400">{{ 'Flechazo'}}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                  <p><span class="text-blue-400">{{ 'Flechazo'}}<span class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
                       class="text-sm inline-block ml-2" style="font-family: cursive;">{{ format_publishTime(reply.commentTime) }}</span></p>
                   <p class="text-0a1 py-3 text-xs" v-html="formatComment(reply.content)"></p>
@@ -355,6 +355,9 @@ export default {
     showreplyInput(){
       this.replyContent = ''
     }
+  },
+  created(){
+      this.$store.commit('change_show_header',true)
   },
   async mounted(){
     this.getNewComment()

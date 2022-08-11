@@ -35,12 +35,12 @@
                 <span class="text-xs md:text-sm">记录</span>
               </div>
             </router-link>
-             <router-link to="/upload_article" target="_Blank">
+             <a href="http://flechazoblog.site/upload_article" @click="()=>{if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}" target="_Blank">
               <div class="hvr-pulse flex header_right relative ">
                 <img src='http://flechazoblog.site/Img/upload.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">投稿</span>
               </div>
-            </router-link>
+            </a>
           </div>
           <div class=" flex justify-between items-center">
            <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover mr-2 hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
