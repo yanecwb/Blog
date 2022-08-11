@@ -152,33 +152,45 @@
             </div>
             <div class="md:px-4 px-2 relative" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
               <div class=" absolute right-10 top-5 text-6xl text-gray opacity-10"><i>{{index + 1}}</i></div>
-              <p><span class="text-blue-400 font-bold">{{ i.nickname}}<span v-if="!i.userId" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
-                      color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: skyblue;">游客</span></span><span
-                  class="text-xs inline-block ml-2 font-semibold opacity-80" >{{ format_publishTime(i.commentTime) }}</span></p>
+              <p><span class="text-blue-400 font-bold" :style="i.userId == '0' ? 'color: #ff5f40;' : ''">{{ i.nickname}}</span><span
+                  class="text-xs inline-block ml-2 font-semibold opacity-80" style="font-family: cursive;">{{ format_publishTime(i.commentTime) }}</span></p>
               <p class="text-0a1 text-sm py-3 w-9/10" v-html="formatComment(i.content)"></p>
-              <div class='w-full flex justify-end text-0a1 opacity-60 items-center mb-2'>
+              <div class='w-full flex justify-between text-0a1 opacity-60 items-center mb-2' >
                 <!-- $set给没再data中定义的数据添加响应式 -->
+                <div style="font-family: cursive;">
+                  <img :src="getSystemIcon(i.System)" class="w-4 mr-1" alt=""><span class="text-xs" >{{i.System}}</span>
+                  <img :src="getBrowserIcon((i.BrowserVersion).split(':')[0])" class="w-4 ml-5 mr-1" alt=""><span class="text-xs" >{{(i.BrowserVersion).split(':')[0] +  ((i.BrowserVersion).split(':')[1]).split('.')[0]}}</span>
+                </div>
                 <div class="relative cursor-pointer" @click="showreplyInput = i.id">
                   <img src="http://flechazoblog.site/Img/reply.svg" class="w-5" alt="">
                 </div>
               </div>
               <!-- 回复区 -->
-           <div style="background:#f7f8fc" class="rounded-xl">
-              <div v-for="(reply,index) in JSON.parse(i.reply)" :key="index" class="m-3 pl-10 py-4  relative">
+            <div style="background:#f7f8fc" class="rounded-xl">
+              <div v-for="(reply,index) in JSON.parse(i.reply)" :key="index" class="m-3 pl-10 py-4 relative" :style="index !== JSON.parse(i.reply).length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
                 <div class="px-2" >
                   <div class=" absolute left-0">
                       <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" alt="" class="w-9 h-9 rounded-full">
                   </div>
                   <p><span class="text-blue-400">{{ 'Flechazo'}}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
-                      class="text-sm inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span></p>
+                      class="text-sm inline-block ml-2" style="font-family: cursive;">{{ format_publishTime(reply.commentTime) }}</span></p>
                   <p class="text-0a1 py-3 text-xs" v-html="formatComment(reply.content)"></p>
+                  <div class='w-full flex justify-start text-0a1 opacity-60 items-center mb-2'>
+                    <div style="font-family: cursive;">
+                      <img :src="getSystemIcon(reply.System)" class="w-4 mr-1" alt=""><span class="text-xs" >{{reply.System}}</span>
+                      <img :src="getBrowserIcon((reply.BrowserVersion).split(':')[0])" class="w-4 ml-5 mr-1" alt=""><span class="text-xs" >{{(reply.BrowserVersion).split(':')[0] +  ((reply.BrowserVersion).split(':')[1]).split('.')[0]}}</span>
+                    </div>
+                    <!-- <div class="relative cursor-pointer" @click="showreplyInput = i.id">
+                      <img src="http://flechazoblog.site/Img/reply.svg" class="w-5" alt="">
+                    </div> -->
+                  </div>
                 </div>
               </div>
            </div>
               <div v-if="showreplyInput==i.id" class="animate__animated animate__lightSpeedInRight">
                <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:130px" inputcentent v-model="replyContent" placeholder="请开始你的表演"
-              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
+              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
                  <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[2] && !replyContent">*请输入内容*</p>
                 <div class="w-full flex justify-between items-center m-2">
                   <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
@@ -209,6 +221,40 @@
 </template>
 
 <script>
+// 获取浏览器名称及其版本号
+function getBrowserNameVersion() {
+    var Sys = {};
+    var ua = navigator.userAgent.toLowerCase();
+    var s;
+    (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1]:
+        (s = ua.match(/msie ([\d\.]+)/)) ? Sys.ie = s[1] :
+        (s = ua.match(/edge\/([\d\.]+)/)) ? Sys.edge = s[1] :
+        (s = ua.match(/firefox\/([\d\.]+)/)) ? Sys.firefox = s[1] :
+        (s = ua.match(/(?:opera|opr).([\d\.]+)/)) ? Sys.opera = s[1] :
+        (s = ua.match(/chrome\/([\d\.]+)/)) ? Sys.chrome = s[1] :
+        (s = ua.match(/version\/([\d\.]+).*safari/)) ? Sys.safari = s[1] : 0;
+    // 根据关系进行判断
+    if (Sys.ie) return ('IE: ' + Sys.ie);
+    if (Sys.edge) return ('Edge: ' + Sys.edge);
+    if (Sys.firefox) return ('Firefox: ' + Sys.firefox);
+    if (Sys.chrome) return ('Chrome: ' + Sys.chrome);
+    if (Sys.opera) return ('Opera: ' + Sys.opera);
+    if (Sys.safari) return ('Safari: ' + Sys.safari);
+
+    return 0
+}
+
+function getSystem(){
+    let Name = ''
+    if (navigator.userAgent.indexOf("Win") != -1) Name =  "Windows"; 
+    if (navigator.userAgent.indexOf("Mac") != -1) Name =  "Mac"; 
+    if (navigator.userAgent.indexOf("Linux") != -1) Name ="Linux"; 
+    if (navigator.userAgent.indexOf("Android") != -1) Name =  "Android"; 
+    if (navigator.userAgent.indexOf("like Mac") != -1) Name =  "IOS"; 
+    return Name
+}
+
+
 import {Icon,Empty} from 'ant-design-vue'
 import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink } from '../../api/friendlink'
 export default {
@@ -256,6 +302,8 @@ export default {
         comment: this.commentContent,
         avatarUrl:this.$store.state.userInfo.userInfo.avatarUrl || 'http://www.flechazoblog.site:5006/img/home_img/notLogin.svg',
         nickname:this.$store.state.userInfo.userInfo.nickname || '游客',
+        BrowserVersion:getBrowserNameVersion(),
+        System:getSystem()
       }
       this.is_commentContent = false
       this.commentContent = ''
@@ -275,8 +323,32 @@ export default {
     },
     async replyCommentFriendLink(id){
       if (!this.replyContent && (this.is_commentContent[2] = true)) return
-      await putReplyCommentFriendLink({id,content:this.replyContent})
+      await putReplyCommentFriendLink({id,content:this.replyContent,BrowserVersion:getBrowserNameVersion(),System:getSystem()})
+      this.replyContent = ''
       this.getNewComment()
+    },
+    //获取浏览器图标
+    getBrowserIcon(browser){
+      const obj = {
+        'Firefox':"https://tva1.sinaimg.cn/large/e8a55238gy1h52w536n9uj200w00wgle.jpg",
+        'Chrome':'https://tva1.sinaimg.cn/large/e8a55238gy1h52w52i5b4j200w00wgle.jpg',
+        'Opera':'https://tva1.sinaimg.cn/large/e8a55238gy1h52w52o43gj200w00wgle.jpg',
+        'Edge':'https://tva1.sinaimg.cn/large/e8a55238gy1h52w52ih18j200w00wgle.jpg',
+        'Safari':'https://tva1.sinaimg.cn/large/e8a55238gy1h52w52h2pcj200w00wgle.jpg',
+        'IE':'https://tva1.sinaimg.cn/large/e8a55238gy1h52w52j46hj200w00wjr6.jpg'
+      }
+      return obj[browser] || 'https://tva1.sinaimg.cn/large/e8a55238gy1h52wd1piqij200w00wdfm.jpg'
+    } ,
+    // 获取操作系统图标
+    getSystemIcon(system){
+      const obj = {
+        'Windows':"https://tva1.sinaimg.cn/large/e8a55238gy1h52wnuqnhhj200w00wgle.jpg",
+        'Mac':'https://tva1.sinaimg.cn/large/e8a55238gy1h52wudcue5j200w00w0sh.jpg',
+        'Linux':'https://tva1.sinaimg.cn/large/e8a55238gy1h52wudd09mj200w00w3ya.jpg',
+        'Android':'https://tva1.sinaimg.cn/large/e8a55238gy1h52wudd2g4j200w00wwe9.jpg',
+        'IOS':'https://tva1.sinaimg.cn/large/e8a55238gy1h52wudd682j200w00w0ng.jpg',
+      }
+      return obj[system]
     }
   },
   watch:{

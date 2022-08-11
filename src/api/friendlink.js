@@ -20,7 +20,7 @@ export const getCommentFriendLink = (params)=>{
 }
 
 
-//
+//回复
 export const putReplyCommentFriendLink = (data)=>{
   return axios({
     method:'put',
