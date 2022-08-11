@@ -12,7 +12,7 @@ npm install
 npm run dev
 
 # build for production with minification
-jenkins自动化部署地址 http://47.107.243.60:8080/
+jenkins自动化部署地址 http://flechazoblog.site:8080/
 Flechazo
 Flechazo123.
 
