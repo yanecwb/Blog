@@ -114,12 +114,13 @@
                 <li class="bg-white hover:bg-indigo-50 hover:text-blue-400 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" @click="goRouter(`/article_detail/${i.id}`)" :title="i.article_title">{{i.article_title}}</li>
               </ul>
             </div>
-            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer" title="搜索文章">
+            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer flex justify-center items-center" title="搜索文章">
               <Icon type="search" />
             </div>
           </div>
           <div class="list_ul mt-5 flex justify-center w-full">
-            <ul class="w-full">
+             <iframe src="http://127.0.0.1:5500/index.html" width="100%" height="150px" style="border: none;border-radius: 10px" scrolling="no"></iframe>
+            <!-- <ul class="w-full">
               <li v-for="item in side_list" :key="item.id" class=" my-3 list-none">
                 <a class="flex justify-between text-base">
                   <span>{{ item.title }}</span>
@@ -129,7 +130,7 @@
                   </span>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </div>
          </div>
         </div>
