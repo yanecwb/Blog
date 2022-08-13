@@ -4,7 +4,7 @@
       <div v-if="loaded">
         <Header v-if="$store.state.show_header" @play="playMusic"/>
       </div>
-        <!-- <keep-alive :include="['content_module']"> -->
+        <!-- <keep-alive :include="['home']"> -->
           <router-view/>
         <!-- </keep-alive> -->
       <Footer/>

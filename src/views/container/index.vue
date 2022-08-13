@@ -119,7 +119,7 @@
             </div>
           </div>
           <div class="list_ul mt-5 flex justify-center w-full">
-             <iframe src="http://127.0.0.1:5500/index.html" width="100%" height="150px" style="border: none;border-radius: 10px" scrolling="no"></iframe>
+             <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 10px" scrolling="no"></iframe>
             <!-- <ul class="w-full">
               <li v-for="item in side_list" :key="item.id" class=" my-3 list-none">
                 <a class="flex justify-between text-base">
