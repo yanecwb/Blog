@@ -19,8 +19,8 @@
               <p class="font-bold opacity-90 md:text-xl text-base">工作经历</p>
               <div class="p-6">
                   <div class="font-bold  mb-3" v-for="item in experienceInfo">
-                    <p class="md:text-xl opacity-80 mb-2">{{item.time}}</p>
-                    <p class="font-bold opacity-60 mb-3 md:text-sm text-xs">{{item.desc}}</p>
+                    <p class="md:text-xl opacity-80 mb-2"  >{{item.time}}</p>
+                    <p class="font-bold opacity-60 mb-3 md:text-sm text-xs" v-html="item.desc"></p>
                   </div>
               </div>
             </div>
@@ -43,15 +43,15 @@ export default {
       const experienceInfo = [
         {
           time:'2021-12 ~ 今',
-          desc:'参与云平台研发，主要负责开发框架、部署平台、监控平台、分布式事务、消息推送、消息总线服务等。'
+          desc:'<p>1.负责 Dapp 智能合约应用的前端开发和维护；</p><p>2.与后端和链上进行交互，完成主要的业务逻辑；</p><p>3.项目官网的前端开发和维护；</p> <p>4.Web 端，移动端的 UI 适配和交互实现。</p>'
         },
         {
           time:'2021-1 ~ 2021-12',
-          desc:'参与转账产品研发，主要负责收款主页系分、开放平台。'
+          desc:'<p>1、参与项目的前端研发工作，包括PC端、移动端；</p><p>2、增强用户视觉和交互体验, 提高页面性能，确保UI设计的高度还原；</p><p>3、配合与后端开发工程师进行接口联调，完成WEB前端开发；</p><p>4、配合项目经理、技术经理完成其他技术工作。</p>'
         },
         {
           time:'2019-12 ~ 2020-12',
-          desc:'参与云南电网办公自动化系统、流程引擎研发。'
+          desc:'<p>、参与公司各项目中的web前端功能设计和实现；</p><p>2、后台开发人员协同完成前端数据呈现，负责页面重构以及前端开发；</p><p>3、维护优化产品前端页面性能，不断实现更好的交互体验。</p>'
         }
       ]
       // const ctx = getCurrentInstance()
