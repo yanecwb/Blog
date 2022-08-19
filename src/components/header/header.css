@@ -24,7 +24,7 @@
 }
 .header_box_navBar ul {
   list-style: none;
-  width: calc(100vw - 20px);
+  width: calc(100vw - 22px);
   height: 100%;
   align-items: center;
   justify-content: space-between;

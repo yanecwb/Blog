@@ -3,11 +3,11 @@
     <Banner :bg="module_headerBg"/>
     <div v-if="!loadingLottie">
       <div
-      class="content_moduleBox mt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeInUp flex-col items-center"
+      class="content_moduleBox pt-5 mx-auto my-0 w-full flex justify-between animate__animated animate__fadeInUp flex-col items-center initBg"
       v-if="!loadingLottie &&article_moduleList.length > 0"
       ref="Article1"
     >
-      <Bgcanvas  />
+      <!-- <Bgcanvas  />  -->
       <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116">
         <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index"  style="text-decoration:none">
           <section

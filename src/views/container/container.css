@@ -89,9 +89,9 @@
 .article_left_hot_content {
 	width: 600px;
 	height: 300px;
-	position: relative;
+	position: absolute;
 	background-color: white;
-	top: -70px;
+	top: 170px;
 	left: 50%;
 	margin-left: -300px;
 	padding: 40px;
@@ -120,12 +120,12 @@
 }
 
 .article_left_natural {
-	background-size:100% auto;
+	background-size:100% 100%;
 	transition: 1.5s;
 }
 
 .article_left_natural:hover {
-	background-size: 130%;
+	background-size: 130% 130%;
 }
 
 

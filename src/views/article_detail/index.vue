@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5" style="background-color: #f4f8fb" @click="() => { showexpression = false; return false }">
+  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5 initBg" @click="() => { showexpression = false; return false }">
     <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full"
       height="800px"></iframe>
     <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
@@ -636,7 +636,7 @@ export default {
   },
   async created() {
     this.$store.commit('change_isfixed', 0)
-    this.$store.commit('change_show_header',true)
+    this.$store.commit('change_show_header',false)
     // 分享时无缓存，读指定某条文章内容
     const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
     function escape2Html(str) {

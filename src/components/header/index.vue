@@ -66,20 +66,6 @@
                 <span class="text-xs md:text-sm">友链</span>
               </div>
             </router-link>
-            <router-link to="/leaving_message" target="_Blank">
-              <div class="hvr-pulse flex header_right">
-                <img src='http://flechazoblog.site/Img/liuyan.svg' style="width:20px;height:20px" />
-                <span class="text-xs md:text-sm">留言</span>
-              </div>
-            </router-link>
-            <!-- <span :class="'text-sm md:text-xl iconfont' + weather" title="今日天气"></span> -->
-            <!-- <Icon
-              type="eye"
-              class="text-xs md:text-base ml-1 h-4"
-              v-if="$route.name !== 'home'"
-              @click="showHeader(0)"
-              title="隐藏导航"
-            /> -->
           </div>
         </ul>
       </header>
@@ -97,7 +83,7 @@
 
     <!-- Mobile  -->
     <header class="header_box_navBar h-8 md:h-14" ref="navBar" v-else>
-      <ul>
+      <ul style="width: 100vw;">
         <div>
           <Icon type="menu" @click="MobileshowMenu" />
           <div :class="Mune_left">
@@ -196,7 +182,7 @@
         <div>
           <span :class="'iconfont' + weather + ' text-sm'"></span>
           <span @click="change_showmenu">
-            <Icon :type="showmenu ? 'close' : 'setting'" class="text-sm" />
+            <Icon :type="showmenu ? 'close' : 'setting'" />
           </span>
         </div>
       </ul>

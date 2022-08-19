@@ -1,52 +1,21 @@
 <template>
-    <div class=" relative">
+    <div class="relative initBg">
       <Bgcanvas :height="1300"/>
-      <div class="flex justify-between mx-auto md:px-0 py-1 px-6 w-full md:w-400">
-        <h4 v-if="!$store.state.is_phone" class="m-0 text-base font-mono" >今日精选博客</h4>
-        <!-- <p class="text-sm m-0">
-          <Icon type="tags" />Hot tags:
-          <span># Covid-19</span>
-          <span># Inspiration</span>
-          <span># Work online</span>
-          <span># Stay home</span>
-        </p> -->
-      </div>
-      <!-- <div class="w-full md:w-400 min-w-200 mx-auto flex justify-between">
-        <div
-          class="w-2/3 md:w-200 lg:w-260 rounded relative bg-[center_top_8rem] ease-in-out duration-700 hover:h-100 animate__animated animate__backInLeft"
-          ref="carousel">
-          <Carousel  arrows >
-            <div slot="prevArrow"  class="custom-slick-arrow" style="left: 10px;zIndex:1">
-              <Icon type="left-circle" />
-            </div>
-            <div slot="nextArrow"  class="custom-slick-arrow" style="right: 10px">
-              <Icon type="right-circle" />
-            </div>
-            <img src="http://47.107.243.60:5005/img/home_img/179a6b23268afbc89b9120039a6befce.jpg" :onload="()=>{}" class="md:h-100 lg:h-144">
-            <img src="http://47.107.243.60:5005/img/home_img/8d31879a29c39de8295b8412262df9c3.jpg" class="md:h-100 lg:h-144">
-            <img src="http://47.107.243.60:5005/img/home_img/0c90e65e2f5995645ff016ac14436189.jpg" class="md:h-100 lg:h-144">
-          </Carousel>
-        </div>
-        <div class="w-1/3 md:w-108 lg:w-112  md:h-100 lg:h-144 shadow-lg animate__animated animate__backInRight" ref="food">
-          <img class="w-full rounded-t-xl" src="http://47.107.243.60:5005/img/home_img/007b2c15bec553e470cab896bdb62de4.jpg" alt />
-          <div class="backcolor"></div>
-          <div class="bg-white px-5 pt-9 pb-0 box-border">
-            <span style="color: #4da7d4">或许你能从中得到些什么🐋，</span>
-            <span style="color: #28a745">也说不定😜</span>
-            <p class="md:text-xl lg:text-2xl font-bold">Want fluffy Japanese pancakes but can’t fly to Tokyo?</p>
-            <p class="text-xs m-0 pb-2">
-              <span>20minutes ago</span> ·
-              <span>23k View</span>
-            </p>
-          </div>
-        </div>
-      </div> -->
-      <div class="flex mx-auto   w-screen md:w-400 md:justify-between">
+      <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between">
         <div class="article_left w-full md:w-200 lg:w-260 ">
-          <div class="article_left_hot felx md:justify-between justify-center animate__animated animate__backInLeft" ref="article_left_hot"
+          <div class="flex justify-start mb-3 p-2 bg-white shadow-lg rounded-xl text-base cursor-pointer">
+            <div>
+              <Icon type="smile" class="mr-2"/>
+              <span>碎碎念</span>
+            </div>
+            <div class="text-center flex-1">
+              <span>再也不晚上喝冰红茶了</span>
+            </div>
+          </div>
+          <div class="felx md:justify-between justify-center animate__animated animate__backInLeft mb-52"
             v-if="!$store.state.is_phone">
-            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full " :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
-            <div class="article_left_hot_content group block_border">
+            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full rounded-2xl shadow-lg" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
+            <div class="article_left_hot_content group block_border rounded-2xl">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -64,16 +33,18 @@
                   {{selectedArticle.article_introduction}}
                 </p>
               </div>
-              <div
-                class="readmore_btn" @click="goRouter(`/article_detail/${selectedArticle.id}`)">
+              <a :href="`http://flechazoblog.site/article_detail/${selectedArticle.id}`" target="_blank" style="color: rgba(0,0,0,.65);text-decoration: none;">
+                <div
+                class="readmore_btn" >
                 Read More</div>
+              </a>
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group hover:shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
+            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
-              <div class="w-full h-68 md:rounded-2xl bg-cover bg-center  bg-origin-content article_left_natural" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
-              <div class=" bg-white py-4 px-8 w-full relative bottom-5">
+              <div class="w-full h-68 md:rounded-t-2xl bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
+              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-2xl">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
                   <span>
@@ -89,21 +60,24 @@
                   <h3 class="m-0">{{ item.article_title }}</h3>
                 </div>
                 <div class="article_left_natural_content_content">
-                  <p style="font-family: 'Gabriola'; font-size: 12px">
+                  <p style="font-family: 'Gabriola'; font-size: 12px;height: 55px;">
                     {{ item.article_introduction }}
                   </p>
                 </div>
-                <div  @click="goRouter(`/article_detail/${item.id}`)"
+                <a :href="`http://flechazoblog.site/article_detail/${item.id}`" target="_blank" style="color: rgba(0,0,0,.65);text-decoration: none;">
+                  <div
                   class="readmore_btn" >
                   Read More</div>
+                </a>
               </div>
               </div>
             </div>
           </div>
         </div>
-        <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight" v-if="!$store.state.is_phone">
-         <div class="mb-20 p-5 block_border rounded-md">
-          <div class="input_top mx-auto">
+        <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight" v-if="!$store.state.is_phone" ref="animate__backInRight">
+         <div class="mb-20">
+          <div class=" bg-white px-5 rounded-lg">
+            <div class="input_top mx-auto">
             <h1 class="m-0 text-blue-600">——</h1>
             <span class="text-black">NewsLetter</span>
           </div>
@@ -114,34 +88,28 @@
                 <li class="bg-white hover:bg-indigo-50 hover:text-blue-400 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" @click="goRouter(`/article_detail/${i.id}`)" :title="i.article_title">{{i.article_title}}</li>
               </ul>
             </div>
-            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer flex justify-center items-center" title="搜索文章">
+            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer flex justify-center items-center " title="搜索文章">
               <Icon type="search" />
             </div>
           </div>
-          <div class="list_ul mt-5 flex justify-center w-full">
-             <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 10px" scrolling="no"></iframe>
-            <!-- <ul class="w-full">
-              <li v-for="item in side_list" :key="item.id" class=" my-3 list-none">
-                <a class="flex justify-between text-base">
-                  <span>{{ item.title }}</span>
-                  <span>
-                    {{ item.read_count }}
-                   😃
-                  </span>
-                </a>
-              </li>
-            </ul> -->
+          <!-- 标签 -->
+          <div class="py-6">
+            <Tag :color="randomColor()" @click="searchTag(i)" v-for="i in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
+          </div>
+          </div>
+          <!-- miniMusic -->
+          <div class="mt-5 flex justify-center w-full ">
+             <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 8px" scrolling="no"></iframe>
           </div>
          </div>
         </div>
       </div>
-      <div v-if="arr[5]" class="md:absolute md:2-108 w-86 h-24 bottom-0 right-0 -z-50" style="background-image:url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif);background-size:100% 100%"></div>
     </div>
 </template>
 
 <script>
 import "./container.css";
-import { Icon } from "ant-design-vue";
+import { Icon,Tag } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
 
 // api
@@ -155,23 +123,48 @@ export default {
       arr:[],
       hotUrl:'',
       article_listBg:[
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e89oj20eg0audi0.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e9ygj20eg0auabl.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2e9qvj20eg0augmr.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2eu0xj20eg0aujsr.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2evisj20eg0aumzb.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h51vk2fj6aj20eg0auwft.jpg'
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjsapysj21gs0xc0xz.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckju6l5wj22301h4qq6.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckthi9e4j21xg15qaqv.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjuezhnj22yo1uoqk5.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjwwytuj23pc2yo7wi.jpg',
+        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjvcej5j21hc0xck0b.jpg',
       ],
       selectedArticle:{},
       serachText:'',
       searchArticle:[]
     };
   },
+  setup(){
+    const tagList = [
+      'html',
+      'css',
+      'javascript',
+      'vue',
+      'react',
+      'mysql',
+      'node',
+      '面试',
+      '虚拟机',
+      '其他'
+    ]
+    return {
+      tagList
+    }
+  },
   components: {
     Icon,
+    Tag,
     Bgcanvas
   },
   methods: {
+    randomColor(){
+      return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6,'0')
+    },
+    searchTag(val){
+      this.serachText = val
+      this.SearchArticle()
+    },
     SearchArticle(){
       if(!this.serachText){
         this.miniMessage('请输入搜索内容','warning')
@@ -208,28 +201,28 @@ export default {
     },
     watch_scrolltop() {
       let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
-        if (newval >= 750) {
+        if (newval >= 500) {
           if(this.arr.indexOf(1)<0) {
             this.arr.push(1)
             this.arr.push(2)
           }
         }
-        if (newval >= 1200) {
+        if (newval >= 900) {
           if(this.arr.indexOf(3)<0) {
             this.arr.push(3)
             this.arr.push(4)
           }
         }
-        if (newval >= 1600) {
+        if (newval >= 1400) {
           if(this.arr.indexOf(5)<0) {
             this.arr.push(5)
             this.arr.push(6)
           }
         }
-        if (newval > 2100) {
+        if (newval > 1500) {
           unwatch_scrolltop();
         }
-      });
+      },{immediate:true});
     },
   },
   watch:{
@@ -245,6 +238,8 @@ export default {
     },
   },
   mounted() {
+    this.left = this.$refs.animate__backInRight.offsetLeft
+    console.log(this.left);
     this.get_article_list()
     this.watch_scrolltop();
   },
@@ -295,13 +290,9 @@ export default {
   border: 1px solid #e9e9e9;
   color: white;
   transition: 0.5s;
-  background-color: #6f6fff;
+  background-color: #338bd0;
 }
 
-
-.list_ul ul li {
-  height: 34px;
-}
 
 li a {
   font-family: "Times New Roman", Times, serif;
