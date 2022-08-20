@@ -3,12 +3,12 @@
     <Banner :bg="module_headerBg"/>
     <div v-if="!loadingLottie">
       <div
-      class="content_moduleBox pt-5 mx-auto my-0 w-full flex justify-between  flex-col items-center"
+      class="content_moduleBox pt-5 mx-auto my-0 w-full flex justify-between flex-col items-center"
       v-if="!loadingLottie &&article_moduleList.length > 0"
       ref="Article1"
     >
       <!-- <Bgcanvas  />  -->
-      <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-116 animate__animated animate__fadeInUp rounded-lg">
+      <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-240 animate__animated animate__fadeInUp rounded-lg">
         <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index"  style="text-decoration:none">
           <section
             :style="index == 0 ? { padding: 'none' } : ''"
@@ -19,7 +19,7 @@
               :style="index == 0 ? {border:'none'} : ''"
             >
               <div
-                :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-64' : ''"
+                :class="list.coverUrl ? 'float-left w-64 md:w-56 lg:w-72' : ''"
               >
                 <div class="content_list_author">
                   <span class="mr-2">{{

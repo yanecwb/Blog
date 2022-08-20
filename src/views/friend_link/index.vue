@@ -190,7 +190,7 @@
            </div>
               <div v-if="showreplyInput==i.id" class="animate__animated animate__lightSpeedInRight">
                <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:130px" inputcentent v-model="replyContent" placeholder="请开始你的表演"
-              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
+              class="block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
                  <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[2] && !replyContent">*请输入内容*</p>
                 <div class="w-full flex justify-between items-center m-2">
                   <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">

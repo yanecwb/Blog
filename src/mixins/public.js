@@ -43,8 +43,12 @@ let mixin = {
       }else{
         if(null_dian - publish_time < 86400000){
           return '昨天 '+ new Date(publish_time).toLocaleTimeString()
-        }else{
+        }
+        else if(parseInt((now - publish_time)/(60*60*24*1000) + 1) <= 5){
           return parseInt((now - publish_time)/(60*60*24*1000) + 1) + '天前'
+        }
+        else{
+          return new Date(publish_time).toLocaleString()
         }
       }
     },

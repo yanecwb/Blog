@@ -48,7 +48,7 @@
             <router-link to="/message_center/chat_room" target="_Blank">
               <div class="hvr-pulse flex header_right relative  message">
                 <img src='http://flechazoblog.site/Img/message.svg' style="width:17px;height:20px"/>
-                <span class="text-xs md:text-sm">消息</span>
+                <span class="text-xs md:text-sm">讨论</span>
               </div>
             </router-link>
             <router-link :to="$route.fullPath" @mouseenter.native='showWeather = true' @mouseleave.native="showWeather = false" class=" relative">
@@ -91,7 +91,7 @@
               class="absolute right-3 top-2 z-10 text-xl cursor-pointer"
               @click="MobileshowMenu(1)"
             >
-              X
+             <Icon type="close" />
             </div>
             <div
               class="absolute w-full z-999 mt-10 text-base flex flex-col items-center font-serif"

@@ -3,19 +3,38 @@
       <Bgcanvas :height="1300"/>
       <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between">
         <div class="article_left w-full md:w-200 lg:w-260 ">
-          <div class="flex justify-start mb-3 p-2 bg-white shadow-lg rounded-lg text-base cursor-pointer">
+          <div class="flex justify-start mb-3 mx-2 md:mx-0 p-2 bg-white shadow-lg rounded-lg text-base cursor-pointer hvr-underline-from-left" @click="showNaggingModal = true">
             <div>
               <Icon type="smile" class="mr-2"/>
               <span>碎碎念</span>
             </div>
-            <div class="text-center flex-1">
-              <span>再也不晚上喝冰红茶了</span>
+            <div class="text-center flex-1" >
+              <div  v-for="i,index in nagging" v-if="index == naggingIndex" class="animate__fadeInUp animate__animated">{{i}}</div>
+            </div>
+            <div>
+              <Icon type="api" />
             </div>
           </div>
+          <section v-if="showNaggingModal" @click="(e)=>{ e.target.tagName == 'SECTION' ? showNaggingModal = false : ''}" class="flex justify-center items-center fixed top-0 left-0 z-999 w-screen h-screen" style="background:rgba(0,0,0,.5)">
+            <div class="w-9/10 md:w-1/3 h-2/3 bg-white p-3 overflow-auto rounded msgScoll initBg animate__animated animate__zoomInDown">
+              <div class="flex justify-between font-bold"><h3><Icon type="smile" class="mr-2"/><span>碎碎念</span></h3><Icon type="close" @click="showNaggingModal = false"/></div>
+               <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:100px" inputcentent v-model="naggingContent" placeholder="请开始你的表演"
+              class="msgScoll block_border focus:outline-none my-3 focus:ring focus:border-blue-300 border-none w-full h-12 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
+              <div class="flex-1 text-xl bg-122 mb-4 rounded text-white text-center py-2 cursor-pointer" @click="sendNagging" style="background: rgb(0, 195, 255);">发布</div>
+              <div v-for="i in Allnagging" class="relative pl-20 py-3 pr-3 mb-3 rounded-xl bg-white hvr-float-shadow block" style="box-shadow: 0 3px 8px 6px rgb(7 17 27 / 6%);">
+                <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" class=" rounded-full w-12 h-12 absolute left-2"  alt="">
+                <p class=" font-bold">Flechazo<span class="inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                    color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></p>
+                <p class="text-xs mt-1 mb-3">{{format_publishTime(i.time)}}</p>
+                <p class="text-black w-full mb-2 break-all">{{i.content}}</p>
+                <div><Icon type="like" class=" mr-6"/><Icon type="message"/></div>
+              </div>
+            </div>
+          </section>
           <div class="felx md:justify-between justify-center animate__animated animate__backInLeft mb-52"
             v-if="!$store.state.is_phone">
             <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full rounded-lg shadow-lg" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
-            <div class="article_left_hot_content group block_border rounded-lg">
+            <div class="article_left_hot_content group block_border rounded-lg hvr-underline-from-left">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -41,10 +60,10 @@
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="w-screen md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
+            <div class="w-screen mx-2 md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
               <div class="w-full h-68 md:rounded-t-lg bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
-              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-lg">
+              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-lg hvr-underline-from-left">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
                   <span>
@@ -94,7 +113,7 @@
           </div>
           <!-- 标签 -->
           <div class="py-6">
-            <Tag :color="randomColor()" @click="searchTag(i)" v-for="i in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
+            <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
           </div>
           </div>
            <div class=" bg-white mt-5 px-5 rounded-lg h-200">写点什么呢</div>
@@ -110,11 +129,11 @@
 
 <script>
 import "./container.css";
-import { Icon,Tag } from "ant-design-vue";
+import { Icon,Tag,Modal } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
-
 // api
-import { getArticle_list, getSide_list,serach_article } from "../../api/article_list";
+import { getArticle_list, getSide_list,serach_article,send_nagging,getNagging } from "../../api/article_list";
+import { watch } from "vue";
 export default {
   name: "container",
   data() {
@@ -133,7 +152,12 @@ export default {
       ],
       selectedArticle:{},
       serachText:'',
-      searchArticle:[]
+      searchArticle:[],
+      naggingIndex:0,
+      nagging:[],
+      Allnagging:[],
+      showNaggingModal:false,
+      naggingContent:''
     };
   },
   setup(){
@@ -149,8 +173,13 @@ export default {
       '虚拟机',
       '其他'
     ]
+    let randomColor = []
+    for(let i = 0;i < tagList.length;i++){
+      randomColor.push('#' + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6,'0'))
+    }
     return {
-      tagList
+      tagList,
+      randomColor,
     }
   },
   components: {
@@ -159,8 +188,36 @@ export default {
     Bgcanvas
   },
   methods: {
-    randomColor(){
-      return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6,'0')
+    sendNagging(){
+      if(!this.naggingContent){
+        this.miniMessage('输入内容啊!混蛋','error')
+        return
+      }
+      if(this.$store.state.userInfo.userInfo.id !== "ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a"){
+        this.miniMessage(`这是我的地盘<img src='http://flechazoblog.site:5006/img/BiLiEmail/Default/default031.png' class='w-5 h-5'> ，您可在友链区留言哦`,'warning')
+        return
+      }
+      send_nagging({content:this.naggingContent}).then((data)=>{
+        data.data.code == 200 ? this.miniMessage('成功','success') : this.miniMessage('失败','error')
+      })
+      this.naggingContent = ''
+      this.getAllnagging()
+    },
+    getAllnagging(){
+      getNagging().then(data=>{
+        this.nagging = ((data.data.data).slice(0,3)).map(i=>i.content)
+        this.Allnagging = data.data.data
+      }) 
+    },
+    takeNagging(){
+      setInterval(()=>{
+        if(this.naggingIndex == 2){
+          this.naggingIndex = 0
+          return 
+        }
+        this.naggingIndex += 1
+      },3000)
+
     },
     searchTag(val){
       this.serachText = val
@@ -231,7 +288,7 @@ export default {
       if(!newVal){
         this.searchArticle = []
       }
-    }
+    },
   },
   computed: {
     scrolltop() {
@@ -240,7 +297,9 @@ export default {
   },
   mounted() {
     this.get_article_list()
-    this.$store.state.is_phone ? this.arr = [1,2,3,4,5,6] : truethis.watch_scrolltop();
+    this.getAllnagging()
+    this.takeNagging()
+    this.$store.state.is_phone ? this.arr = [1,2,3,4,5,6] : this.watch_scrolltop();
   },
 };
 </script>

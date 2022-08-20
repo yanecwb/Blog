@@ -48,3 +48,19 @@ export const Get_Article_ModuleList = (module,current)=>{
     }
   })
 }
+
+// 发布碎碎念
+export const send_nagging = (data)=>{
+ return axios({
+  method:'put',
+  url:`${baseUrl}/send_nagging`,
+  data
+ })
+}
+// 获取碎碎念
+export const getNagging = ()=>{
+  return axios({
+    method:'get',
+    url:`${baseUrl}/get_nagging`
+  })
+}
