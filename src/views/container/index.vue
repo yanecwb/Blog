@@ -3,7 +3,7 @@
       <Bgcanvas :height="1300"/>
       <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between">
         <div class="article_left w-full md:w-200 lg:w-260 ">
-          <div class="flex justify-start mb-3 p-2 bg-white shadow-lg rounded-xl text-base cursor-pointer">
+          <div class="flex justify-start mb-3 p-2 bg-white shadow-lg rounded-lg text-base cursor-pointer">
             <div>
               <Icon type="smile" class="mr-2"/>
               <span>碎碎念</span>
@@ -14,8 +14,8 @@
           </div>
           <div class="felx md:justify-between justify-center animate__animated animate__backInLeft mb-52"
             v-if="!$store.state.is_phone">
-            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full rounded-2xl shadow-lg" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
-            <div class="article_left_hot_content group block_border rounded-2xl">
+            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full rounded-lg shadow-lg" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
+            <div class="article_left_hot_content group block_border rounded-lg">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -41,10 +41,10 @@
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-2xl group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
+            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
-              <div class="w-full h-68 md:rounded-t-2xl bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
-              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-2xl">
+              <div class="w-full h-68 md:rounded-t-lg bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
+              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-lg">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
                   <span>
@@ -97,6 +97,7 @@
             <Tag :color="randomColor()" @click="searchTag(i)" v-for="i in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
           </div>
           </div>
+           <div class=" bg-white mt-5 px-5 rounded-lg h-200">写点什么呢</div>
           <!-- miniMusic -->
           <div class="mt-5 flex justify-center w-full ">
              <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 8px" scrolling="no"></iframe>

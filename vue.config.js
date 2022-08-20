@@ -1,5 +1,6 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); //引入插件
 module.exports = {
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   lintOnSave: false,
   css: {
     loaderOptions: {

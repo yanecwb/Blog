@@ -241,7 +241,7 @@ export default {
                 return
               }
               if(file.size > 2048000 && type==2){
-                this.miniMessage('背景土片不要超过2M😱','error')
+                this.miniMessage('背景图片不要超过2M😱','error')
                 return
               }
               getBase64(file,(img) => {
