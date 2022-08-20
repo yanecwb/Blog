@@ -1,6 +1,6 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); //引入插件
 module.exports = {
-  // publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
+  // publicPath: process.env.NODE_ENV === "production" ? "https://flechazoblog.rth.app/" : "/",
   lintOnSave: false,
   css: {
     loaderOptions: {
