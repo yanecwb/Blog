@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
+            <div class="w-screen md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
               <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
               <div class="w-full h-68 md:rounded-t-lg bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
               <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-lg">
@@ -239,10 +239,8 @@ export default {
     },
   },
   mounted() {
-    this.left = this.$refs.animate__backInRight.offsetLeft
-    console.log(this.left);
     this.get_article_list()
-    this.watch_scrolltop();
+    this.$store.state.is_phone ? this.arr = [1,2,3,4,5,6] : truethis.watch_scrolltop();
   },
 };
 </script>
