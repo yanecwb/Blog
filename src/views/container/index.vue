@@ -1,7 +1,7 @@
 <template>
     <div class="relative initBg">
       <Bgcanvas :height="1300"/>
-      <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between">
+      <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between relative">
         <div class="article_left w-full md:w-200 lg:w-260 ">
           <div class="flex justify-start mb-3 mx-2 md:mx-0 p-2 bg-white shadow-lg rounded-lg text-base cursor-pointer hvr-underline-from-left" @click="showNaggingModal = true">
             <div>
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-        <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight" v-if="!$store.state.is_phone" ref="animate__backInRight">
+        <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight relative" v-if="!$store.state.is_phone" ref="animate__backInRight">
          <div class="mb-20">
           <div class=" bg-white px-5 rounded-lg">
             <div class="input_top mx-auto">
@@ -117,6 +117,26 @@
           </div>
           </div>
            <div class=" bg-white mt-5 px-5 rounded-lg h-200">写点什么呢</div>
+           <div class=" bg-white mt-5 p-5 rounded-lg h-50  ">
+              <p class="text-xl"><Icon type="dot-chart" class="mr-2" />网站信息</p>
+              <p class="my-5 w-full flex justify-between px-7">
+                <span>运行天数：</span>
+                <span>{{
+                parseInt((new Date().getTime()-1653595200000)/1000 / 60 / 60 / 24)+'天'+
+                parseInt((new Date().getTime()-1653595200000)/ 1000 / 60 / 60 % 24)+'小时'+
+                parseInt((new Date().getTime()-1653595200000)/ 1000 / 60 % 60)+'分'+
+                parseInt((new Date().getTime()-1653595200000)/1000 % 60)+'秒'
+                
+                }}</span>
+              </p>
+              <p class="my-5 w-full flex justify-between px-7">
+                <span>文章数：</span>
+                <span>17</span>
+              </p>
+              <p class="my-5 w-full flex justify-between px-7">
+              </p>
+           </div>
+
           <!-- miniMusic -->
           <div class="mt-5 flex justify-center w-full ">
              <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 8px" scrolling="no"></iframe>
@@ -129,17 +149,15 @@
 
 <script>
 import "./container.css";
-import { Icon,Tag,Modal } from "ant-design-vue";
+import { Icon,Tag } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
 // api
-import { getArticle_list, getSide_list,serach_article,send_nagging,getNagging } from "../../api/article_list";
-import { watch } from "vue";
+import { getArticle_list,serach_article,send_nagging,getNagging,searchIp,getVisits } from "../../api/article_list";
 export default {
   name: "container",
   data() {
     return {
       article_list: [],
-      side_list: [],
       arr:[],
       hotUrl:'',
       article_listBg:[
@@ -199,9 +217,10 @@ export default {
       }
       send_nagging({content:this.naggingContent}).then((data)=>{
         data.data.code == 200 ? this.miniMessage('成功','success') : this.miniMessage('失败','error')
+        this.naggingContent = ''
+        this.getAllnagging()
       })
-      this.naggingContent = ''
-      this.getAllnagging()
+      
     },
     getAllnagging(){
       getNagging().then(data=>{
@@ -254,11 +273,19 @@ export default {
             commentCount,
           }
         })
-      const res2 = await getSide_list();
-      this.side_list = res2.data.list;
     },
     watch_scrolltop() {
       let unwatch_scrolltop = this.$watch("scrolltop", (newval) => {
+          const top = newval-966
+          if(top>=630){
+             this.$refs.animate__backInRight.style.top = 630 + 'px'
+          }
+          else if(top<=0){
+            this.$refs.animate__backInRight.style.top = 0
+          }
+          else{
+            this.$refs.animate__backInRight.style.top = top+'px'
+          }
         if (newval >= 500) {
           if(this.arr.indexOf(1)<0) {
             this.arr.push(1)
@@ -277,9 +304,9 @@ export default {
             this.arr.push(6)
           }
         }
-        if (newval > 1500) {
-          unwatch_scrolltop();
-        }
+        // if (newval > 1500) {
+        //   unwatch_scrolltop();
+        // }
       },{immediate:true});
     },
   },
