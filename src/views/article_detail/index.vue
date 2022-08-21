@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5 initBg" @click="() => { showexpression = false; return false }">
-    <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full"
-      height="800px"></iframe>
-    <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2">
+  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5 flex flex-col items-center initBg" @click="() => { showexpression = false; return false }">
+    <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full lg:w-3/5 xl:w-1/2 md:mt-10 rounded-lg"
+      height="400px"></iframe>
+    <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2 md:my-10" >
       <span class="px-5 cursor-pointer">
         <svg @click="shareSpace('qq')" t="1656482100056" class="icon" viewBox="0 0 1024 1024" version="1.1"
           xmlns="http://www.w3.org/2000/svg" p-id="5164" width="30" height="30">
@@ -77,7 +77,13 @@
       </span>
     </div>
     <div
-      class="w-full lg:w-3/5 xl:w-1/2 md:mt-10 pt-1 mx-auto  bg-white shadow-2xl rounded-b-3xl" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
+      class="w-full lg:w-3/5 xl:w-1/2  pt-1 mx-auto bg-white shadow-2xl rounded-lg" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
+      <!--锚点  -->
+      <div v-if="anchorArr.length>0" class="w-80 fixed top-1/3 right-6 bg-white p-4 rounded-lg md:block hidden">
+        <p class="my-3"><Icon type="menu" class="mr-2"/>目录</p>
+        <a @click="(e)=>{e.stopPropagation();anchorIndex = index}" class="block p-1 w-full rounded-sm mb-2 bg-white" :class="index == anchorIndex ? 'anchorCss' : 'hover:bg-gray-100'" style="color: #4c4948;text-decoration: none;" v-for="i,index in anchorArr" :key="index" :href="'#'+index" :title="i" >{{(index+1)+'.'+i}}</a>
+      </div>
+
       <div  v-if="!loadingLottie">
         <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
         {{ article.article_title }}
@@ -94,7 +100,7 @@
             {{ format_publishTime(article.publish_time)  }} 阅读{{ article.readCount }}
           </p>
         </div>
-        <Tooltip>
+        <!-- <Tooltip>
           <template slot="title">
             {{
                 article.userId == $store.state.userInfo.userInfo.id
@@ -113,7 +119,7 @@
               </svg>
             </span>
           </button>
-        </Tooltip>
+        </Tooltip> -->
       </div>
       <div  v-html="article.content" @click="showImg" class="md:px-10 px-1 md:px-18 w-full articleContent" style="border-bottom: 1px solid #f0f0f0;"></div>
       </div>
@@ -165,7 +171,7 @@
 
     <!-- 评论区 -->
     <aside
-      class="w-full px-3  lg:w-3/5 xl:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-t-3xl">
+      class="w-full px-3  lg:w-3/5 xl:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-lg">
       <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
         <span class=" cursor-pointer">
@@ -383,6 +389,8 @@ export default {
       contentImgUl:[],
       contentImgUrl:'',
       showimg:false,
+      anchorArr:[],
+      anchorIndex:0
     };
   },
   methods: {
@@ -536,14 +544,13 @@ export default {
       let text = this.sharehref
       // let qrcode =
       new QRCode(this.$refs.qrcode, {
-        text: text, //二维码内容字符串
+        text, //二维码内容字符串
         width: 108, //图像宽度
         height: 108, //图像高度
         colorDark: '#000000', //二维码前景色
         colorLight: '#ffffff', //二维码背景色
         correctLevel: QRCode.CorrectLevel.H, //容错级别
       })
-      // console.log(qrcode);
     },
     formatCommentTime(commentTime) {
       // if (commentTime.indexOf('AM') > -1) {
@@ -637,49 +644,6 @@ export default {
   async created() {
     this.$store.commit('change_isfixed', 0)
     this.$store.commit('change_show_header',false)
-    // 分享时无缓存，读指定某条文章内容
-    const res = await Get_Article_Content(this.$route.fullPath.split('/')[2])
-    function escape2Html(str) {
-             var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
-             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];})
-            //  function replaceHtml(htmlContent) {
-            //     let reg=new RegExp("<pre","g"); //创建正则RegExp对象
-            //     let reg1=new RegExp("<code class=\"lang-\"","g");
-            //     let stringObj=htmlContent
-            //     let newstr=stringObj.replace(reg,`<pre class="line-numbers language-javascript"`);
-            //     let newstr2=newstr.replace(reg1,`<code class="language-javascript"`);
-            //    return newstr2
-            //   }
-    }
-    this.article = res.data
-    this.article.content = escape2Html(this.article.content)
-    // this.article.content = this.article.content.replace(/<img/g,"<img :style='cursor: zoom-in;'")
-
-    var patt = /<img[^>]+src=['"]([^'"]+)['"]+/g;
-    var result = [],temp;
-    while ((temp = patt.exec(this.article.content)) != null) {
-      result.push({'url':temp[1]});
-    }
-    this.contentImgUl = result
-
-    localStorage.setItem("article_details", JSON.stringify(this.article));
-    this.getComments({article_id: this.$route.params.id,})
-    getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
-      if(res1.data.code == 201) return
-      const {like_art,unlike_art,collection_art} = res1.data.result
-      this.like.like = JSON.parse(like_art).includes(this.$route.fullPath.split('/')[2])
-      this.like.unlike = JSON.parse(unlike_art).includes(this.$route.fullPath.split('/')[2])
-      this.like.collection = JSON.parse(collection_art).includes(this.$route.fullPath.split('/')[2])
-    })
-    //页面标题为文章标题
-    document.title = this.article.article_title
-    this.lottieTimer = setTimeout(() => {
-      this.loadingLottie=false
-    }, 200);
-    setTimeout(()=>{
-      Prism.highlightAll()
-    },201)
-
   },
   watch: {
     article(newval) {
@@ -727,11 +691,59 @@ export default {
     }
     next()
   },
-  mounted(){
+  async mounted(){
+       // 分享时无缓存，读指定某条文章内容
+    const res = await Get_Article_Content((this.$route.fullPath.split('/')[2]).split('#')[0])
+    function escape2Html(str) {
+             var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];})
+            //  function replaceHtml(htmlContent) {
+            //     let reg=new RegExp("<pre","g"); //创建正则RegExp对象
+            //     let reg1=new RegExp("<code class=\"lang-\"","g");
+            //     let stringObj=htmlContent
+            //     let newstr=stringObj.replace(reg,`<pre class="line-numbers language-javascript"`);
+            //     let newstr2=newstr.replace(reg1,`<code class="language-javascript"`);
+            //    return newstr2
+            //   }
+    }
+    this.article = res.data
+    this.article.content = escape2Html(this.article.content)
+
+    var patt = /<img[^>]+src=['"]([^'"]+)['"]+/g;
+    var result = [],temp;
+    while ((temp = patt.exec(this.article.content)) != null) {
+      result.push({'url':temp[1]});
+    }
+    this.contentImgUl = result
+
+    localStorage.setItem("article_details", JSON.stringify(this.article));
+    this.getComments({article_id: this.$route.params.id,})
+    getLike({userId:this.$store.state.userInfo.userInfo.id}).then(res1=>{
+      if(res1.data.code == 201) return
+      const {like_art,unlike_art,collection_art} = res1.data.result
+      this.like.like = JSON.parse(like_art).includes(this.$route.fullPath.split('/')[2])
+      this.like.unlike = JSON.parse(unlike_art).includes(this.$route.fullPath.split('/')[2])
+      this.like.collection = JSON.parse(collection_art).includes(this.$route.fullPath.split('/')[2])
+    })
+    //页面标题为文章标题
+    document.title = this.article.article_title
+    this.lottieTimer = setTimeout(() => {
+      this.loadingLottie=false
+    }, 200);
+    setTimeout(()=>{
+      Prism.highlightAll()
+    },201)
     setTimeout(()=>{
         Prism.highlightAll()
         // console.log(Prism);
     },1)
+    setTimeout(()=>{
+     const h3 =  document.getElementsByTagName('h3')
+     for(let i = 0;i<h3.length;i++){
+      this.anchorArr.push(h3[i].innerText)
+      h3[i].id = i
+     }
+    },2000)
   },
   beforeDestroy(){
     document.getElementsByTagName("body")[0].style.overflow = "auto"
@@ -941,5 +953,10 @@ pre {
 }
 .articleContent  img{
 cursor: zoom-in;
+}
+.anchorCss{
+  color: #fff !important;
+  background:#00c4b6;
+  border-left: solid 3px #009d92;
 }
 </style>

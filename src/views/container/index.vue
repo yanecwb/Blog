@@ -95,10 +95,10 @@
         </div>
         <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight relative" v-if="!$store.state.is_phone" ref="animate__backInRight">
          <div class="mb-20">
-          <div class=" bg-white px-5 rounded-lg">
+          <div class=" bg-white px-5 rounded-lg hvr-underline-from-left">
             <div class="input_top mx-auto">
-            <h1 class="m-0 text-blue-600">——</h1>
-            <span class="text-black">NewsLetter</span>
+            <p class="m-0 text-blue-600 text-3xl">——</p>
+            <span class="text-black">Sidebar</span>
           </div>
           <div class="flex items-center  justify-center ">
              <div class="w-56">
@@ -118,8 +118,8 @@
             <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
           </div>
           </div>
-           <div class=" bg-white mt-5 px-5 rounded-lg h-200">写点什么呢</div>
-           <div class=" bg-white mt-5 p-5 rounded-lg h-50  ">
+           <div @click="showImgwall = true" class=" bg-white mt-5 px-5 rounded-lg h-200 bg-cover bg-center" style="cursor: zoom-in;background-image: url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg);"></div>
+           <div class=" text-white mt-5 p-5 rounded-lg  bg-cover bg-center" style="background-image: linear-gradient(to top,rgba(255,255,255,0.1),rgba(255,255,255,0.1)), url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehwid9wxj21hc0u07wj.jpg);">
               <p class="text-xl"><Icon type="dot-chart" class="mr-2" />网站信息</p>
               <p class="my-5 w-full flex justify-between px-7">
                 <span>运行天数：</span>
@@ -131,11 +131,9 @@
                 
                 }}</span>
               </p>
-              <p class="my-5 w-full flex justify-between px-7">
+              <p class=" w-full flex justify-between px-7">
                 <span>文章数：</span>
                 <span>17</span>
-              </p>
-              <p class="my-5 w-full flex justify-between px-7">
               </p>
            </div>
 
@@ -146,6 +144,7 @@
          </div>
         </div>
       </div>
+      <viewerImg v-if="showImgwall" @hideImg="()=>{showImgwall = false}" :options="{contentImgUl:[{url:'https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}],contentImgUrl:'https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}"/>
     </div>
 </template>
 
@@ -153,6 +152,7 @@
 import "./container.css";
 import { Icon,Tag } from "ant-design-vue";
 import Bgcanvas from '../../components/Bgcanvas/index.vue'
+import viewerImg from '../../components/viewerImg/index.vue'
 // api
 import { getArticle_list,serach_article,send_nagging,getNagging,searchIp,getVisits } from "../../api/article_list";
 export default {
@@ -177,7 +177,8 @@ export default {
       nagging:[],
       Allnagging:[],
       showNaggingModal:false,
-      naggingContent:''
+      naggingContent:'',
+      showImgwall:false
     };
   },
   setup(){
@@ -205,7 +206,8 @@ export default {
   components: {
     Icon,
     Tag,
-    Bgcanvas
+    Bgcanvas,
+    viewerImg
   },
   methods: {
     sendNagging(){

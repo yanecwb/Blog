@@ -45,7 +45,7 @@
             <!-- 输入区 -->
             <div v-if="isIntoChat" class="w-full flex justify-between items-center">
               <i  class='iconfont icon-biaoqing mx-2 cursor-pointer hvr-bounce-in text-xl ' @click="showexpression = 1"/>
-              <i  class='iconfont icon-charutupian mx-2 cursor-pointer hvr-bounce-in text-xl ' />
+              <i  class='iconfont icon-charutupian mx-2 cursor-pointer hvr-bounce-in text-xl ' @click="miniMessage('开发中','info')"/>
               <Input ref="websocketmsgInput" v-focus class=" outline-none px-3 py-1 resize-none" v-model="websocketmsg" @keydown="handlePress"/>
               <i class="iconfont icon-fasong mx-2 cursor-pointer hvr-bounce-in text-2xl text-blue-500" @click="sendwebsocketmsg"/>
             </div>
