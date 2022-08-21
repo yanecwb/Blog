@@ -2,8 +2,8 @@
   <div class="min-w-300">
     <!-- 导航PC -->
     <div v-if="!$store.state.is_phone" >
-      <header class="header_box_navBar h-12 px-2" ref="navBar">
-        <ul class="min-w-300">
+      <header class="header_box_navBar h-12 px-2" ref="navBar" id="header">
+        <ul class="min-w-300" >
           <div ref="navBar_ul" class="flex">
             <router-link to="/home">
               <div class="hvr-pulse flex header_right relative ">
@@ -69,16 +69,6 @@
           </div>
         </ul>
       </header>
-      <div
-        @click="showHeader(1)"
-        v-if="visible"
-        class="animate__fadeInDown animate__animated border-1 w-6 h-4 flex justify-center items-center rounded-sm fixed top-0"
-        style="
-          background-image: linear-gradient(to top, #fef9d7 0%, #d299c2 100%);
-        "
-      >
-        <Icon type="down" class="text-xl text-white" title="打开导航" />
-      </div>
     </div>
 
     <!-- Mobile  -->
@@ -188,13 +178,13 @@
       </ul>
     </header>
     <!-- 返回头部 -->
-    <div
-      class="back_top animate__animated animate__fadeInDown sm:fixed right-0 md:right-6"
+    <a
+      class="back_top animate__animated animate__fadeInDown sm:fixed right-0 md:right-6 flex items-center justify-center hvr-icon-up"
       v-if="show_backtop"
-      @click="backtop"
+      href="#header"
     >
-      <span class="iconfont icon-icon--fanhuidingbu text-2xl"></span>
-    </div>
+    <Icon type="to-top" style="font-size: 20px;color: #fff;" class="hvr-icon"/>
+    </a>
     <!-- 遮罩层 -->
     <div class="Mask w-screen h-screen fixed top-0" v-if="showmenu" @click="change_showmenu"></div>
     <!-- 菜单 -->
@@ -234,28 +224,9 @@ export default {
       }
       this.Mune_left = "Mune_left_show g-bg";
     },
-    backtop() {
-      // window.scrollTop(0,0);
-      // this.timer = setInterval(() => {
-      //   if (document.documentElement.scrollTop == 0) {
-      //     clearInterval(this.timer);
-      //   }
-      // }, 1);
-    },
     change_showmenu() {
       this.$emit('play')
       this.showmenu = !this.showmenu;
-    },
-    showHeader(val) {
-      if (val) {
-        this.$refs.navBar.className =
-          "header_box_navBar  h-8 md:h-14 animate__fadeInDown animate__animated";
-        this.visible = false;
-        return;
-      }
-      this.$refs.navBar.className =
-        "header_box_navBar h-8 md:h-14 animate__fadeOutUp animate__animated";
-      this.visible = true;
     },
   },
 
