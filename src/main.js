@@ -30,7 +30,7 @@ import './utils/public.less'// 公共css
 import Swal from "sweetalert2"; //提示组件
 import { message } from "ant-design-vue"; //ant-message组件
 Vue.prototype.$message = message;
-Vue.prototype.$Swal = Swal;
+Vue.prototype.$Swal = Swal; 
 
 // 解决路由冗余报错问题vue-router3.0+
 import Router from "vue-router";

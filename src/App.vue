@@ -2,7 +2,7 @@
   <div id="app" ref="App" >
     <div>
       <div v-if="loaded">
-        <Header v-if="$store.state.show_header" @play="playMusic"/>
+        <Header v-if="$store.state.show_header"/>
       </div>
         <!-- <keep-alive :include="['home']"> -->
           <router-view/>
@@ -54,9 +54,6 @@ export default {
     };
   },
   methods: {
-    playMusic(){
-      // this.$refs.audio.play()
-    },
     change_show_footer(val) {
       this.show_footer = val;
     },
@@ -65,27 +62,11 @@ export default {
     },
   },
   mounted() {
-    // const musicList = [
-    //   'http://flechazoblog.site:5006/music/HOYO-MiX-WordlessCliffs丹砂巍巍.mp3',
-    //   'http://flechazoblog.site:5006/music/杯中明月(璃月BGM).mp3',
-    //   'http://flechazoblog.site:5006/music/海灯节bgm和魈的烟火之约~.mp3',
-    //   'http://flechazoblog.site:5006/music/HOYO-MiX-RexIncognito尘世闲游.mp3'
-    // ]
-    // let musicOder = 0
     const Document = document.documentElement;
     this.$store.commit("scroll/change_scrollTop", Document.scrollTop);
     document.querySelector("body").onscroll = () => {
       this.$store.commit("scroll/change_scrollTop", Document.scrollTop);
     };
-    // this.$nextTick(()=>{
-    //   this.$refs.audio.addEventListener('ended',  ()=> {
-    //     this.$refs.audio.attributes[1].value = musicList[musicOder]
-    //     musicOder += 1
-    //     if(musicOder == musicList.length){
-    //       musicOder = 0
-    //     }
-    // }, false);
-    // })
   },
 };
 </script>

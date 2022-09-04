@@ -11,12 +11,6 @@
 <script>
 export default {
   name: "Footer",
-  data() {
-    return {
-      // show_footer: false,
-    };
-  },
-  props:['show_footer'],
 };
 </script>
 <style lang="less" scoped>

@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-        <div class=" h-1/2 md:w-108 lg:w-112  animate__animated animate__backInRight relative" v-if="!$store.state.is_phone" ref="animate__backInRight">
+        <div class="h-1/2 md:w-108 lg:w-112 animate__animated animate__backInRight relative" v-if="!$store.state.is_phone" ref="animate__backInRight">
          <div class="mb-20">
           <div class=" bg-white px-5 rounded-lg hvr-underline-from-left">
             <div class="input_top mx-auto">

@@ -194,7 +194,6 @@
 
 <script>
 import "./header.css";
-// import "animate.css";
 import { getWeather, weather_json } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 import MoreMenu from "../MoreMenu/index.vue";
@@ -225,7 +224,6 @@ export default {
       this.Mune_left = "Mune_left_show g-bg";
     },
     change_showmenu() {
-      this.$emit('play')
       this.showmenu = !this.showmenu;
     },
   },
