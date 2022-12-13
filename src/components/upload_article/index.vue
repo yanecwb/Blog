@@ -1,7 +1,7 @@
 <template>
   <div class="upload_article_box">
     <div class="stars" ref="stars"></div>
-    <h1 class="h1_title mt-9 text-center m-0" style="font-family: 黑体">
+    <h1 class="m-0 text-center h1_title mt-9" style="font-family: 黑体">
       分享你的知识
       <Icon
         type="edit"
@@ -10,13 +10,13 @@
         title="修改基本信息"
       />
     </h1>
-    <div class="flex items-end flex-col mt-1 mx-auto mb-4 w-4/5">
+    <div class="flex flex-col items-end w-4/5 mx-auto mt-1 mb-4">
       <div style="border: 1px solid #ccc" class="w-full mb-5">
         <div id="toolbar-container"></div>
         <div id="editor-container" :style=" $store.state.is_phone ? { height: '50vh' } : { height: '70vh' }" ></div>
       </div>
-      <div class="flex justify-between w-full">
-        <button class="backBtn font-bold" @click="goBack()">
+      <div class="flex items-center justify-between w-full">
+        <button class="font-bold backBtn" @click="goBack()">
           <svg
             height="16"
             width="16"
@@ -30,11 +30,17 @@
           </svg>
           <span>首页</span>
         </button>
-        <div class="w-3/5 text-white text-center font-bold" >
-          <p>1.如果文章有图片请务必点击图片选择图片百分比大小，不要自定义。否则可能出现超出显示区的情况</p>
-          <p>2.不要上传视频，必须上传时可将视屏给我，我把链接地址发你（懒得写视频的上传配置了😳）</p>
-          <p>3.不要使用尖括号'\<'或者'>',不然就锤你👊</p>
-        </div>
+
+        <Popover title="提示">
+          <template slot="content">
+            <div class="w-3/5 font-bold text-gray sm:text-xs md:text-md" >
+              <p>1.如果文章有图片请务必点击图片选择图片百分比大小，不要自定义。否则可能出现超出显示区的情况</p>
+              <p>2.不要上传视频，必须上传时可将视屏给我，我把链接地址发你（懒得写视频的上传配置了😳）</p>
+              <p>3.不要使用尖括号'\<'或者'>',不然就锤你👊</p>
+            </div>
+          </template>
+          <Icon type="exclamation-circle" class="text-white"/>
+        </Popover>
         <button class="sendBtn" @click="uploadArticle">
           <div class="svg-wrapper-1">
             <div class="svg-wrapper">
@@ -90,7 +96,7 @@
           ref="article_introduction"
           v-model="base_info.article_introduction"
           rows="5"
-          class="w-84 focus:outline-none focus:ring focus:border-blue-200  py-1 px-2 box-border"
+          class="box-border px-2 py-1 w-84 focus:outline-none focus:ring focus:border-blue-200"
           allow-clear
         />
       </div>
@@ -102,7 +108,7 @@
           >：
         </div>
         <select
-          class="w-32 h-8 rounded-md text-center"
+          class="w-32 h-8 text-center rounded-md"
           v-model="base_info.article_classify"
           ref="article_classify"
         >
@@ -131,11 +137,11 @@
           >
             <div v-if="base_info.coverUrl">
               <img
-              class="w-36 h-24"
+              class="h-24 w-36"
               :src="base_info.coverUrl"
               alt="avatar"
             />
-            <span class="absolute -top-2 right-0 text-base" @click='deleteCoverUrl' title="删除">x</span>
+            <span class="absolute right-0 text-base -top-2" @click='deleteCoverUrl' title="删除">x</span>
             </div>
 
             <div v-else>
@@ -162,7 +168,7 @@ import {
 import "@wangeditor/editor/dist/css/style.css";
 
 // 基本信息表单
-import { Modal, Upload, Icon, Input } from "ant-design-vue";
+import { Modal, Upload, Icon, Input,Popover } from "ant-design-vue";
 Vue.use(Modal);
 
 // api
@@ -186,6 +192,7 @@ export default {
     Upload,
     Icon,
     Input,
+    Popover
   },
   data() {
     return {
@@ -506,9 +513,10 @@ export default {
   font-size: 15px;
   background: royalblue;
   color: white;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 0.6em;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 5px;
   overflow: hidden;

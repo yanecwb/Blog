@@ -1,40 +1,40 @@
 <template>
     <div class="relative initBg">
       <Bgcanvas :height="1300"/>
-      <div class="flex mx-auto pt-7 w-screen md:w-400 md:justify-between relative">
-        <div class="article_left w-full md:w-200 lg:w-260 ">
-          <div class="flex justify-start mb-3 mx-2 md:mx-0 p-2 bg-white shadow-lg rounded-lg text-base cursor-pointer hvr-underline-from-left" @click="showNaggingModal = true">
+      <div class="relative flex w-screen mx-auto pt-7 md:w-400 md:justify-between">
+        <div class="w-full article_left md:w-200 lg:w-260 ">
+          <div class="flex justify-start p-2 mx-2 mb-3 text-base bg-white rounded-lg shadow-lg cursor-pointer md:mx-0 hvr-underline-from-left" @click="showNaggingModal = true">
             <div>
               <Icon type="smile" class="mr-2"/>
               <span>碎碎念</span>
             </div>
-            <div class="text-center flex-1" >
-              <div  v-for="i,index in nagging" v-if="index == naggingIndex" class="animate__fadeInUp animate__animated">{{i}}</div>
+            <div class="flex-1 text-center" >
+              <div  v-for="(i,index) in nagging" v-if="index == naggingIndex" class="animate__fadeInUp animate__animated" :key="index">{{i}}</div>
             </div>
             <div>
               <Icon type="api" />
             </div>
           </div>
-          <section v-if="showNaggingModal" @click="(e)=>{ e.target.tagName == 'SECTION' ? showNaggingModal = false : ''}" class="flex justify-center items-center fixed top-0 left-0 z-999 w-screen h-screen" style="background:rgba(0,0,0,.5)">
-            <div class="w-9/10 md:w-1/3 h-2/3 bg-white p-3 overflow-auto rounded msgScoll initBg animate__animated animate__zoomInDown">
+          <section v-if="showNaggingModal" @click="(e)=>{ e.target.tagName == 'SECTION' ? showNaggingModal = false : ''}" class="fixed top-0 left-0 flex items-center justify-center w-screen h-screen z-999" style="background:rgba(0,0,0,.5)">
+            <div class="p-3 overflow-auto bg-white rounded w-9/10 md:w-1/3 h-2/3 msgScoll initBg animate__animated animate__zoomInDown">
               <div class="flex justify-between font-bold"><h3><Icon type="smile" class="mr-2"/><span>碎碎念</span></h3><Icon type="close" @click="showNaggingModal = false"/></div>
-               <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:100px" inputcentent v-model="naggingContent" placeholder="请开始你的表演"
-              class="msgScoll block_border focus:outline-none my-3 focus:ring focus:border-blue-300 border-none w-full h-12 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
-              <div class="flex-1 text-xl bg-122 mb-4 rounded text-white text-center py-2 cursor-pointer" @click="sendNagging" style="background: rgb(0, 195, 255);">发布</div>
-              <div v-for="i in Allnagging" class="relative pl-20 py-3 pr-3 mb-3 rounded-xl bg-white hvr-float-shadow block" style="box-shadow: 0 3px 8px 6px rgb(7 17 27 / 6%);">
-                <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" class=" rounded-full w-12 h-12 absolute left-2"  alt="">
-                <p class=" font-bold">Flechazo<span class="inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+               <input type="text" style="background: #FFF url(http://flechazoblog.site:5006/img/static_img/fan_girl.gif) right center no-repeat;background-size:100px" inputcentent v-model="naggingContent" placeholder="请开始你的表演"
+              class="box-border block w-full h-12 px-2 py-1 my-3 text-xs bg-gray-100 border-none rounded msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 md:h-16 text-0a1 md:text-sm" />
+              <div class="flex-1 py-2 mb-4 text-xl text-center text-white rounded cursor-pointer bg-122" @click="sendNagging" style="background: rgb(0, 195, 255);">发布</div>
+              <div v-for="(i,index) in Allnagging" class="relative block py-3 pl-20 pr-3 mb-3 bg-white rounded-xl hvr-float-shadow" style="box-shadow: 0 3px 8px 6px rgb(7 17 27 / 6%);" :key="index">
+                <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" class="absolute w-12 h-12 rounded-full left-2"  alt="">
+                <p class="font-bold ">Flechazo<span class="inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></p>
-                <p class="text-xs mt-1 mb-3">{{format_publishTime(i.time)}}</p>
-                <p class="text-black w-full mb-2 break-all">{{i.content}}</p>
-                <div><Icon type="like" class=" mr-6"/><Icon type="message"/></div>
+                <p class="mt-1 mb-3 text-xs">{{format_publishTime(i.time)}}</p>
+                <p class="w-full mb-2 text-black break-all">{{i.content}}</p>
+                <div><Icon type="like" class="mr-6 "/><Icon type="message"/></div>
               </div>
             </div>
           </section>
-          <div class="felx md:justify-between justify-center animate__animated animate__backInLeft mb-52"
+          <div class="justify-center felx md:justify-between animate__animated animate__backInLeft mb-52"
             v-if="!$store.state.is_phone">
-            <div class="article_left_hot_img  bg-center overflow-hidden bg-no-repeat h-110 w-full rounded-lg shadow-lg" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
-            <div class="article_left_hot_content group block_border rounded-lg hvr-underline-from-left">
+            <div class="w-full overflow-hidden bg-center bg-no-repeat rounded-lg shadow-lg article_left_hot_img h-110" :style="{ backgroundImage:hotUrl || scrolltop > 100 ? 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)' && (hotUrl = 'url(https://tva1.sinaimg.cn/large/e8a55238gy1h51vhndza5j22yo1o01kx.jpg)') : ''}"></div>
+            <div class="rounded-lg article_left_hot_content group block_border hvr-underline-from-left">
               <div class="article_left_hot_content_desc">
                 <a href="#">Gadgets</a>
                 <span>
@@ -44,7 +44,7 @@
                   <Icon type="message" />{{selectedArticle.commentCount}}
                 </span>
               </div>
-              <div class="article_left_hot_content_title mb-5">
+              <div class="mb-5 article_left_hot_content_title">
                 <h2>{{selectedArticle.article_title}}</h2>
               </div>
               <div class="article_left_hot_content_content">
@@ -59,11 +59,11 @@
               </a>
             </div>
           </div>
-          <div class="flex justify-center md:justify-between flex-wrap w-full">
-            <div class="w-screen mx-2 md:w-96 lg:w-108  md:mb-14 lg:mb-16 block_border  mb-10 md:rounded-lg group shadow-lg"  v-for="(item,index) in article_list" :key="item.id">
-              <div v-if="arr[index]" class="animate__animated  animate__fadeIn animate__slower">
-              <div class="w-full h-68 md:rounded-t-lg bg-cover bg-center  bg-origin-content article_left_natural bg-no-repeat" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
-              <div class=" bg-white py-4 px-8 w-full relative md:rounded-b-lg hvr-underline-from-left">
+          <div class="flex flex-wrap justify-center w-full md:justify-between">
+            <div class="w-screen mx-2 mb-10 shadow-lg md:w-96 lg:w-108 md:mb-14 lg:mb-16 block_border md:rounded-lg group"  v-for="(item,index) in article_list" :key="item.id">
+              <div v-if="arr[index]" class="animate__animated animate__fadeIn animate__slower">
+              <div class="w-full bg-center bg-no-repeat bg-cover h-68 md:rounded-t-lg bg-origin-content article_left_natural" :style="{ backgroundImage: 'url(' + article_listBg[index] + ')' }"></div>
+              <div class="relative w-full px-8 py-4 bg-white md:rounded-b-lg hvr-underline-from-left">
                 <div class=" article_left_natural_content_desc">
                   <a href="#">Gadgets</a>
                   <span>
@@ -93,35 +93,35 @@
             </div>
           </div>
         </div>
-        <div class="h-1/2 md:w-108 lg:w-112 animate__animated animate__backInRight relative" v-if="!$store.state.is_phone" ref="animate__backInRight">
+        <div class="relative h-1/2 md:w-108 lg:w-112 animate__animated animate__backInRight" v-if="!$store.state.is_phone" ref="animate__backInRight">
          <div class="mb-20">
-          <div class=" bg-white px-5 rounded-lg hvr-underline-from-left">
-            <div class="input_top mx-auto">
-            <p class="m-0 text-blue-600 text-3xl">——</p>
+          <div class="px-5 bg-white rounded-lg hvr-underline-from-left">
+            <div class="mx-auto input_top">
+            <p class="m-0 text-3xl text-blue-600">——</p>
             <span class="text-black">Sidebar</span>
           </div>
-          <div class="flex items-center  justify-center ">
+          <div class="flex items-center justify-center ">
              <div class="w-56">
-              <input type="text"  v-model="serachText" placeholder="search more for title"  class="w-full p-3 box-border h-8 outline-none block_border  font-serif " style="border-right: 0;"/>
-              <ul v-if="searchArticle.length>0" class=" absolute block_border w-56 z-999 animate__animated animate__fadeIn overflow-auto max-h-110 msgScoll" style="border-top:none">
-                <li class="bg-white hover:bg-indigo-50 hover:text-blue-400 p-2 cursor-pointer whitespace-nowrap overflow-hidden" v-for="(i,index) in searchArticle" :key="index" :title="i.article_title">
+              <input type="text"  v-model="serachText" placeholder="search more for title"  class="box-border w-full h-8 p-3 font-serif outline-none block_border " style="border-right: 0;"/>
+              <ul v-if="searchArticle.length>0" class="absolute w-56 overflow-auto block_border z-999 animate__animated animate__fadeIn max-h-110 msgScoll" style="border-top:none">
+                <li class="p-2 overflow-hidden bg-white cursor-pointer hover:bg-indigo-50 hover:text-blue-400 whitespace-nowrap" v-for="(i,index) in searchArticle" :key="index" :title="i.article_title">
                 <a :href="`http://www.flechazoblog.site/article_detail/${i.id}`" target="_blank" class="underline">{{i.article_title}}</a>
                 </li>
               </ul>
             </div>
-            <div @click="SearchArticle" class="search_icon h-8 text-center  border-l-0 cursor-pointer flex justify-center items-center " title="搜索文章">
+            <div @click="SearchArticle" class="flex items-center justify-center h-8 text-center border-l-0 cursor-pointer search_icon " title="搜索文章">
               <Icon type="search" />
             </div>
           </div>
           <!-- 标签 -->
           <div class="py-6">
-            <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="cursor-pointer mb-5 hvr-float-shadow">{{i}}</Tag>
+            <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="mb-5 cursor-pointer hvr-float-shadow">{{i}}</Tag>
           </div>
           </div>
-           <div @click="showImgwall = true" class=" bg-white mt-5 px-5 rounded-lg h-200 bg-cover bg-center" style="cursor: zoom-in;background-image: url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg);"></div>
-           <div class=" text-white mt-5 p-5 rounded-lg  bg-cover bg-center" style="background-image: linear-gradient(to top,rgba(255,255,255,0.1),rgba(255,255,255,0.1)), url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehwid9wxj21hc0u07wj.jpg);">
+           <div @click="showImgwall = true" class="px-5 mt-5 bg-white bg-center bg-cover rounded-lg h-200" style="cursor: zoom-in;background-image: url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg);"></div>
+           <div class="p-5 mt-5 text-white bg-center bg-cover rounded-lg " style="background-image: linear-gradient(to top,rgba(255,255,255,0.1),rgba(255,255,255,0.1)), url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehwid9wxj21hc0u07wj.jpg);">
               <p class="text-xl"><Icon type="dot-chart" class="mr-2" />网站信息</p>
-              <p class="my-5 w-full flex justify-between px-7">
+              <p class="flex justify-between w-full my-5 px-7">
                 <span>运行天数：</span>
                 <span>{{
                 parseInt((new Date().getTime()-1653595200000)/1000 / 60 / 60 / 24)+'天'+
@@ -131,14 +131,14 @@
                 
                 }}</span>
               </p>
-              <p class=" w-full flex justify-between px-7">
+              <p class="flex justify-between w-full px-7">
                 <span>文章数：</span>
                 <span>17</span>
               </p>
            </div>
 
           <!-- miniMusic -->
-          <div class="mt-5 flex justify-center w-full ">
+          <div class="flex justify-center w-full mt-5 ">
              <iframe src="http://flechazoblog.site/MusicPlay/index.html" width="100%" height="150px" style="border: none;border-radius: 8px" scrolling="no"></iframe>
           </div>
          </div>

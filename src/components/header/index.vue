@@ -2,57 +2,57 @@
   <div class="min-w-300">
     <!-- 导航PC -->
     <div v-if="!$store.state.is_phone" >
-      <header class="header_box_navBar h-12 px-2" ref="navBar" id="header">
+      <header class="h-12 px-2 header_box_navBar" ref="navBar" id="header">
         <ul class="min-w-300" >
           <div ref="navBar_ul" class="flex">
             <router-link to="/home">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/home.svg' style="width:17px;height:20px"/>
                 <span name='home' class="text-xs md:text-sm">首页</span>
               </div>
             </router-link>
             <router-link to="/content/frontend">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/frontend.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">前端</span>
               </div>
             </router-link>
             <router-link to="/content/backend">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/backend.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">后端</span>
               </div>
             </router-link>
             <router-link to="/content/android">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/web3.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">web3.0</span>
               </div>
             </router-link>
              <router-link to="/content/news">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">记录</span>
               </div>
             </router-link>
              <a @click="(e)=>{e.stopPropagation();if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}" target="_Blank">
-              <div class="hvr-pulse flex header_right relative ">
+              <div class="relative flex hvr-pulse header_right ">
                 <img src='http://flechazoblog.site/Img/upload.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">投稿</span>
               </div>
             </a>
           </div>
-          <div class=" flex justify-between items-center">
-           <div @click="change_showmenu" class='cursor-pointer w-7 h-7 md:w-10 md:h-10 border-2 border-solid border-gray-100 rounded-full bg-cover mr-2 hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
+          <div class="flex items-center justify-between ">
+           <div @click="change_showmenu" class='mr-2 bg-cover border-2 border-gray-100 border-solid rounded-full cursor-pointer w-7 h-7 md:w-10 md:h-10 hvr-grow-shadow' :style="$store.state.userInfo.userInfo.id ? `background-image:url(${$store.state.userInfo.userInfo.avatarUrl})`  : 'background-image:url(http://www.flechazoblog.site:5006/img/home_img/notLogin.svg)'">
            </div>
             <router-link to="/message_center/chat_room" target="_Blank">
-              <div class="hvr-pulse flex header_right relative  message">
+              <div class="relative flex hvr-pulse header_right message">
                 <img src='http://flechazoblog.site/Img/message.svg' style="width:17px;height:20px"/>
                 <span class="text-xs md:text-sm">讨论</span>
               </div>
             </router-link>
-            <router-link :to="$route.fullPath" @mouseenter.native='showWeather = true' @mouseleave.native="showWeather = false" class=" relative">
-              <div class="hvr-pulse flex header_right">
+            <router-link :to="$route.fullPath" @mouseenter.native='showWeather = true' @mouseleave.native="showWeather = false" class="relative ">
+              <div class="flex hvr-pulse header_right">
                 <img :src='WeatherSvg' style="width:20px;height:20px" />
                 <span class="text-xs md:text-sm ">天气</span>
               </div>
@@ -61,7 +61,7 @@
               </div>
             </router-link>
             <router-link to="/friend_link" target="_Blank">
-              <div class="hvr-pulse flex header_right">
+              <div class="flex hvr-pulse header_right">
                 <img src='http://flechazoblog.site/Img/f_link.svg' style="width:20px;height:20px" />
                 <span class="text-xs md:text-sm">友链</span>
               </div>
@@ -72,19 +72,19 @@
     </div>
 
     <!-- Mobile  -->
-    <header class="header_box_navBar h-8 md:h-14" ref="navBar" v-else>
+    <header class="h-8 header_box_navBar md:h-14" ref="navBar" v-else>
       <ul style="width: 100vw;">
         <div>
           <Icon type="menu" @click="MobileshowMenu" />
           <div :class="Mune_left">
             <div
-              class="absolute right-3 top-2 z-10 text-xl cursor-pointer"
+              class="absolute z-10 text-xl cursor-pointer right-3 top-2"
               @click="MobileshowMenu(1)"
             >
              <Icon type="close" />
             </div>
             <div
-              class="absolute w-full z-999 mt-10 text-base flex flex-col items-center font-serif"
+              class="absolute flex flex-col items-center w-full mt-10 font-serif text-base z-999"
               ref="navBar_ul"
             >
               <div
@@ -153,12 +153,7 @@
               <div
                 class="phone_select"
                 name="article"
-                @click="
-                  () => {
-                    go_up_article();
-                    MobileshowMenu(1);
-                  }
-                "
+                @click="(e)=>{e.stopPropagation();if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}"
               >
                 <Icon
                   type="edit"
@@ -179,14 +174,14 @@
     </header>
     <!-- 返回头部 -->
     <a
-      class="back_top animate__animated animate__fadeInDown sm:fixed right-0 md:right-6 flex items-center justify-center hvr-icon-up"
+      class="right-0 flex items-center justify-center back_top animate__animated animate__fadeInDown sm:fixed md:right-6 hvr-icon-up"
       v-if="show_backtop"
       href="#header"
     >
     <Icon type="to-top" style="font-size: 20px;color: #fff;" class="hvr-icon"/>
     </a>
     <!-- 遮罩层 -->
-    <div class="Mask w-screen h-screen fixed top-0" v-if="showmenu" @click="change_showmenu"></div>
+    <div class="fixed top-0 w-screen h-screen Mask" v-if="showmenu" @click="change_showmenu"></div>
     <!-- 菜单 -->
     <MoreMenu :showmenu="showmenu" @change_showmenu="change_showmenu" />
   </div>
