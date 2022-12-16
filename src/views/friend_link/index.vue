@@ -116,31 +116,7 @@
               </button>
             </div>
             <!-- 表情 -->
-            <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-              class="fixed w-56 bg-white border border-gray-300 border-solid rounded shadow-md z-100 md:w-86 md:h-60 h-42 " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
-              <p class='pt-1 pb-2 m-0 text-xs h-1/6'>小表情</p>
-              <div class="flex flex-wrap justify-around w-full overflow-auto bg-white h-2/3 z-999">
-                <div v-for="i in BiLiEmailTotal" :key="i"
-                  class="flex items-center justify-center h-6 md:w-14 md:h-10 w-9">
-                  <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
-                    class="w-5 h-5 cursor-pointer md:w-7 md:h-7" @click="inputexpression(BiLiEmaili + i)">
-                </div>
-              </div>
-              <div class="flex justify-start w-full bg-gray-300 h-1/6">
-                <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
-                  class="flex items-center justify-center w-1/5 h-full"
-                  :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                  <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
-                    class="w-5 h-5 md:w-7 md:h-7">
-                </div>
-                <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
-                  class="flex items-center justify-center w-1/5 h-full"
-                  :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                  <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
-                    class="w-5 h-5 md:w-7 md:h-7">
-                </div>
-              </div>
-            </div>
+            <Expression v-if="showexpression" :options="expressionOption" @inputexpression="inputexpression"/>
 
           </form>
         </div>
@@ -260,18 +236,19 @@ function getSystem(){
 
 import {Icon,Empty} from 'ant-design-vue'
 import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink ,getFriendLink} from '@/api/friendlink'
+import Expression from '@/components/expression'
 export default {
   name: "friend_link",
-  components:{Icon,Empty},
+  components:{Icon,Empty,Expression},
   data() {
     return {
       tab: 1,
       is_commentContent: {1:false,2:false},
       commentContent:'',
-      BiLiEmaili: 'Default/default0',//表情地址
-      BiLiEmailTotal:80,
-      expressionLeft:0,
-      expressionTop:0,//表情定位
+      expressionOption:{
+        expressionLeft:0,//表情左定位
+        expressionTop:0,//表情上定位
+      },
       showexpression: false,//小表情展示框判断变量
       inputType:1,
       CommentFriendLink:[],
@@ -290,8 +267,8 @@ export default {
       e.stopPropagation();
       type == 2 ? this.inputType = 2 : this.inputType = 1
       this.$nextTick(()=>{
-        this.expressionLeft = e.clientX
-        this.expressionTop = e.clientY
+        this.expressionOption.expressionLeft = e.clientX
+        this.expressionOption.expressionTop = e.clientY
       })
       return false
     },

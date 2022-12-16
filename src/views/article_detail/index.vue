@@ -180,32 +180,6 @@
               发布
             </button>
           </div>
-          <!-- 表情 -->
-          <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-            class="fixed w-56 bg-white border border-gray-300 border-solid rounded shadow-md z-100 md:w-86 md:h-60 h-42 " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
-            <p class='pt-1 pb-2 m-0 text-xs h-1/6'>小表情</p>
-            <div class="flex flex-wrap justify-around w-full overflow-auto bg-white h-2/3 z-999">
-              <div v-for="i in BiLiEmailTotal" :key="i"
-                class="flex items-center justify-center h-6 md:w-14 md:h-10 w-9">
-                <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
-                  class="w-5 h-5 md:w-7 md:h-7" @click="inputexpression(BiLiEmaili + i)">
-              </div>
-            </div>
-            <div class="flex justify-start w-full bg-gray-300 h-1/6">
-              <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
-                class="flex items-center justify-center w-1/5 h-full"
-                :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
-                  class="w-5 h-5 md:w-7 md:h-7">
-              </div>
-              <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
-                class="flex items-center justify-center w-1/5 h-full"
-                :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
-                  class="w-5 h-5 md:w-7 md:h-7">
-              </div>
-            </div>
-          </div>
         </form>
       </div>
       <!-- 评论展示区 -->
@@ -291,6 +265,9 @@
         </div>
         </div>
       </section>
+      
+      <!-- 表情 -->
+      <Expression v-if="showexpression" :options="expressionOption" @inputexpression="inputexpression"/>
       <!-- 无评论时 -->
       <Empty v-if='comment.length == 0'
         image="https://s1.hdslb.com/bfs/static/laputa-search/client/assets/empty.3709c24c.png" :image-style="{
@@ -308,6 +285,7 @@
 import { Icon, Empty } from "ant-design-vue";
 import CallingCard from '@/components/calling_card'
 import ViewerImg from '@/components/viewerImg'
+import Expression from '@/components/expression'
 import QRCode from 'qrcodejs2'
 import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '@/api/comment'
 import { Get_Article_Content } from '@/api/article_list'
@@ -320,6 +298,7 @@ export default {
     Empty,
     CallingCard,
     ViewerImg,
+    Expression
   },
   data() {
     return {
@@ -331,8 +310,10 @@ export default {
       count: 0,
       commentContent: '',//评论文章内容
       showexpression: false,//小表情展示框判断变量
-      BiLiEmaili: 'Default/default0',//表情地址
-      BiLiEmailTotal: 80,//该系列表情数量,
+      expressionOption:{
+        expressionLeft:0,//表情左定位
+        expressionTop:0,//表情上定位
+      },
       is_commentContent: false,
       deleteVisi: {},//删除按钮
       sendtext: true,
@@ -347,8 +328,6 @@ export default {
       showreplyInput:'',
       replyContent:'',//回复内容
       inputType:1, //判断小表情输入框
-      expressionLeft:0,
-      expressionTop:0,//表情定位
       callingCardShow:false,//名片
       callingCardUserId:'',
       defaultOptions: { animationData: animationData },
@@ -397,8 +376,8 @@ export default {
       e.stopPropagation();
       type == 2 ? this.inputType = 2 : this.inputType = 1
       this.$nextTick(()=>{
-        this.expressionLeft = e.clientX
-        this.expressionTop = e.clientY
+        this.expressionOption.expressionLeft = e.clientX
+        this.expressionOption.expressionTop = e.clientY
       })
       return false
     },
