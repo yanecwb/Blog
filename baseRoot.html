@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Flechazo`s Blog</title>
+  </head>
+  <body>
+    <script>Function.prototype.makeMulti = function  () {
+      let l = new String(this)
+      l = l.substring(l.indexOf("/*") + 3, l.lastIndexOf("*/"))
+      return l
+    }
+    console.log(string.makeMulti()+"🍇🍈🍉🍊🍋🍌🍍🥭🍎🍏🍐🍑🍒🍓🥝🍅🥥🥑🍆🥔🥕🌽🌶️🥒🥬🥦🧄🧅🍄🥜🌰🍞🥐🥖🥨🥯🥞🧇🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🥙🧆🥚🍳🥘🍲🥣🥗🍿🧈🧂🥫🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🥮🍡🥟🥠🥡🦪🍦🍧🍨🍩🍪🎂🍰🧁🥧🍫"
+    );
+    function string () {
+      /*
+    ________  __                      __
+    |        \|  \                    |  \
+    | $$$$$$$$| $$  ______    _______ | $$____    ______   ________   ______
+    | $$__    | $$ /      \  /       \| $$    \  |      \ |        \ /      \
+    | $$  \   | $$|  $$$$$$\|  $$$$$$$| $$$$$$$\  \$$$$$$\ \$$$$$$$$|  $$$$$$\
+    | $$$$$   | $$| $$    $$| $$      | $$  | $$ /      $$  /    $$ | $$  | $$
+    | $$      | $$| $$$$$$$$| $$_____ | $$  | $$|  $$$$$$$ /  $$$$_ | $$__/ $$
+    | $$      | $$ \$$     \ \$$     \| $$  | $$ \$$    $$|  $$    \ \$$    $$
+    \$$       \$$  \$$$$$$$  \$$$$$$$ \$$   \$$  \$$$$$$$ \$$$$$$$$  \$$$$$$
+    */
+
+    }</script><div id="fps" style="z-index:10000;position:fixed;bottom:3px;right:5px;font-weight:bold;"></div><div id="app"></div>
+    <script>/* FPS显示 */
+      (function(){
+          var requestAnimationFrame =
+              window.requestAnimationFrame ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame ||
+              window.oRequestAnimationFrame ||
+              window.msRequestAnimationFrame ||
+              function(callback) {
+                  window.setTimeout(callback, 1000/60);
+              };
+          var fps,last,offset,step,appendFps;
+  
+          fps = 0;
+          last = Date.now();
+          step = function(){
+              offset = Date.now() - last;
+              fps += 1;
+              if( offset >= 1000 ){
+              last += offset;
+              appendFps(fps);
+              fps = 0;
+              }
+              requestAnimationFrame( step );
+          };
+          appendFps = function(fps){
+              document.querySelector('#fps').innerHTML = fps+'FPS'
+          };
+          step();
+      })();</script>
+  </body>
+</html>
