@@ -1,11 +1,11 @@
 <template>
-  <div class="w-84 bg-white absolute block_border rounded-md shadow-md" :style="{bottom:'120%'}">
+  <div class="absolute bg-white rounded-md shadow-md w-84 block_border" :style="{bottom:'120%'}">
     <img :src="userInfo.backgroundUrl" class="w-full h-40 rounded-t-md" alt="">
-    <div class="p-3 w-full">
-      <div class="w-full relative pl-10">
-        <img :src="userInfo.avatarUrl" alt="" class="w-10 h-10 absolute left-0 rounded-full">
+    <div class="w-full p-3">
+      <div class="relative w-full pl-10">
+        <img :src="userInfo.avatarUrl" alt="" class="absolute left-0 w-10 h-10 rounded-full">
         <div class="ml-2">
-          <p class="text-black font-bold text-base">{{userInfo.nickname}}</p>
+          <p class="text-base font-bold text-black">{{userInfo.nickname}}</p>
           <p class="mt-3 text-xs text-061 text-opacity-90">{{userInfo.accountInfo.follows}}<span class="mr-3">关注</span>{{userInfo.accountInfo.fans}}<span class="mr-3">粉丝</span>{{userInfo.accountInfo.lv}}<span>等级</span></p>
           <p class="my-4 text-xs">{{userInfo.autograph}}</p>
           <button class="border-0 px-5 py-0.5 mr-3 bg-03f text-white rounded cursor-pointer">+ 关注</button>
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import {getUser} from '../../api/userInfo'
-import {getIsChat} from '../../api/chat'
+import {getUser} from '@/api/userInfo'
+import {getIsChat} from '@/api/chat'
 export default {
   name:'calling_card',
   props:{

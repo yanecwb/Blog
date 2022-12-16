@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-aotu animate__animated  animate__fadeIn animate__slow pb-5 flex flex-col items-center initBg" @click="() => { showexpression = false; return false }">
-    <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full lg:w-3/5 xl:w-1/2 md:mt-10 rounded-lg"
+  <div class="flex flex-col items-center w-full pb-5 h-aotu animate__animated animate__fadeIn animate__slow initBg" @click="() => { showexpression = false; return false }">
+    <iframe frameborder="0" scrolling="no" src="http://flechazoblog.site:5006/colokBanner.html" class="w-full rounded-lg lg:w-3/5 xl:w-1/2 md:mt-10"
       height="400px"></iframe>
-    <div class=" w-screen md:w-1/2 mx-auto flex justify-center py-2 md:my-10" >
+    <div class="flex justify-center w-screen py-2 mx-auto md:w-1/2 md:my-10" >
       <span class="px-5 cursor-pointer">
         <svg @click="shareSpace('qq')" t="1656482100056" class="icon" viewBox="0 0 1024 1024" version="1.1"
           xmlns="http://www.w3.org/2000/svg" p-id="5164" width="30" height="30">
@@ -42,7 +42,7 @@
             fill="#F5BE3F" p-id="2495"></path>
         </svg>
       </span>
-      <div class="px-5 relative cursor-pointer">
+      <div class="relative px-5 cursor-pointer">
         <svg @click="() => {
           shoeqrcode = !shoeqrcode
           if (shoeqrcode) {
@@ -77,51 +77,31 @@
       </span>
     </div>
     <div
-      class="w-full lg:w-3/5 xl:w-1/2  pt-1 mx-auto bg-white shadow-2xl rounded-lg" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
-      <!--锚点  -->
-      <div v-if="anchorArr.length>0" class="w-80 fixed top-1/3 right-6 bg-white p-4 rounded-lg md:block hidden">
+      class="w-full pt-1 mx-auto bg-white rounded-lg shadow-2xl lg:w-3/5 xl:w-1/2" style="box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%)">
+      <!--锚点目录-->
+      <div v-if="anchorArr.length>0" class="fixed hidden p-4 bg-white rounded-lg w-80 top-1/3 right-6 md:block">
         <p class="my-3"><Icon type="menu" class="mr-2"/>目录</p>
-        <a @click="(e)=>{e.stopPropagation();anchorIndex = index}" class="block p-1 w-full rounded-sm mb-2 bg-white" :class="index == anchorIndex ? 'anchorCss' : 'hover:bg-gray-100'" style="color: #4c4948;text-decoration: none;" v-for="i,index in anchorArr" :key="index" :href="'#'+index" :title="i" >{{(index+1)+'.'+i}}</a>
+        <a @click="(e)=>{e.stopPropagation();anchorIndex = index}" class="block w-full p-1 mb-2 bg-white rounded-sm" :class="index == anchorIndex ? 'anchorCss' : 'hover:bg-gray-100'" style="color: #4c4948;text-decoration: none;" v-for="i,index in anchorArr" :key="index" :href="'#'+index" :title="i" >{{(index+1)+'.'+i}}</a>
       </div>
 
       <div  v-if="!loadingLottie">
-        <div class="text-xl md:text-2xl lg:text-3xl font-bold md:px-1 mt-3 md:mt-0">
+        <div class="mt-3 text-xl font-bold md:text-2xl lg:text-3xl md:px-1 md:mt-0">
         {{ article.article_title }}
       </div>
-      <div class="w-full flex justify-between items-center my-3 shadow-sm relative">
-        <div class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full hvr-float-shadow cursor-pointer relative" @mouseenter="show_callingCard(article.userId)" @mouseleave='AddcallingCardTimer'
+      <div class="relative flex items-center justify-between w-full my-3 shadow-sm">
+        <div class="relative w-8 h-8 rounded-full cursor-pointer md:w-10 md:h-10 lg:w-12 lg:h-12 hvr-float-shadow" @mouseenter="show_callingCard(article.userId)" @mouseleave='AddcallingCardTimer'
           :style="{ backgroundImage: `url(${article.uper ? article.uper.avatarUrl : ''})`, backgroundSize: '100% 100%' }">
         </div>
         <CallingCard :callingCardUserId='callingCardUserId' @mouseenter.native="ClearcallingCardTimer" @mouseleave.native="callingCardShow = false" v-if="callingCardShow"/>
-        <div class="felx justify-start items-start flex-grow text-xs ml-1 md:ml-3 lg:ml-5">
-          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}<span v-if="article.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+        <div class="items-start justify-start flex-grow ml-1 text-xs felx md:ml-3 lg:ml-5">
+          <p class="m-0 text-black md:text-base">{{ article.uper ? article.uper.nickname : '' }}<span v-if="article.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class="inline-block ml-2 " style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></p>
-          <p class="m-0 w-48 md:w-72 lg:w-full overflow-hidden whitespace-nowrap overflow-ellipsis my-2">
+          <p class="w-48 m-0 my-2 overflow-hidden md:w-72 lg:w-full whitespace-nowrap overflow-ellipsis">
             {{ format_publishTime(article.publish_time)  }} 阅读{{ article.readCount }}
           </p>
         </div>
-        <!-- <Tooltip>
-          <template slot="title">
-            {{
-                article.userId == $store.state.userInfo.userInfo.id
-                  ? tip
-                  : "谢谢喜欢 🤪"
-            }}
-          </template>
-          <button class="follows text-xs md:text-base" @click="followsAuthor">
-            <span class="button-content">
-              关注
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H24V24H0z" fill="none"></path>
-                <path
-                  d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"
-                  fill="currentColor"></path>
-              </svg>
-            </span>
-          </button>
-        </Tooltip> -->
       </div>
-      <div  v-html="article.content" @click="showImg" class="md:px-10 px-1 md:px-18 w-full articleContent" style="border-bottom: 1px solid #f0f0f0;"></div>
+      <div  v-html="article.content" @click="showImg" class="w-full px-1 md:px-10 md:px-18 articleContent" style="border-bottom: 1px solid #f0f0f0;"></div>
       </div>
        <lottie
         v-else
@@ -129,11 +109,11 @@
         :options="defaultOptions"
         class="z-9999 opacity-80"
       />
-      <div class="w-full flex justify-between items-center">
-        <div class="p-4 w-1/3 md:w-1/5 flex justify-between items-center text-gray ">
-          <div @click="likeIt" title="点个赞😘" class=" relative">
+      <div class="flex items-center justify-between w-full">
+        <div class="flex items-center justify-between w-1/3 p-4 md:w-1/5 text-gray ">
+          <div @click="likeIt" title="点个赞😘" class="relative ">
             <svg v-if="special" t="1657294617925"
-              class="icon absolute left-2 -top-2 animate__fadeOutUp animate__animated " viewBox="0 0 1221 1024"
+              class="absolute icon left-2 -top-2 animate__fadeOutUp animate__animated " viewBox="0 0 1221 1024"
               version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2285" width="15" height="15">
               <path
                 d="M1204.814491 122.670376l-104.202498-9.819364a18.026592 18.026592 0 0 1-14.655767-11.138382L1048.290907 11.139994a17.880035 17.880035 0 0 0-33.122032 0l-37.079088 90.572636a17.586919 17.586919 0 0 1-14.655767 11.138382l-104.349055 9.819364a18.026592 18.026592 0 0 0-10.112479 31.363339l78.554907 69.028659a17.733477 17.733477 0 0 1 5.715749 17.58692L908.91457 337.084236a18.026592 18.026592 0 0 0 26.673495 19.638727l86.908693-51.002067a17.586919 17.586919 0 0 1 18.173151 0L1128.751064 357.162636A18.026592 18.026592 0 0 0 1154.69177 337.084236l-23.302668-96.874615a17.733477 17.733477 0 0 1 5.715749-17.58692l78.554907-69.028659a18.319708 18.319708 0 0 0-10.845267-31.363339z"
@@ -148,17 +128,17 @@
                 d="M205.43779 713.590871l5.276076-24.768245a41.768934 41.768934 0 0 0-13.336747-41.036146L14.912829 487.012725A8.295164 8.295164 0 0 1 11.542003 483.641898 42.355164 42.355164 0 0 0 14.912829 544.463328l183.05052 161.213429a43.967299 43.967299 0 0 1 7.474441 7.914114zM871.542366 484.81436l-2.051807 2.198365-183.197078 161.213428a41.768934 41.768934 0 0 0-13.19019 41.036146l6.008864 24.621687a42.64828 42.64828 0 0 1 7.181326-8.353787l183.197078-161.213428a42.355164 42.355164 0 0 0 2.051807-59.502411zM460.887796 840.802922a41.622376 41.622376 0 0 0-40.596473 0.732788l-202.689247 119.15138a41.622376 41.622376 0 0 1-55.985027-13.19019l-6.008864 24.47513a42.062049 42.062049 0 0 0 61.993891 46.019106l190.524961-112.116612a173.524272 173.524272 0 0 0 52.760759-65.071602zM727.476184 971.97203l-5.862307-24.328572a41.622376 41.622376 0 0 1-56.131584 13.043632l-166.049832-97.607403a203.275478 203.275478 0 0 1-27.113168 41.475818l193.163 113.435631a41.915491 41.915491 0 0 0 61.993891-46.019106z"
                 fill="#FED150" opacity=".5" p-id="2289"></path>
             </svg>
-            <i class="cursor-pointer iconfont icon-dianzan_kuai text-xl md:text-2xl hvr-grow-shadow " :style="{color:like.like ? '#00c3ff' : '#e3dddd'}"></i>
+            <i class="text-xl cursor-pointer iconfont icon-dianzan_kuai md:text-2xl hvr-grow-shadow " :style="{color:like.like ? '#00c3ff' : '#e3dddd'}"></i>
           </div>
           <div @click='unlikeIt' style="transform: rotate(180deg)" title="😭"><i
-              class="cursor-pointer iconfont icon-dianzan_kuai text-xl md:text-2xl hvr-grow"
+              class="text-xl cursor-pointer iconfont icon-dianzan_kuai md:text-2xl hvr-grow"
                :style="{color:like.unlike ? '#00c3ff' : '#e3dddd'}"></i></div>
           <div @click="collectionIt" title="去吃灰📦"><i
-              class="cursor-pointer iconfont icon-shoucang1  text-xl md:text-2xl hvr-grow-shadow"
+              class="text-xl cursor-pointer iconfont icon-shoucang1 md:text-2xl hvr-grow-shadow"
               :style="{color:like.collection ? '#ff7700' : '#e3dddd'}"></i></div>
         </div>
-        <!-- <button class="editBtn learn-more ml-2 text-xs md:text-base cursor-pointer" @click="go_up_article(article)"  v-if="article.userId == $store.state.userInfo.userInfo.id"> -->
-          <svg @click="go_up_article(article)" title="修改博客" v-if="article.userId == $store.state.userInfo.userInfo.id" t="1657293342548" class="icon cursor-pointer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <!-- <button class="ml-2 text-xs cursor-pointer editBtn learn-more md:text-base" @click="go_up_article(article)"  v-if="article.userId == $store.state.userInfo.userInfo.id"> -->
+          <svg @click="go_up_article(article)" title="修改博客" v-if="article.userId == $store.state.userInfo.userInfo.id" t="1657293342548" class="cursor-pointer icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
             p-id="2250" width="18" height="18">
             <path
               d="M652.4 156.6125a112.5 112.5 0 1 1 155.925 161.15625L731.375 394.71875 572.3 235.5875l79.5375-79.5375 0.5625 0.5625zM333.63125 792.40625v0.1125H174.5v-159.1875l358.03125-357.975 159.075 159.13125-357.975 357.91875zM62 849.5h900v112.5H62v-112.5z"
@@ -171,58 +151,58 @@
 
     <!-- 评论区 -->
     <aside
-      class="w-full px-3  lg:w-3/5 xl:w-1/2 md:mt-14 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl rounded-lg">
-      <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
+      class="w-full px-3 mx-auto mt-5 bg-white border-4 border-opacity-100 rounded-lg shadow-2xl lg:w-3/5 xl:w-1/2 md:mt-14 border-light-blue-500">
+      <div class="flex justify-between w-full pt-5 text-xs" style='color:#999999'>
         <span>最新评论（{{ comment.length }}）</span>
-        <span class=" cursor-pointer">
+        <span class="cursor-pointer ">
           <Icon type="menu" />按时间
         </span>
       </div>
       <!-- 输入框 -->
-      <div class="py-3 flex justify-between">
-        <div class=" w-12">
+      <div class="flex justify-between py-3">
+        <div class="w-12 ">
           <div :style="{ backgroundImage: `url(${$store.state.userInfo.userInfo.avatarUrl})`, backgroundSize: '100% 100%' }"
-            class=" w-7 h-7 rounded-full"></div>
+            class="rounded-full w-7 h-7"></div>
         </div>
-        <form class="flex-1 relative" v-on:submit.prevent>
+        <form class="relative flex-1" v-on:submit.prevent>
           <input type="text" inputcentent v-model="commentContent" placeholder="轻轻敲醒沉睡的心灵，让我看看你的点评"
-            class="focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block">
-          <p class="text-red-500 text-sm twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
-          <div class="mt-3 flex justify-between">
+            class="box-border block w-full h-8 px-2 py-1 text-xs bg-gray-100 border-none rounded focus:outline-none focus:ring focus:border-blue-300 md:h-12 text-0a1 md:text-sm">
+          <p class="text-sm text-red-500 twinkle" v-if="is_commentContent && !commentContent">**请输入内容</p>
+          <div class="flex justify-between mt-3">
             <div @click="smallExpression(1,$event)" type='button'
-              class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+              class="flex items-center h-6 px-2 text-sm bg-white border border-gray-300 border-solid rounded outline-none cursor-pointer text-061 text-opacity-80">
               <Icon type='smile' class='mr-1' />
               <span>表情</span>
             </div>
             <button @click="PutComment" type="submit"
-              class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer "
+              class="h-6 px-2 text-sm text-white rounded outline-none cursor-pointer w-17 "
               style="background:#fb7299;border: 1px solid #fb7299">
               发布
             </button>
           </div>
           <!-- 表情 -->
           <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-            class="fixed bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
-            <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
-            <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
+            class="fixed w-56 bg-white border border-gray-300 border-solid rounded shadow-md z-100 md:w-86 md:h-60 h-42 " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
+            <p class='pt-1 pb-2 m-0 text-xs h-1/6'>小表情</p>
+            <div class="flex flex-wrap justify-around w-full overflow-auto bg-white h-2/3 z-999">
               <div v-for="i in BiLiEmailTotal" :key="i"
-                class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
+                class="flex items-center justify-center h-6 md:w-14 md:h-10 w-9">
                 <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
-                  class="md:w-7 w-5 md:h-7 h-5" @click="inputexpression(BiLiEmaili + i)">
+                  class="w-5 h-5 md:w-7 md:h-7" @click="inputexpression(BiLiEmaili + i)">
               </div>
             </div>
-            <div class="w-full h-1/6 bg-gray-300 flex justify-start">
+            <div class="flex justify-start w-full bg-gray-300 h-1/6">
               <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
-                class="h-full w-1/5 flex justify-center items-center"
+                class="flex items-center justify-center w-1/5 h-full"
                 :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
                 <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
-                  class="md:w-7 w-5 md:h-7 h-5">
+                  class="w-5 h-5 md:w-7 md:h-7">
               </div>
               <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
-                class="h-full w-1/5  flex justify-center items-center"
+                class="flex items-center justify-center w-1/5 h-full"
                 :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
                 <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
-                  class="md:w-7 w-5 md:h-7 h-5">
+                  class="w-5 h-5 md:w-7 md:h-7">
               </div>
             </div>
           </div>
@@ -230,20 +210,20 @@
       </div>
       <!-- 评论展示区 -->
       <section>
-        <div class="w-full pb-3 pl-10 relative" v-for="(i, index) in comment" :key="index">
-          <div class=" absolute left-0">
-            <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
+        <div class="relative w-full pb-3 pl-10" v-for="(i, index) in comment" :key="index">
+          <div class="absolute left-0 ">
+            <img :src="i.avatarUrl" alt="" class="w-10 h-10 rounded-full ">
           </div>
-          <div class="md:px-4 px-2" style="border-bottom:solid #e5e7eb 1px">
-            <p><span class="text-blue-500 font-bold">{{ i.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+          <div class="px-2 md:px-4" style="border-bottom:solid #e5e7eb 1px">
+            <p><span class="font-bold text-blue-500">{{ i.nickname }}<span v-if="i.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class="inline-block ml-2 " style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
-                class="text-xs inline-block ml-2">{{ format_publishTime(i.commentTime) }}</span></p>
-            <p class="text-0a1 py-3" v-html="i.comment"></p>
-            <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-              <div class="w-1/3 md:w-28 flex justify-between" >
-                <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
-                <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer" />
-                <Icon type="message" :title="'回复'+i.nickname" class="hover:text-blue-400 cursor-pointer" @click="showreplyInput = i.commentId" />
+                class="inline-block ml-2 text-xs">{{ format_publishTime(i.commentTime) }}</span></p>
+            <p class="py-3 text-0a1" v-html="i.comment"></p>
+            <div class='flex items-center justify-between w-full text-0a1 opacity-60'>
+              <div class="flex justify-between w-1/3 md:w-28" >
+                <Icon type="like" title="点赞" class="cursor-pointer hover:text-pink-400" />
+                <Icon type="dislike" title='点踩' class="cursor-pointer hover:opacity-100" />
+                <Icon type="message" :title="'回复'+i.nickname" class="cursor-pointer hover:text-blue-400" @click="showreplyInput = i.commentId" />
               </div>
               <!-- $set给没再data中定义的数据添加响应式 -->
               <div class="relative cursor-pointer" @click="() => {
@@ -255,27 +235,27 @@
               }">
                 <Icon type="more" />
                 <div @click='deleteComment(i.userId, i.commentId)' v-if="deleteVisi.r == i.commentId"
-                  class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                  class="absolute w-10 text-xs text-center border border-gray-200 border-solid shadow-md cursor-pointer -top-5 -left-10 hover:text-blue-500">
                   <Icon type="delete" />
                 </div>
               </div>
             </div>
             <!-- 回复区 -->
            <div style="background:#f7f8fc" class="rounded-xl">
-              <div v-for="(reply,index) in i.replyContent" :key="index" class="m-3 pl-10 pt-3 pb-1 relative">
-                <div class=" px-2" >
-                  <div class=" absolute left-0">
-                      <img :src="reply.avatarUrl" alt="" class="w-9 h-9 rounded-full">
+              <div v-for="(reply,index) in i.replyContent" :key="index" class="relative pt-3 pb-1 pl-10 m-3">
+                <div class="px-2 " >
+                  <div class="absolute left-0 ">
+                      <img :src="reply.avatarUrl" alt="" class="rounded-full w-9 h-9">
                   </div>
-                  <p ><span class="text-blue-400">{{ reply.nickname }}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                  <p ><span class="text-blue-400">{{ reply.nickname }}<span v-if="reply.userId == 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'" class="inline-block ml-2 " style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
-                      class="text-sm inline-block ml-2">{{ format_publishTime(reply.commentTime) }}</span></p>
-                  <p class="text-0a1 py-3" v-html="formatComment(reply.content)"></p>
-                  <div class='w-full flex justify-between text-0a1 opacity-60 items-center'>
-                    <div class="w-5/6 md:w-20 flex justify-between" >
-                      <Icon type="like" title="点赞" class="hover:text-pink-400 cursor-pointer" />
-                      <Icon type="dislike" title='点踩' class="hover:opacity-100 cursor-pointer mx-2" />
-                      <!-- <Icon type="message" :title="'回复'+reply.nickname" class="hover:text-blue-400 cursor-pointer" /> -->
+                      class="inline-block ml-2 text-sm">{{ format_publishTime(reply.commentTime) }}</span></p>
+                  <p class="py-3 text-0a1" v-html="formatComment(reply.content)"></p>
+                  <div class='flex items-center justify-between w-full text-0a1 opacity-60'>
+                    <div class="flex justify-between w-5/6 md:w-20" >
+                      <Icon type="like" title="点赞" class="cursor-pointer hover:text-pink-400" />
+                      <Icon type="dislike" title='点踩' class="mx-2 cursor-pointer hover:opacity-100" />
+                      <!-- <Icon type="message" :title="'回复'+reply.nickname" class="cursor-pointer hover:text-blue-400" /> -->
                     </div>
                     <!-- $set给没再data中定义的数据添加响应式 -->
                     <div class="relative cursor-pointer" @click="() => {
@@ -287,7 +267,7 @@
                     }">
                       <Icon type="more" />
                       <div @click='deleteComment(i.userId, reply.commentId,reply.userId)' v-if="deleteVisi.r == reply.commentId"
-                        class="absolute -top-5 -left-10 w-10 text-center shadow-md border border-solid border-gray-200 text-xs cursor-pointer hover:text-blue-500">
+                        class="absolute w-10 text-xs text-center border border-gray-200 border-solid shadow-md cursor-pointer -top-5 -left-10 hover:text-blue-500">
                         <Icon type="delete" />
                       </div>
                     </div>
@@ -296,15 +276,15 @@
               </div>
            </div>
           <div v-if="showreplyInput==i.commentId" class="animate__animated animate__lightSpeedInRight">
-              <input type="text" inputcentent v-focus v-model="replyContent" placeholder="请开始你的表演"  class="focus:outline-none focus:ring-2 focus:border-blue-300 border-none w-full h-8 md:h-12 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block mt-3"/>
-              <div class="w-full flex justify-between items-center m-2">
-                <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+              <input type="text" inputcentent v-focus v-model="replyContent" placeholder="请开始你的表演"  class="box-border block w-full h-8 px-2 py-1 mt-3 text-xs bg-gray-100 border-none rounded focus:outline-none focus:ring-2 focus:border-blue-300 md:h-12 text-0a1 md:text-sm"/>
+              <div class="flex items-center justify-between w-full m-2">
+                <div @click="smallExpression(2,$event)" type='button' class="flex items-center h-6 px-2 text-sm bg-white border border-gray-300 border-solid rounded outline-none cursor-pointer text-061 text-opacity-80">
                 <Icon type='smile' class='mr-1' />
                 <span>表情</span>
               </div>
                <div>
-                  <button @click="showreplyInput = ''" class="py-1 px-5 border-none rounded text-black text-sm block_border mr-2 cursor-pointer" style="background:#fff">取消</button>
-                  <button @click="toReply(i.userId,i.commentId)" class="py-1 px-5 border-none rounded text-white text-sm cursor-pointer" style="background:#00c3ff">评论</button>
+                  <button @click="showreplyInput = ''" class="px-5 py-1 mr-2 text-sm text-black border-none rounded cursor-pointer block_border" style="background:#fff">取消</button>
+                  <button @click="toReply(i.userId,i.commentId)" class="px-5 py-1 text-sm text-white border-none rounded cursor-pointer" style="background:#00c3ff">评论</button>
                </div>
               </div>
             </div>
@@ -319,16 +299,16 @@
         <span slot="description"> 🤡 </span>
       </Empty>
     </aside>
-    <!-- <div @click="showimg = 0;hasmaxHeight = true" v-if="showimg" class=" fixed top-0 w-screen h-screen flex justify-center items-center" style="background: rgba(0,0,0,.5)">
-      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-0 md:left-10 cursor-pointer" style="transform: rotate(180deg);" :title="contentImgUrlIndex !== 0 ? '上一张' : '已经是第一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
+    <!-- <div @click="showimg = 0;hasmaxHeight = true" v-if="showimg" class="fixed top-0 flex items-center justify-center w-screen h-screen " style="background: rgba(0,0,0,.5)">
+      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== 0){contentImgUrl = contentImgUl[contentImgUrlIndex-1].url}}" class="absolute left-0 cursor-pointer md:left-10" style="transform: rotate(180deg);" :title="contentImgUrlIndex !== 0 ? '上一张' : '已经是第一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
       <img @click="(e)=>{e.stopPropagation();}" :src="contentImgUrl" alt="" ref="contentImgRef" :class="hasmaxHeight ? contentImgAnimate+'max-h-4/5' : 'contentImgAnimate'" class="w-4/5 md:w-1/3 animate__fast animate__animated" >
-      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 md:right-10  cursor-pointer" :title="contentImgUrlIndex !== contentImgUl.length-1 ? '下一张' : '已经是最后一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
-      <div @click="(e)=>{e.stopPropagation();}" class="absolute bottom-0 flex w-full justify-center" style="background: rgba(0,0,0,.5)">
-            <div class=" absolute bottom-1 right-0 md:right-2 flex justify-center">
+      <div @click="(e)=>{e.stopPropagation();if(contentImgUrlIndex !== contentImgUl.length-1){contentImgUrl = contentImgUl[contentImgUrlIndex+1].url}}" class="absolute right-0 cursor-pointer md:right-10" :title="contentImgUrlIndex !== contentImgUl.length-1 ? '下一张' : '已经是最后一张'"><svg t="1659973617758" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2257" width="30" height="30"><path d="M220.742316 86.988416a47.894798 47.894798 0 0 1 0-70.972314A61.403588 61.403588 0 0 1 300.157623 13.252941l3.172518 2.763161 479.459681 454.795906 2.353804 1.842108c1.637429 1.228072 3.172519 2.558483 4.605269 3.940064 20.058505 18.932773 20.979559 48.099477 2.91667 68.055643l-2.8655 2.91667-484.678986 459.810532a61.250079 61.250079 0 0 1-82.587825 0 47.741289 47.741289 0 0 1-2.865501-68.055643l2.865501-2.96784 446.76227-423.787094L220.742316 86.988416z" p-id="2258" fill="#ffffff"></path></svg></div>
+      <div @click="(e)=>{e.stopPropagation();}" class="absolute bottom-0 flex justify-center w-full" style="background: rgba(0,0,0,.5)">
+            <div class="absolute right-0 flex justify-center bottom-1 md:right-2">
               <div @click="enlargeImg" class="ml-3 cursor-pointer" title="放大"><svg t="1660014231884" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5252" width="20" height="20"><path d="M490.382222 895.374222c221.980444 0 403.171556-181.134222 404.992-404.650666A404.821333 404.821333 0 0 0 490.382222 85.504 404.764444 404.764444 0 0 0 85.504 490.382222a404.764444 404.764444 0 0 0 404.935111 404.935111zM462.449778 447.146667H277.390222a42.723556 42.723556 0 0 0 0 85.504h185.002667v185.002666a42.723556 42.723556 0 1 0 85.447111 0V532.707556h185.002667a42.723556 42.723556 0 0 0 0-85.504H547.84V262.257778a42.723556 42.723556 0 1 0-85.447111 0V447.146667z m28.046222 533.617777A490.211556 490.211556 0 0 1 0 490.439111 490.211556 490.211556 0 0 1 490.382222 0c271.075556 0 490.439111 219.477333 490.439111 491.064889-2.104889 270.677333-221.354667 489.813333-490.382222 489.813333z" fill="#ffffff" p-id="5253"></path></svg></div>
               <div @click="narrowImg" class="ml-3 cursor-pointer" title="缩小"><svg t="1660014206812" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4260" width="20" height="20"><path d="M490.382222 895.374222c221.980444 0 403.171556-181.134222 404.992-404.650666A404.821333 404.821333 0 0 0 490.382222 85.504 404.764444 404.764444 0 0 0 85.504 490.382222a404.764444 404.764444 0 0 0 404.935111 404.935111z m0 85.447111A490.211556 490.211556 0 0 1 0 490.439111 490.211556 490.211556 0 0 1 490.382222 0c271.075556 0 490.439111 219.477333 490.439111 491.064889-2.104889 270.677333-221.354667 489.813333-490.382222 489.813333zM277.447111 532.707556h455.452445a42.723556 42.723556 0 0 0 0-85.504H277.390222a42.723556 42.723556 0 0 0 0 85.504z" fill="#ffffff" p-id="4261"></path></svg></div>
             </div>
-            <li v-for="item,index in contentImgUl" :key="index" class="mx-3 list-none cursor-pointer relative" :class="item.url == contentImgUrl ? '':'mask'"  @click="()=>{contentImgUrl = item.url}"><div  class="w-14 h-20 bg-cover bg-center" :style="{backgroundImage:'url('+item.url+')'}" ></div></li>
+            <li v-for="item,index in contentImgUl" :key="index" class="relative mx-3 list-none cursor-pointer" :class="item.url == contentImgUrl ? '':'mask'"  @click="()=>{contentImgUrl = item.url}"><div  class="h-20 bg-center bg-cover w-14" :style="{backgroundImage:'url('+item.url+')'}" ></div></li>
       </div>
     </div> -->
     <ViewerImg  v-if="showimg" @hideImg="hideImg" :options='{contentImgUl,contentImgUrl}' />
@@ -337,18 +317,17 @@
 
 <script>
 
-import { Tooltip, Icon, Empty } from "ant-design-vue";
-import CallingCard from '../../components/calling_card'
-import ViewerImg from '../../components/viewerImg'
+import { Icon, Empty } from "ant-design-vue";
+import CallingCard from '@/components/calling_card'
+import ViewerImg from '@/components/viewerImg'
 import QRCode from 'qrcodejs2'
-import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '../../api/comment'
-import { Get_Article_Content } from '../../api/article_list'
+import { putComment, getComment, deleteComment, changeLike, changeCollection, getLike,releaseReply } from '@/api/comment'
+import { Get_Article_Content } from '@/api/article_list'
 import Prism from 'prismjs'
-import animationData from "../../assets/lottie/loadingLottie.json";
+import animationData from "@/assets/lottie/loadingLottie.json";
 export default {
   name: "article_detail",
   components: {
-    Tooltip,
     Icon,
     Empty,
     CallingCard,

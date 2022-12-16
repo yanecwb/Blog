@@ -1,6 +1,6 @@
 <template>
   <div class="menu" ref="menu" >
-    <div class="userInfo_box w-full h-9/10 relative">
+    <div class="relative w-full userInfo_box h-9/10">
       <div
         v-if="backimg || showmenu"
         :class="
@@ -11,7 +11,7 @@
         :style="{backgroundImage:`url(${userInfo.backgroundUrl ? userInfo.backgroundUrl :'https://img.zcool.cn/community/019e57623d72700002c3290fbab43f.jpg@520w_390h_1c_1e_2o_100sh.jpg'})`}"
         @click="show_savabgimg"
       >
-        <div class="savebg text-center bg-white absolute text-xs cursor-pointer" v-if="is_savebg">
+        <div class="absolute text-xs text-center bg-white cursor-pointer savebg" v-if="is_savebg">
           <span @click="changeImg">更换图片</span>
           <span
             style="border-bottom: none"
@@ -58,17 +58,17 @@
             <ul>
               <li @click="showinput('nickname')">
                 <span :class="inspectObj == 'nickname' ? 'text-red-500' : 'text-0a1'">昵称{{inspectObj== 'nickname' ? '*' : ''}}</span>
-                <Input placeholder="不超过5个字符" :default-value="userInfo.nickname||''" ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 w-44 text-xs text-xs"/>
+                <Input placeholder="不超过5个字符" :default-value="userInfo.nickname||''" ref='nickname' v-model="changeInfo.nickname" v-if="showIpunt == 'nickname'" class="py-0 text-xs w-44"/>
                 <span v-else>{{ changeInfo.nickname || userInfo.nickname || '' }}</span>
               </li>
               <li @click="showinput('sex')">
                 <span :class="inspectObj == 'sex' ? 'text-red-500' : 'text-0a1'">性别{{inspectObj == 'sex' ? '*' : ''}}</span>
-                <Input placeholder='man或者woman' :default-value="userInfo.sex" ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 w-44 text-xs"/>
+                <Input placeholder='man或者woman' :default-value="userInfo.sex" ref='sex' v-model="changeInfo.sex" v-if="showIpunt == 'sex'" class="py-0 text-xs w-44"/>
                 <span v-else>{{  changeInfo.sex || (userInfo.sex == "man" ? "男♂" : "女♀") }}</span>
               </li>
               <li style="border: none" @click="showinput('birthday')">
                 <span :class="inspectObj== 'birthday' ? 'text-red-500' : 'text-0a1'">生日{{inspectObj=='birthday'? '*' : ''}}</span>
-                <!-- <Input placeholder='1999-01-01' :default-value='userInfo.birthday' ref='birthday' v-model="changeInfo.birthday" v-if="showIpunt == 'birthday'" class="py-0 w-44 text-xs"/> -->
+                <!-- <Input placeholder='1999-01-01' :default-value='userInfo.birthday' ref='birthday' v-model="changeInfo.birthday" v-if="showIpunt == 'birthday'" class="py-0 text-xs w-44"/> -->
                 <DatePicker v-if="showIpunt == 'birthday'" @change="onChangeBirthday" />
                 <span  v-else>{{ changeInfo.birthday || new Date(parseInt(userInfo.birthday)).toLocaleString().split(' ')[0] }}</span>
               </li>
@@ -76,18 +76,18 @@
             <ul style="border: none">
               <li @click="showinput('city')">
                 <span>地区</span>
-                <Input placeholder='所在地区' :default-value='userInfo.city' ref='city' v-model="changeInfo.city" v-if="showIpunt == 'city'" class="py-0 w-44 text-xs"/>
+                <Input placeholder='所在地区' :default-value='userInfo.city' ref='city' v-model="changeInfo.city" v-if="showIpunt == 'city'" class="py-0 text-xs w-44"/>
                 <span v-else>{{ changeInfo.city||userInfo.city }}</span>
               </li>
               <li @click="showinput('university')">
                 <span>大学</span>
-                <Input placeholder='毕业院校' :default-value='userInfo.university' ref='university' v-model="changeInfo.university" v-if="showIpunt == 'university'" class="py-0 w-44 text-xs"/>
+                <Input placeholder='毕业院校' :default-value='userInfo.university' ref='university' v-model="changeInfo.university" v-if="showIpunt == 'university'" class="py-0 text-xs w-44"/>
                 <span v-else>{{ changeInfo.university||userInfo.university }}</span>
               </li>
               <li style="border: none" @click="showinput('autograph')">
                 <span>简介</span>
-                <Input placeholder='说点什么...' :default-value='userInfo.autograph' ref='autograph' v-model="changeInfo.autograph" v-if="showIpunt == 'autograph'" class="py-0 w-44 text-xs"/>
-                <div class="autograph" v-else :title="changeInfo.autograph || userInfo.autograph">{{ changeInfo.autograph||(userInfo.autograph || "这个人很懒，什么都没留下")}}</div>
+                <Input placeholder='说点什么...' :default-value='userInfo.autograph' ref='autograph' v-model="changeInfo.autograph" v-if="showIpunt == 'autograph'" class="py-0 text-xs w-44"/>
+                <div class="text1-overHidden" v-else :title="changeInfo.autograph || userInfo.autograph">{{ changeInfo.autograph||(userInfo.autograph || "这个人很懒，什么都没留下")}}</div>
               </li>
             </ul>
             <div class="save_useredit">
@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center w-full p-5" v-if="userInfo.id">
+    <div class="w-full p-5 text-center" v-if="userInfo.id">
       <Button
         style="background: #5869da; color: white; margin: 0 10px"
         @click="logout('switch')"
@@ -109,16 +109,16 @@
         >退出登陆</Button
       >
     </div>
-    <div class="text-center w-full p-5" v-else>
+    <div class="w-full p-5 text-center" v-else>
       <Button
         style="background: #5869da; color: white; margin: 0 10px"
         @click="game_visible = true"
-        >Play Game</Button
+        >游戏</Button
       >
       <Button
         style="background: #5869da; color: white; margin: 0 10px"
         @click="ToLogin"
-        >Login</Button
+        >登陆</Button
       >
       <Modal v-model="game_visible" title="Basic Modal" width="100">
         <iframe
@@ -135,8 +135,8 @@
 <script>
 import { Icon, Button, Modal,Input,DatePicker } from "ant-design-vue";
 import { mapMutations } from "vuex";
-import {changeUserInfo} from '../../api/userInfo.js'
-import { uploadImg } from "../../api/upload_img";
+import {changeUserInfo} from '@/api/userInfo.js'
+import { uploadImg } from "@/api/upload_img";
 export default {
   name: "MoreMenu",
   components: {
@@ -506,12 +506,6 @@ export default {
   display: block;
   transform: scale(0.96);
 }
-.autograph{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .useredit_form_hide {
   display: none !important;
 }

@@ -1,29 +1,29 @@
 <template>
   <div
-    class="w-screen bg-cover bg-center py-20 "
+    class="w-screen py-20 bg-center bg-cover "
     style="background-image: url(http://tva1.sinaimg.cn/large/e8a55238gy1h51qsqcej4j22yo1o0tvb.jpg)"
     @click="() => { showexpression = false; return false }"
   >
     <article
-      class="w-2/3 mx-auto min-w-300  py-8 px-10 bg-cover"
+      class="w-2/3 px-10 py-8 mx-auto bg-cover min-w-300"
       style="
         box-shadow: 1px 1px 5px 2px #ccc;
         background-color: rgba(255, 255, 255,.7);
       "
     >
-      <div class="text-center mb-5">
+      <div class="mb-5 text-center">
         <div
-          class="px-1 py-2 rounded-full text-sm w-46 mx-auto"
+          class="px-1 py-2 mx-auto text-sm rounded-full w-46"
           style="color: #17223b; background-color: #eeeeff"
         >
           <span
-            class="inline-block py-1 px-2 cursor-pointer rounded-full"
+            class="inline-block px-2 py-1 rounded-full cursor-pointer"
             @click="changeTab(1)"
             :style="tab == 1 ? 'color:#17223b;background-color:#fff;' : ''"
             >友链申请</span
           >
           <span
-            class="inline-block py-1 px-2 cursor-pointer rounded-full"
+            class="inline-block px-2 py-1 rounded-full cursor-pointer"
             @click="changeTab(2)"
             :style="tab == 2 ? 'color:#17223b;background-color:#fff;' : ''"
             >友情链接</span
@@ -32,10 +32,10 @@
       </div>
 
       <div v-show="tab == 1">
-        <div class="song p-2 text-black" style="background-color: rgba(255, 255, 255,.9);">
+        <div class="p-2 text-black song" style="background-color: rgba(255, 255, 255,.9);">
           <h2 class="font-bold">申请条件：</h2>
           <blockquote
-            class="pl-10 p-5 my-4"
+            class="p-5 pl-10 my-4"
             style="background: #f3f5f7; border-left: 3px solid #dde6e9"
           >
             <p>
@@ -44,7 +44,7 @@
           </blockquote>
           <h2 class="font-bold">本站链接：</h2>
           <blockquote
-            class="pl-10 p-5 my-4"
+            class="p-5 pl-10 my-4"
             style="background: #f3f5f7; border-left: 3px solid #dde6e9"
           >
             <p>
@@ -63,7 +63,7 @@
           </blockquote>
           <h2 class="font-bold">其他说明：</h2>
           <blockquote
-            class="pl-10 p-5 my-4"
+            class="p-5 pl-10 my-4"
             style="background: #f3f5f7; border-left: 3px solid #dde6e9"
           >
             <p>
@@ -72,72 +72,72 @@
           </blockquote>
         </div>
       </div>
-      <div class="py-10 px-20 flex justify-between flex-wrap" style="background-color: rgba(255, 255, 255,.9);" v-show="tab == 2">
-          <a v-for="item in friendLink" :href="item.link" target="_blank" class="inline-block cursor-pointer group mb-6" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
+      <div class="flex flex-wrap justify-between px-20 py-10" style="background-color: rgba(255, 255, 255,.9);" v-show="tab == 2">
+          <a v-for="item in friendLink" :href="item.link" target="_blank" class="inline-block mb-6 cursor-pointer group" @mouseenter="(e)=>{e.target.style.textShadow = '0px 0px 5px rgb(4 26 37)'}" @mouseleave="(e)=>{e.target.style.textShadow = ''}">
             <div class="p-2 rounded" style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0">
                 <img :src="item.avatarUrl"  class="w-12 h-12 rounded-full"/>
-                <span class="text-0a1 text-sm inline-block pl-3 pr-12 group-hover:text-pink-500">{{item.remarks}}</span>
+                <span class="inline-block pl-3 pr-12 text-sm text-0a1 group-hover:text-pink-500">{{item.remarks}}</span>
             </div>
           </a>
-          <a v-for="item in 5-(friendLink.length%5)"  href="" target="_blank" class="inline-block cursor-pointer group mb-5">
+          <a v-for="item in 5-(friendLink.length%5)"  href="" target="_blank" class="inline-block mb-5 cursor-pointer group">
             <div style="box-shadow: rgb(0 0 0 / 20%) 0 0 5px 0;width:165.6px">
             </div>
           </a>
       </div>
 
       <!-- 留言 -->
-      <aside class="w-full px-3  md:mt-10 mt-5 mx-auto border-4 border-light-blue-500 border-opacity-100 bg-white shadow-2xl">
-         <div class="w-full text-xs flex justify-between pt-5" style='color:#999999'>
+      <aside class="w-full px-3 mx-auto mt-5 bg-white border-4 border-opacity-100 shadow-2xl md:mt-10 border-light-blue-500">
+         <div class="flex justify-between w-full pt-5 text-xs" style='color:#999999'>
           <span>最新评论（{{ CommentFriendLink.length }}）</span>
-          <span class=" cursor-pointer">
+          <span class="cursor-pointer ">
             <Icon type="menu" />按时间
           </span>
         </div>
         <!-- 输入框 -->
-        <div class="py-3 flex justify-between">
-          <div class=" w-12">
+        <div class="flex justify-between py-3">
+          <div class="w-12 ">
             <div :style="{ backgroundImage: `url(${$store.state.userInfo.userInfo.avatarUrl || 'http://www.flechazoblog.site:5006/img/home_img/notLogin.svg'})`, backgroundSize: '100% 100%' }"
-              class=" w-10 h-10 rounded-full"></div>
+              class="w-10 h-10 rounded-full "></div>
           </div>
-          <form class="flex-1 relative" v-on:submit.prevent>
+          <form class="relative flex-1" v-on:submit.prevent>
             <textarea type="text" style="background: #FFF url(https://rawchen.com/usr/themes/rawchen/images/comments-bg.jpg) right center no-repeat;background-size:130px" inputcentent v-model="commentContent" placeholder="轻轻敲醒沉睡的心灵，让我看看你的点评"
-              class="msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-24 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" ></textarea>
-            <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[1] && !commentContent">*请输入内容*</p>
-            <div class="mt-3 flex justify-between">
+              class="box-border block w-full h-8 px-2 py-1 text-xs bg-gray-100 border-none rounded msgScoll block_border focus:outline-none focus:ring focus:border-blue-300 md:h-24 text-0a1 md:text-sm" ></textarea>
+            <p class="text-sm text-red-500 twinkle" v-if="is_commentContent[1] && !commentContent">*请输入内容*</p>
+            <div class="flex justify-between mt-3">
               <div @click="smallExpression(1,$event)" type='button'
-                class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+                class="flex items-center h-6 px-2 text-sm bg-white border border-gray-300 border-solid rounded outline-none cursor-pointer text-061 text-opacity-80">
                 <Icon type='smile' class='mr-1' />
                 <span>表情</span>
               </div>
               <button @click="PutComment" type="submit"
-                class="text-sm text-white outline-none px-2 rounded h-6 w-17 cursor-pointer "
+                class="h-6 px-2 text-sm text-white rounded outline-none cursor-pointer w-17 "
                 style="background:#fb7299;border: 1px solid #fb7299">
                 发布
               </button>
             </div>
             <!-- 表情 -->
             <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-              class="fixed bg-white z-100 md:w-86 md:h-60  w-56 h-42 rounded border border-solid border-gray-300 shadow-md " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
-              <p class='pt-1 pb-2 m-0 h-1/6 text-xs'>小表情</p>
-              <div class="w-full h-2/3 flex justify-around flex-wrap overflow-auto bg-white z-999">
+              class="fixed w-56 bg-white border border-gray-300 border-solid rounded shadow-md z-100 md:w-86 md:h-60 h-42 " :style="{left:expressionLeft+'px',top:expressionTop+'px'}">
+              <p class='pt-1 pb-2 m-0 text-xs h-1/6'>小表情</p>
+              <div class="flex flex-wrap justify-around w-full overflow-auto bg-white h-2/3 z-999">
                 <div v-for="i in BiLiEmailTotal" :key="i"
-                  class="md:w-14 md:h-10 w-9 h-6 flex justify-center items-center">
+                  class="flex items-center justify-center h-6 md:w-14 md:h-10 w-9">
                   <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
-                    class="md:w-7 w-5 md:h-7 h-5 cursor-pointer" @click="inputexpression(BiLiEmaili + i)">
+                    class="w-5 h-5 cursor-pointer md:w-7 md:h-7" @click="inputexpression(BiLiEmaili + i)">
                 </div>
               </div>
-              <div class="w-full h-1/6 bg-gray-300 flex justify-start">
+              <div class="flex justify-start w-full bg-gray-300 h-1/6">
                 <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
-                  class="h-full w-1/5 flex justify-center items-center"
+                  class="flex items-center justify-center w-1/5 h-full"
                   :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
                   <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
-                    class="md:w-7 w-5 md:h-7 h-5">
+                    class="w-5 h-5 md:w-7 md:h-7">
                 </div>
                 <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
-                  class="h-full w-1/5  flex justify-center items-center"
+                  class="flex items-center justify-center w-1/5 h-full"
                   :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
                   <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
-                    class="md:w-7 w-5 md:h-7 h-5">
+                    class="w-5 h-5 md:w-7 md:h-7">
                 </div>
               </div>
             </div>
@@ -146,16 +146,16 @@
         </div>
 
         <section>
-          <div class="w-full pb-3 pl-10 relative" v-for="(i, index) in CommentFriendLink" :key="index">
-            <div class=" absolute left-0">
-              <img :src="i.avatarUrl" alt="" class=" w-10 h-10 rounded-full">
+          <div class="relative w-full pb-3 pl-10" v-for="(i, index) in CommentFriendLink" :key="index">
+            <div class="absolute left-0 ">
+              <img :src="i.avatarUrl" alt="" class="w-10 h-10 rounded-full ">
             </div>
-            <div class="md:px-4 px-2 relative" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
-              <div class=" absolute right-10 top-5 text-6xl text-gray opacity-10"><i>{{index + 1}}</i></div>
-              <p><span class="text-blue-400 font-bold" :style="i.userId == '0' ? 'color: #ff5f40;' : ''">{{ i.nickname}}</span><span
-                  class="text-xs inline-block ml-2 font-semibold opacity-80" style="font-family: cursive;">{{ format_publishTime(i.commentTime) }}</span></p>
-              <p class="text-0a1 text-sm py-3 w-9/10" v-html="formatComment(i.content)"></p>
-              <div class='w-full flex justify-between text-0a1 opacity-60 items-center mb-2' >
+            <div class="relative px-2 md:px-4" :style="index !== CommentFriendLink.length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
+              <div class="absolute text-6xl right-10 top-5 text-gray opacity-10"><i>{{index + 1}}</i></div>
+              <p><span class="font-bold text-blue-400" :style="i.userId == '0' ? 'color: #ff5f40;' : ''">{{ i.nickname}}</span><span
+                  class="inline-block ml-2 text-xs font-semibold opacity-80" style="font-family: cursive;">{{ format_publishTime(i.commentTime) }}</span></p>
+              <p class="py-3 text-sm text-0a1 w-9/10" v-html="formatComment(i.content)"></p>
+              <div class='flex items-center justify-between w-full mb-2 text-0a1 opacity-60' >
                 <!-- $set给没再data中定义的数据添加响应式 -->
                 <div style="font-family: cursive;">
                   <img :src="getSystemIcon(i.System)" class="w-4 mr-1" alt=""><span class="text-xs" >{{i.System}}</span>
@@ -167,16 +167,16 @@
               </div>
               <!-- 回复区 -->
             <div style="background:#f7f8fc" class="rounded-xl">
-              <div v-for="(reply,index) in JSON.parse(i.reply)" :key="index" class="m-3 pl-10 py-4 relative" :style="index !== JSON.parse(i.reply).length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
+              <div v-for="(reply,index) in JSON.parse(i.reply)" :key="index" class="relative py-4 pl-10 m-3" :style="index !== JSON.parse(i.reply).length-1 ? 'border-bottom:solid #e5e7eb 1px' : ''">
                 <div class="px-2" >
-                  <div class=" absolute left-0">
-                      <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" alt="" class="w-9 h-9 rounded-full">
+                  <div class="absolute left-0 ">
+                      <img src="http://www.flechazoblog.site:5006/img/3ccc1ce0-fb83-11ec-8f56-fd0c24eebc3f.png" alt="" class="rounded-full w-9 h-9">
                   </div>
-                  <p><span class="text-blue-400">{{ 'Flechazo'}}<span class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                  <p><span class="text-blue-400">{{ 'Flechazo'}}<span class="inline-block ml-2 " style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span><span
-                      class="text-sm inline-block ml-2" style="font-family: cursive;">{{ format_publishTime(reply.commentTime) }}</span></p>
-                  <p class="text-0a1 py-3 text-xs" v-html="formatComment(reply.content)"></p>
-                  <div class='w-full flex justify-start text-0a1 opacity-60 items-center mb-2'>
+                      class="inline-block ml-2 text-sm" style="font-family: cursive;">{{ format_publishTime(reply.commentTime) }}</span></p>
+                  <p class="py-3 text-xs text-0a1" v-html="formatComment(reply.content)"></p>
+                  <div class='flex items-center justify-start w-full mb-2 text-0a1 opacity-60'>
                     <div style="font-family: cursive;">
                       <img :src="getSystemIcon(reply.System)" class="w-4 mr-1" alt=""><span class="text-xs" >{{reply.System}}</span>
                       <img :src="getBrowserIcon((reply.BrowserVersion).split(':')[0])" class="w-4 ml-5 mr-1" alt=""><span class="text-xs" >{{(reply.BrowserVersion).split(':')[0] +  ((reply.BrowserVersion).split(':')[1]).split('.')[0]}}</span>
@@ -189,17 +189,17 @@
               </div>
            </div>
               <div v-if="showreplyInput==i.id" class="animate__animated animate__lightSpeedInRight">
-               <input type="text" style="background: #FFF url(https://s1.328888.xyz/2022/08/11/6Lkbw.gif) right center no-repeat;background-size:130px" inputcentent v-model="replyContent" placeholder="请开始你的表演"
-              class="block_border focus:outline-none focus:ring focus:border-blue-300 border-none w-full h-8 md:h-16 bg-gray-100 rounded py-1 px-2 box-border text-0a1 md:text-sm text-xs block" />
-                 <p class="text-red-500 text-sm twinkle" v-if="is_commentContent[2] && !replyContent">*请输入内容*</p>
-                <div class="w-full flex justify-between items-center m-2">
-                  <div @click="smallExpression(2,$event)" type='button' class="text-sm px-2 border border-solid border-gray-300 rounded cursor-pointer bg-white text-061 text-opacity-80 outline-none h-6 flex items-center">
+               <input type="text" style="background: #FFF url(http://flechazoblog.site:5006/img/static_img/fan_girl.gif) right center no-repeat;background-size:130px" inputcentent v-model="replyContent" placeholder="请开始你的表演"
+              class="box-border block w-full h-8 px-2 py-1 text-xs bg-gray-100 border-none rounded block_border focus:outline-none focus:ring focus:border-blue-300 md:h-16 text-0a1 md:text-sm" />
+                 <p class="text-sm text-red-500 twinkle" v-if="is_commentContent[2] && !replyContent">*请输入内容*</p>
+                <div class="flex items-center justify-between w-full m-2">
+                  <div @click="smallExpression(2,$event)" type='button' class="flex items-center h-6 px-2 text-sm bg-white border border-gray-300 border-solid rounded outline-none cursor-pointer text-061 text-opacity-80">
                   <Icon type='smile' class='mr-1' />
                   <span>表情</span>
                 </div>
                 <div>
-                  <button @click="showreplyInput = ''" class="py-1 px-5 border-none rounded text-black text-sm block_border mr-2 cursor-pointer" style="background:#fff">取消</button>
-                  <button @click="replyCommentFriendLink(i.id)" class="py-1 px-5 border-none rounded text-white text-sm cursor-pointer" style="background:#00c3ff">评论</button>
+                  <button @click="showreplyInput = ''" class="px-5 py-1 mr-2 text-sm text-black border-none rounded cursor-pointer block_border" style="background:#fff">取消</button>
+                  <button @click="replyCommentFriendLink(i.id)" class="px-5 py-1 text-sm text-white border-none rounded cursor-pointer" style="background:#00c3ff">评论</button>
                 </div>
               </div>
             </div>
@@ -246,17 +246,20 @@ function getBrowserNameVersion() {
 
 function getSystem(){
     let Name = ''
-    if (navigator.userAgent.indexOf("Win") != -1) Name =  "Windows"; 
-    if (navigator.userAgent.indexOf("Mac") != -1) Name =  "Mac"; 
-    if (navigator.userAgent.indexOf("Linux") != -1) Name ="Linux"; 
-    if (navigator.userAgent.indexOf("Android") != -1) Name =  "Android"; 
-    if (navigator.userAgent.indexOf("like Mac") != -1) Name =  "IOS"; 
+    function fn(device){
+      return navigator.userAgent.indexOf(device)
+    }
+    if (fn("Win") != -1) Name =  "Windows"; 
+    if (fn("Mac") != -1) Name =  "Mac"; 
+    if (fn("Linux") != -1) Name ="Linux"; 
+    if (fn("Android") != -1) Name =  "Android"; 
+    if (fn("like Mac") != -1) Name =  "IOS"; 
     return Name
 }
 
 
 import {Icon,Empty} from 'ant-design-vue'
-import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink ,getFriendLink} from '../../api/friendlink'
+import { putCommentFriendLink,getCommentFriendLink,putReplyCommentFriendLink ,getFriendLink} from '@/api/friendlink'
 export default {
   name: "friend_link",
   components:{Icon,Empty},
@@ -398,7 +401,7 @@ article {
   }
 }
 
-.link_body_friend {
+/*.link_body_friend {
   display: grid;
   gap: 1.25rem;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -417,5 +420,5 @@ article {
 #link_friend:checked ~ .links_body_friend,
 #link_recom:checked ~ .links_body_recom {
   display: block;
-}
+}*/
 </style>

@@ -1,31 +1,31 @@
 <template>
-    <div class="about_me_box relative top-0">
-        <Banner bg="http://flechazoblog.site:5006/img/module_headerBg/about_mg.jpg" class="w-screen h-full" style="z-index:-100"/>
-        <div class="about_me_bg w-4/5 md:w-1/2 left-1/2 mt-20 absolute top-0">
-          <div class="p-3" style="background-color: rgba(255,255,255,.6);">
+    <div class="relative top-0 about_me_box">
+        <Banner bg="http://flechazoblog.site:5006/img/module_headerBg/about_mg.jpg" class="absolute w-screen h-full" style="z-index:-100"/>
+        <div class="top-0 w-4/5 h-full about_me_bg md:w-1/2">
+          <div class="h-full p-3 overflow-auto msgScoll" style="background-color: rgba(255,255,255,.6);">
             <div class="mb-3">
-              <p class="font-bold opacity-90 md:text-xl text-base">基本信息</p>
+              <p class="text-base font-bold opacity-90 md:text-xl">基本信息</p>
               <div class="p-6">
                 <ul>
-                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">陈文滨(Flechazo)/男/汉/1998</li>
-                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">九江学院(JJU)/软件技术/2020</li>
-                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">TEL:18397871804/EMAIL:cwb_offer@163.com</li>
-                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">职业专长:web前端开发工程师,Vue,React,Nodejs,Java,MySql...</li>
-                  <li class="font-bold opacity-60 mb-3 md:text-sm text-xs">GitHub:<a href="https://github.com/yanecwb?tab=repositories">https://github.com/yanecwb?tab=repositories</a></li>
+                  <li class="introduce_li">陈文滨(Flechazo)/男/汉/1998</li>
+                  <li class="introduce_li">九江学院(JJU)/软件技术/2020</li>
+                  <li class="introduce_li">TEL:18397871804/EMAIL:cwb_offer@163.com</li>
+                  <li class="introduce_li">职业专长:web前端开发工程师,Vue,React,Nodejs,Java,MySql...</li>
+                  <li class="introduce_li">GitHub:<a href="https://github.com/yanecwb?tab=repositories" target="_blank">https://github.com/yanecwb?tab=repositories</a></li>
                 </ul>
               </div>
             </div>
             <div class="mb-3">
-              <p class="font-bold opacity-90 md:text-xl text-base">工作经历</p>
+              <p class="text-base font-bold opacity-90 md:text-xl">工作经历</p>
               <div class="p-6">
-                  <div class="font-bold  mb-3" v-for="item in experienceInfo">
-                    <p class="md:text-xl opacity-80 mb-2"  >{{item.time}}</p>
-                    <p class="font-bold opacity-60 mb-3 md:text-sm text-xs" v-html="item.desc"></p>
+                  <div class="mb-3 font-bold" v-for="item in experienceInfo">
+                    <p class="mb-2 md:text-xl opacity-80"  >{{item.time}}</p>
+                    <p class="introduce_li" v-html="item.desc"></p>
                   </div>
               </div>
             </div>
             <div class="mb-3">
-              <a @click="showEnterpw = true" class="font-bold text-xs md:text-xl opacity-90">查看更多>></a>
+              <a @click="showEnterpw = true" class="text-xs font-bold md:text-xl opacity-90">查看更多>></a>
             </div>
           </div>
         </div>
@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import Banner from "../../views/banner";
+import Banner from "@/views/banner";
 import { ref } from 'vue';
-import {getResume} from '../../api/userInfo'
+import {getResume} from '@/api/userInfo'
 export default {
     name: "about_me",
     components:{Banner},
@@ -99,7 +99,11 @@ export default {
   width: 100%;
   height: 100vh;
   .about_me_bg{
-    transform: translateX(-50%);
+    margin: 0 auto;
+    padding-top:80px ;
   }
+}
+.introduce_li{
+  @apply mb-3 text-xs font-bold opacity-60 md:text-sm;
 }
 </style>

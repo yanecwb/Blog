@@ -5,34 +5,10 @@
       <header class="h-12 px-2 header_box_navBar" ref="navBar" id="header">
         <ul class="min-w-300" >
           <div ref="navBar_ul" class="flex">
-            <router-link to="/home">
+            <router-link :to="'/'+item.path" v-for="item in navLeftLift" :key="item.path">
               <div class="relative flex hvr-pulse header_right ">
-                <img src='http://flechazoblog.site/Img/home.svg' style="width:17px;height:20px"/>
-                <span name='home' class="text-xs md:text-sm">首页</span>
-              </div>
-            </router-link>
-            <router-link to="/content/frontend">
-              <div class="relative flex hvr-pulse header_right ">
-                <img src='http://flechazoblog.site/Img/frontend.svg' style="width:17px;height:20px"/>
-                <span class="text-xs md:text-sm">前端</span>
-              </div>
-            </router-link>
-            <router-link to="/content/backend">
-              <div class="relative flex hvr-pulse header_right ">
-                <img src='http://flechazoblog.site/Img/backend.svg' style="width:17px;height:20px"/>
-                <span class="text-xs md:text-sm">后端</span>
-              </div>
-            </router-link>
-            <router-link to="/content/android">
-              <div class="relative flex hvr-pulse header_right ">
-                <img src='http://flechazoblog.site/Img/web3.svg' style="width:17px;height:20px"/>
-                <span class="text-xs md:text-sm">web3.0</span>
-              </div>
-            </router-link>
-             <router-link to="/content/news">
-              <div class="relative flex hvr-pulse header_right ">
-                <img src='http://flechazoblog.site/Img/live.svg' style="width:17px;height:20px"/>
-                <span class="text-xs md:text-sm">记录</span>
+                <img :src="`http://flechazoblog.site/Img/${item.iconUrl}.svg`" style="width:17px;height:20px"/>
+                <span :name="item.path == 'home' || 'home'" class="text-xs md:text-sm">{{item.text}}</span>
               </div>
             </router-link>
              <a @click="(e)=>{e.stopPropagation();if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}" target="_Blank">
@@ -75,11 +51,11 @@
     <header class="h-8 header_box_navBar md:h-14" ref="navBar" v-else>
       <ul style="width: 100vw;">
         <div>
-          <Icon type="menu" @click="MobileshowMenu" />
+          <Icon type="menu" @click="MobileshowMenu(1)" />
           <div :class="Mune_left">
             <div
               class="absolute z-10 text-xl cursor-pointer right-3 top-2"
-              @click="MobileshowMenu(1)"
+              @click="MobileshowMenu"
             >
              <Icon type="close" />
             </div>
@@ -88,78 +64,25 @@
               ref="navBar_ul"
             >
               <div
+                v-for="item in navMobileList"
+                :key="item.path"
                 class="phone_select"
-                name="home"
+                :name="item.name"
                 @click="
                   () => {
-                    goRouter('/home');
-                    MobileshowMenu(1);
+                    goRouter('/'+item.path);
+                    MobileshowMenu();
                   }
                 "
               >
-                <Icon
-                  type="home"
-                  style="margin-right: 2px; color: #ffc83d"
-                />首页
-              </div>
-              <div
-                class="phone_select"
-                name="frontend"
-                @click="
-                  () => {
-                    goRouter('/content/frontend');
-                    MobileshowMenu(1);
-                  }
-                "
-              >
-                😂前端技术
-              </div>
-              <div
-                class="phone_select"
-                name="backend"
-                @click="
-                  () => {
-                    goRouter('/content/backend');
-                    MobileshowMenu(1);
-                  }
-                "
-              >
-                😉后端技术
-              </div>
-              <div
-                class="phone_select"
-                name="android"
-                @click="
-                  () => {
-                    goRouter('/content/android');
-                    MobileshowMenu(1);
-                  }
-                "
-              >
-                😭区块链技术
-              </div>
-              <div
-                class="phone_select"
-                name="news"
-                @click="
-                  () => {
-                    goRouter('/content/news');
-                    MobileshowMenu(1);
-                  }
-                "
-              >
-                😊我的趣闻
+              {{item.text}}
               </div>
               <div
                 class="phone_select"
                 name="article"
                 @click="(e)=>{e.stopPropagation();if($store.state.userInfo.userInfo.id !== 'ab7d2dc7-4635-4dad-8bbe-f3c896fc3d6a'){miniMessage('无权限，请联系博主','error') ; return }$router.push('/upload_article')}"
               >
-                <Icon
-                  type="edit"
-                  style="font-size: 14px; color: black"
-                  title="写文章"
-                />写文章
+              ✍️写文章
               </div>
             </div>
           </div>
@@ -188,12 +111,67 @@
 </template>
 
 <script>
-import "./header.css";
-import { getWeather, weather_json } from "../../api/weather";
 import { Icon } from "ant-design-vue";
 import MoreMenu from "../MoreMenu/index.vue";
 export default {
   name: "Header",
+  setup(){
+    const navLeftLift = [
+      {
+        path:'home',
+        iconUrl:'home',
+        text:'首页'
+      },
+      {
+        path:'content/frontend',
+        iconUrl:'frontend',
+        text:'前端'
+      },
+      {
+        path:'content/backend',
+        iconUrl:'backend',
+        text:'后端'
+      },
+      {
+        path:'content/android',
+        iconUrl:'web3',
+        text:'web3.0'
+      },
+      {
+        path:'content/news',
+        iconUrl:'live',
+        text:'记录'
+      }
+    ]
+    const navMobileList = [
+      {
+        path:'home',
+        text:'🏠首页',
+        name:'home'
+      },
+      {
+        path:'content/frontend',
+        text:'😂前端',
+        name:'frontend'
+      },
+      {
+        path:'content/backend',
+        text:'😉后端',
+        name:'backend'
+      },
+      {
+        path:'content/android',
+        text:'😭区块链技术',
+        name:'android'
+      },
+      {
+        path:'content/news',
+        text:'😊我的趣闻',
+        name:'news'
+      },
+    ]
+    return {navLeftLift,navMobileList}
+  },
   components: {
     Icon,
     MoreMenu,
@@ -212,7 +190,7 @@ export default {
   // emits:['playMusic'],
   methods: {
     MobileshowMenu(type) {
-      if (type == 1) {
+      if (type !== 1) {
         this.Mune_left = "Mune_left_hidden g-bg";
         return;
       }
@@ -221,16 +199,6 @@ export default {
     change_showmenu() {
       this.showmenu = !this.showmenu;
     },
-  },
-
-  async created() {
-    const res = await getWeather();
-    const arr = Object.keys(weather_json);
-    Array.from(res.data.data[0].wea_day).forEach((item) => {
-      if (arr.indexOf(item) > -1) {
-        this.weather = weather_json[item];
-      }
-    });
   },
   computed: {
     scrolltop() {
@@ -385,5 +353,52 @@ header{
     border-radius: 50%;
     background-color: skyblue;
     position: absolute;
+}
+.back_top {
+  bottom: 100px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #7f8de7;
+  z-index: 1000;
+}
+.Mask {
+  z-index: 998;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.selete_navBar {
+  color: #08d9d6;
+  /* background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%); */
+  font-size:15px
+}
+.header_box_navBar {
+  width: 100vw;
+  z-index: 999;
+  position: fixed;
+  top:0;
+  background-color: rgba(18, 45, 72, 0.4);
+  color: white;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+.header_box_navBar ul {
+  list-style: none;
+  width: calc(100vw - 22px);
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  font-size: 14px;
+  font-family:inherit;
+  font-weight: bolder;
+}
+.header_box_navBar ul li {
+  margin: 0 10px;
+  transition: 1s;
+  cursor: pointer;
+}
+.header_box_navBar ul div span {
+  cursor: pointer;
+  margin: 0 5px;
 }
 </style>

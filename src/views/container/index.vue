@@ -144,17 +144,18 @@
          </div>
         </div>
       </div>
-      <viewerImg v-if="showImgwall" @hideImg="()=>{showImgwall = false}" :options="{contentImgUl:[{url:'https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}],contentImgUrl:'https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}"/>
+      <viewerImg v-if="showImgwall" @hideImg="()=>{showImgwall = false}" :options="{contentImgUl:[{url:baseurl+'e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}],contentImgUrl:baseurl+'e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg'}"/>
     </div>
 </template>
 
 <script>
 import "./container.css";
 import { Icon,Tag } from "ant-design-vue";
-import Bgcanvas from '../../components/Bgcanvas/index.vue'
-import viewerImg from '../../components/viewerImg/index.vue'
+import Bgcanvas from '@/components/Bgcanvas/index.vue'
+import viewerImg from '@/components/viewerImg/index.vue'
 // api
-import { getArticle_list,serach_article,send_nagging,getNagging,searchIp,getVisits } from "../../api/article_list";
+import { getArticle_list,serach_article,send_nagging,getNagging,searchIp,getVisits } from "@/api/article_list";
+const baseUrl = 'https://tva1.sinaimg.cn/large/'
 export default {
   name: "container",
   data() {
@@ -163,12 +164,12 @@ export default {
       arr:[],
       hotUrl:'',
       article_listBg:[
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjsapysj21gs0xc0xz.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckju6l5wj22301h4qq6.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckthi9e4j21xg15qaqv.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjuezhnj22yo1uoqk5.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjwwytuj23pc2yo7wi.jpg',
-        'https://tva1.sinaimg.cn/large/e8a55238gy1h5ckjvcej5j21hc0xck0b.jpg',
+        baseUrl+'baseUrle8a55238gy1h5ckjsapysj21gs0xc0xz.jpg',
+        baseUrl+'e8a55238gy1h5ckju6l5wj22301h4qq6.jpg',
+        baseUrl+'e8a55238gy1h5ckthi9e4j21xg15qaqv.jpg',
+        baseUrl+'e8a55238gy1h5ckjuezhnj22yo1uoqk5.jpg',
+        baseUrl+'e8a55238gy1h5ckjwwytuj23pc2yo7wi.jpg',
+        baseUrl+'e8a55238gy1h5ckjvcej5j21hc0xck0b.jpg',
       ],
       selectedArticle:{},
       serachText:'',

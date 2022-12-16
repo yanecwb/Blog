@@ -112,16 +112,9 @@
           v-model="base_info.article_classify"
           ref="article_classify"
         >
-          <option value="frontend">前端</option>
-          <option value="backend">后端</option>
-          <option value="android">web3.0</option>
-          <option value="news">我的生活趣闻</option>
+
+          <option v-for="item in moduleSelectList" :key="item.val" :value="item.val">{{item.text}}</option>
         </select>
-        <!-- <Input
-          v-model="base_info.article_classify"
-          class="w-84"
-          allow-clear
-        /> -->
       </div>
       <div class="first_msg">
         <div class="inline-block w-16 font-bold">封面：</div>
@@ -172,8 +165,8 @@ import { Modal, Upload, Icon, Input,Popover } from "ant-design-vue";
 Vue.use(Modal);
 
 // api
-import { uploadArticle, updateArticle } from "../../api/upload_article";
-import { uploadImg,deleteImg } from "../../api/upload_img";
+import { uploadArticle, updateArticle } from "@/api/upload_article";
+import { uploadImg,deleteImg } from "@/api/upload_img";
 import Prism from 'prismjs'
 
 // file转base64
@@ -185,6 +178,10 @@ async function getBase64(img, callback) {
 var editor = {}
 export default {
   name: "upload_article",
+  setup(){
+    const moduleSelectList = [{val:'frontend',text:'前端'},{val:'backend',text:'后端'},{val:'android',text:'web3.0'},{val:'news',text:'我的生活趣闻'}]
+    return {moduleSelectList}
+  },
   components: {
     // Editor,
     // Toolbar,
@@ -662,7 +659,6 @@ export default {
     }
   }
 }
-
 @keyframes rotate {
   0% {
     transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);

@@ -3,19 +3,19 @@
     <Banner :bg="module_headerBg"/>
     <div v-if="!loadingLottie">
       <div
-      class="content_moduleBox pt-5 mx-auto my-0 w-full flex justify-between flex-col items-center"
+      class="flex flex-col items-center justify-between w-full pt-5 mx-auto my-0 content_moduleBox md:min-h-300 xl:min-h-screen"
       v-if="!loadingLottie &&article_moduleList.length > 0"
       ref="Article1"
     >
       <!-- <Bgcanvas  />  -->
-      <article class="content_list opacity-90 bg-white w-full md:w-3/5 my-0 mx-auto shadow-xl min-h-240 animate__animated animate__fadeInUp rounded-lg">
+      <article class="w-full mx-auto my-0 bg-white rounded-lg shadow-xl content_list opacity-90 md:w-3/5 min-h-240 animate__animated animate__fadeInUp">
         <a :href="formatHref(list.id)" target="_blank"  v-for="(list, index) in article_moduleList" :key="index"  style="text-decoration:none">
           <section
             :style="index == 0 ? { padding: 'none' } : ''"
-            class="cursor-pointer py-0 px-4  hover:bg-gray-100 group"
+            class="px-4 py-0 cursor-pointer hover:bg-gray-100 group"
           >
             <li
-              class="mb-1 flow-root list-none  pt-4 hover:opacity-100"
+              class="flow-root pt-4 mb-1 list-none hover:opacity-100"
               :style="index == 0 ? {border:'none'} : ''"
             >
               <div
@@ -24,28 +24,28 @@
                 <div class="content_list_author">
                   <span class="mr-2">{{
                     list.nickname
-                  }}<span v-if="list.nickname == 'Flechazo'" class=" inline-block ml-2" style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
+                  }}<span v-if="list.nickname == 'Flechazo'" class="inline-block ml-2 " style="font-family: PingFang SC,Microsoft YaHei,sans-serif;
                     color: #FFF; padding: .1rem .25rem; font-size: .5rem; border-radius: .25rem;background-color: #ff5050;">博主</span></span>
                   <span class="text-xs">{{
                     list.publish_time
                   }}</span>
                   <!-- <span>面试</span> -->
                 </div>
-                <p class="title md:text-base font-semibold mt-1 md:w-96 xl:w-180 w-full text-xs group-hover:underline" >
+                <p class="w-full mt-1 text-xs font-semibold title text1-overHidden md:text-base md:w-96 xl:w-180 group-hover:underline" >
                   {{ list.article_title}}_
                 </p>
                 <p
-                  class="my-2 md:my-4 md:w-96  xl:w-180 w-full text-xs whitespace-nowrap overflow-hidden group-hover:underline"
+                  class="w-full my-2 overflow-hidden text-xs md:my-4 md:w-96 xl:w-180 whitespace-nowrap group-hover:underline"
                 >
                   {{list.article_introduction}}
                 </p>
-                <div class="content_list_flow flex">
+                <div class="flex content_list_flow">
                   <div style="padding-left: 0"><Icon type="eye" />{{list.readCount}}</div>
                   <div class="zan"><Icon type="like" />{{list.likeCount}}</div>
                   <div class="comment"> <Icon type="message" />{{list.commentCount}}</div>
                 </div>
               </div>
-              <div  v-if="list.coverUrl" class="w-28 md:w-32 h-16 md:h-20 float-right mt-5" :style="{backgroundImage:`url(${list.coverUrl})`,backgroundSize:'100% 100%'}"></div>
+              <div  v-if="list.coverUrl" class="float-right h-16 mt-5 w-28 md:w-32 md:h-20" :style="{backgroundImage:`url(${list.coverUrl})`,backgroundSize:'100% 100%'}"></div>
             </li>
           </section>
         </a>
@@ -73,11 +73,10 @@
 </template>
 
 <script>
-import { Icon , Empty,Pagination } from "ant-design-vue";
-import animationData from "../../assets/lottie/loadingLottie.json";
-import Banner from "../../views/banner";
-import Bgcanvas from "../../components/Bgcanvas/index.vue";
-import { Get_Article_ModuleList } from "../../api/article_list";
+import { Icon,Empty,Pagination } from "ant-design-vue";
+import animationData from "@/assets/lottie/loadingLottie.json";
+import Banner from "@/views/banner";
+import { Get_Article_ModuleList } from "@/api/article_list";
 export default {
   name: "content_module",
   data() {
@@ -94,7 +93,6 @@ export default {
     Icon,
     Banner,
     Empty,
-    Bgcanvas,
     Pagination
   },
   computed: {
@@ -102,11 +100,12 @@ export default {
       return this.$route.params.module;
     },
     module_headerBg() {
+      const baseUrl = 'https://tva1.sinaimg.cn/large/'
       const obj = {
-        'frontend':()=> 'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48hzmaj22yo1o0wxb.jpg',
-        'backend':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48ifl7j22yo1o0njp.jpg',
-        'android':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51v48kxy9j22yo1tohdt.jpg',
-        'news':()=>'https://tva1.sinaimg.cn/large/e8a55238gy1h51vnfkhcbj23vc2qdhdu.jpg'
+        'frontend':()=> `${baseUrl}e8a55238gy1h51v48hzmaj22yo1o0wxb.jpg`,
+        'backend':()=>`${baseUrl}e8a55238gy1h51v48ifl7j22yo1o0njp.jpg`,
+        'android':()=>`${baseUrl}e8a55238gy1h51v48kxy9j22yo1tohdt.jpg`,
+        'news':()=>`${baseUrl}e8a55238gy1h51vnfkhcbj23vc2qdhdu.jpg`
       }
       return obj[this.$route.params.module]()
     },
@@ -114,7 +113,7 @@ export default {
   watch: {
     module_name: {
       immediate: true,
-      async handler(newval) {
+      handler(newval) {
         this.getArticle(newval,1)
         this.$nextTick(()=>{
             if(!this.$refs.Article1) return
@@ -180,9 +179,6 @@ export default {
       .title {
         line-height: 24px;
         color: #1d2129;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
 
       p {
@@ -192,8 +188,6 @@ export default {
       }
 
       .content_list_flow {
-        display: flex;
-
         div {
           padding: 0 8px;
           cursor: pointer;

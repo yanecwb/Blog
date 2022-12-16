@@ -1,7 +1,17 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); //引入插件
+const path = require('path');
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
 module.exports = {
   // publicPath: process.env.NODE_ENV === "production" ? "https://flechazoblog.rth.app/" : "/",
   lintOnSave: false,
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('styles',resolve('src/assets/styles'))
+      //重启
+  },
   css: {
     loaderOptions: {
       postcss: {
