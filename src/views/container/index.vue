@@ -154,7 +154,7 @@ import { Icon,Tag } from "ant-design-vue";
 import Bgcanvas from '@/components/Bgcanvas/index.vue'
 import viewerImg from '@/components/viewerImg/index.vue'
 // api
-import { getArticle_list,serach_article,send_nagging,getNagging,searchIp,getVisits } from "@/api/article_list";
+import { getArticle_list,serach_article,send_nagging,getNagging } from "@/api/article_list";
 const baseUrl = 'https://tva1.sinaimg.cn/large/'
 export default {
   name: "container",
