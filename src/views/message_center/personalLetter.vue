@@ -18,7 +18,7 @@
             <div class="py-2 text-center bg-white " style="border-bottom:1px solid #e6e6e6">
             <span class="font-bold">{{msgIngIdNickname || '昵称'}}</span>
           </div>
-          <div class="flex-1 px-3 py-2 overflow-auto overflow-x-hidden  msgScoll"  @click="() => { showexpression = false; return false }">
+          <div class="flex-1 px-3 py-2 overflow-auto overflow-x-hidden msgScoll"  @click="() => { showexpression = false; return false }">
             <div class="relative flex w-full pt-8 pb-5 animate__animated" :class="i.isMycontent ? ' justify-end text-white animate__fadeInRightBig' : ' justify-start text-blac animate__fadeInLeftBig'" v-for="(i,index) in formatmessageList" :key="index">
               <div class="absolute top-0 flex items-center justify-between ">
                 <img :src="i.isMycontent ? userInfo.avatarUrl : chatList.filter(i=>i.chatId == msgIngId)[0].avatarUrl" alt="" class="mr-1 rounded-full w-7 h-7">
@@ -30,31 +30,6 @@
           </div>
           <div   class="relative flex items-center w-full py-3 bg-white" style="border-top:1px solid #e6e6e6">
               <!-- 表情 -->
-            <div @click="(e) => { e.stopPropagation() }" v-if="showexpression"
-              class="absolute left-0 w-56 bg-white border border-gray-300 border-solid rounded shadow-md  z-100 md:w-86 md:h-60 h-42 -top-60" >
-              <p class='pt-1 pb-2 m-0 text-xs h-1/6'>小表情</p>
-              <div class="flex flex-wrap justify-around w-full overflow-auto bg-white h-2/3 z-999">
-                <div v-for="i in BiLiEmailTotal" :key="i"
-                  class="flex items-center justify-center h-6 md:w-14 md:h-10 w-9">
-                  <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/' + BiLiEmaili + i + '.png'" alt=""
-                    class="w-5 h-5 md:w-7 md:h-7" @click="inputexpression(BiLiEmaili + i)">
-                </div>
-              </div>
-              <div class="flex justify-start w-full bg-gray-300 h-1/6">
-                <div @click="(e) => { BiLiEmaili = 'Default/default0'; BiLiEmailTotal = 80; e.stopPropagation() }"
-                  class="flex items-center justify-center w-1/5 h-full"
-                  :class="BiLiEmaili == 'Default/default0' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                  <img src="http://flechazoblog.site:5006/img/BiLiEmail/Default/default01.png" alt=""
-                    class="w-5 h-5 md:w-7 md:h-7">
-                </div>
-                <div @click="(e) => { BiLiEmaili = 'BiLiTV/BiLITV_'; BiLiEmailTotal = 53; e.stopPropagation() }"
-                  class="flex items-center justify-center w-1/5 h-full"
-                  :class="BiLiEmaili == 'BiLiTV/BiLITV_' ? 'bg-white' : ''" style="border-right:solid #CCC 1px">
-                  <img :src="'http://flechazoblog.site:5006/img/BiLiEmail/BiLiTV/BiLITV_1.png'" alt=""
-                    class="w-5 h-5 md:w-7 md:h-7">
-                </div>
-              </div>
-            </div>
             <Expression v-if="showexpression" :options="expressionOption" @inputexpression="inputexpression"/>
 
             <!-- 输入区 -->
