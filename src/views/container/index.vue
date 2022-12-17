@@ -9,7 +9,9 @@
               <span>碎碎念</span>
             </div>
             <div class="flex-1 text-center" >
-              <div  v-for="(i,index) in nagging" v-if="index == naggingIndex" class="animate__fadeInUp animate__animated" :key="index">{{i}}</div>
+              <div v-if="index == naggingIndex">
+                <div  v-for="(i,index) in nagging" class="animate__fadeInUp animate__animated" :key="index">{{i}}</div>
+              </div>
             </div>
             <div>
               <Icon type="api" />
@@ -115,7 +117,7 @@
           </div>
           <!-- 标签 -->
           <div class="py-6">
-            <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="mb-5 cursor-pointer hvr-float-shadow">{{i}}</Tag>
+            <Tag :color="randomColor[index]" @click="searchTag(i)" v-for="i,index in tagList" class="mb-5 cursor-pointer hvr-float-shadow" :key="index">{{i}}</Tag>
           </div>
           </div>
            <div @click="showImgwall = true" class="px-5 mt-5 bg-white bg-center bg-cover rounded-lg h-200" style="cursor: zoom-in;background-image: url(https://tva1.sinaimg.cn/large/e8a55238gy1h5ehntlyl7j20u01uoqsr.jpg);"></div>
@@ -337,8 +339,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .ant-carousel >>> .slick-slide {
   text-align: center;
   line-height: 160px;

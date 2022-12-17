@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center,Chat_room,Personal_letter,Reply,Praise,Sys_notify,Friend_link} from './router-path.js'
+import {Home ,Login , About_me ,Content_module, Article_detail,Upload_article,Message_center,Chat_room,Personal_letter,Reply,Praise,Sys_notify,Friend_link,myCollection} from './router-path.js'
 
 Vue.use(VueRouter);
 const routes = [
@@ -110,7 +110,15 @@ const routes = [
       meta:{
         title:'🔗友链'
       }
-    }
+    },
+    {
+      path:'/myCollection',
+      name:'myCollection',
+      component:myCollection,
+      meta:{
+        title:'我的收藏'
+      }
+    },
 ];
 
 const router = new VueRouter({
