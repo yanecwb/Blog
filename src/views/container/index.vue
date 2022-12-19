@@ -9,9 +9,7 @@
               <span>碎碎念</span>
             </div>
             <div class="flex-1 text-center" >
-              <div v-if="index == naggingIndex">
-                <div  v-for="(i,index) in nagging" class="animate__fadeInUp animate__animated" :key="index">{{i}}</div>
-              </div>
+                <div  v-for="(i,index) in nagging" class="animate__fadeInUp animate__animated" :key="index" >{{index == naggingIndex ? i : ''}}</div>
             </div>
             <div>
               <Icon type="api" />
