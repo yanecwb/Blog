@@ -14,7 +14,7 @@
             <a :href="formatHref(i.id)" style="color: black;" target="_blank">
             <div class="absolute text-6xl text-black right-10 top-5 opacity-10"><i>{{ index + 1 }}</i></div>
             <div class="">
-              <span class="mr-2">{{ "作者名"
+              <span class="mr-2">{{ 'Flechazo'
               }}<span class="inline-block px-1 py-0 ml-2 text-xs text-white rounded-sm bg-122">{{i.article_classify}}</span></span>
               <span class="text-xs">{{ format_publishTime(i.publish_time) }}</span>
               <span style="padding-left: 10px">

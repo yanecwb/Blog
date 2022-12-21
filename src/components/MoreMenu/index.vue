@@ -54,7 +54,7 @@
               <Icon :type="is_useredit ? 'up' : 'down'" />
             </span>
           </div>
-          <div class="float-right useredit" @click="()=>{goRouter('/myCollection');change_showmenu()}">
+          <div class="float-right useredit" @click="toMyCollection">
             <span>
               我的收藏
               <Icon type="star" />
@@ -367,6 +367,16 @@ export default {
           },1200)
         })
       }
+    },
+    toMyCollection(){
+      const UserInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (!UserInfo || !UserInfo.id) {
+        this.noLogin();
+        this.goRouter('/login')
+        return;
+      }
+      this.goRouter('/myCollection');
+      this.change_showmenu()
     }
   },
 };
