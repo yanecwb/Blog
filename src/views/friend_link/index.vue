@@ -117,7 +117,6 @@
             </div>
             <!-- 表情 -->
             <Expression v-if="showexpression" :options="expressionOption" @inputexpression="inputexpression"/>
-
           </form>
         </div>
 

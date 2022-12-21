@@ -22,3 +22,11 @@ export const getResume = (params)=>{
     params
   })
 }
+
+export const getCOllection = (params)=>{
+  return axios({
+    method:'get',
+    url:`${baseUrl}/get_collection`,
+    params
+  })
+}
