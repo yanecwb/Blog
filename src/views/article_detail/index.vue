@@ -458,6 +458,7 @@ export default {
         userId: this.$store.state.userInfo.userInfo.id,
         collection:this.like.collection
       })
+      this.miniMessage('收藏成功','success')
     },
     shareSpace(val) {
       const title = this.article.article_title
