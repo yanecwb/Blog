@@ -54,7 +54,7 @@
               <Icon :type="is_useredit ? 'up' : 'down'" />
             </span>
           </div>
-          <div class="float-right useredit" @click="goRouter('/myCollection')">
+          <div class="float-right useredit" @click="()=>{goRouter('/myCollection');change_showmenu()}">
             <span>
               我的收藏
               <Icon type="star" />
