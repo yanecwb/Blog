@@ -2,7 +2,7 @@
   <div class="relative top-0 about_me_box">
     <Banner bg="http://flechazoblog.site:5006/img/module_headerBg/about_mg.jpg" class="absolute w-screen h-full"
       style="z-index: -100" />
-    <div class="top-0 w-4/5 h-full about_me_bg md:w-2/3">
+    <div class="top-0 w-full h-full about_me_bg md:w-2/3 ">
       <div class="h-full p-3 overflow-auto msgScoll" style="background-color: rgba(255, 255, 255, 0.6)">
         <div class="flex items-center justify-between pb-6">
           <p class="text-base font-bold opacity-90 md:text-xl">我的收藏</p><input type="text" placeholder="搜索">
